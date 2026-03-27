@@ -1669,7 +1669,7 @@
     <div class="hero-left">
       <div class="hero-tag">Chicago Creator</div>
       <h1>Tyler<br/><span class="accent"><span class="glitch-wrap" data-text="Dream.">Dream.</span></span></h1>
-      <p>Chicago creator and streamer. I test products, post daily, and go live with the Dream community. Grateful for every single one of you who's shown up.</p>
+      <p style="font-size:15px;font-weight:600;letter-spacing:0.2px;"><span style="color:var(--accent);text-shadow:0 0 12px rgba(200,255,0,0.6);">Chicago Creator</span> &nbsp;·&nbsp; <span style="color:var(--accent2);text-shadow:0 0 12px rgba(0,229,255,0.6);">TikTok Shop</span> &nbsp;·&nbsp; <span style="color:var(--text);">Streamer</span></p>
       <div class="hero-btns">
         <a class="btn-primary" href="https://www.tiktok.com/@dreamlifevisuals" target="_blank">Follow on TikTok</a>
         <a class="btn-youtube" href="https://www.youtube.com/@yourdreamlifevisuals" target="_blank">
@@ -1705,7 +1705,7 @@
 <!-- MARQUEE -->
 <div class="marquee-wrap">
   <div class="marquee-track">
-    <span>Dream Life Visuals</span><span>Chicago Creator</span><span>TikTok Shop</span><span>Building in Public</span><span>3 Videos a Day</span><span>@dreamlifevisuals</span><span>No Days Off</span><span>Real Products Only</span><span>Dream Life Visuals</span><span>Chicago Creator</span><span>TikTok Shop</span><span>Building in Public</span><span>3 Videos a Day</span><span>@dreamlifevisuals</span><span>No Days Off</span><span>Real Products Only</span>
+    <span>Dream Life Visuals</span><span>Welcome</span><span>Chicago Creator</span><span>Follow</span><span>Collabs</span><span>@dreamlifevisuals</span><span>Dream Life Visuals</span><span>Welcome</span><span>Chicago Creator</span><span>Follow</span><span>Collabs</span><span>@dreamlifevisuals</span>
   </div>
 </div>
 
@@ -2350,18 +2350,34 @@
       if (nowCT >= streamStart && nowCT <= streamEnd) isLive = true;
     }
 
+    const games = "Wordle, Contexto, Live DJ, vibes, CoHost, NEW Prank Calls.";
+
     if (isLive) {
       document.getElementById("liveNowBanner").style.display = "flex";
-      document.getElementById("nextStreamLabel").textContent = "Streaming live right now on TikTok.";
+      document.getElementById("nextStreamLabel").innerHTML = `We're live right now. <strong style="color:var(--text)">Jump in.</strong>`;
     } else {
-      // Find next stream day
-      for (let offset = 1; offset <= 7; offset++) {
-        const nextIdx = (todayIdx + offset) % 7;
-        const nextTime = streamSchedule[dayOrder[nextIdx]];
-        if (nextTime !== "off") {
-          const label = offset === 1 ? "Tomorrow" : dayFull[nextIdx];
-          document.getElementById("nextStreamLabel").innerHTML = `Next stream: <strong style="color:var(--text)">${label} at ${nextTime} CT</strong><br>Games: Wordle, Contexto, Live DJ, vibes, CoHost, and NEW Prank Calls.`;
-          break;
+      // Check if today's stream hasn't started yet
+      let setLabel = false;
+      if (todayTime !== "off") {
+        const [timePart, ampm] = todayTime.split(" ");
+        let [h, m] = timePart.split(":").map(Number);
+        if (ampm === "PM" && h !== 12) h += 12;
+        const streamStart = new Date(nowCT);
+        streamStart.setHours(h, m, 0, 0);
+        if (nowCT < streamStart) {
+          document.getElementById("nextStreamLabel").innerHTML = `Tonight · <strong style="color:var(--text)">${todayTime} CT</strong> &nbsp;·&nbsp; ${games}`;
+          setLabel = true;
+        }
+      }
+      if (!setLabel) {
+        for (let offset = 1; offset <= 7; offset++) {
+          const nextIdx = (todayIdx + offset) % 7;
+          const nextTime = streamSchedule[dayOrder[nextIdx]];
+          if (nextTime !== "off") {
+            const label = offset === 1 ? "Tomorrow" : dayFull[nextIdx];
+            document.getElementById("nextStreamLabel").innerHTML = `${label} · <strong style="color:var(--text)">${nextTime} CT</strong> &nbsp;·&nbsp; ${games}`;
+            break;
+          }
         }
       }
     }
