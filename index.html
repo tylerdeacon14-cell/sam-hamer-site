@@ -1,0 +1,2468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tyler Dream | Dream Life Visuals</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #080808;
+      --surface: #0f0f0f;
+      --surface2: #141414;
+      --border: #1e1e1e;
+      --border2: #2a2a2a;
+      --accent: #c8ff00;
+      --accent2: #00e5ff;
+      --text: #f2f2f2;
+      --muted: #555;
+      --muted2: #888;
+      --radius: 16px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(8,8,8,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted2);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: var(--accent);
+      color: #080808;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 9px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 100px 40px 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+      gap: 80px;
+    }
+
+    .hero-left { flex: 1; }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(200,255,0,0.07);
+      border: 1px solid rgba(200,255,0,0.15);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    .hero-tag::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 5vw, 68px);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -2px;
+      margin-bottom: 24px;
+      color: var(--text);
+    }
+
+    .hero h1 .accent { color: var(--accent); }
+
+    .hero p {
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--muted2);
+      max-width: 460px;
+      margin-bottom: 40px;
+      font-weight: 400;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #080808;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.85;
+      transform: translateY(-1px);
+    }
+
+    .btn-youtube {
+      background: #FF0000;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 14px 22px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-youtube:hover {
+      opacity: 0.88;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 14px 28px;
+      border-radius: 10px;
+      border: 1px solid var(--border2);
+      text-decoration: none;
+      transition: all 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--muted2);
+      transform: translateY(-1px);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      margin-top: 52px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+
+    .hero-stat-num {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      color: var(--text);
+      display: block;
+    }
+
+    .hero-stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .hero-right {
+      flex: 0 0 380px;
+      position: relative;
+    }
+
+    .photo-frame {
+      width: 100%;
+      aspect-ratio: 3/4;
+      border-radius: 24px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid var(--border2);
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(160deg, #141414 0%, #0a0a0a 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .photo-placeholder .initials {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: 900;
+      color: #080808;
+    }
+
+    .photo-badge {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      background: rgba(8,8,8,0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border2);
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .badge-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s infinite;
+      flex-shrink: 0;
+    }
+
+    .badge-text {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .badge-sub {
+      font-size: 11px;
+      color: var(--muted2);
+    }
+
+    /* ── SECTION WRAPPER ── */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 40px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 3vw, 40px);
+      font-weight: 900;
+      letter-spacing: -1px;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .section-sub {
+      font-size: 15px;
+      color: var(--muted2);
+      margin-bottom: 48px;
+      line-height: 1.6;
+    }
+
+    /* ── SOCIAL LINKS GRID ── */
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+
+    .link-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .link-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .link-card:hover {
+      border-color: var(--border2);
+      transform: translateY(-2px);
+      background: var(--surface2);
+    }
+
+    .link-card:hover::before { opacity: 1; }
+
+    .link-card-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .icon-tiktok { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); }
+    .icon-yt     { background: rgba(255,0,0,0.08);     border: 1px solid rgba(255,0,0,0.15); }
+    .icon-ig     { background: rgba(225,48,108,0.08);  border: 1px solid rgba(225,48,108,0.15); }
+    .icon-shop   { background: rgba(200,255,0,0.06);   border: 1px solid rgba(200,255,0,0.12); }
+    .icon-email  { background: rgba(0,229,255,0.06);   border: 1px solid rgba(0,229,255,0.12); }
+
+    .link-card-text { flex: 1; }
+    .link-card-name { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+    .link-card-handle { font-size: 12px; color: var(--muted2); }
+    .link-card-arrow { color: var(--muted); font-size: 16px; }
+
+    /* ── VIDEO SECTION ── */
+    .video-section { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+    .video-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .video-embed {
+      border-radius: 20px;
+      overflow: hidden;
+      aspect-ratio: 9/16;
+      background: var(--bg);
+      border: 1px solid var(--border2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 300px;
+    }
+
+    .video-embed iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .video-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      color: var(--muted2);
+      font-size: 13px;
+      text-align: center;
+      padding: 32px;
+    }
+
+    .play-btn {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: rgba(200,255,0,0.1);
+      border: 1px solid rgba(200,255,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    /* ── PRODUCTS ── */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .product-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.2s;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover {
+      border-color: var(--border2);
+      transform: translateY(-3px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .product-img {
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, #141414, #0d0d0d);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .product-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+    .product-tag {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .product-name { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .product-desc { font-size: 13px; color: var(--muted2); line-height: 1.5; flex: 1; margin-bottom: 16px; }
+    .product-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    /* ── BRANDS ── */
+    .brands-section { border-top: 1px solid var(--border); }
+
+    .brands-label {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--muted);
+      margin-bottom: 36px;
+    }
+
+    .brands-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .brand-chip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 24px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted2);
+      letter-spacing: 0.5px;
+    }
+
+    /* ── EMAIL ── */
+    .email-section-wrap {
+      background: linear-gradient(135deg, rgba(200,255,0,0.04) 0%, rgba(0,229,255,0.04) 100%);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .email-inner {
+      max-width: 560px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 80px 40px;
+    }
+
+    .email-inner h2 {
+      font-size: 36px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+
+    .email-inner p {
+      font-size: 15px;
+      color: var(--muted2);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    .email-form {
+      display: flex;
+      gap: 10px;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    .email-input {
+      flex: 1;
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 10px;
+      padding: 14px 18px;
+      color: var(--text);
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .email-input::placeholder { color: var(--muted); }
+    .email-input:focus { border-color: var(--accent); }
+
+    .email-btn {
+      background: var(--accent);
+      color: #080808;
+      border: none;
+      border-radius: 10px;
+      padding: 14px 22px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: opacity 0.15s;
+      white-space: nowrap;
+    }
+
+    .email-btn:hover { opacity: 0.85; }
+
+    /* ── FOOTER ── */
+    footer {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-logo {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--muted);
+    }
+
+    .footer-logo span { color: var(--accent); }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-social-link {
+      width: 34px; height: 34px;
+      border-radius: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      text-decoration: none;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .footer-social-link:hover {
+      background: var(--surface2);
+      border-color: var(--border2);
+    }
+
+    /* ── DIVIDER LINE ── */
+    .full-divider { border: none; border-top: 1px solid var(--border); }
+
+    /* ── MARQUEE ── */
+    .marquee-wrap {
+      background: var(--accent);
+      padding: 14px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .marquee-track {
+      display: inline-block;
+      animation: marquee 22s linear infinite;
+    }
+
+    .marquee-track span {
+      font-size: 13px;
+      font-weight: 800;
+      color: #080808;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      padding: 0 32px;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── STORY SECTION ── */
+    .story-section {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .story-left .big-quote {
+      font-size: clamp(28px, 3.5vw, 46px);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      color: var(--text);
+      margin-bottom: 32px;
+    }
+
+    .story-left .big-quote em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .story-left p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--muted2);
+      margin-bottom: 20px;
+    }
+
+    .story-right {
+      padding-top: 8px;
+    }
+
+    .fact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .fact-item {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .fact-item:first-child { border-top: 1px solid var(--border); }
+
+    .fact-num {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding-top: 2px;
+      flex-shrink: 0;
+      width: 28px;
+    }
+
+    .fact-text strong {
+      display: block;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .fact-text span {
+      font-size: 13px;
+      color: var(--muted2);
+      line-height: 1.5;
+    }
+
+    /* ── STANDARDS SECTION ── */
+    .standards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 0;
+    }
+
+    .standard-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px 24px;
+      transition: border-color 0.2s;
+    }
+
+    .standard-card:hover { border-color: var(--border2); }
+
+    .standard-num {
+      font-size: 40px;
+      font-weight: 900;
+      color: rgba(200,255,0,0.15);
+      letter-spacing: -2px;
+      line-height: 1;
+      margin-bottom: 16px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .standard-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 8px;
+      letter-spacing: -0.3px;
+    }
+
+    .standard-desc {
+      font-size: 13px;
+      color: var(--muted2);
+      line-height: 1.6;
+    }
+
+    /* ── MANTRA SECTION ── */
+    .mantra-section {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .mantra-section::before {
+      content: '';
+      position: absolute;
+      top: -80px; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 300px;
+      background: radial-gradient(ellipse, rgba(200,255,0,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .mantra-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 100px 40px;
+      text-align: center;
+      position: relative;
+    }
+
+    .mantra-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--accent);
+      margin-bottom: 32px;
+      opacity: 0.8;
+    }
+
+    .mantra-quotes {
+      position: relative;
+      min-height: 120px;
+    }
+
+    .mantra-quote {
+      font-size: clamp(26px, 4vw, 52px);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      color: var(--text);
+      position: absolute;
+      width: 100%;
+      left: 0;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      pointer-events: none;
+    }
+
+    .mantra-quote.active {
+      opacity: 1;
+      transform: translateY(0);
+      position: relative;
+      pointer-events: auto;
+    }
+
+    .mantra-quote em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .mantra-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 40px;
+    }
+
+    .mantra-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--border2);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      border: none;
+      padding: 0;
+    }
+
+    .mantra-dot.active {
+      background: var(--accent);
+      transform: scale(1.3);
+    }
+
+    /* ── GOALS / MILESTONES ── */
+    .goals-section {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .goals-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .goals-col-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+
+    .goals-col-label.done { color: var(--accent); }
+    .goals-col-label.next { color: var(--accent2); }
+
+    .milestone-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .milestone-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .milestone-item:first-child { border-top: 1px solid var(--border); }
+
+    .milestone-icon {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .milestone-icon.done-icon {
+      background: rgba(200,255,0,0.1);
+      border: 1px solid rgba(200,255,0,0.25);
+      color: var(--accent);
+    }
+
+    .milestone-icon.next-icon {
+      background: rgba(0,229,255,0.06);
+      border: 1px solid rgba(0,229,255,0.15);
+      color: var(--accent2);
+    }
+
+    .milestone-icon.future-icon {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border2);
+      color: var(--muted);
+    }
+
+    .milestone-body { flex: 1; }
+
+    .milestone-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+
+    .milestone-title.muted { color: var(--muted2); }
+
+    .milestone-sub {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .milestone-badge {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+      align-self: center;
+    }
+
+    .badge-done {
+      background: rgba(200,255,0,0.1);
+      color: var(--accent);
+      border: 1px solid rgba(200,255,0,0.2);
+    }
+
+    .badge-live {
+      background: rgba(0,229,255,0.08);
+      color: var(--accent2);
+      border: 1px solid rgba(0,229,255,0.2);
+      animation: pulse 2s infinite;
+    }
+
+    .badge-soon {
+      background: rgba(255,255,255,0.04);
+      color: var(--muted2);
+      border: 1px solid var(--border2);
+    }
+
+    /* ── VISION BOARD ── */
+    .vision-section {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .vision-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 12px;
+    }
+
+    .vision-card {
+      border-radius: 20px;
+      padding: 32px 28px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: transform 0.2s, border-color 0.2s;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .vision-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--border2);
+    }
+
+    .vision-card.featured {
+      grid-column: span 2;
+      min-height: 220px;
+    }
+
+    .vision-card-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .vision-card-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .vision-card-cat {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 8px;
+      opacity: 0.7;
+    }
+
+    .vision-card-title {
+      font-size: clamp(18px, 2vw, 24px);
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      margin-bottom: 6px;
+      line-height: 1.1;
+    }
+
+    .vision-card-sub {
+      font-size: 12px;
+      color: var(--muted2);
+      line-height: 1.4;
+    }
+
+    /* Vision card colors */
+    .vc-creator .vision-card-bg { background: linear-gradient(145deg, #101a00 0%, #080808 60%); }
+    .vc-creator .vision-card-cat { color: var(--accent); }
+
+    .vc-money .vision-card-bg { background: linear-gradient(145deg, #001a10 0%, #080808 60%); }
+    .vc-money .vision-card-cat { color: #00ff88; }
+
+    .vc-social .vision-card-bg { background: linear-gradient(145deg, #001520 0%, #080808 60%); }
+    .vc-social .vision-card-cat { color: var(--accent2); }
+
+    .vc-home .vision-card-bg { background: linear-gradient(145deg, #1a0800 0%, #080808 60%); }
+    .vc-home .vision-card-cat { color: #ff8c42; }
+
+    .vc-travel .vision-card-bg { background: linear-gradient(145deg, #0a001a 0%, #080808 60%); }
+    .vc-travel .vision-card-cat { color: #c084fc; }
+
+    .vc-brand .vision-card-bg { background: linear-gradient(145deg, #1a0010 0%, #080808 60%); }
+    .vc-brand .vision-card-cat { color: #f472b6; }
+
+    /* Progress bar on vision cards */
+    .vision-progress {
+      margin-top: 16px;
+      height: 3px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .vision-progress-fill {
+      height: 100%;
+      border-radius: 100px;
+      background: var(--accent);
+    }
+
+    .vision-progress-label {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 6px;
+      font-weight: 600;
+    }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fade-up.delay-1 { transition-delay: 0.1s; }
+    .fade-up.delay-2 { transition-delay: 0.2s; }
+    .fade-up.delay-3 { transition-delay: 0.3s; }
+    .fade-up.delay-4 { transition-delay: 0.4s; }
+
+    /* ── CARD HOVER GLOW ── */
+    .standard-card:hover {
+      border-color: rgba(200,255,0,0.2);
+      box-shadow: 0 0 24px rgba(200,255,0,0.04);
+    }
+
+    .link-card:hover {
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+
+    /* ── NAV ACTIVE STATE ── */
+    .nav-links a.active { color: var(--accent); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .hero { flex-direction: column-reverse; padding: 90px 20px 60px; gap: 40px; }
+      .hero-right { flex: 0 0 auto !important; width: 100%; max-width: 320px; margin: 0 auto; }
+      .hero-stats { gap: 24px; }
+      .section { padding: 60px 20px; }
+      .video-wrap { grid-template-columns: 1fr; }
+      .video-embed { max-width: 100%; }
+      .email-form { flex-direction: column; }
+      footer { flex-direction: column; gap: 16px; text-align: center; }
+      .story-grid { grid-template-columns: 1fr; gap: 40px; }
+      .standards-grid { grid-template-columns: 1fr; }
+      .goals-layout { grid-template-columns: 1fr; gap: 40px; }
+      .vision-grid { grid-template-columns: 1fr; }
+      .vision-card.featured { grid-column: span 1; }
+      .mantra-inner { padding: 70px 20px; }
+      .footer-socials { display: none; }
+      .contact-grid { grid-template-columns: 1fr !important; }
+      #workwithme .section > div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+      .photo-ring-wrap { width: 200px !important; height: 200px !important; }
+      .photo-ring-container { width: 200px !important; height: 200px !important; }
+      .phone-mockup { width: 100px !important; height: calc(100px * 16 / 9) !important; right: -40px !important; bottom: -20px !important; }
+    }
+
+    /* ══════════════════════════════════════════
+       FINAL TOUCHES — GLOW, RING, ANIMATIONS
+    ══════════════════════════════════════════ */
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(200,255,0,0.4); }
+
+    /* ── Cursor Glow ── */
+    #cursor-glow {
+      pointer-events: none;
+      position: fixed;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,255,0,0.06) 0%, transparent 70%);
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      transition: opacity 0.3s;
+      mix-blend-mode: screen;
+    }
+
+    /* ── Phone Mockup (overlapping circle) ── */
+    .phone-mockup {
+      position: absolute;
+      bottom: -30px;
+      right: -55px;
+      width: 130px;
+      height: calc(130px * 16 / 9);
+      border-radius: 22px;
+      background: linear-gradient(160deg, #0d1a0d 0%, #001015 50%, #0a000f 100%);
+      border: 2px solid rgba(0,229,255,0.35);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.06),
+        0 0 24px rgba(0,229,255,0.25),
+        0 0 50px rgba(200,255,0,0.12),
+        0 24px 48px rgba(0,0,0,0.7);
+      overflow: hidden;
+      animation: phone-float 4s ease-in-out infinite;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Notch */
+    .phone-mockup::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 36px; height: 4px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 0 0 4px 4px;
+      z-index: 3;
+    }
+
+    /* Placeholder content when video not loaded */
+    .phone-mockup::after {
+      content: '@dreamlifevisuals';
+      position: absolute;
+      bottom: 12px;
+      left: 0; right: 0;
+      text-align: center;
+      font-size: 7px;
+      font-weight: 700;
+      color: rgba(200,255,0,0.7);
+      letter-spacing: 0.3px;
+      z-index: 2;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .phone-mockup video {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      z-index: 1;
+    }
+
+    /* TikTok icon placeholder in center */
+    .phone-play-icon {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: rgba(200,255,0,0.1);
+      border: 1px solid rgba(200,255,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      z-index: 2;
+      flex-shrink: 0;
+    }
+
+    @keyframes phone-float {
+      0%, 100% { transform: translateY(0px) rotate(-2deg); }
+      50% { transform: translateY(-10px) rotate(-2deg); }
+    }
+
+    /* ── Glitch on Dream. ── */
+    @keyframes glitch-1 {
+      0%   { clip-path: inset(0 0 95% 0); transform: translate(-3px, 0); }
+      25%  { clip-path: inset(30% 0 50% 0); transform: translate(3px, 0); }
+      50%  { clip-path: inset(70% 0 10% 0); transform: translate(-2px, 0); }
+      75%  { clip-path: inset(10% 0 80% 0); transform: translate(2px, 0); }
+      100% { clip-path: inset(0 0 95% 0); transform: translate(0, 0); }
+    }
+    @keyframes glitch-2 {
+      0%   { clip-path: inset(80% 0 5% 0); transform: translate(3px, 0); }
+      25%  { clip-path: inset(50% 0 30% 0); transform: translate(-3px, 0); }
+      50%  { clip-path: inset(20% 0 60% 0); transform: translate(2px, 0); }
+      75%  { clip-path: inset(60% 0 20% 0); transform: translate(-2px, 0); }
+      100% { clip-path: inset(80% 0 5% 0); transform: translate(0, 0); }
+    }
+
+    .glitch-wrap { position: relative; display: inline-block; }
+    .glitch-wrap::before,
+    .glitch-wrap::after {
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      color: var(--accent);
+      opacity: 0;
+    }
+    .glitch-wrap:hover::before {
+      opacity: 0.7;
+      animation: glitch-1 0.4s steps(1) forwards;
+      color: #00e5ff;
+    }
+    .glitch-wrap:hover::after {
+      opacity: 0.7;
+      animation: glitch-2 0.4s steps(1) forwards;
+      color: #ff8c42;
+    }
+
+    /* ── Shimmer on cards ── */
+    @keyframes shimmer-move {
+      0%   { transform: translateX(-100%) skewX(-15deg); }
+      100% { transform: translateX(300%) skewX(-15deg); }
+    }
+
+    .vision-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.04) 50%, transparent 100%);
+      transform: translateX(-100%) skewX(-15deg);
+      transition: none;
+      border-radius: inherit;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .vision-card:hover::after {
+      animation: shimmer-move 0.7s ease forwards;
+    }
+
+    .link-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(200,255,0,0.04) 50%, transparent 100%);
+      transform: translateX(-100%) skewX(-15deg);
+      pointer-events: none;
+    }
+    .link-card:hover::after {
+      animation: shimmer-move 0.6s ease forwards;
+    }
+
+    /* ── Star particles ── */
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hero { position: relative; }
+    .hero-left, .hero-right { position: relative; z-index: 1; }
+
+    /* ── Neon mantra ── */
+    .mantra-quote.active em {
+      text-shadow: 0 0 20px rgba(200,255,0,0.6), 0 0 40px rgba(200,255,0,0.3);
+    }
+
+    /* ── Photo Ring ── */
+    @keyframes ring-spin { to { transform: rotate(360deg); } }
+
+    .photo-ring-wrap {
+      position: relative;
+      width: 286px; height: 286px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      box-shadow:
+        0 0 30px rgba(200,255,0,0.4),
+        0 0 70px rgba(0,229,255,0.2);
+    }
+
+    /* Spinning ring — only the gradient rotates, photo stays still */
+    .photo-ring-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: conic-gradient(#c8ff00 0%, #00e5ff 50%, #c8ff00 100%);
+      animation: ring-spin 5s linear infinite;
+      z-index: 0;
+    }
+
+    .photo-ring-inner {
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--bg);
+      z-index: 1;
+    }
+
+    .photo-ring-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    /* ── Hero right layout ── */
+    .hero-right {
+      flex: 0 0 360px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      gap: 20px !important;
+      position: relative !important;
+    }
+
+    .photo-ring-container {
+      position: relative;
+      width: 280px;
+      height: 280px;
+    }
+
+    /* ── Photo badge (now in flow, not absolute) ── */
+    .photo-badge-static {
+      width: 100%;
+      max-width: 300px;
+      background: rgba(8,8,8,0.92);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(200,255,0,0.12);
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      animation: badge-pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes badge-pulse {
+      0%, 100% { border-color: rgba(200,255,0,0.12); }
+      50% { border-color: rgba(200,255,0,0.32); box-shadow: 0 0 20px rgba(200,255,0,0.1); }
+    }
+
+    /* ── Enhanced breathing dot ── */
+    @keyframes breathe-glow {
+      0%, 100% {
+        opacity: 1;
+        box-shadow: 0 0 0 0 rgba(200,255,0,0.7), 0 0 8px rgba(200,255,0,0.5);
+      }
+      50% {
+        opacity: 0.4;
+        box-shadow: 0 0 0 8px rgba(200,255,0,0), 0 0 3px rgba(200,255,0,0.2);
+      }
+    }
+
+    .badge-dot { animation: breathe-glow 2s infinite !important; }
+    .hero-tag::before { animation: breathe-glow 2s infinite !important; }
+
+    /* ── Hero tag breathe ── */
+    @keyframes tag-breathe {
+      0%, 100% { box-shadow: none; }
+      50% { box-shadow: 0 0 18px rgba(200,255,0,0.2); }
+    }
+    .hero-tag { animation: tag-breathe 3s ease-in-out infinite; }
+
+    /* ── Hero stat gradient text ── */
+    .hero-stat-num {
+      background: linear-gradient(135deg, #f2f2f2 40%, rgba(200,255,0,0.85));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── Nav enhancements ── */
+    .nav-logo span { transition: text-shadow 0.3s; }
+    .nav-logo:hover span { text-shadow: 0 0 24px rgba(200,255,0,0.9); }
+
+    .nav-links a { position: relative; }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0; right: 0;
+      height: 1px;
+      background: var(--accent);
+      box-shadow: 0 0 8px rgba(200,255,0,0.9);
+      transform: scaleX(0);
+      transition: transform 0.2s ease;
+      transform-origin: left;
+    }
+    .nav-links a:hover::after,
+    .nav-links a.active::after { transform: scaleX(1); }
+    .nav-links a.active {
+      color: var(--accent) !important;
+      text-shadow: 0 0 14px rgba(200,255,0,0.5);
+    }
+
+    .nav-cta {
+      transition: all 0.2s !important;
+    }
+    .nav-cta:hover {
+      opacity: 1 !important;
+      box-shadow: 0 0 24px rgba(200,255,0,0.55) !important;
+      transform: translateY(-1px);
+    }
+
+    /* ── Button glows ── */
+    .btn-primary  { transition: all 0.2s !important; }
+    .btn-youtube  { transition: all 0.2s !important; }
+    .btn-secondary { transition: all 0.2s !important; }
+
+    .btn-primary:hover {
+      opacity: 1 !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 0 28px rgba(200,255,0,0.55), 0 10px 28px rgba(0,0,0,0.35) !important;
+    }
+    .btn-youtube:hover {
+      opacity: 1 !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 0 28px rgba(255,0,0,0.5), 0 10px 28px rgba(0,0,0,0.35) !important;
+    }
+    .btn-secondary:hover {
+      transform: translateY(-2px) !important;
+      border-color: rgba(255,255,255,0.35) !important;
+      box-shadow: 0 0 16px rgba(255,255,255,0.06), 0 10px 28px rgba(0,0,0,0.3) !important;
+    }
+
+    /* ── Section label left bar ── */
+    .section-label {
+      position: relative;
+      padding-left: 14px;
+    }
+    .section-label::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 50%;
+      transform: translateY(-50%);
+      width: 4px; height: 14px;
+      background: var(--accent);
+      border-radius: 2px;
+      box-shadow: 0 0 8px rgba(200,255,0,0.9), 0 0 16px rgba(200,255,0,0.4);
+    }
+
+    /* ── Marquee glow ── */
+    .marquee-wrap {
+      box-shadow: 0 0 32px rgba(200,255,0,0.2), inset 0 0 32px rgba(200,255,0,0.06);
+    }
+
+    /* ── Card glows on hover ── */
+    .link-card:hover {
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 18px rgba(200,255,0,0.07) !important;
+    }
+
+    .vision-card { transition: transform 0.2s, border-color 0.2s, box-shadow 0.25s; }
+    .vision-card.vc-creator:hover { box-shadow: 0 24px 60px rgba(0,0,0,0.6), 0 0 32px rgba(200,255,0,0.14) !important; }
+    .vision-card.vc-money:hover   { box-shadow: 0 24px 60px rgba(0,0,0,0.6), 0 0 32px rgba(0,255,136,0.12) !important; }
+    .vision-card.vc-social:hover  { box-shadow: 0 24px 60px rgba(0,0,0,0.6), 0 0 32px rgba(0,229,255,0.14) !important; }
+    .vision-card.vc-home:hover    { box-shadow: 0 24px 60px rgba(0,0,0,0.6), 0 0 32px rgba(255,140,66,0.12) !important; }
+    .vision-card.vc-travel:hover  { box-shadow: 0 24px 60px rgba(0,0,0,0.6), 0 0 32px rgba(192,132,252,0.14) !important; }
+    .vision-card.vc-brand:hover   { box-shadow: 0 24px 60px rgba(0,0,0,0.6), 0 0 32px rgba(244,114,182,0.14) !important; }
+
+    .standard-card { transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; }
+    .standard-card:hover {
+      border-color: rgba(200,255,0,0.28) !important;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 22px rgba(200,255,0,0.07) !important;
+      transform: translateY(-2px);
+    }
+    .standard-card:hover .standard-num {
+      color: rgba(200,255,0,0.45);
+      text-shadow: 0 0 22px rgba(200,255,0,0.45);
+      transition: all 0.3s;
+    }
+
+    .product-card { transition: transform 0.2s, border-color 0.2s, box-shadow 0.25s; }
+    .product-card:hover {
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 22px rgba(200,255,0,0.09) !important;
+    }
+
+    /* ── Milestone icon glows ── */
+    .milestone-icon.done-icon { box-shadow: 0 0 14px rgba(200,255,0,0.22); }
+
+    @keyframes breathe-cyan {
+      0%, 100% { box-shadow: 0 0 8px rgba(0,229,255,0.2); }
+      50% { box-shadow: 0 0 20px rgba(0,229,255,0.5); }
+    }
+    .milestone-icon.next-icon { animation: breathe-cyan 2.5s ease-in-out infinite; }
+
+    /* ── Live banner breathing ── */
+    @keyframes live-banner-glow {
+      0%, 100% { box-shadow: 0 0 0 rgba(200,255,0,0.05); }
+      50% { box-shadow: 0 0 24px rgba(200,255,0,0.18); }
+    }
+    #liveNowBanner[style*="flex"] { animation: live-banner-glow 2s ease-in-out infinite; }
+
+    /* ── Footer social hover ── */
+    .footer-social-link { transition: all 0.2s; }
+    .footer-social-link:hover {
+      background: rgba(200,255,0,0.07) !important;
+      border-color: rgba(200,255,0,0.28) !important;
+      box-shadow: 0 0 16px rgba(200,255,0,0.22);
+    }
+
+    /* ── Schedule today card glow ── */
+    .schedule-today-glow {
+      box-shadow: 0 0 16px rgba(200,255,0,0.18) !important;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Dream<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#schedule">Schedule</a></li>
+    <li><a href="#story">Story</a></li>
+    <li><a href="#workwithme">Collabs</a></li>
+    <li><a href="#video">Watch</a></li>
+    <li><a href="#products">Shop</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="prank.html" style="color:var(--accent);font-weight:700;">Prank Calls</a></li>
+  </ul>
+  <a class="nav-cta" href="https://www.tiktok.com/@dreamlifevisuals" target="_blank">Follow →</a>
+</nav>
+
+<!-- HERO -->
+<section style="position:relative;overflow:hidden;">
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-tag">Chicago Creator</div>
+      <h1>Tyler<br/><span class="accent"><span class="glitch-wrap" data-text="Dream.">Dream.</span></span></h1>
+      <p>Chicago creator and streamer. I test products, post daily, and go live with the Dream community. Grateful for every single one of you who's shown up.</p>
+      <div class="hero-btns">
+        <a class="btn-primary" href="https://www.tiktok.com/@dreamlifevisuals" target="_blank">Follow on TikTok</a>
+        <a class="btn-youtube" href="https://www.youtube.com/@yourdreamlifevisuals" target="_blank">
+          <svg width="18" height="13" viewBox="0 0 18 13" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.64 2.03A2.26 2.26 0 0 0 16.05.43C14.65 0 9 0 9 0S3.35 0 1.95.43A2.26 2.26 0 0 0 .36 2.03C0 3.45 0 6.5 0 6.5s0 3.05.36 4.47a2.26 2.26 0 0 0 1.59 1.6C3.35 13 9 13 9 13s5.65 0 7.05-.43a2.26 2.26 0 0 0 1.59-1.6C18 9.55 18 6.5 18 6.5s0-3.05-.36-4.47Z" fill="#FF0000"/><path d="M7.2 9.25 11.88 6.5 7.2 3.75v5.5Z" fill="#fff"/></svg>
+          Subscribe
+        </a>
+        <a class="btn-secondary" href="https://www.tiktok.com/@dreamlifevisuals/collection" target="_blank">Shop My Picks →</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <span class="hero-stat-num">11.7K</span>
+          <span class="hero-stat-label">Followers</span>
+        </div>
+        <div>
+          <span class="hero-stat-num">31.3K</span>
+          <span class="hero-stat-label">Likes</span>
+        </div>
+        <div>
+          <span class="hero-stat-num">3/day</span>
+          <span class="hero-stat-label">Videos</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="photo-ring-container">
+        <div class="photo-ring-wrap">
+          <div class="photo-ring-inner">
+            <img src="bio_photo.jpg" alt="Tyler Dream" />
+          </div>
+        </div>
+        <div class="phone-mockup">
+          <div class="phone-play-icon">▶</div>
+          <video id="tiktok-vid" src="tiktok_vid.mp4" autoplay muted loop playsinline preload="auto"></video>
+        </div>
+      </div>
+      <div class="photo-badge-static">
+        <div class="badge-dot"></div>
+        <div>
+          <div class="badge-text">dream☻ · @dreamlifevisuals</div>
+          <div class="badge-sub">11.7K followers · posting daily</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>Dream Life Visuals</span><span>Chicago Creator</span><span>TikTok Shop</span><span>Building in Public</span><span>3 Videos a Day</span><span>@dreamlifevisuals</span><span>No Days Off</span><span>Real Products Only</span><span>Dream Life Visuals</span><span>Chicago Creator</span><span>TikTok Shop</span><span>Building in Public</span><span>3 Videos a Day</span><span>@dreamlifevisuals</span><span>No Days Off</span><span>Real Products Only</span>
+  </div>
+</div>
+
+<!-- MANTRA -->
+<section class="mantra-section">
+  <div class="mantra-inner">
+    <div class="mantra-quotes" id="mantraQuotes">
+      <div class="mantra-quote active">One year from now<br/>you will be glad you<br/><em>started today.</em></div>
+      <div class="mantra-quote"><em>Dream.</em></div>
+    </div>
+    <div class="mantra-dots" id="mantraDots">
+      <button class="mantra-dot active" onclick="setMantra(0)"></button>
+      <button class="mantra-dot" onclick="setMantra(1)"></button>
+    </div>
+  </div>
+</section>
+
+<!-- DREAM STREAM SCHEDULE -->
+<section id="schedule" style="border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="section">
+    <div style="display:grid;grid-template-columns:1fr 280px;gap:60px;align-items:start;">
+
+      <div>
+        <div class="section-label">Dream Stream</div>
+        <h2 class="section-title">Stream Schedule</h2>
+        <p class="section-sub" id="nextStreamLabel">Loading schedule...</p>
+        <div id="scheduleGrid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:0;"></div>
+        <div id="liveNowBanner" style="display:none;margin-top:24px;background:rgba(200,255,0,0.07);border:1px solid rgba(200,255,0,0.25);border-radius:14px;padding:18px 24px;align-items:center;gap:14px;">
+          <div style="width:10px;height:10px;border-radius:50%;background:var(--accent);animation:pulse 1.5s infinite;flex-shrink:0;"></div>
+          <div>
+            <div style="font-size:14px;font-weight:800;color:var(--accent);">Dream Stream is LIVE right now</div>
+            <div style="font-size:12px;color:var(--muted2);margin-top:3px;">Jump in on TikTok</div>
+          </div>
+          <a href="https://www.tiktok.com/@dreamlifevisuals" target="_blank" style="margin-left:auto;background:var(--accent);color:#080808;font-size:13px;font-weight:800;padding:10px 18px;border-radius:8px;text-decoration:none;white-space:nowrap;">Watch Live →</a>
+        </div>
+      </div>
+
+      <div style="position:sticky;top:90px;">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:12px;">Stream Preview</div>
+        <div style="border-radius:16px;overflow:hidden;border:1px solid var(--border2);aspect-ratio:9/16;background:var(--surface);position:relative;">
+          <video
+            src="stream_clip.mp4"
+            autoplay muted loop playsinline
+            style="width:100%;height:100%;object-fit:cover;display:block;"
+          ></video>
+          <div style="position:absolute;top:12px;left:12px;background:rgba(8,8,8,0.75);backdrop-filter:blur(8px);border:1px solid var(--border2);border-radius:8px;padding:5px 10px;display:flex;align-items:center;gap:6px;">
+            <div style="width:6px;height:6px;border-radius:50%;background:#ff4444;animation:pulse 1.5s infinite;"></div>
+            <span style="font-size:11px;font-weight:700;color:var(--text);">Dream Stream</span>
+          </div>
+        </div>
+        <a href="https://www.tiktok.com/@dreamlifevisuals" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px;text-decoration:none;color:var(--muted2);font-size:13px;font-weight:600;transition:border-color 0.15s;">
+          Follow to catch the next one →
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story-section" id="story">
+  <div class="section">
+    <div class="story-grid">
+      <div class="story-left">
+        <div class="section-label">My Story</div>
+        <div class="big-quote">Why not<br/><em>dream?</em></div>
+        <p>I'm Tyler, aka Dream. Woke up from a wicked dream one day and decided to just follow it.</p>
+        <p>TikTok Shop opened a door I didn't see coming. I walked through it and haven't looked back. I post every day, I'm building something I'm proud of, and I'm just getting started.</p>
+        <p>Genuinely grateful for everyone who watches, shares, and supports. You're the reason this thing is real.</p>
+      </div>
+      <div class="story-right">
+        <div class="fact-list">
+          <div class="fact-item">
+            <div class="fact-num">01</div>
+            <div class="fact-text">
+              <strong>Based in Chicago</strong>
+              <span>Motivated. Not slowing down.</span>
+            </div>
+          </div>
+          <div class="fact-item">
+            <div class="fact-num">02</div>
+            <div class="fact-text">
+              <strong>I am my own target customer</strong>
+              <span>I only promote products I actually use or would buy myself. That's the filter everything gets run through.</span>
+            </div>
+          </div>
+          <div class="fact-item">
+            <div class="fact-num">03</div>
+            <div class="fact-text">
+              <strong>3 videos a day, every day</strong>
+              <span>No excuses. Consistency is the strategy.</span>
+            </div>
+          </div>
+          <div class="fact-item">
+            <div class="fact-num">04</div>
+            <div class="fact-text">
+              <strong>TikTok Shop changed the game</strong>
+              <span>I saw the opportunity and I took it. Now I'm building something real. Come watch it happen.</span>
+            </div>
+          </div>
+          <div class="fact-item">
+            <div class="fact-num">05</div>
+            <div class="fact-text">
+              <strong>Open for brand collabs</strong>
+              <span>If your product is genuinely good, let's talk. If it's not, I won't post it.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK WITH ME -->
+<section id="workwithme" style="border-top:1px solid var(--border);">
+  <div class="section">
+    <div class="section-label">Collabs</div>
+    <h2 class="section-title">Work With Me</h2>
+    <p class="section-sub">If you have a product worth talking about, I want to hear it. I only work with things I'd actually use. That's not changing.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div class="standard-card" style="cursor:default;">
+        <div style="font-size:28px;margin-bottom:16px;">📦</div>
+        <div class="standard-title">Product Collabs</div>
+        <div class="standard-desc">Send me your product. If it passes my filter, we talk. If it doesn't, I'll tell you why.</div>
+      </div>
+      <div class="standard-card" style="cursor:default;">
+        <div style="font-size:28px;margin-bottom:16px;">📣</div>
+        <div class="standard-title">Brand Deals</div>
+        <div class="standard-desc">TikTok content, live integrations, and short-form video. Audience is real and engaged.</div>
+      </div>
+      <div class="standard-card" style="cursor:default;">
+        <div style="font-size:28px;margin-bottom:16px;">🎥</div>
+        <div class="standard-title">Dream Stream Sponsorships</div>
+        <div class="standard-desc">Live audience. Real-time reactions. Authentic placement during the stream.</div>
+      </div>
+      <div class="standard-card" style="background:rgba(200,255,0,0.04);border-color:rgba(200,255,0,0.15);cursor:default;">
+        <div style="font-size:28px;margin-bottom:16px;">✉️</div>
+        <div class="standard-title">Get In Touch</div>
+        <div class="standard-desc" style="margin-bottom:16px;">One email. No forms, no agencies.</div>
+        <a href="mailto:dreambillboard@gmail.com" style="font-size:13px;font-weight:700;color:var(--accent);text-decoration:none;">dreambillboard@gmail.com →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GOALS / MILESTONES -->
+<section class="goals-section" id="goals">
+  <div class="section">
+    <div class="section-label">The Journey</div>
+    <h2 class="section-title">Goals &amp; Milestones</h2>
+    <p class="section-sub">Building in public means showing the whole scoreboard — the wins and what's still ahead.</p>
+
+    <div class="goals-layout">
+      <!-- DONE -->
+      <div>
+        <div class="goals-col-label done">✓ Already Hit</div>
+        <div class="milestone-list">
+
+          <div class="milestone-item">
+            <div class="milestone-icon done-icon">✓</div>
+            <div class="milestone-body">
+              <div class="milestone-title">Launched @dreamlifevisuals</div>
+              <div class="milestone-sub">Started from zero. Put the work in.</div>
+            </div>
+            <span class="milestone-badge badge-done">Done</span>
+          </div>
+
+          <div class="milestone-item">
+            <div class="milestone-icon done-icon">✓</div>
+            <div class="milestone-body">
+              <div class="milestone-title">10K TikTok followers</div>
+              <div class="milestone-sub">Now sitting at 11.7K and growing.</div>
+            </div>
+            <span class="milestone-badge badge-done">Done</span>
+          </div>
+
+          <div class="milestone-item">
+            <div class="milestone-icon done-icon">✓</div>
+            <div class="milestone-body">
+              <div class="milestone-title">First brand partnership</div>
+              <div class="milestone-sub">DC24 Daily Care — a product I actually use.</div>
+            </div>
+            <span class="milestone-badge badge-done">Done</span>
+          </div>
+
+          <div class="milestone-item">
+            <div class="milestone-icon done-icon">✓</div>
+            <div class="milestone-body">
+              <div class="milestone-title">First viral video (16.5K+ views)</div>
+              <div class="milestone-sub">Splitting the G in Dublin. Proof of concept.</div>
+            </div>
+            <span class="milestone-badge badge-done">Done</span>
+          </div>
+
+          <div class="milestone-item">
+            <div class="milestone-icon done-icon">✓</div>
+            <div class="milestone-body">
+              <div class="milestone-title">Built this site</div>
+              <div class="milestone-sub">A real home base. Not just a link in bio.</div>
+            </div>
+            <span class="milestone-badge badge-done">Done</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- NEXT -->
+      <div>
+        <div class="goals-col-label next">→ What's Next</div>
+        <div class="milestone-list">
+
+          <div class="milestone-item">
+            <div class="milestone-icon next-icon">→</div>
+            <div class="milestone-body">
+              <div class="milestone-title">50K TikTok followers</div>
+              <div class="milestone-sub">Next major follower milestone. Getting there.</div>
+            </div>
+            <span class="milestone-badge badge-live">In Progress</span>
+          </div>
+
+          <div class="milestone-item">
+            <div class="milestone-icon next-icon">→</div>
+            <div class="milestone-body">
+              <div class="milestone-title">Consistent YouTube Shorts</div>
+              <div class="milestone-sub">Repurposing content. Building multi-platform.</div>
+            </div>
+            <span class="milestone-badge badge-live">In Progress</span>
+          </div>
+
+          <div class="milestone-item">
+            <div class="milestone-icon future-icon">○</div>
+            <div class="milestone-body">
+              <div class="milestone-title muted">100K followers</div>
+              <div class="milestone-sub">The milestone that changes the room you're in.</div>
+            </div>
+            <span class="milestone-badge badge-soon">Locked In</span>
+          </div>
+
+          <div class="milestone-item">
+            <div class="milestone-icon future-icon">○</div>
+            <div class="milestone-body">
+              <div class="milestone-title muted">$10K/month from TikTok Shop</div>
+              <div class="milestone-sub">Revenue that runs while I sleep.</div>
+            </div>
+            <span class="milestone-badge badge-soon">Locked In</span>
+          </div>
+
+          <div class="milestone-item">
+            <div class="milestone-icon future-icon">○</div>
+            <div class="milestone-body">
+              <div class="milestone-title muted">Full-time creator</div>
+              <div class="milestone-sub">No 9-5. Content is the job. That's the plan.</div>
+            </div>
+            <span class="milestone-badge badge-soon">The Goal</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISION BOARD -->
+<section class="section vision-section" id="vision">
+  <div class="section-label">The Vision</div>
+  <h2 class="section-title">Dream Life Board</h2>
+  <p class="section-sub">Where I'm going. Written down. Locked in.</p>
+
+  <div class="vision-grid">
+
+    <div class="vision-card vc-creator featured">
+      <div class="vision-card-bg"></div>
+      <div class="vision-card-content">
+        <div class="vision-card-cat">Career</div>
+        <div class="vision-card-title">Full-Time Creator</div>
+        <div class="vision-card-sub">No clock to punch. Content is the business. Wake up, create, grow. That's it.</div>
+      </div>
+    </div>
+
+    <div class="vision-card vc-social">
+      <div class="vision-card-bg"></div>
+      <div class="vision-card-content">
+        <div class="vision-card-cat">Community</div>
+        <div class="vision-card-title">The Dream Stream</div>
+        <div class="vision-card-sub">A live community that actually shows up. Real people, real energy, every stream.</div>
+      </div>
+    </div>
+
+    <div class="vision-card vc-money">
+      <div class="vision-card-bg"></div>
+      <div class="vision-card-content">
+        <div class="vision-card-cat">Finance</div>
+        <div class="vision-card-title">$10K/Month</div>
+        <div class="vision-card-sub">Revenue from the content I'm already making. Passive income is the move.</div>
+      </div>
+    </div>
+
+    <div class="vision-card vc-home">
+      <div class="vision-card-bg"></div>
+      <div class="vision-card-content">
+        <div class="vision-card-cat">Life</div>
+        <div class="vision-card-title">Good People. Good Vibes.</div>
+        <div class="vision-card-sub">Real connections. People who actually love life. That energy is everything.</div>
+      </div>
+    </div>
+
+    <div class="vision-card vc-travel">
+      <div class="vision-card-bg"></div>
+      <div class="vision-card-content">
+        <div class="vision-card-cat">Freedom</div>
+        <div class="vision-card-title">Travel on My Terms</div>
+        <div class="vision-card-sub">Go when I want. Work from anywhere. The world as content.</div>
+      </div>
+    </div>
+
+    <div class="vision-card vc-brand">
+      <div class="vision-card-bg"></div>
+      <div class="vision-card-content">
+        <div class="vision-card-cat">Long Game</div>
+        <div class="vision-card-title">Build a Real Brand</div>
+        <div class="vision-card-sub">More than a TikTok account. A name that means something.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SOCIALS -->
+<section class="section" id="links">
+  <div class="section-label">Find Me</div>
+  <h2 class="section-title">All the Links</h2>
+  <p class="section-sub">Follow along, shop my picks, or reach out about collabs.</p>
+  <div class="links-grid">
+    <a class="link-card" href="https://www.tiktok.com/@dreamlifevisuals" target="_blank">
+      <div class="link-card-icon icon-tiktok">🎵</div>
+      <div class="link-card-text">
+        <div class="link-card-name">TikTok — Main</div>
+        <div class="link-card-handle">@dreamlifevisuals</div>
+      </div>
+      <span class="link-card-arrow">→</span>
+    </a>
+    <a class="link-card" href="https://www.youtube.com/@yourdreamlifevisuals" target="_blank">
+      <div class="link-card-icon icon-yt">▶️</div>
+      <div class="link-card-text">
+        <div class="link-card-name">YouTube</div>
+        <div class="link-card-handle">@yourdreamlifevisuals</div>
+      </div>
+      <span class="link-card-arrow">→</span>
+    </a>
+    <a class="link-card" href="https://www.tiktok.com/shop" target="_blank">
+      <div class="link-card-icon icon-shop">🛍️</div>
+      <div class="link-card-text">
+        <div class="link-card-name">TikTok Shop</div>
+        <div class="link-card-handle">Products I actually use</div>
+      </div>
+      <span class="link-card-arrow">→</span>
+    </a>
+    <a class="link-card" href="mailto:dreambillboard@gmail.com">
+      <div class="link-card-icon icon-email">✉️</div>
+      <div class="link-card-text">
+        <div class="link-card-name">Brand Inquiries</div>
+        <div class="link-card-handle">dreambillboard@gmail.com</div>
+      </div>
+      <span class="link-card-arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- VIDEO -->
+<section class="video-section" id="video">
+  <div class="section" style="padding-top:80px;padding-bottom:80px;">
+    <div class="section-label">Watch</div>
+    <h2 class="section-title">Top Performing Content</h2>
+    <p class="section-sub" style="margin-bottom:48px;">Real reviews. Real results. Judge for yourself.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:32px;align-items:start;">
+
+      <!-- TikTok #1: Splitting the G — 16.5K views -->
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+          <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);">TikTok · 16.5K Views</span>
+        </div>
+        <div style="border-radius:16px;overflow:hidden;border:1px solid var(--border2);aspect-ratio:9/16;max-width:320px;">
+          <iframe src="https://www.tiktok.com/embed/v2/7615992020439469325" style="width:100%;height:100%;border:none;" allowfullscreen allow="autoplay"></iframe>
+        </div>
+        <div style="margin-top:12px;font-size:13px;color:var(--muted2);line-height:1.5;">Splitting the G in Dublin — proper pint, proper pub.</div>
+      </div>
+
+      <!-- TikTok #2: 108.8K views -->
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+          <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);">🏆 TikTok · 108.8K Views</span>
+        </div>
+        <div style="border-radius:16px;overflow:hidden;border:1px solid var(--border2);aspect-ratio:9/16;max-width:320px;">
+          <iframe src="https://www.tiktok.com/embed/v2/7545633953294601486" style="width:100%;height:100%;border:none;" allowfullscreen allow="autoplay"></iframe>
+        </div>
+      </div>
+
+      <!-- YouTube CTA Card -->
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+          <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#ff4444;">YouTube</span>
+        </div>
+        <div style="border-radius:16px;border:1px solid var(--border2);aspect-ratio:9/16;max-width:320px;background:var(--surface);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:32px;text-align:center;">
+          <svg width="52" height="37" viewBox="0 0 52 37" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M50.9 5.8A6.5 6.5 0 0 0 46.3 1C42.3 0 26 0 26 0S9.7 0 5.7 1A6.5 6.5 0 0 0 1.1 5.8C0 9.8 0 18.5 0 18.5s0 8.7 1.1 12.7A6.5 6.5 0 0 0 5.7 36C9.7 37 26 37 26 37s16.3 0 20.3-1a6.5 6.5 0 0 0 4.6-4.8C52 27.2 52 18.5 52 18.5s0-8.7-1.1-12.7Z" fill="#FF0000"/><path d="M20.8 26.4 34.3 18.5 20.8 10.6v15.8Z" fill="#fff"/></svg>
+          <div>
+            <div style="font-size:15px;font-weight:800;color:var(--text);margin-bottom:8px;">@yourdreamlifevisuals</div>
+            <div style="font-size:13px;color:var(--muted2);line-height:1.5;margin-bottom:20px;">Shorts, reviews, and more. Subscribe to catch everything.</div>
+            <a href="https://www.youtube.com/@yourdreamlifevisuals" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#FF0000;color:#fff;font-size:13px;font-weight:700;padding:11px 20px;border-radius:8px;text-decoration:none;">Subscribe →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div style="display:flex;gap:16px;margin-top:40px;flex-wrap:wrap;">
+      <a class="btn-primary" href="https://www.tiktok.com/@dreamlifevisuals" target="_blank">Follow on TikTok →</a>
+      <a class="btn-secondary" href="https://www.youtube.com/@yourdreamlifevisuals" target="_blank">Subscribe on YouTube →</a>
+    </div>
+  </div>
+</section>
+
+<!-- MY STANDARDS -->
+<section class="section" id="standards" style="border-top:1px solid var(--border);">
+  <div class="section-label">My Filter</div>
+  <h2 class="section-title">How I Pick Products</h2>
+  <p class="section-sub">Every product I post clears these three bars. No exceptions.</p>
+  <div class="standards-grid">
+    <div class="standard-card">
+      <div class="standard-num">01</div>
+      <div class="standard-title">Would I buy it myself?</div>
+      <div class="standard-desc">If I wouldn't spend my own money on it, I'm not asking you to. I care about my health and how I look. That's the lens everything gets filtered through.</div>
+    </div>
+    <div class="standard-card">
+      <div class="standard-num">02</div>
+      <div class="standard-title">Does it actually work?</div>
+      <div class="standard-desc">I test everything before I post it. Results matter. I'm not here to hype garbage and burn your trust. If it doesn't deliver, it doesn't make the cut.</div>
+    </div>
+    <div class="standard-card">
+      <div class="standard-num">03</div>
+      <div class="standard-title">Is the value obvious?</div>
+      <div class="standard-desc">You can find junk anywhere. I'm looking for products where the price-to-result ratio makes it a no-brainer. If it's not a clear win, I won't waste your time.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products" style="position:relative;overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div style="position:absolute;inset:0;background-image:url('0b47e95fbf265367fa18c27be961dffc.jpg');background-size:cover;background-position:center 30%;filter:blur(2px) saturate(0.4);transform:scale(1.05);z-index:0;opacity:0.18;"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(to bottom, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.80) 50%, rgba(8,8,8,0.95) 100%);z-index:1;"></div>
+<div class="section" id="products-inner" style="position:relative;z-index:2;padding-top:80px;padding-bottom:80px;">
+  <div class="section-label">Shop</div>
+  <h2 class="section-title">Products I Swear By</h2>
+  <p class="section-sub">Everything here passed my personal test. If it's on this page, it made the cut.</p>
+  <div class="products-grid">
+
+    <!-- FEATURED PRODUCT: DC24 -->
+    <a class="product-card" href="https://www.tiktok.com/@dreamlifevisuals/collection" target="_blank">
+      <div class="product-img">🦷</div>
+      <div class="product-body">
+        <div class="product-tag">⭐ Current Favorite</div>
+        <div class="product-name">DC24 Daily Care Remineralizing Gum</div>
+        <div class="product-desc">Remineralizes enamel while you chew. I use it every day. It's one of those products that does exactly what it says — rare.</div>
+        <span class="product-cta">Shop Now →</span>
+      </div>
+    </a>
+
+    <a class="product-card" href="https://www.tiktok.com/@dreamlifevisuals" target="_blank">
+      <div class="product-img">✨</div>
+      <div class="product-body">
+        <div class="product-tag">Always Testing</div>
+        <div class="product-name">More Coming Soon</div>
+        <div class="product-desc">I'm constantly running new products through my filter. Follow on TikTok — that's where drops happen first.</div>
+        <span class="product-cta">See What's Next →</span>
+      </div>
+    </a>
+
+    <a class="product-card" href="https://www.tiktok.com/@dreamlifevisuals" target="_blank">
+      <div class="product-img">🔥</div>
+      <div class="product-body">
+        <div class="product-tag">In Testing</div>
+        <div class="product-name">Something Good Is Coming</div>
+        <div class="product-desc">If it doesn't clear all three of my bars, it won't make this page. Stay tuned.</div>
+        <span class="product-cta">Follow for Updates →</span>
+      </div>
+    </a>
+
+  </div>
+</div>
+</section>
+
+<!-- BRANDS -->
+<section class="section brands-section">
+  <div class="brands-label">Brands I've Worked With</div>
+  <div class="brands-row">
+    <div class="brand-chip">DC24</div>
+    <div class="brand-chip">TikTok Shop</div>
+    <div class="brand-chip">Your Brand Here</div>
+    <div class="brand-chip">Your Brand Here</div>
+    <div class="brand-chip">Your Brand Here</div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="section" style="max-width:800px;">
+    <div class="section-label">Contact</div>
+    <h2 class="section-title">Work With Me</h2>
+    <p class="section-sub">Brand deals, collabs, product submissions, or just want to get in touch. Hit the email below.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:0;">
+
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:32px 28px;">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--accent);margin-bottom:16px;">Business Inquiries</div>
+        <div style="font-size:13px;color:var(--muted2);line-height:1.7;margin-bottom:24px;">Brand deals, sponsorships, product collabs, and affiliate partnerships. If your product is good, I want to hear about it.</div>
+        <a href="mailto:dreambillboard@gmail.com" style="display:inline-flex;align-items:center;gap:10px;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:14px 20px;text-decoration:none;color:var(--text);font-size:14px;font-weight:700;transition:border-color 0.15s;width:100%;">
+          <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1h16v12H1V1zm0 0 8 7 8-7" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          dreambillboard@gmail.com
+        </a>
+      </div>
+
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:32px 28px;">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--accent2);margin-bottom:16px;">Quick Connect</div>
+        <div style="font-size:13px;color:var(--muted2);line-height:1.7;margin-bottom:24px;">For faster responses on general questions, DMs and comments on TikTok are the move.</div>
+        <a href="https://www.tiktok.com/@dreamlifevisuals" target="_blank" style="display:inline-flex;align-items:center;gap:10px;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:14px 20px;text-decoration:none;color:var(--text);font-size:14px;font-weight:700;width:100%;">
+          <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.5 0a5.3 5.3 0 0 0 4.5 4.5V8a9 9 0 0 1-4.5-1.2V12a6 6 0 1 1-6-6v3.5a2.5 2.5 0 1 0 2.5 2.5V0h3.5Z" fill="var(--accent2)"/></svg>
+          @dreamlifevisuals
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CURSOR GLOW -->
+<div id="cursor-glow"></div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Dream<span>.</span> Life Visuals</div>
+  <div class="footer-socials">
+    <a class="footer-social-link" href="https://www.tiktok.com/@dreamlifevisuals" target="_blank" title="TikTok">🎵</a>
+    <a class="footer-social-link" href="https://www.youtube.com/@yourdreamlifevisuals" target="_blank" title="YouTube">▶️</a>
+    <a class="footer-social-link" href="mailto:dreambillboard@gmail.com" title="Email">✉️</a>
+  </div>
+  <div class="footer-copy">© 2026 Tyler Dream · Chicago · <a href="prank.html" style="color:var(--accent);text-decoration:none;font-weight:700;">Prank Calls</a></div>
+</footer>
+
+
+<script>
+  // ── Scroll fade-up animations ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.section-label, .section-title, .section-sub, .standard-card, .fact-item, .milestone-item, .vision-card, .link-card, .product-card, .brand-chip, .story-left p, .story-left .big-quote').forEach((el, i) => {
+    el.classList.add('fade-up');
+    if (i % 4 === 1) el.classList.add('delay-1');
+    if (i % 4 === 2) el.classList.add('delay-2');
+    if (i % 4 === 3) el.classList.add('delay-3');
+    observer.observe(el);
+  });
+
+  // ── Nav scroll spy ──
+  const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+  const sections = [...navLinks].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY + 120;
+    let current = '';
+    sections.forEach(s => { if (s.offsetTop <= scrollY) current = s.id; });
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  }, { passive: true });
+</script>
+
+<script>
+  // ─────────────────────────────────────────
+  // DREAM STREAM SCHEDULE
+  // Edit the times below to update your schedule.
+  // Use "off" for no stream. Times are CT (Chicago).
+  // Format: "8:00 PM" or "off"
+  // ─────────────────────────────────────────
+  const streamSchedule = {
+    Sun: "off",
+    Mon: "8:00 PM",
+    Tue: "8:00 PM",
+    Wed: "8:00 PM",
+    Thu: "8:00 PM",
+    Fri: "8:00 PM",
+    Sat: "off"
+  };
+  const STREAM_DURATION_HOURS = 2; // how many hours stream typically runs
+
+  const dayOrder = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  const dayFull  = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+  function buildSchedule() {
+    const now = new Date();
+    const todayIdx = now.getDay(); // 0=Sun
+    const grid = document.getElementById("scheduleGrid");
+
+    // responsive: stack on mobile
+    if (window.innerWidth < 600) {
+      grid.style.gridTemplateColumns = "repeat(4,1fr)";
+    }
+
+    dayOrder.forEach((day, i) => {
+      const time = streamSchedule[day];
+      const isToday = i === todayIdx;
+      const isStream = time !== "off";
+
+      const card = document.createElement("div");
+      card.style.cssText = `
+        background: ${isToday && isStream ? "rgba(200,255,0,0.07)" : "var(--surface)"};
+        border: 1px solid ${isToday ? "rgba(200,255,0,0.4)" : "var(--border)"};
+        border-radius: 14px;
+        padding: 16px 10px;
+        text-align: center;
+        transition: border-color 0.2s;
+        ${isToday ? "box-shadow: 0 0 18px rgba(200,255,0,0.18);" : ""}
+      `;
+
+      card.innerHTML = `
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:${isToday ? "var(--accent)" : "var(--muted)"};margin-bottom:10px;">${day}</div>
+        ${isStream
+          ? `<div style="font-size:13px;font-weight:800;color:${isToday ? "var(--accent)" : "var(--text)"};line-height:1.3;">${time.replace(" ", "<br/>")}</div>
+             <div style="font-size:10px;color:var(--muted);margin-top:4px;font-weight:600;">CT</div>`
+          : `<div style="font-size:18px;color:var(--muted);opacity:0.4;">–</div>`
+        }
+        ${isToday ? `<div style="width:5px;height:5px;border-radius:50%;background:var(--accent);margin:8px auto 0;animation:pulse 2s infinite;"></div>` : ""}
+      `;
+      grid.appendChild(card);
+    });
+
+    // Next stream label + live banner
+    const nowCT = new Date(now.toLocaleString("en-US", { timeZone: "America/Chicago" }));
+    const todayTime = streamSchedule[dayOrder[todayIdx]];
+    let isLive = false;
+
+    if (todayTime !== "off") {
+      const [timePart, ampm] = todayTime.split(" ");
+      let [h, m] = timePart.split(":").map(Number);
+      if (ampm === "PM" && h !== 12) h += 12;
+      const streamStart = new Date(nowCT);
+      streamStart.setHours(h, m, 0, 0);
+      const streamEnd = new Date(streamStart.getTime() + STREAM_DURATION_HOURS * 3600000);
+      if (nowCT >= streamStart && nowCT <= streamEnd) isLive = true;
+    }
+
+    if (isLive) {
+      document.getElementById("liveNowBanner").style.display = "flex";
+      document.getElementById("nextStreamLabel").textContent = "Streaming live right now on TikTok.";
+    } else {
+      // Find next stream day
+      for (let offset = 1; offset <= 7; offset++) {
+        const nextIdx = (todayIdx + offset) % 7;
+        const nextTime = streamSchedule[dayOrder[nextIdx]];
+        if (nextTime !== "off") {
+          const label = offset === 1 ? "Tomorrow" : dayFull[nextIdx];
+          document.getElementById("nextStreamLabel").textContent = `Next stream: ${label} at ${nextTime} CT. Come hang.`;
+          break;
+        }
+      }
+    }
+  }
+
+  buildSchedule();
+
+  let currentMantra = 0;
+  const quotes = document.querySelectorAll('.mantra-quote');
+  const dots = document.querySelectorAll('.mantra-dot');
+
+  function setMantra(index) {
+    quotes[currentMantra].classList.remove('active');
+    dots[currentMantra].classList.remove('active');
+    currentMantra = index;
+    quotes[currentMantra].classList.add('active');
+    dots[currentMantra].classList.add('active');
+  }
+
+  setInterval(() => setMantra((currentMantra + 1) % quotes.length), 4000);
+</script>
+
+<script>
+  // ── Force video autoplay ──
+  const vid = document.getElementById('tiktok-vid');
+  if (vid) {
+    vid.muted = true;
+    const tryPlay = () => vid.play().catch(() => {});
+    tryPlay();
+    document.addEventListener('click', tryPlay, { once: true });
+    document.addEventListener('touchstart', tryPlay, { once: true });
+  }
+
+  // ── Cursor glow ──
+  const glow = document.getElementById('cursor-glow');
+  let mx = -999, my = -999;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    glow.style.left = mx + 'px';
+    glow.style.top  = my + 'px';
+  });
+  document.addEventListener('mouseleave', () => glow.style.opacity = '0');
+  document.addEventListener('mouseenter', () => glow.style.opacity = '1');
+
+  // ── Hero star particles ──
+  const heroSection = document.querySelector('.hero');
+  const canvas = document.createElement('canvas');
+  canvas.id = 'hero-canvas';
+  heroSection.prepend(canvas);
+  const ctx = canvas.getContext('2d');
+
+  const COLORS = ['rgba(200,255,0,', 'rgba(0,229,255,', 'rgba(192,132,252,', 'rgba(255,255,255,'];
+  const stars = [];
+  const N = 80;
+
+  function resize() {
+    canvas.width  = heroSection.offsetWidth;
+    canvas.height = heroSection.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  for (let i = 0; i < N; i++) {
+    stars.push({
+      x: Math.random(),
+      y: Math.random(),
+      r: Math.random() * 1.5 + 0.3,
+      a: Math.random(),
+      da: (Math.random() * 0.004 + 0.001) * (Math.random() > 0.5 ? 1 : -1),
+      color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      vx: (Math.random() - 0.5) * 0.0002,
+      vy: (Math.random() - 0.5) * 0.0002,
+    });
+  }
+
+  function drawStars() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    stars.forEach(s => {
+      s.a += s.da;
+      if (s.a <= 0 || s.a >= 1) s.da *= -1;
+      s.x += s.vx; s.y += s.vy;
+      if (s.x < 0) s.x = 1; if (s.x > 1) s.x = 0;
+      if (s.y < 0) s.y = 1; if (s.y > 1) s.y = 0;
+      ctx.beginPath();
+      ctx.arc(s.x * canvas.width, s.y * canvas.height, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = s.color + s.a.toFixed(2) + ')';
+      ctx.fill();
+    });
+    requestAnimationFrame(drawStars);
+  }
+  drawStars();
+
+  // ── Count-up for hero stats ──
+  function countUp(el, target, suffix) {
+    const isFloat = target % 1 !== 0;
+    let start = 0, duration = 1200, step = 16;
+    const inc = target / (duration / step);
+    const timer = setInterval(() => {
+      start += inc;
+      if (start >= target) { start = target; clearInterval(timer); }
+      el.textContent = isFloat ? start.toFixed(1) + suffix : Math.floor(start) + suffix;
+    }, step);
+  }
+
+  const statObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      statObserver.unobserve(e.target);
+      const nums = e.target.querySelectorAll('.hero-stat-num');
+      nums.forEach(n => {
+        const raw = n.textContent.trim();
+        const match = raw.match(/([\d.]+)(.*)/);
+        if (match) countUp(n, parseFloat(match[1]), match[2]);
+      });
+    });
+  }, { threshold: 0.5 });
+  const heroStats = document.querySelector('.hero-stats');
+  if (heroStats) statObserver.observe(heroStats);
+</script>
+</body>
+</html>

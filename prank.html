@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prank Call | Dream Life Visuals</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #080808;
+      --surface: #0f0f0f;
+      --surface2: #141414;
+      --border: #1e1e1e;
+      --border2: #2a2a2a;
+      --accent: #c8ff00;
+      --accent2: #00e5ff;
+      --text: #f2f2f2;
+      --muted: #555;
+      --muted2: #888;
+      --radius: 16px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      background: rgba(8,8,8,0.95);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px);
+    }
+
+    .nav-logo {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-back {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted2);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.15s;
+    }
+
+    .nav-back:hover { color: var(--text); }
+
+    /* ── PAGE WRAPPER ── */
+    .page {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    /* ── HERO HEADER ── */
+    .page-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(200,255,0,0.07);
+      border: 1px solid rgba(200,255,0,0.15);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .page-tag::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    h1 {
+      font-size: clamp(34px, 9vw, 52px);
+      font-weight: 900;
+      letter-spacing: -2px;
+      line-height: 1.0;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    h1 span { color: var(--accent); }
+
+    .page-sub {
+      font-size: 16px;
+      color: var(--muted2);
+      line-height: 1.65;
+      margin-bottom: 40px;
+    }
+
+    /* ── PAY BUTTONS ── */
+    .pay-section {
+      margin-bottom: 40px;
+    }
+
+    .pay-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .pay-btns {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      max-width: 300px;
+    }
+
+    .pay-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 20px 16px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 16px;
+      transition: all 0.15s;
+      border: 2px solid transparent;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .pay-btn-sub {
+      font-size: 11px;
+      font-weight: 600;
+      opacity: 0.75;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .pay-btn.venmo {
+      background: #008AFF;
+      color: #fff;
+    }
+
+    .pay-btn.venmo:hover {
+      background: #007be0;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(0,138,255,0.25);
+    }
+
+    .pay-btn.paypal {
+      background: #FFC439;
+      color: #003087;
+    }
+
+    .pay-btn.paypal:hover {
+      background: #ffb800;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(255,196,57,0.2);
+    }
+
+    .pay-btn.paypal-placeholder {
+      background: var(--surface);
+      color: var(--muted2);
+      border: 1px dashed var(--border2);
+      cursor: default;
+    }
+
+    .pay-min-note {
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 12px;
+      font-weight: 600;
+    }
+
+    .pay-min-note strong {
+      color: var(--accent);
+    }
+
+    /* ── INSTRUCTIONS CARD ── */
+    .instructions-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .instructions-header {
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .instructions-header-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .instructions-header-title {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: var(--text);
+    }
+
+    .step-list {
+      padding: 8px 0;
+    }
+
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+
+    .step:last-child { border-bottom: none; }
+    .step:hover { background: var(--surface2); }
+
+    .step-num {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: rgba(200,255,0,0.08);
+      border: 1px solid rgba(200,255,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .step-body { flex: 1; }
+
+    .step-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 5px;
+      line-height: 1.3;
+    }
+
+    .step-desc {
+      font-size: 13px;
+      color: var(--muted2);
+      line-height: 1.6;
+    }
+
+    .step-desc strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ── INCLUDE IN NOTE ── */
+    .note-card {
+      background: rgba(200,255,0,0.04);
+      border: 1px solid rgba(200,255,0,0.12);
+      border-radius: 16px;
+      padding: 22px 24px;
+      margin-bottom: 24px;
+    }
+
+    .note-card-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .note-items {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .note-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .note-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    .note-item-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .note-item-sub {
+      font-size: 12px;
+      color: var(--muted2);
+      margin-top: 2px;
+    }
+
+    /* ── TIP CARD ── */
+    .tip-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .tip-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .tip-text {
+      font-size: 13px;
+      color: var(--muted2);
+      line-height: 1.6;
+    }
+
+    .tip-text strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    /* ── QUEUE NOTE ── */
+    .queue-banner {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-size: 13px;
+      color: var(--muted2);
+      line-height: 1.6;
+      margin-bottom: 40px;
+    }
+
+    .queue-banner strong { color: var(--text); font-weight: 700; }
+
+    /* ── BOTTOM CTA ── */
+    .bottom-cta {
+      text-align: center;
+      padding-top: 8px;
+    }
+
+    .bottom-cta-text {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted2);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .back-link:hover { color: var(--text); }
+
+    /* ── FOOTER ── */
+    .page-footer {
+      text-align: center;
+      padding: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .page-footer a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .page-footer a:hover { color: var(--accent); }
+
+    /* ── HOST CARD ── */
+    .host-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .host-photo {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      border: 2px solid var(--accent);
+      flex-shrink: 0;
+    }
+
+    .host-name {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.3px;
+    }
+
+    .host-handle {
+      font-size: 12px;
+      color: var(--muted2);
+      margin-top: 2px;
+    }
+
+    /* ── MOBILE TWEAKS ── */
+    @media (max-width: 480px) {
+      .page { padding: 36px 20px 64px; }
+      h1 { letter-spacing: -1.5px; }
+      .pay-btns { grid-template-columns: 1fr; }
+      .pay-btn { padding: 22px 16px; font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">Dream<span>.</span></a>
+  <a class="nav-back" href="index.html">← Back to Site</a>
+</nav>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="host-card">
+    <img src="IMG_9469.JPG" alt="Tyler Dream" class="host-photo" />
+    <div class="host-info">
+      <div class="host-name">Tyler Dream</div>
+      <div class="host-handle">@dreamlifevisuals</div>
+    </div>
+  </div>
+  <h1>Dream does your<br/><span>prank calls</span><br/>on live stream.</h1>
+  <p class="page-sub">Send $5 on Venmo, drop the details in the note, and I'll get to you in order on the next stream.</p>
+
+  <!-- PAY BUTTONS -->
+  <div class="pay-section">
+    <div class="pay-label">Step 1 - Send Payment</div>
+    <div class="pay-btns">
+      <a class="pay-btn venmo" href="https://venmo.com/tyler_dream" target="_blank">
+        <span>💙 Venmo</span>
+        <span class="pay-btn-sub">@tyler_dream</span>
+      </a>
+    </div>
+    <div class="pay-min-note"><strong>$5 minimum.</strong> More for longer or harder calls.</div>
+  </div>
+
+  <!-- INSTRUCTIONS CARD -->
+  <div class="instructions-card">
+    <div class="instructions-header">
+      <div class="instructions-header-label">How it works</div>
+      <div class="instructions-header-title">3 steps.</div>
+    </div>
+    <div class="step-list">
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Send $5+ on Venmo</div>
+          <div class="step-desc">Venmo <strong>@tyler_dream</strong>. Minimum $5. Pay more to bump complex calls.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Put everything in the note</div>
+          <div class="step-desc">Don't DM me. Put it all in the <strong>Venmo note</strong> when you send. Details below.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Tune in to the stream</div>
+          <div class="step-desc">Calls go in order. Catch it live on <strong>@dreamlifevisuals</strong>.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- WHAT TO INCLUDE IN NOTE -->
+  <div class="note-card">
+    <div class="note-card-label">What to include in the note</div>
+    <div class="note-items">
+
+      <div class="note-item">
+        <div class="note-dot"></div>
+        <div>
+          <div class="note-item-text">The number to call</div>
+          <div class="note-item-sub">Full number with area code</div>
+        </div>
+      </div>
+
+      <div class="note-item">
+        <div class="note-dot"></div>
+        <div>
+          <div class="note-item-text">Who they are</div>
+          <div class="note-item-sub">Name, how you know them, any backstory</div>
+        </div>
+      </div>
+
+      <div class="note-item">
+        <div class="note-dot"></div>
+        <div>
+          <div class="note-item-text">Their general location</div>
+          <div class="note-item-sub">City, state, region — Midwest, Florida, etc. Helps sell it.</div>
+        </div>
+      </div>
+
+      <div class="note-item">
+        <div class="note-dot"></div>
+        <div>
+          <div class="note-item-text">What you want me to say</div>
+          <div class="note-item-sub">The more specific the better. Vague notes get vague calls.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TIP -->
+  <div class="tip-card">
+    <div class="tip-icon">💡</div>
+    <div class="tip-text"><strong>Good note = good call.</strong> Tell me if they're gullible, what they'd actually believe, inside jokes, anything useful. The more you give me, the better it lands.</div>
+  </div>
+
+  <!-- QUEUE NOTE -->
+  <div class="queue-banner">
+    <strong>Queue goes in order.</strong> First paid, first called. Tune into the stream to catch yours live.
+  </div>
+
+  <!-- BOTTOM CTA -->
+  <div class="bottom-cta">
+    <p class="bottom-cta-text">Questions? DM me on TikTok.</p>
+    <a class="back-link" href="https://www.tiktok.com/@dreamlifevisuals" target="_blank">@dreamlifevisuals →</a>
+  </div>
+
+</div>
+
+<div class="page-footer">
+  <a href="index.html">Dream Life Visuals</a> · Chicago · © 2026
+</div>
+
+</body>
+</html>
