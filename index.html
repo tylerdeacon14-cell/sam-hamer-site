@@ -850,7 +850,7 @@
 
     .mantra-quotes {
       position: relative;
-      min-height: 120px;
+      height: 200px;
     }
 
     .mantra-quote {
@@ -863,15 +863,16 @@
       width: 100%;
       left: 0;
       opacity: 0;
-      transform: translateY(16px);
+      top: 50%;
+      transform: translateY(calc(-50% + 16px));
       transition: opacity 0.5s ease, transform 0.5s ease;
       pointer-events: none;
     }
 
     .mantra-quote.active {
       opacity: 1;
-      transform: translateY(0);
-      position: relative;
+      transform: translateY(-50%);
+      position: absolute;
       pointer-events: auto;
     }
 
@@ -1676,7 +1677,7 @@
           <svg width="18" height="13" viewBox="0 0 18 13" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.64 2.03A2.26 2.26 0 0 0 16.05.43C14.65 0 9 0 9 0S3.35 0 1.95.43A2.26 2.26 0 0 0 .36 2.03C0 3.45 0 6.5 0 6.5s0 3.05.36 4.47a2.26 2.26 0 0 0 1.59 1.6C3.35 13 9 13 9 13s5.65 0 7.05-.43a2.26 2.26 0 0 0 1.59-1.6C18 9.55 18 6.5 18 6.5s0-3.05-.36-4.47Z" fill="#FF0000"/><path d="M7.2 9.25 11.88 6.5 7.2 3.75v5.5Z" fill="#fff"/></svg>
           Subscribe
         </a>
-        <a class="btn-secondary" href="https://www.tiktok.com/@dreamlifevisuals/collection" target="_blank">Shop My Picks →</a>
+        <a class="btn-secondary" href="https://www.tiktok.com/@dreamlifevisuals" target="_blank">Shop My Picks →</a>
       </div>
       <div class="hero-stats">
         <div>
@@ -2037,31 +2038,31 @@
   <p class="section-sub">Follow along, shop my picks, or reach out about collabs.</p>
   <div class="links-grid">
     <a class="link-card" href="https://www.tiktok.com/@dreamlifevisuals" target="_blank">
-      <div class="link-card-icon icon-tiktok">🎵</div>
+      <div class="link-card-icon icon-tiktok"><svg width="18" height="20" viewBox="0 0 18 20" fill="none"><path d="M14.5 0h-3v13.5a2.5 2.5 0 1 1-2.5-2.5c.17 0 .34.02.5.05V7.5A6.5 6.5 0 1 0 16 13.5V5.5A8.47 8.47 0 0 0 18 6V3a5.5 5.5 0 0 1-3.5-3Z" fill="white"/></svg></div>
       <div class="link-card-text">
-        <div class="link-card-name">TikTok — Main</div>
+        <div class="link-card-name">TikTok</div>
         <div class="link-card-handle">@dreamlifevisuals</div>
       </div>
       <span class="link-card-arrow">→</span>
     </a>
     <a class="link-card" href="https://www.youtube.com/@yourdreamlifevisuals" target="_blank">
-      <div class="link-card-icon icon-yt">▶️</div>
+      <div class="link-card-icon icon-yt"><svg width="20" height="14" viewBox="0 0 20 14" fill="none"><path d="M19.6 2.2A2.5 2.5 0 0 0 17.8.4C16.3 0 10 0 10 0S3.7 0 2.2.4A2.5 2.5 0 0 0 .4 2.2C0 3.7 0 7 0 7s0 3.3.4 4.8A2.5 2.5 0 0 0 2.2 13.6C3.7 14 10 14 10 14s6.3 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8C20 10.3 20 7 20 7s0-3.3-.4-4.8Z" fill="#FF0000"/><path d="M8 10l5.2-3L8 4v6Z" fill="white"/></svg></div>
       <div class="link-card-text">
         <div class="link-card-name">YouTube</div>
         <div class="link-card-handle">@yourdreamlifevisuals</div>
       </div>
       <span class="link-card-arrow">→</span>
     </a>
-    <a class="link-card" href="https://www.tiktok.com/shop" target="_blank">
-      <div class="link-card-icon icon-shop">🛍️</div>
+    <a class="link-card" href="https://www.tiktok.com/@dreamlifevisuals" target="_blank">
+      <div class="link-card-icon icon-shop"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M1 1h2.5l1.6 8h9l2-6H5" stroke="rgba(200,255,0,0.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="16" r="1.2" fill="rgba(200,255,0,0.8)"/><circle cx="14" cy="16" r="1.2" fill="rgba(200,255,0,0.8)"/></svg></div>
       <div class="link-card-text">
-        <div class="link-card-name">TikTok Shop</div>
-        <div class="link-card-handle">Products I actually use</div>
+        <div class="link-card-name">Shop My Picks</div>
+        <div class="link-card-handle">@dreamlifevisuals</div>
       </div>
       <span class="link-card-arrow">→</span>
     </a>
     <a class="link-card" href="mailto:dreambillboard@gmail.com">
-      <div class="link-card-icon icon-email">✉️</div>
+      <div class="link-card-icon icon-email"><svg width="20" height="14" viewBox="0 0 20 14" fill="none"><rect x="1" y="1" width="18" height="12" rx="2" stroke="rgba(0,229,255,0.8)" stroke-width="1.5"/><path d="M1 3l9 6 9-6" stroke="rgba(0,229,255,0.8)" stroke-width="1.5" stroke-linecap="round"/></svg></div>
       <div class="link-card-text">
         <div class="link-card-name">Brand Inquiries</div>
         <div class="link-card-handle">dreambillboard@gmail.com</div>
@@ -2158,7 +2159,7 @@
   <div class="products-grid">
 
     <!-- FEATURED PRODUCT: DC24 -->
-    <a class="product-card" href="https://www.tiktok.com/@dreamlifevisuals/collection" target="_blank">
+    <a class="product-card" href="https://www.tiktok.com/@dreamlifevisuals" target="_blank">
       <div class="product-img">🦷</div>
       <div class="product-body">
         <div class="product-tag">⭐ Current Favorite</div>
