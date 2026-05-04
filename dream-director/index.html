@@ -1,0 +1,1877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<title>Dream Director</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#080810;color:#f0f0fa;font-family:'Inter',sans-serif;font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+#root{height:100%}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:#080810}
+::-webkit-scrollbar-thumb{background:#1e1e3a;border-radius:2px}
+input,textarea,select,button{font-family:'Inter',sans-serif;font-size:14px}
+textarea{resize:vertical}
+select option{background:#0f0f1a;color:#e8e8f0}
+a{color:#4f6ef7;text-decoration:none}
+a:hover{text-decoration:underline}
+@keyframes breathe{0%,100%{opacity:0.4}50%{opacity:1.0}}
+.breathe{animation:breathe 1.5s ease-in-out infinite}
+@keyframes slideUp{from{transform:translateY(100%);opacity:0}to{transform:translateY(0);opacity:1}}
+.slide-up{animation:slideUp 0.25s ease-out}
+@keyframes glowPulse{0%,100%{box-shadow:0 0 8px #4f6ef733}50%{box-shadow:0 0 20px #4f6ef766}}
+.glow-pulse{animation:glowPulse 1.5s ease-in-out infinite}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const {useState,useEffect,useRef,useCallback} = React;
+
+const sb = window.supabase.createClient(
+  'https://guwjttgkrwdcjnstgquu.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd1d2p0dGdrcndkY2puc3RncXV1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyNTA3MjksImV4cCI6MjA5MjgyNjcyOX0.rMl1WKT9Ezrknlpe7B-5FBKDpBHSzP8Zqm26TLKOB7w'
+);
+
+const C = {
+  bg:'#080810', surface:'#0f0f1a', surfaceEl:'#1a1a30',
+  border:'#2a2a4a', borderSubtle:'#1a1a30',
+  text:'#f0f0fa', textSec:'#a0a0c0', textMuted:'#6a6a8a',
+  accent:'#4f6ef7', accentSoft:'#1a1f4a',
+  success:'#34d399', warning:'#f59e0b', danger:'#f87171'
+};
+
+const FORMATS = [
+  {key:'TH',label:'Talking Head'},
+  {key:'SK',label:'Skit'},
+  {key:'GS',label:'Green Screen'},
+  {key:'FA',label:'Faceless'},
+  {key:'TX',label:'Text-Only'}
+];
+const FUNNELS = ['TOF','MOF','BOF'];
+
+const DAILY_TASKS = [
+  {key:'post1',   label:'Post a video'},
+  {key:'post2',   label:'Post a second video'},
+  {key:'post3',   label:'Post a third video'},
+  {key:'metrics', label:'Check metrics (follow-to-view, CTR, GMV)'},
+  {key:'kalodata',label:'Scout Kalodata'},
+  {key:'study',   label:'Study @fishereffect'},
+];
+
+const CAPTURE_TYPES = ['Hook Idea','Angle','B-Roll Idea','Reminder','Other'];
+
+const SYSTEM_PROMPT = `You are Dream Director — a TikTok content production director for serious affiliate creators. You produce detailed shot-by-shot filming plans, not word-for-word scripts.
+
+CORE PHILOSOPHY (Danny Fisher methodology):
+- Negative-based content always outperforms positive
+- NEVER open with product. NEVER open positive.
+- Lead with the PROBLEM. The moment it looks like an ad, they scroll.
+- Trash the category — attack what they've already tried and failed
+- 80% problem / 20% life change
+- Delay dopamine. Withhold the reveal.
+- Hook stops the scroll in under 2 seconds.
+
+SCRIPT STRUCTURE:
+1. HOOK (0-5%): Problem or insecurity. Visual hook first. Direct ICP callout.
+2. PROBLEM STACK (5-70%): No product. No hints. Make them feel seen.
+3. COUNTERPOSITION (50-70%): Attack alternatives they've tried.
+4. BRIDGE (~70%): Earn the reveal. Brief credibility.
+5. LIFE CHANGE (70-90%): Transformation. Not features.
+6. CTA (90-100%): Scarcity/urgency. Never say actual price.
+
+FUNNEL:
+- TOF: Cold audience, broad problem angles
+- MOF: Best conversions. Attack alternatives. 70% of content here.
+- BOF: Avoid — kills reach.
+
+FORMAT NOTES:
+- Skit: highest converting. Product reveal at end only.
+- Talking Head: 80% of output. Master this.
+- Green Screen: strong for counterposition.
+- Faceless: product demo + voiceover.
+- Text-Only: maximum dopamine delay.
+
+CREATOR PROFILE (Tyler): 31M married, Chicago, confident, cares about appearance. Never flexes. Speaks to his own problems. Direct, punchy, real.
+
+RETURN FORMAT: Valid JSON only. No markdown. No preamble. Structure:
+{
+  "opening_angles": [{"angle": "string", "direction": "string"}],
+  "shots": [{"number": 1, "duration": "2-3 sec", "camera_angle": "Close Face", "direction": "string", "suggested_phrase": "string", "onscreen_text": "string", "audio_note": "string", "transition": "Cut", "broll": "string"}],
+  "audio": {"sound_style": "string", "energy_direction": "string"},
+  "content_boosters": ["string"],
+  "gmv_intelligence": "string",
+  "filming_checklist": ["string"],
+  "angles_to_avoid": ["string", "string", "string"],
+  "replicate_next": [{"format": "string", "note": "string"}, {"format": "string", "note": "string"}]
+}`;
+
+const PAIN_POINT_SYSTEM_PROMPT = `You are a consumer research analyst. Your job is to surface the most emotionally resonant pain points real people express about product categories — in the exact language they use online.
+
+Return ONLY valid JSON. No markdown. No preamble.`;
+
+function useIsDesktop(){
+  const [d,setD]=useState(window.innerWidth>=768);
+  useEffect(()=>{
+    const h=()=>setD(window.innerWidth>=768);
+    window.addEventListener('resize',h);
+    return ()=>window.removeEventListener('resize',h);
+  },[]);
+  return d;
+}
+
+function extractJSON(text){
+  try{return JSON.parse(text);}catch(e){}
+  const m=text.match(/```(?:json)?\s*([\s\S]*?)```/);
+  if(m){try{return JSON.parse(m[1]);}catch(e){}}
+  const start=text.indexOf('{');
+  const end=text.lastIndexOf('}');
+  if(start!==-1&&end!==-1){try{return JSON.parse(text.slice(start,end+1));}catch(e){}}
+  throw new Error('Could not parse response as JSON');
+}
+
+function timeAgo(dateStr){
+  const diff=Date.now()-new Date(dateStr).getTime();
+  const m=Math.floor(diff/60000);
+  if(m<1)return 'just now';
+  if(m<60)return `${m}m ago`;
+  const h=Math.floor(m/60);
+  if(h<24)return `${h}h ago`;
+  return `${Math.floor(h/24)}d ago`;
+}
+
+function getMomentumMessage(allVideos, products){
+  const now = new Date();
+  const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const weekAgo = new Date(todayStart.getTime() - 7*86400000);
+
+  // Days since last video
+  if(allVideos.length > 0){
+    const sorted = [...allVideos].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+    const last = new Date(sorted[0].created_at);
+    const daysSince = Math.floor((todayStart - new Date(last.getFullYear(),last.getMonth(),last.getDate())) / 86400000);
+    if(daysSince >= 3) return `It's been ${daysSince} days. One video today puts you back on track.`;
+  }
+
+  // Campaign goal checks
+  for(const p of products){
+    const pv = allVideos.filter(v=>v.product_id===p.id);
+    const goal = p.video_goal||20;
+    if(pv.length >= goal) return `${p.name} campaign complete. Time to pick the next product.`;
+    const remaining = goal - pv.length;
+    if(remaining <= 3 && remaining > 0) return `You're ${remaining} video${remaining>1?'s':''} away from your ${p.name} goal. Finish it.`;
+  }
+
+  // Streak
+  let streak=0;
+  for(let i=0;i<30;i++){
+    const dayStart=new Date(todayStart.getTime()-i*86400000);
+    const dayEnd=new Date(dayStart.getTime()+86400000);
+    const has=allVideos.some(v=>{const d=new Date(v.created_at);return d>=dayStart&&d<dayEnd;});
+    if(has) streak++;
+    else break;
+  }
+  if(streak>=7) return "7 days straight. This is what separates creators.";
+
+  const videosToday = allVideos.filter(v=>new Date(v.created_at)>=todayStart).length;
+  if(videosToday>=3) return "Daily goal hit. ✓ Keep the streak alive tomorrow.";
+
+  const videosWeek = allVideos.filter(v=>new Date(v.created_at)>=weekAgo).length;
+  if(videosWeek>=1&&videosWeek<3) return "Good start. 3 videos a day is the target — you're building.";
+  return "No videos logged yet this week. First one is the hardest.";
+}
+
+// ── SHARED UI ─────────────────────────────────────
+const inp = {
+  background:C.bg, border:`1px solid ${C.border}`, borderRadius:8,
+  padding:'10px 14px', color:C.text, width:'100%', outline:'none',
+  transition:'border-color 0.15s',
+  fontFamily:"'Inter',sans-serif", fontSize:14
+};
+
+function Btn({children,onClick,disabled,full,small,color=C.accent,style={}}){
+  return <button onClick={onClick} disabled={disabled} style={{
+    background:disabled?C.surfaceEl:color, color:disabled?C.textSec:'#fff',
+    border:'none', borderRadius:8, padding:small?'7px 14px':'10px 20px',
+    fontWeight:500, fontSize:small?12:14, cursor:disabled?'default':'pointer',
+    width:full?'100%':'auto', opacity:disabled?0.6:1,
+    transition:'opacity 0.15s', ...style
+  }}>{children}</button>;
+}
+
+function GhostBtn({children,onClick,danger,small,style={}}){
+  const col=danger?C.danger:C.textSec;
+  return <button onClick={onClick} style={{
+    background:'transparent', border:`1px solid ${danger?C.danger:C.border}`,
+    borderRadius:8, padding:small?'5px 12px':'9px 18px',
+    color:col, fontWeight:500, fontSize:small?12:14, cursor:'pointer',
+    transition:'border-color 0.15s', ...style
+  }}>{children}</button>;
+}
+
+function Lbl({children,style={}}){
+  return <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:11,
+    color:C.textSec,letterSpacing:'0.08em',textTransform:'uppercase',
+    marginBottom:8,...style}}>{children}</div>;
+}
+
+function Badge({children,color=C.textSec,bg}){
+  return <span style={{
+    display:'inline-block', padding:'3px 10px', borderRadius:20,
+    fontFamily:"'JetBrains Mono',monospace", fontSize:11, fontWeight:500,
+    color:color, background:bg||color+'33', letterSpacing:'0.03em'
+  }}>{children}</span>;
+}
+
+function Card({children,style={},hover=false}){
+  const [hov,setHov]=useState(false);
+  return <div
+    onMouseEnter={hover?()=>setHov(true):undefined}
+    onMouseLeave={hover?()=>setHov(false):undefined}
+    style={{
+      background:C.surface, border:`1px solid ${hov?'#2e2e5a':C.border}`,
+      borderRadius:14, padding:24, transition:'border-color 0.2s', ...style
+    }}>{children}</div>;
+}
+
+function Divider(){
+  return <div style={{borderTop:`1px solid ${C.borderSubtle}`,margin:'20px 0'}}/>;
+}
+
+function PillSelect({options,value,onChange,multi=false}){
+  return <div style={{display:'flex',gap:8,flexWrap:'wrap'}}>
+    {options.map(o=>{
+      const k=typeof o==='string'?o:o.key;
+      const l=typeof o==='string'?o:o.label;
+      const active=multi?value.includes(k):value===k;
+      return <button key={k} onClick={()=>{
+        if(multi){onChange(active?value.filter(x=>x!==k):[...value,k]);}
+        else{onChange(k);}
+      }} style={{
+        padding:'8px 18px', borderRadius:20, fontSize:13,
+        fontFamily:"'Inter',sans-serif",
+        background:active?C.accent:C.surfaceEl,
+        color:active?'#fff':C.textSec,
+        border:`2px solid ${active?C.accent:C.border}`,
+        cursor:'pointer', fontWeight:active?600:400,
+        transition:'all 0.15s',
+        boxShadow:active?`0 0 12px ${C.accent}55`:undefined
+      }}>{l}</button>;
+    })}
+  </div>;
+}
+
+function ProgressBar({value,max,color=C.accent}){
+  const pct=max>0?Math.min(100,Math.round(value/max*100)):0;
+  return <div style={{width:'100%',height:4,background:C.surfaceEl,borderRadius:2,overflow:'hidden'}}>
+    <div style={{width:`${pct}%`,height:'100%',background:color,borderRadius:2,transition:'width 0.3s'}}/>
+  </div>;
+}
+
+function Modal({children,onClose,maxWidth=480}){
+  return <div onClick={onClose} style={{
+    position:'fixed',inset:0,background:'rgba(8,8,16,0.85)',
+    backdropFilter:'blur(8px)',display:'flex',alignItems:'center',
+    justifyContent:'center',padding:24,zIndex:300
+  }}>
+    <div onClick={e=>e.stopPropagation()} className="slide-up" style={{
+      background:C.surface,border:`1px solid ${C.border}`,
+      borderRadius:16,padding:32,width:'100%',maxWidth,
+      maxHeight:'90vh',overflowY:'auto'
+    }}>{children}</div>
+  </div>;
+}
+
+function BottomSheet({children,onClose}){
+  return <div onClick={onClose} style={{
+    position:'fixed',inset:0,background:'rgba(8,8,16,0.85)',
+    backdropFilter:'blur(8px)',display:'flex',alignItems:'flex-end',
+    justifyContent:'center',zIndex:300
+  }}>
+    <div onClick={e=>e.stopPropagation()} className="slide-up" style={{
+      background:C.surface,border:`1px solid ${C.border}`,
+      borderRadius:'16px 16px 0 0',padding:28,width:'100%',maxWidth:600,
+      maxHeight:'85vh',overflowY:'auto'
+    }}>{children}</div>
+  </div>;
+}
+
+function StarRating({value,onChange,readonly=false}){
+  const [hover,setHover]=useState(0);
+  return <div style={{display:'flex',gap:4}}>
+    {[1,2,3,4,5].map(n=><button key={n}
+      onClick={()=>!readonly&&onChange(n)}
+      onMouseEnter={()=>!readonly&&setHover(n)}
+      onMouseLeave={()=>!readonly&&setHover(0)}
+      style={{background:'none',border:'none',cursor:readonly?'default':'pointer',
+        fontSize:18,color:(hover||value)>=n?C.warning:C.textMuted,padding:'0 1px'}}
+    >★</button>)}
+  </div>;
+}
+
+// ── AUTH ─────────────────────────────────────────
+function AuthScreen({onAuth}){
+  const [mode,setMode]=useState('login');
+  const [email,setEmail]=useState('');
+  const [pw,setPw]=useState('');
+  const [loading,setLoading]=useState(false);
+  const [error,setError]=useState('');
+  const [msg,setMsg]=useState('');
+
+  async function submit(e){
+    e.preventDefault();
+    setLoading(true);setError('');setMsg('');
+    try{
+      if(mode==='login'){
+        const {data,error}=await sb.auth.signInWithPassword({email,password:pw});
+        if(error)throw error;
+        onAuth(data.user);
+      }else{
+        const {error}=await sb.auth.signUp({email,password:pw});
+        if(error)throw error;
+        setMsg('Check your email to confirm.');
+      }
+    }catch(err){setError(err.message);}
+    finally{setLoading(false);}
+  }
+
+  return <div style={{
+    display:'flex',alignItems:'center',justifyContent:'center',
+    minHeight:'100vh',background:C.bg,padding:24
+  }}>
+    <div style={{width:'100%',maxWidth:420}}>
+      <div style={{textAlign:'center',marginBottom:48}}>
+        <div style={{fontFamily:"'Instrument Serif',serif",fontSize:34,color:C.text,letterSpacing:'-0.01em'}}>
+          Dream Director
+        </div>
+        <div style={{fontSize:14,color:C.text,marginTop:8,fontWeight:500}}>
+          Your creative director. One place. Always on.
+        </div>
+        <div style={{fontSize:12,color:C.textMuted,marginTop:6,lineHeight:1.7}}>
+          No expensive tools. No overwhelm.<br/>Just organized, intelligent content production.
+        </div>
+      </div>
+      <div style={{background:C.surface,border:`1px solid ${C.border}`,borderRadius:16,padding:32}}>
+        <div style={{display:'flex',gap:8,marginBottom:28}}>
+          {['login','signup'].map(m=><button key={m} onClick={()=>setMode(m)} style={{
+            flex:1,padding:'9px',borderRadius:8,fontSize:13,fontWeight:500,cursor:'pointer',
+            background:mode===m?C.accent:'transparent',
+            color:mode===m?'#fff':C.textSec,
+            border:`1px solid ${mode===m?C.accent:C.border}`
+          }}>{m==='login'?'Sign In':'Sign Up'}</button>)}
+        </div>
+        <form onSubmit={submit} style={{display:'flex',flexDirection:'column',gap:16}}>
+          <div>
+            <Lbl>Email</Lbl>
+            <input style={inp} type="email" value={email} onChange={e=>setEmail(e.target.value)} required/>
+          </div>
+          <div>
+            <Lbl>Password</Lbl>
+            <input style={inp} type="password" value={pw} onChange={e=>setPw(e.target.value)} required/>
+          </div>
+          {error&&<div style={{color:C.danger,fontSize:13}}>{error}</div>}
+          {msg&&<div style={{color:C.success,fontSize:13}}>{msg}</div>}
+          <Btn full disabled={loading}>{loading?'Loading…':mode==='login'?'Sign In':'Create Account'}</Btn>
+        </form>
+      </div>
+    </div>
+  </div>;
+}
+
+// ── LOG VIDEO MODAL ───────────────────────────────
+function LogVideoModal({products,preProduct,preFormat,preFunnel,onClose,onSave}){
+  const [productId,setProductId]=useState(preProduct||products[0]?.id||'');
+  const [format,setFormat]=useState(preFormat||'TH');
+  const [funnel,setFunnel]=useState(preFunnel||'MOF');
+  const [note,setNote]=useState('');
+  const [saving,setSaving]=useState(false);
+
+  async function save(){
+    if(!productId)return;
+    setSaving(true);
+    const {data,error}=await sb.from('videos').insert({
+      user_id:(await sb.auth.getUser()).data.user.id,
+      product_id:productId, format, funnel, notes:note
+    }).select().single();
+    setSaving(false);
+    if(!error&&data) onSave(data);
+    onClose();
+  }
+
+  return <BottomSheet onClose={onClose}>
+    <div style={{fontFamily:"'Instrument Serif',serif",fontSize:22,marginBottom:24}}>Log Video</div>
+    <div style={{display:'flex',flexDirection:'column',gap:20}}>
+      <div>
+        <Lbl>Product</Lbl>
+        <select style={inp} value={productId} onChange={e=>setProductId(e.target.value)}>
+          {products.map(p=><option key={p.id} value={p.id}>{p.name}</option>)}
+        </select>
+      </div>
+      <div><Lbl>Format</Lbl><PillSelect options={FORMATS} value={format} onChange={setFormat}/></div>
+      <div><Lbl>Funnel</Lbl><PillSelect options={FUNNELS} value={funnel} onChange={setFunnel}/></div>
+      <div>
+        <Lbl>Quick Note (optional)</Lbl>
+        <input style={inp} placeholder="Hook angle, what worked, etc." value={note} onChange={e=>setNote(e.target.value)}/>
+      </div>
+      <div style={{display:'flex',gap:10}}>
+        <Btn full disabled={saving||!productId} onClick={save}>{saving?'Saving…':'Log Video'}</Btn>
+        <GhostBtn onClick={onClose} style={{flex:1}}>Cancel</GhostBtn>
+      </div>
+    </div>
+  </BottomSheet>;
+}
+
+// ── PRODUCT FORM ──────────────────────────────────
+function ProductForm({product,onSave,onClose}){
+  const [name,setName]=useState(product?.name||'');
+  const [cat,setCat]=useState(product?.category||'');
+  const [icp,setIcp]=useState(product?.icp||'');
+  const [comm,setComm]=useState(product?.commission||'');
+  const [goal,setGoal]=useState(product?.video_goal||20);
+  const [deadline,setDeadline]=useState(product?.goal_deadline||'');
+  const [cname,setCname]=useState(product?.contact_name||'');
+  const [cmethod,setCmethod]=useState(product?.contact_method||'');
+  const [notes,setNotes]=useState(product?.notes_private||'');
+  const [saving,setSaving]=useState(false);
+
+  async function save(e){
+    e.preventDefault();setSaving(true);
+    const uid=(await sb.auth.getUser()).data.user.id;
+    const payload={user_id:uid,name,category:cat,icp,commission:comm,
+      video_goal:parseInt(goal)||20,goal_deadline:deadline||null,
+      contact_name:cname,contact_method:cmethod,notes_private:notes};
+    let data,error;
+    if(product?.id){
+      ({data,error}=await sb.from('products').update(payload).eq('id',product.id).select().single());
+    }else{
+      ({data,error}=await sb.from('products').insert(payload).select().single());
+    }
+    setSaving(false);
+    if(!error&&data) onSave(data,!!product?.id);
+    onClose();
+  }
+
+  return <Modal onClose={onClose} maxWidth={520}>
+    <div style={{fontFamily:"'Instrument Serif',serif",fontSize:22,marginBottom:24}}>
+      {product?'Edit Product':'New Product'}
+    </div>
+    <form onSubmit={save} style={{display:'flex',flexDirection:'column',gap:16}}>
+      <div><Lbl>Product Name *</Lbl>
+        <input style={inp} value={name} onChange={e=>setName(e.target.value)} required placeholder="e.g. HiSmile V34"/>
+      </div>
+      <div style={{display:'flex',gap:12}}>
+        <div style={{flex:1}}><Lbl>Category</Lbl>
+          <input style={inp} value={cat} onChange={e=>setCat(e.target.value)} placeholder="e.g. Oral Care"/>
+        </div>
+        <div style={{flex:1}}><Lbl>Commission</Lbl>
+          <input style={inp} value={comm} onChange={e=>setComm(e.target.value)} placeholder="e.g. 25%"/>
+        </div>
+      </div>
+      <div><Lbl>ICP — Who buys this?</Lbl>
+        <input style={inp} value={icp} onChange={e=>setIcp(e.target.value)} placeholder="e.g. 25-40F, self-conscious about smile"/>
+      </div>
+      <div style={{display:'flex',gap:12}}>
+        <div style={{flex:1}}><Lbl>Video Goal</Lbl>
+          <input style={inp} type="number" value={goal} onChange={e=>setGoal(e.target.value)} min={1}/>
+        </div>
+        <div style={{flex:1}}><Lbl>Deadline</Lbl>
+          <input style={{...inp}} type="date" value={deadline} onChange={e=>setDeadline(e.target.value)}/>
+        </div>
+      </div>
+      <div style={{display:'flex',gap:12}}>
+        <div style={{flex:1}}><Lbl>Contact Name</Lbl>
+          <input style={inp} value={cname} onChange={e=>setCname(e.target.value)} placeholder="e.g. Sophie"/>
+        </div>
+        <div style={{flex:1}}><Lbl>Contact Method</Lbl>
+          <input style={inp} value={cmethod} onChange={e=>setCmethod(e.target.value)} placeholder="e.g. WhatsApp"/>
+        </div>
+      </div>
+      <div><Lbl>Notes / Language to Use</Lbl>
+        <textarea style={{...inp,minHeight:80}} value={notes} onChange={e=>setNotes(e.target.value)}
+          placeholder="Contact info, goals, reminders, anything relevant..."/>
+      </div>
+      <div style={{display:'flex',gap:10,marginTop:4}}>
+        <Btn full disabled={saving}>{saving?'Saving…':product?'Save Changes':'Add Product'}</Btn>
+        <GhostBtn onClick={onClose} style={{flex:1}}>Cancel</GhostBtn>
+      </div>
+    </form>
+  </Modal>;
+}
+
+// ── PAIN POINT RESEARCH ───────────────────────────
+function PainPointResearch({product, onUseAsAngle}){
+  const [open,setOpen]=useState(false);
+  const [loading,setLoading]=useState(false);
+  const [results,setResults]=useState(null);
+  const [error,setError]=useState('');
+
+  const SOURCE_COLORS={'Reddit':'#ff4500','Amazon Reviews':'#ff9900','TikTok Comments':'#69c9d0','YouTube':'#ff0000','Google':'#4285f4'};
+
+  async function scan(){
+    setLoading(true);setError('');setResults(null);
+    const userMsg=`You are researching real consumer pain points for: ${product.name}
+Category: ${product.category||'Unknown'}
+ICP: ${product.icp||'Unknown'}
+
+Analyze what real people say in Amazon reviews, Reddit threads, TikTok comments, YouTube comments, and Google searches about this product category and the problems it solves.
+
+Return the top 10 most emotionally resonant pain points in the exact language real people use. Not marketing language. Real frustrated human language.
+
+For each pain point, assign the most likely source (Amazon Reviews / Reddit / TikTok Comments / YouTube / Google).
+
+Return ONLY this JSON:
+{
+  "pain_points": [
+    {
+      "pain": "exact pain point in real human language",
+      "source": "Amazon Reviews|Reddit|TikTok Comments|YouTube|Google",
+      "angle": "one-line suggested content angle based on this pain"
+    }
+  ]
+}`;
+    try{
+      const res=await fetch('/.netlify/functions/generate',{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({system:PAIN_POINT_SYSTEM_PROMPT,messages:[{role:'user',content:userMsg}]})
+      });
+      const data=await res.json();
+      if(data.error)throw new Error(typeof data.error==='object'?JSON.stringify(data.error):data.error);
+      const text=data.content?.[0]?.text||'';
+      const parsed=extractJSON(text);
+      setResults(parsed.pain_points||[]);
+    }catch(err){setError(err.message);}
+    finally{setLoading(false);}
+  }
+
+  function handleOpen(){
+    if(!open){setOpen(true);if(!results&&!loading)scan();}
+    else{setOpen(false);}
+  }
+
+  return <div style={{marginBottom:12}}>
+    <div style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+      <button onClick={handleOpen} style={{
+        background:'none',border:'none',color:C.textSec,fontSize:13,cursor:'pointer',
+        padding:0,fontFamily:"'Inter',sans-serif",display:'flex',alignItems:'center',gap:6
+      }}>
+        {open?'▾':'▸'} Pain Point Research
+      </button>
+      {!open&&<button onClick={()=>{setOpen(true);if(!results&&!loading)scan();}} style={{
+        background:'none',border:`1px solid ${C.border}`,borderRadius:20,
+        color:C.accent,fontSize:11,cursor:'pointer',padding:'3px 10px',
+        fontFamily:"'JetBrains Mono',monospace"
+      }}>Scan →</button>}
+    </div>
+
+    {open&&<div style={{marginTop:14}}>
+      {loading&&<div className="glow-pulse" style={{
+        background:C.surfaceEl,borderRadius:10,padding:'16px 18px',
+        border:`1px solid ${C.accent}33`,color:C.textSec,fontSize:13,textAlign:'center'
+      }}>
+        Scanning reviews, comments, Reddit, Amazon...
+      </div>}
+
+      {error&&<div style={{color:C.danger,fontSize:13,padding:'8px 0'}}>{error}
+        <button onClick={scan} style={{background:'none',border:'none',color:C.accent,cursor:'pointer',marginLeft:8,fontSize:13}}>Retry</button>
+      </div>}
+
+      {results&&<div style={{display:'flex',flexDirection:'column',gap:10}}>
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:4}}>
+          <Lbl style={{marginBottom:0}}>Top Pain Points</Lbl>
+          <button onClick={scan} style={{background:'none',border:'none',color:C.textMuted,cursor:'pointer',fontSize:11,fontFamily:"'JetBrains Mono',monospace"}}>Rescan</button>
+        </div>
+        {results.map((pp,i)=><div key={i} style={{
+          background:C.surfaceEl,borderRadius:10,padding:'12px 14px',
+          border:`1px solid ${C.border}`
+        }}>
+          <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',gap:10,marginBottom:8}}>
+            <div style={{display:'flex',gap:10,alignItems:'flex-start'}}>
+              <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:11,color:C.textMuted,flexShrink:0,marginTop:2}}>{String(i+1).padStart(2,'0')}</span>
+              <div style={{fontSize:13,color:C.text,lineHeight:1.65}}>{pp.pain}</div>
+            </div>
+          </div>
+          <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',gap:8}}>
+            <div style={{display:'flex',gap:8,alignItems:'center',flexWrap:'wrap'}}>
+              <span style={{
+                display:'inline-block',padding:'2px 8px',borderRadius:20,fontSize:10,
+                fontFamily:"'JetBrains Mono',monospace",fontWeight:500,
+                color:SOURCE_COLORS[pp.source]||C.textSec,
+                background:(SOURCE_COLORS[pp.source]||C.textSec)+'22'
+              }}>{pp.source}</span>
+              {pp.angle&&<span style={{fontSize:11,color:C.textMuted,fontStyle:'italic'}}>{pp.angle}</span>}
+            </div>
+            <button onClick={()=>onUseAsAngle(product.id,pp.pain)} style={{
+              background:C.accentSoft,border:`1px solid ${C.accent}44`,borderRadius:20,
+              color:C.accent,fontSize:11,cursor:'pointer',padding:'4px 12px',
+              fontFamily:"'JetBrains Mono',monospace",whiteSpace:'nowrap'
+            }}>Use as Angle →</button>
+          </div>
+        </div>)}
+      </div>}
+    </div>}
+  </div>;
+}
+
+// ── PRODUCT CARD ──────────────────────────────────
+function getNextMove(videos){
+  const n=videos.length;
+  const hasSK=videos.some(v=>v.format==='SK');
+  const hasGS=videos.some(v=>v.format==='GS');
+  const mof=videos.filter(v=>v.funnel==='MOF').length;
+  const mofPct=n?Math.round(mof/n*100):0;
+  if(n===0) return "Film your first video. Talking Head. Open with the problem — never the product.";
+  if(n<=3&&!hasSK) return "You haven't tried a Skit yet. Highest converting format. Product reveal at the very end.";
+  if(n>=5&&mofPct<50) return "Shift to MOF — that's where conversions live. Attack what they've already tried.";
+  if(n>=6&&!hasGS) return "Try a Green Screen counterposition angle.";
+  if(n>=5&&n<15) return "Keep building. Danny's rule: 15-20 before you judge the product.";
+  return "Enough data. Which format is getting the most follows per view? Double down on that one.";
+}
+
+function ProductCard({product,videos,onLogVideo,onDirector,onEdit,onDelete,onVideoDeleted,onUseAsAngle}){
+  const [showLog,setShowLog]=useState(false);
+  const [showNotes,setShowNotes]=useState(false);
+  const [notes,setNotes]=useState(product.notes_private||'');
+  const [delConfirm,setDelConfirm]=useState(false);
+
+  const goal=product.video_goal||20;
+  const n=videos.length;
+  const fmtCounts={};
+  FORMATS.forEach(f=>{fmtCounts[f.key]=videos.filter(v=>v.format===f.key).length;});
+  const tof=videos.filter(v=>v.funnel==='TOF').length;
+  const mof=videos.filter(v=>v.funnel==='MOF').length;
+  const bof=videos.filter(v=>v.funnel==='BOF').length;
+  const mofPct=n?Math.round(mof/n*100):0;
+  const bofPct=n?Math.round(bof/n*100):0;
+  const nm=getNextMove(videos);
+
+  async function saveNotes(){
+    await sb.from('products').update({notes_private:notes}).eq('id',product.id);
+  }
+  async function deleteVideo(vid){
+    await sb.from('videos').delete().eq('id',vid);
+    onVideoDeleted(vid);
+  }
+
+  return <Card style={{marginBottom:16}}>
+    <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',flexWrap:'wrap',gap:12,marginBottom:12}}>
+      <div>
+        <div style={{fontFamily:"'Instrument Serif',serif",fontSize:20,color:C.text,letterSpacing:'-0.01em'}}>
+          {product.name}
+        </div>
+        <div style={{display:'flex',gap:8,marginTop:6,flexWrap:'wrap',alignItems:'center'}}>
+          {product.category&&<Badge>{product.category}</Badge>}
+          {product.commission&&<Badge color={C.success}>{product.commission}</Badge>}
+          {product.goal_deadline&&<Badge color={C.textMuted}>Goal: {product.goal_deadline}</Badge>}
+          {product.contact_name&&<Badge color={C.textMuted}>{product.contact_name}{product.contact_method?' — '+product.contact_method:''}</Badge>}
+        </div>
+      </div>
+      <Btn small onClick={()=>onDirector(product.id)}>New Video →</Btn>
+    </div>
+
+    <Divider/>
+
+    <div style={{marginBottom:16}}>
+      <div style={{display:'flex',justifyContent:'space-between',marginBottom:6}}>
+        <Lbl style={{marginBottom:0}}>Campaign Progress</Lbl>
+        <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:11,color:C.textSec}}>
+          {n} / {goal} videos
+        </span>
+      </div>
+      <ProgressBar value={n} max={goal}/>
+      {n>=15&&<div style={{fontSize:12,color:C.textMuted,marginTop:6}}>15-20 videos before judging — keep going</div>}
+    </div>
+
+    <div style={{marginBottom:16}}>
+      <Lbl>Format Mix</Lbl>
+      <div style={{display:'flex',gap:8,flexWrap:'wrap'}}>
+        {FORMATS.map(f=>{
+          const cnt=fmtCounts[f.key];const active=cnt>0;
+          return <div key={f.key} style={{
+            padding:'4px 12px',borderRadius:20,fontSize:11,
+            fontFamily:"'JetBrains Mono',monospace",
+            background:active?C.accentSoft:C.surfaceEl,
+            color:active?C.accent:C.textMuted,
+            border:`1px solid ${active?C.accent+'44':C.border}`
+          }}>{f.key} {active?cnt:''}</div>;
+        })}
+      </div>
+    </div>
+
+    <div style={{marginBottom:16}}>
+      <Lbl>Funnel Mix</Lbl>
+      <div style={{display:'flex',gap:12}}>
+        {[
+          {k:'TOF',cnt:tof,col:C.textSec},
+          {k:'MOF',cnt:mof,col:mofPct<50&&n>0?C.warning:C.success},
+          {k:'BOF',cnt:bof,col:bofPct>10&&n>0?C.danger:C.textSec}
+        ].map(f=><div key={f.k} style={{
+          flex:1,background:C.surfaceEl,borderRadius:10,padding:'10px 14px',
+          border:`1px solid ${f.cnt>0?f.col+'33':C.border}`
+        }}>
+          <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:10,color:C.textMuted,marginBottom:4}}>{f.k}</div>
+          <div style={{fontSize:20,fontFamily:"'Instrument Serif',serif",color:f.cnt>0?f.col:C.textMuted}}>{f.cnt}</div>
+          <div style={{fontSize:10,fontFamily:"'JetBrains Mono',monospace",color:f.cnt>0?f.col:C.textMuted}}>
+            {n?Math.round(f.cnt/n*100):0}%
+          </div>
+        </div>)}
+      </div>
+    </div>
+
+    <div style={{
+      borderLeft:`3px solid ${C.accent}`,paddingLeft:14,
+      background:C.accentSoft,borderRadius:'0 8px 8px 0',
+      padding:'12px 14px',marginBottom:16
+    }}>
+      <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:9,color:C.accent,
+        letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:6}}>Next Move</div>
+      <div style={{fontSize:13,color:C.text,lineHeight:1.65}}>{nm}</div>
+    </div>
+
+    {/* Pain Point Research */}
+    <PainPointResearch product={product} onUseAsAngle={onUseAsAngle}/>
+
+    <div style={{marginBottom:12}}>
+      <button onClick={()=>setShowNotes(!showNotes)} style={{
+        background:'none',border:'none',color:C.textSec,fontSize:13,cursor:'pointer',
+        padding:0,fontFamily:"'Inter',sans-serif"
+      }}>
+        {showNotes?'▾':'▸'} Notes & Reminders
+      </button>
+      {showNotes&&<div style={{marginTop:10}}>
+        <textarea style={{...inp,minHeight:80}}
+          value={notes} onChange={e=>setNotes(e.target.value)} onBlur={saveNotes}
+          placeholder="Add your contact info, goals, reminders..."/>
+      </div>}
+    </div>
+
+    <div style={{marginBottom:12}}>
+      <button onClick={()=>setShowLog(!showLog)} style={{
+        background:'none',border:'none',color:C.textSec,fontSize:13,cursor:'pointer',
+        padding:0,fontFamily:"'Inter',sans-serif"
+      }}>
+        {showLog?'▾':'▸'} View Log ({n})
+      </button>
+      {showLog&&<div style={{marginTop:12}}>
+        {videos.length===0
+          ?<div style={{color:C.textMuted,fontSize:13,padding:'12px 0'}}>No videos logged yet.</div>
+          :<table style={{width:'100%',borderCollapse:'collapse',fontSize:12}}>
+            <thead><tr style={{borderBottom:`1px solid ${C.border}`}}>
+              {['Date','Format','Funnel','Note',''].map(h=>
+                <th key={h} style={{textAlign:'left',padding:'6px 8px',
+                  fontFamily:"'JetBrains Mono',monospace",fontSize:9,
+                  color:C.textMuted,letterSpacing:'0.08em',textTransform:'uppercase'}}>{h}</th>
+              )}
+            </tr></thead>
+            <tbody>
+              {[...videos].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at)).map(v=>
+                <tr key={v.id} style={{borderBottom:`1px solid ${C.borderSubtle}`}}>
+                  <td style={{padding:'8px',color:C.textSec,fontFamily:"'JetBrains Mono',monospace"}}>
+                    {new Date(v.created_at).toLocaleDateString()}
+                  </td>
+                  <td style={{padding:'8px'}}><Badge>{v.format}</Badge></td>
+                  <td style={{padding:'8px'}}><Badge color={
+                    v.funnel==='MOF'?C.success:v.funnel==='BOF'?C.danger:C.textSec
+                  }>{v.funnel}</Badge></td>
+                  <td style={{padding:'8px',color:C.textSec,maxWidth:160,overflow:'hidden',
+                    textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{v.notes||'—'}</td>
+                  <td style={{padding:'8px'}}>
+                    <button onClick={()=>deleteVideo(v.id)} style={{
+                      background:'none',border:'none',color:C.danger,cursor:'pointer',fontSize:14
+                    }}>×</button>
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        }
+      </div>}
+    </div>
+
+    <Divider/>
+
+    <div style={{display:'flex',gap:10,alignItems:'center'}}>
+      <GhostBtn small onClick={()=>onEdit(product)}>Edit Product</GhostBtn>
+      {!delConfirm
+        ?<GhostBtn small danger onClick={()=>setDelConfirm(true)}>Delete</GhostBtn>
+        :<div style={{display:'flex',gap:8,alignItems:'center'}}>
+          <span style={{fontSize:12,color:C.danger}}>Sure?</span>
+          <GhostBtn small danger onClick={()=>onDelete(product.id)}>Yes, delete</GhostBtn>
+          <GhostBtn small onClick={()=>setDelConfirm(false)}>Cancel</GhostBtn>
+        </div>
+      }
+    </div>
+  </Card>;
+}
+
+// ── MOMENTUM STRIP ────────────────────────────────
+function MomentumStrip({allVideos,products}){
+  const msg=getMomentumMessage(allVideos,products);
+  if(!msg)return null;
+  return <div style={{
+    borderLeft:`3px solid ${C.accent}`,paddingLeft:14,
+    marginBottom:24,color:C.accent,fontSize:13,lineHeight:1.5
+  }}>{msg}</div>;
+}
+
+// ── QUICK IDEAS LIST ──────────────────────────────
+function QuickIdeasList({captures,products,onDelete}){
+  if(!captures||captures.length===0){
+    return <div style={{padding:'24px 0',textAlign:'center'}}>
+      <div style={{color:C.textMuted,fontSize:13,fontStyle:'italic'}}>
+        Got a hook idea? A weird angle? Capture it before it disappears.
+      </div>
+    </div>;
+  }
+  const TYPE_COLORS={'Hook Idea':C.accent,'Angle':C.success,'B-Roll Idea':'#a78bfa','Reminder':C.warning,'Other':C.textSec};
+  return <div style={{display:'flex',flexDirection:'column',gap:10}}>
+    {[...captures].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at)).map(c=>{
+      const prod=products.find(p=>p.id===c.product_id);
+      return <div key={c.id} style={{
+        background:C.surfaceEl,borderRadius:10,padding:'12px 14px',
+        border:`1px solid ${C.border}`,display:'flex',alignItems:'flex-start',gap:10
+      }}>
+        <div style={{flex:1}}>
+          <div style={{fontSize:13,color:C.text,lineHeight:1.6,marginBottom:6}}>{c.idea}</div>
+          <div style={{display:'flex',gap:8,flexWrap:'wrap',alignItems:'center'}}>
+            {c.type&&<Badge color={TYPE_COLORS[c.type]||C.textSec}>{c.type}</Badge>}
+            {prod&&<Badge color={C.textMuted}>{prod.name}</Badge>}
+            <span style={{fontSize:11,color:C.textMuted,fontFamily:"'JetBrains Mono',monospace"}}>{timeAgo(c.created_at)}</span>
+          </div>
+        </div>
+        <button onClick={()=>onDelete(c.id)} style={{
+          background:'none',border:'none',color:C.textMuted,cursor:'pointer',fontSize:16,
+          flexShrink:0,padding:'0 4px'
+        }}>×</button>
+      </div>;
+    })}
+  </div>;
+}
+
+// ── PRODUCTS VIEW ─────────────────────────────────
+function ProductsView({user,products,setProducts,allVideos,setAllVideos,onDirector,captures,setCaptures,onUseAsAngle,onOpenCapture}){
+  const [checks,setChecks]=useState({});
+  const [showAdd,setShowAdd]=useState(false);
+  const [editProd,setEditProd]=useState(null);
+  const [logModal,setLogModal]=useState(false);
+  const today=new Date().toISOString().split('T')[0];
+
+  useEffect(()=>{
+    sb.from('daily_checks').select('*').eq('user_id',user.id).eq('date',today)
+      .then(({data})=>{const m={};(data||[]).forEach(r=>{m[r.task_key]=r.completed;});setChecks(m);});
+  },[user.id]);
+
+  async function toggleCheck(key){
+    const val=!checks[key];
+    setChecks(p=>({...p,[key]:val}));
+    await sb.from('daily_checks').upsert(
+      {user_id:user.id,date:today,task_key:key,completed:val},
+      {onConflict:'user_id,date,task_key'}
+    );
+  }
+  function handleProductSave(p,isEdit){
+    if(isEdit){setProducts(prev=>prev.map(x=>x.id===p.id?p:x));}
+    else{setProducts(prev=>[...prev,p]);}
+  }
+  async function deleteProduct(id){
+    await sb.from('videos').delete().eq('product_id',id);
+    await sb.from('products').delete().eq('id',id);
+    setProducts(prev=>prev.filter(p=>p.id!==id));
+    setAllVideos(prev=>prev.filter(v=>v.product_id!==id));
+  }
+  function handleVideoSave(v){setAllVideos(prev=>[...prev,v]);}
+  function handleVideoDeleted(vid){setAllVideos(prev=>prev.filter(v=>v.id!==vid));}
+  async function deleteCapture(id){
+    await sb.from('captures').delete().eq('id',id);
+    setCaptures(prev=>prev.filter(c=>c.id!==id));
+  }
+
+  const weekAgo=new Date(Date.now()-7*86400000).toISOString();
+  const videosThisWeek=allVideos.filter(v=>v.created_at>=weekAgo).length;
+  const activeProducts=products.filter(p=>allVideos.some(v=>v.product_id===p.id)).length;
+  const totalVideos=allVideos.length;
+  const doneTasks=Object.values(checks).filter(Boolean).length;
+
+  return <div style={{padding:'32px 24px',maxWidth:900,margin:'0 auto'}}>
+    <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:32}}>
+      <div>
+        <div style={{fontFamily:"'Instrument Serif',serif",fontSize:28,color:C.text,letterSpacing:'-0.01em'}}>Products</div>
+        <div style={{fontSize:13,color:C.textMuted,marginTop:4}}>
+          {new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})}
+        </div>
+      </div>
+      <Btn onClick={()=>setShowAdd(true)}>+ New Product</Btn>
+    </div>
+
+    <div style={{display:'flex',gap:12,marginBottom:24,flexWrap:'wrap'}}>
+      {[
+        {label:'Videos This Week',value:videosThisWeek},
+        {label:'Active Products',value:activeProducts},
+        {label:'Total Logged',value:totalVideos},
+      ].map(s=><div key={s.label} style={{
+        flex:1,minWidth:120,background:C.surface,
+        border:`1px solid ${C.border}`,borderRadius:14,padding:'16px 20px'
+      }}>
+        <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:9,color:C.textMuted,
+          letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:8}}>{s.label}</div>
+        <div style={{fontFamily:"'Instrument Serif',serif",fontSize:28,color:C.text}}>{s.value}</div>
+      </div>)}
+    </div>
+
+    {/* Momentum Strip */}
+    <MomentumStrip allVideos={allVideos} products={products}/>
+
+    {products.length===0
+      ?<Card style={{textAlign:'center',padding:56}}>
+        <div style={{fontFamily:"'Instrument Serif',serif",fontSize:22,color:C.textSec,marginBottom:12}}>
+          Your first product is your first campaign.
+        </div>
+        <div style={{color:C.textMuted,marginBottom:28,fontSize:13}}>
+          Add it and let's build.
+        </div>
+        <Btn onClick={()=>setShowAdd(true)}>+ Add Product</Btn>
+      </Card>
+      :products.map(p=><ProductCard
+        key={p.id} product={p}
+        videos={allVideos.filter(v=>v.product_id===p.id)}
+        onLogVideo={()=>setLogModal({productId:p.id})}
+        onDirector={onDirector}
+        onEdit={setEditProd}
+        onDelete={deleteProduct}
+        onVideoDeleted={handleVideoDeleted}
+        onUseAsAngle={onUseAsAngle}
+      />)
+    }
+
+    {/* Daily Checklist */}
+    <div style={{marginTop:16}}>
+      <Card>
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:16}}>
+          <div>
+            <div style={{fontFamily:"'Instrument Serif',serif",fontSize:18,color:C.text}}>Today</div>
+            <div style={{fontSize:12,color:C.textMuted,marginTop:2}}>
+              {new Date().toLocaleDateString('en-US',{weekday:'long'})}
+            </div>
+          </div>
+          <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:11,color:C.textSec}}>
+            {doneTasks}/{DAILY_TASKS.length}
+          </div>
+        </div>
+        <div style={{marginBottom:12}}>
+          <ProgressBar value={doneTasks} max={DAILY_TASKS.length} color={doneTasks===DAILY_TASKS.length?C.success:C.accent}/>
+        </div>
+        <div style={{display:'flex',flexDirection:'column',gap:8}}>
+          {DAILY_TASKS.map(t=>{
+            const on=!!checks[t.key];
+            return <div key={t.key} onClick={()=>toggleCheck(t.key)} style={{
+              display:'flex',alignItems:'center',gap:12,cursor:'pointer',
+              padding:'10px 14px',borderRadius:10,
+              background:on?C.success+'0d':'transparent',
+              border:`1px solid ${on?C.success+'33':C.borderSubtle}`,
+              transition:'all 0.15s'
+            }}>
+              <div style={{
+                width:18,height:18,borderRadius:5,flexShrink:0,
+                border:`2px solid ${on?C.success:C.textMuted}`,
+                background:on?C.success:'transparent',
+                display:'flex',alignItems:'center',justifyContent:'center'
+              }}>
+                {on&&<span style={{color:'#080810',fontSize:10,fontWeight:700}}>✓</span>}
+              </div>
+              <span style={{fontSize:13,color:on?C.textSec:C.text,textDecoration:on?'line-through':'none'}}>
+                {t.label}
+              </span>
+            </div>;
+          })}
+        </div>
+      </Card>
+    </div>
+
+    {/* Quick Ideas */}
+    <div style={{marginTop:24}}>
+      <Card>
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:16}}>
+          <div style={{display:'flex',alignItems:'center',gap:10}}>
+            <div style={{fontFamily:"'Instrument Serif',serif",fontSize:18,color:C.text}}>Quick Ideas</div>
+            {captures.length>0&&<span style={{
+              background:C.accent,color:'#fff',borderRadius:20,fontSize:11,
+              padding:'2px 8px',fontFamily:"'JetBrains Mono',monospace"
+            }}>{captures.length}</span>}
+          </div>
+          <button onClick={onOpenCapture} style={{
+            background:C.accentSoft,border:`1px solid ${C.accent}44`,borderRadius:8,
+            color:C.accent,fontSize:12,cursor:'pointer',padding:'6px 14px',fontWeight:500
+          }}>+ Capture</button>
+        </div>
+        <QuickIdeasList captures={captures} products={products} onDelete={deleteCapture}/>
+      </Card>
+    </div>
+
+    {(showAdd||editProd)&&<ProductForm
+      product={editProd}
+      onSave={handleProductSave}
+      onClose={()=>{setShowAdd(false);setEditProd(null);}}
+    />}
+    {logModal&&<LogVideoModal
+      products={products}
+      preProduct={logModal.productId}
+      onClose={()=>setLogModal(false)}
+      onSave={handleVideoSave}
+    />}
+  </div>;
+}
+
+// ── SHOT PLAN RESULTS ─────────────────────────────
+function ShotPlanResults({data,onLogVideo,vaultMatch}){
+  const [checkedBoosters,setCheckedBoosters]=useState([]);
+  const [checkedFilming,setCheckedFilming]=useState([]);
+
+  function copyText(t){navigator.clipboard.writeText(t);}
+
+  const camColors={'Close Face':C.accent,'Medium':C.success,'Product Close-Up':C.warning,
+    'B-Roll':'#a78bfa','Screen Recording':C.textSec,'Screenshot':C.textSec};
+
+  return <div style={{display:'flex',flexDirection:'column',gap:16}}>
+    {/* Vault match callout */}
+    {vaultMatch&&<div style={{
+      borderLeft:`3px solid ${C.success}`,paddingLeft:14,padding:'10px 14px',
+      background:C.success+'0d',borderRadius:'0 8px 8px 0',fontSize:13,color:C.success
+    }}>
+      Based on your vault: {vaultMatch}
+    </div>}
+
+    {/* Opening angles */}
+    {data.opening_angles?.length>0&&<Card>
+      <Lbl>Suggested Opening</Lbl>
+      <div style={{display:'flex',flexDirection:'column',gap:10}}>
+        {data.opening_angles.map((a,i)=><div key={i} style={{
+          background:C.surfaceEl,borderRadius:10,padding:'12px 14px',
+          display:'flex',justifyContent:'space-between',alignItems:'flex-start',gap:12
+        }}>
+          <div>
+            <div style={{fontWeight:500,color:C.text,marginBottom:4}}>{a.angle}</div>
+            <div style={{fontSize:12,color:C.textSec,lineHeight:1.6}}>{a.direction}</div>
+          </div>
+          <button onClick={()=>copyText(a.direction)} style={{
+            background:'none',border:`1px solid ${C.border}`,borderRadius:6,
+            padding:'4px 10px',color:C.textSec,fontSize:11,cursor:'pointer',flexShrink:0
+          }}>Copy</button>
+        </div>)}
+      </div>
+    </Card>}
+
+    {/* Shots */}
+    {data.shots?.map((shot,i)=><Card key={i} style={{borderLeft:`3px solid ${camColors[shot.camera_angle]||C.accent}`}}>
+      <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:12}}>
+        <div style={{fontFamily:"'Instrument Serif',serif",fontSize:32,color:C.textMuted,lineHeight:1}}>
+          {String(shot.number||i+1).padStart(2,'0')}
+        </div>
+        <div style={{display:'flex',gap:8,flexWrap:'wrap',justifyContent:'flex-end'}}>
+          <Badge color={camColors[shot.camera_angle]||C.accent}>{shot.camera_angle}</Badge>
+          <Badge color={C.textMuted}>{shot.duration}</Badge>
+          {shot.transition&&<Badge color={C.textMuted}>→ {shot.transition}</Badge>}
+        </div>
+      </div>
+      <div style={{fontSize:13,color:C.text,lineHeight:1.7,marginBottom:10}}>{shot.direction}</div>
+      {shot.suggested_phrase&&<div style={{
+        fontSize:12,color:C.textSec,fontStyle:'italic',
+        background:C.surfaceEl,borderRadius:8,padding:'10px 12px',marginBottom:10
+      }}>"{shot.suggested_phrase}"</div>}
+      <div style={{display:'flex',gap:10,flexWrap:'wrap'}}>
+        {shot.onscreen_text&&<div style={{
+          background:'#e8e8f0',color:'#080810',borderRadius:6,padding:'4px 12px',fontSize:12,fontWeight:600
+        }}>{shot.onscreen_text}</div>}
+      </div>
+      {shot.audio_note&&<div style={{marginTop:10,fontSize:12,color:C.textMuted}}>🎵 {shot.audio_note}</div>}
+      {shot.broll&&<div style={{marginTop:6,fontSize:12,color:C.textMuted}}>📷 B-Roll: {shot.broll}</div>}
+    </Card>)}
+
+    {data.audio&&<Card>
+      <Lbl>Sound & Audio</Lbl>
+      <div style={{fontSize:13,color:C.text,marginBottom:6}}>{data.audio.sound_style}</div>
+      <div style={{fontSize:12,color:C.textSec}}>{data.audio.energy_direction}</div>
+    </Card>}
+
+    {data.content_boosters?.length>0&&<Card>
+      <Lbl>Content Boosters</Lbl>
+      <div style={{display:'flex',flexDirection:'column',gap:8}}>
+        {data.content_boosters.map((b,i)=><div key={i} onClick={()=>{
+          setCheckedBoosters(p=>p.includes(i)?p.filter(x=>x!==i):[...p,i]);
+        }} style={{display:'flex',gap:10,alignItems:'flex-start',cursor:'pointer'}}>
+          <div style={{
+            width:16,height:16,borderRadius:4,marginTop:2,flexShrink:0,
+            border:`2px solid ${checkedBoosters.includes(i)?C.success:C.border}`,
+            background:checkedBoosters.includes(i)?C.success:'transparent'
+          }}/>
+          <span style={{fontSize:13,color:checkedBoosters.includes(i)?C.textSec:C.text,
+            textDecoration:checkedBoosters.includes(i)?'line-through':'none'}}>{b}</span>
+        </div>)}
+      </div>
+    </Card>}
+
+    {data.gmv_intelligence&&<Card style={{borderLeft:`3px solid ${C.accent}`}}>
+      <Lbl style={{color:C.accent}}>GMV Intelligence</Lbl>
+      <div style={{fontSize:13,color:C.text,lineHeight:1.7}}>{data.gmv_intelligence}</div>
+    </Card>}
+
+    {/* Angles to Avoid */}
+    {data.angles_to_avoid?.length>0&&<Card style={{borderLeft:`3px solid ${C.danger}`,border:`1px solid ${C.danger}33`}}>
+      <Lbl style={{color:C.danger}}>Angles to Avoid</Lbl>
+      <div style={{display:'flex',flexDirection:'column',gap:8}}>
+        {data.angles_to_avoid.map((a,i)=><div key={i} style={{
+          display:'flex',gap:10,alignItems:'flex-start',fontSize:13,color:C.text
+        }}>
+          <span style={{color:C.danger,flexShrink:0,marginTop:1}}>×</span>{a}
+        </div>)}
+      </div>
+    </Card>}
+
+    {/* Replicate This Next */}
+    {data.replicate_next?.length>0&&<Card style={{borderLeft:`3px solid ${C.accent}`}}>
+      <Lbl style={{color:C.accent}}>Replicate This Next</Lbl>
+      <div style={{display:'flex',flexDirection:'column',gap:10}}>
+        {data.replicate_next.map((r,i)=><div key={i} style={{
+          background:C.surfaceEl,borderRadius:8,padding:'10px 14px',
+          display:'flex',gap:12,alignItems:'flex-start'
+        }}>
+          <Badge color={C.accent}>{r.format}</Badge>
+          <span style={{fontSize:13,color:C.text,lineHeight:1.6}}>{r.note}</span>
+        </div>)}
+      </div>
+    </Card>}
+
+    {data.filming_checklist?.length>0&&<Card>
+      <Lbl>Filming Checklist</Lbl>
+      <div style={{display:'flex',flexDirection:'column',gap:8}}>
+        {data.filming_checklist.map((item,i)=><div key={i} onClick={()=>{
+          setCheckedFilming(p=>p.includes(i)?p.filter(x=>x!==i):[...p,i]);
+        }} style={{display:'flex',gap:10,alignItems:'flex-start',cursor:'pointer'}}>
+          <div style={{
+            width:16,height:16,borderRadius:4,marginTop:2,flexShrink:0,
+            border:`2px solid ${checkedFilming.includes(i)?C.success:C.border}`,
+            background:checkedFilming.includes(i)?C.success:'transparent'
+          }}/>
+          <span style={{fontSize:13,color:checkedFilming.includes(i)?C.textSec:C.text,
+            textDecoration:checkedFilming.includes(i)?'line-through':'none'}}>{item}</span>
+        </div>)}
+      </div>
+    </Card>}
+
+    <Btn full onClick={onLogVideo} color={C.success}>Log This Video →</Btn>
+  </div>;
+}
+
+// ── DIRECTOR VIEW ─────────────────────────────────
+function DirectorView({user,products,presetProductId,presetAngle,allVideos,setAllVideos,vault,captures}){
+  const [mode,setMode]=useState('plan');
+  const [productId,setProductId]=useState(presetProductId||products[0]?.id||'');
+  const [format,setFormat]=useState('TH');
+  const [funnel,setFunnel]=useState('MOF');
+  const [angle,setAngle]=useState(presetAngle||'');
+  const [script,setScript]=useState('');
+  const [loading,setLoading]=useState(false);
+  const [result,setResult]=useState(null);
+  const [error,setError]=useState('');
+  const [logModal,setLogModal]=useState(false);
+  const [vaultMatch,setVaultMatch]=useState('');
+
+  useEffect(()=>{if(presetProductId)setProductId(presetProductId);},[presetProductId]);
+  useEffect(()=>{if(presetAngle)setAngle(presetAngle);},[presetAngle]);
+
+  const selectedProd=products.find(p=>p.id===productId);
+
+  async function generate(e){
+    e.preventDefault();
+    setLoading(true);setError('');setResult(null);setVaultMatch('');
+    const prod=products.find(p=>p.id===productId);
+
+    // Build intelligence context
+    let additionalCtx='';
+    const relevantVault=vault.filter(v=>v.format===format&&v.funnel===funnel);
+    if(relevantVault.length>0){
+      const vEntry=relevantVault[0];
+      setVaultMatch(`"${vEntry.title}" used this format successfully.`);
+      additionalCtx+=`\nVault inspiration: "${vEntry.title}" — ${vEntry.why_it_works||''} (Hook rating: ${vEntry.hook_rating||'?'}/5)`;
+    }
+    if(angle){additionalCtx+=`\nSelected pain point / angle: ${angle}`;}
+    const productCaptures=captures.filter(c=>c.product_id===productId);
+    if(productCaptures.length>0){
+      additionalCtx+=`\nCreator's captured ideas: ${productCaptures.map(c=>c.idea).join('; ')}`;
+    }
+
+    const intelligenceSection=additionalCtx?`\n\nADDITIONAL CONTEXT (use if provided):${additionalCtx}\n\nIncorporate these naturally into the shot plan. Reference the pain point in opening angle suggestions. Use vault insights to inform format and pacing decisions.`:'';
+
+    const userMsg=mode==='plan'
+      ?`Generate a full shot plan for this product.
+
+Product: ${prod?.name||'Unknown'}
+Category: ${prod?.category||''}
+ICP: ${prod?.icp||''}
+Format: ${FORMATS.find(f=>f.key===format)?.label||format}
+Funnel: ${funnel}
+Additional context: ${angle||'None provided'}
+Product notes/language: ${prod?.notes_private||'None'}${intelligenceSection}
+
+Return a complete shot-by-shot plan as valid JSON.`
+      :`Analyze and improve this script.
+
+Product: ${prod?.name||'Unknown'}
+Format: ${FORMATS.find(f=>f.key===format)?.label||format}
+Funnel: ${funnel}
+
+Script to analyze:
+${script}
+
+Return JSON with: {"score": 0-100, "flags": ["issue 1",...], "wins": ["win 1",...], "improved_script": "string", "shot_plan": {full shot plan object}}`;
+
+    try{
+      const res=await fetch('/.netlify/functions/generate',{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({system:SYSTEM_PROMPT,messages:[{role:'user',content:userMsg}]})
+      });
+      const data=await res.json();
+      if(data.error)throw new Error(typeof data.error==='object'?JSON.stringify(data.error):data.error);
+      const text=data.content?.[0]?.text||'';
+      const parsed=extractJSON(text);
+      setResult(parsed);
+    }catch(err){setError(err.message);}
+    finally{setLoading(false);}
+  }
+
+  function handleVideoSave(v){setAllVideos(prev=>[...prev,v]);}
+
+  const hasContext=angle||vault.some(v=>v.format===format&&v.funnel===funnel)||captures.some(c=>c.product_id===productId);
+
+  return <div style={{padding:'32px 24px',maxWidth:900,margin:'0 auto'}}>
+    <div style={{marginBottom:32}}>
+      <div style={{fontFamily:"'Instrument Serif',serif",fontSize:28,color:C.text,letterSpacing:'-0.01em'}}>Director</div>
+      <div style={{fontSize:13,color:C.textMuted,marginTop:4}}>
+        {products.length===0?'Pick a product. We\'ll handle the rest.':'AI content generator'}
+      </div>
+    </div>
+
+    <div style={{display:'flex',background:C.surface,border:`1px solid ${C.border}`,
+      borderRadius:10,padding:4,marginBottom:24,gap:4}}>
+      {[{k:'plan',l:'Full Shot Plan'},{k:'feedback',l:'Script Feedback'}].map(m=>
+        <button key={m.k} onClick={()=>setMode(m.k)} style={{
+          flex:1,padding:'9px',background:mode===m.k?C.accent:'transparent',
+          color:mode===m.k?'#fff':C.textSec,border:'none',borderRadius:7,
+          fontWeight:500,fontSize:13,cursor:'pointer'
+        }}>{m.l}</button>
+      )}
+    </div>
+
+    <form onSubmit={generate} style={{display:'flex',flexDirection:'column',gap:20,marginBottom:32}}>
+      <div>
+        <Lbl>Product</Lbl>
+        {products.length===0
+          ?<div style={{color:C.textMuted,fontSize:13,padding:'12px 0',fontStyle:'italic'}}>
+            Pick a product. We'll handle the rest.
+          </div>
+          :<select style={inp} value={productId} onChange={e=>setProductId(e.target.value)} required>
+            <option value="">Select a product...</option>
+            {products.map(p=><option key={p.id} value={p.id}>{p.name}</option>)}
+          </select>
+        }
+        {selectedProd?.icp&&<div style={{marginTop:8,fontSize:12,color:C.textMuted}}>ICP: {selectedProd.icp}</div>}
+      </div>
+
+      <div style={{display:'flex',gap:16,flexWrap:'wrap'}}>
+        <div style={{flex:1,minWidth:200}}>
+          <Lbl>Format</Lbl>
+          <PillSelect options={FORMATS} value={format} onChange={setFormat}/>
+        </div>
+        <div style={{flex:1,minWidth:200}}>
+          <Lbl>Funnel Stage</Lbl>
+          <PillSelect options={FUNNELS} value={funnel} onChange={setFunnel}/>
+          {funnel==='BOF'&&<div style={{fontSize:11,color:C.danger,marginTop:6}}>⚠ BOF kills reach. Consider MOF instead.</div>}
+        </div>
+      </div>
+
+      {/* Context indicators */}
+      {hasContext&&productId&&<div style={{
+        background:C.accentSoft,border:`1px solid ${C.accent}33`,borderRadius:8,
+        padding:'10px 14px',fontSize:12,color:C.accent
+      }}>
+        Intelligence active: {[
+          angle&&'pain point selected',
+          vault.some(v=>v.format===format&&v.funnel===funnel)&&'vault match found',
+          captures.filter(c=>c.product_id===productId).length>0&&`${captures.filter(c=>c.product_id===productId).length} idea(s) captured`
+        ].filter(Boolean).join(' · ')}
+      </div>}
+
+      {mode==='plan'
+        ?<div>
+          <Lbl>Content Angle / Context (optional)</Lbl>
+          <textarea style={{...inp,minHeight:80}}
+            value={angle} onChange={e=>setAngle(e.target.value)}
+            placeholder="What problem are you hitting? Pain point from research? Any specific angle?"/>
+        </div>
+        :<div>
+          <Lbl>Paste Your Script</Lbl>
+          <textarea style={{...inp,minHeight:160}}
+            value={script} onChange={e=>setScript(e.target.value)}
+            placeholder="Paste your script, hook, or any content you want analyzed..." required/>
+        </div>
+      }
+
+      <Btn full disabled={loading||!productId}>
+        {loading?'Crafting your content...':mode==='plan'?'Generate Shot Plan →':'Analyze Script →'}
+      </Btn>
+    </form>
+
+    {loading&&<div className="breathe" style={{
+      textAlign:'center',color:C.textSec,fontSize:14,padding:'48px 0'
+    }}>Crafting your content...</div>}
+
+    {error&&<div style={{padding:16,background:C.danger+'11',border:`1px solid ${C.danger}33`,
+      borderRadius:10,color:C.danger,fontSize:13,marginBottom:24}}>{error}</div>}
+
+    {result&&!loading&&<ShotPlanResults
+      data={result.shot_plan||result}
+      onLogVideo={()=>setLogModal({productId,format,funnel})}
+      vaultMatch={vaultMatch}
+    />}
+
+    {logModal&&<LogVideoModal
+      products={products}
+      preProduct={logModal.productId}
+      preFormat={logModal.format}
+      preFunnel={logModal.funnel}
+      onClose={()=>setLogModal(false)}
+      onSave={handleVideoSave}
+    />}
+  </div>;
+}
+
+// ── VAULT ENTRY FORM ──────────────────────────────
+function VaultEntryForm({entry,onSave,onClose}){
+  const [title,setTitle]=useState(entry?.title||'');
+  const [url,setUrl]=useState(entry?.url||'');
+  const [niche,setNiche]=useState(entry?.niche||'');
+  const [format,setFormat]=useState(entry?.format||'TH');
+  const [funnel,setFunnel]=useState(entry?.funnel||'MOF');
+  const [why,setWhy]=useState(entry?.why_it_works||'');
+  const [rating,setRating]=useState(entry?.hook_rating||0);
+  const [saving,setSaving]=useState(false);
+
+  async function save(e){
+    e.preventDefault();setSaving(true);
+    const uid=(await sb.auth.getUser()).data.user.id;
+    const payload={user_id:uid,title,url,niche,format,funnel,why_it_works:why,hook_rating:rating};
+    let data,error;
+    if(entry?.id){
+      ({data,error}=await sb.from('vault').update(payload).eq('id',entry.id).select().single());
+    }else{
+      ({data,error}=await sb.from('vault').insert(payload).select().single());
+    }
+    setSaving(false);
+    if(!error&&data)onSave(data,!!entry?.id);
+    onClose();
+  }
+
+  return <Modal onClose={onClose} maxWidth={500}>
+    <div style={{fontFamily:"'Instrument Serif',serif",fontSize:22,marginBottom:24}}>
+      {entry?'Edit Entry':'Save Video'}
+    </div>
+    <form onSubmit={save} style={{display:'flex',flexDirection:'column',gap:16}}>
+      <div><Lbl>Title *</Lbl>
+        <input style={inp} value={title} onChange={e=>setTitle(e.target.value)} required placeholder="Video title or short description"/>
+      </div>
+      <div><Lbl>URL (optional)</Lbl>
+        <input style={inp} value={url} onChange={e=>setUrl(e.target.value)} placeholder="https://..."/>
+      </div>
+      <div><Lbl>Product / Niche</Lbl>
+        <input style={inp} value={niche} onChange={e=>setNiche(e.target.value)} placeholder="e.g. Oral Care, Skincare..."/>
+      </div>
+      <div style={{display:'flex',gap:16,flexWrap:'wrap'}}>
+        <div style={{flex:1,minWidth:180}}><Lbl>Format</Lbl>
+          <PillSelect options={FORMATS} value={format} onChange={setFormat}/>
+        </div>
+        <div style={{flex:1,minWidth:180}}><Lbl>Funnel</Lbl>
+          <PillSelect options={FUNNELS} value={funnel} onChange={setFunnel}/>
+        </div>
+      </div>
+      <div><Lbl>Why It Works</Lbl>
+        <textarea style={{...inp,minHeight:100}} value={why} onChange={e=>setWhy(e.target.value)}
+          placeholder="What made this video stop the scroll? Hook type, angle, pacing..."/>
+      </div>
+      <div><Lbl>Hook Rating</Lbl>
+        <StarRating value={rating} onChange={setRating}/>
+      </div>
+      <div style={{display:'flex',gap:10,marginTop:4}}>
+        <Btn full disabled={saving}>{saving?'Saving…':entry?'Save Changes':'Save to Vault'}</Btn>
+        <GhostBtn onClick={onClose} style={{flex:1}}>Cancel</GhostBtn>
+      </div>
+    </form>
+  </Modal>;
+}
+
+// ── VAULT VIEW ────────────────────────────────────
+function VaultView({vault,setVault,onUseAsInspiration}){
+  const [showAdd,setShowAdd]=useState(false);
+  const [editEntry,setEditEntry]=useState(null);
+  const [delId,setDelId]=useState(null);
+
+  function handleSave(entry,isEdit){
+    if(isEdit){setVault(prev=>prev.map(x=>x.id===entry.id?entry:x));}
+    else{setVault(prev=>[...prev,entry]);}
+  }
+  async function handleDelete(id){
+    await sb.from('vault').delete().eq('id',id);
+    setVault(prev=>prev.filter(x=>x.id!==id));
+    setDelId(null);
+  }
+
+  return <div style={{padding:'32px 24px',maxWidth:900,margin:'0 auto'}}>
+    <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:8}}>
+      <div>
+        <div style={{fontFamily:"'Instrument Serif',serif",fontSize:28,color:C.text,letterSpacing:'-0.01em'}}>Vault</div>
+        <div style={{fontSize:13,color:C.textMuted,marginTop:4}}>Videos worth studying</div>
+      </div>
+      <Btn onClick={()=>setShowAdd(true)}>+ Save Video</Btn>
+    </div>
+
+    <div style={{marginTop:28}}>
+      {vault.length===0
+        ?<Card style={{textAlign:'center',padding:56}}>
+          <div style={{fontFamily:"'Instrument Serif',serif",fontSize:22,color:C.textSec,marginBottom:12}}>
+            Save a video that stopped your scroll.
+          </div>
+          <div style={{color:C.textMuted,marginBottom:28,fontSize:13}}>Study what works.</div>
+          <Btn onClick={()=>setShowAdd(true)}>+ Save Video</Btn>
+        </Card>
+        :<div style={{display:'flex',flexDirection:'column',gap:14}}>
+          {[...vault].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at)).map(entry=><Card key={entry.id} hover>
+            <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',gap:12,marginBottom:12}}>
+              <div style={{flex:1}}>
+                <div style={{fontFamily:"'Instrument Serif',serif",fontSize:18,color:C.text,marginBottom:6}}>
+                  {entry.title}
+                </div>
+                {entry.url&&<a href={entry.url} target="_blank" rel="noopener noreferrer" style={{
+                  fontSize:11,color:C.textMuted,fontFamily:"'JetBrains Mono',monospace",
+                  wordBreak:'break-all'
+                }}>{entry.url.slice(0,60)}{entry.url.length>60?'...':''}</a>}
+              </div>
+              <StarRating value={entry.hook_rating||0} readonly/>
+            </div>
+            <div style={{display:'flex',gap:8,flexWrap:'wrap',marginBottom:12}}>
+              {entry.niche&&<Badge color={C.textSec}>{entry.niche}</Badge>}
+              {entry.format&&<Badge color={C.accent}>{entry.format}</Badge>}
+              {entry.funnel&&<Badge color={entry.funnel==='MOF'?C.success:entry.funnel==='BOF'?C.danger:C.textSec}>{entry.funnel}</Badge>}
+            </div>
+            {entry.why_it_works&&<div style={{
+              fontSize:13,color:C.text,lineHeight:1.65,
+              background:C.surfaceEl,borderRadius:8,padding:'10px 12px',marginBottom:14
+            }}>{entry.why_it_works}</div>}
+            <div style={{display:'flex',gap:10,alignItems:'center',flexWrap:'wrap'}}>
+              <Btn small onClick={()=>onUseAsInspiration(entry)}>Use as Inspiration →</Btn>
+              <GhostBtn small onClick={()=>setEditEntry(entry)}>Edit</GhostBtn>
+              {delId!==entry.id
+                ?<GhostBtn small danger onClick={()=>setDelId(entry.id)}>Delete</GhostBtn>
+                :<div style={{display:'flex',gap:8,alignItems:'center'}}>
+                  <span style={{fontSize:12,color:C.danger}}>Sure?</span>
+                  <GhostBtn small danger onClick={()=>handleDelete(entry.id)}>Yes</GhostBtn>
+                  <GhostBtn small onClick={()=>setDelId(null)}>No</GhostBtn>
+                </div>
+              }
+            </div>
+          </Card>)}
+        </div>
+      }
+    </div>
+
+    {(showAdd||editEntry)&&<VaultEntryForm
+      entry={editEntry}
+      onSave={handleSave}
+      onClose={()=>{setShowAdd(false);setEditEntry(null);}}
+    />}
+  </div>;
+}
+
+// ── QUICK CAPTURE MODAL ───────────────────────────
+function QuickCaptureModal({products,onClose,onSave}){
+  const ideaRef=useRef(null);
+  const [idea,setIdea]=useState('');
+  const [productId,setProductId]=useState('');
+  const [type,setType]=useState('Hook Idea');
+  const [saving,setSaving]=useState(false);
+
+  useEffect(()=>{setTimeout(()=>ideaRef.current?.focus(),100);},[]);
+
+  async function save(e){
+    e.preventDefault();
+    if(!idea.trim())return;
+    setSaving(true);
+    const uid=(await sb.auth.getUser()).data.user.id;
+    const {data,error}=await sb.from('captures').insert({
+      user_id:uid,idea:idea.trim(),
+      product_id:productId||null,type
+    }).select().single();
+    setSaving(false);
+    if(!error&&data)onSave(data);
+    onClose();
+  }
+
+  return <Modal onClose={onClose} maxWidth={440}>
+    <div style={{fontFamily:"'Instrument Serif',serif",fontSize:22,marginBottom:20}}>Quick Capture</div>
+    <form onSubmit={save} style={{display:'flex',flexDirection:'column',gap:16}}>
+      <div>
+        <Lbl>What's the idea?</Lbl>
+        <textarea ref={ideaRef} style={{...inp,minHeight:100}}
+          value={idea} onChange={e=>setIdea(e.target.value)}
+          placeholder="Hook idea, weird angle, b-roll shot, reminder..." required/>
+      </div>
+      <div>
+        <Lbl>Type</Lbl>
+        <PillSelect options={CAPTURE_TYPES} value={type} onChange={setType}/>
+      </div>
+      <div>
+        <Lbl>Product (optional)</Lbl>
+        <select style={inp} value={productId} onChange={e=>setProductId(e.target.value)}>
+          <option value="">No product</option>
+          {products.map(p=><option key={p.id} value={p.id}>{p.name}</option>)}
+        </select>
+      </div>
+      <div style={{display:'flex',gap:10,marginTop:4}}>
+        <Btn full disabled={saving||!idea.trim()}>{saving?'Saving…':'Save Idea'}</Btn>
+        <GhostBtn onClick={onClose} style={{flex:1}}>Cancel</GhostBtn>
+      </div>
+    </form>
+  </Modal>;
+}
+
+// ── PLAYBOOK VIEW ─────────────────────────────────
+function PlaybookView(){
+  const sections=[
+    {title:'The 5 Commandments',items:[
+      {n:'01',text:'Never open with product. Never open positive. Lead with the problem.'},
+      {n:'02',text:'Trash the category — attack what they\'ve already tried and failed.'},
+      {n:'03',text:'80% problem stack. 20% life change. Delay dopamine.'},
+      {n:'04',text:'Hook stops the scroll in under 2 seconds. Start mid-action.'},
+      {n:'05',text:'One CTA. Never say the price. Scarcity and urgency only.'},
+    ]},
+    {title:'Format Conversion Order',items:[
+      {n:'01',label:'Skit',text:'Highest converting. Product reveal at the very end only. Never hint before the reveal.'},
+      {n:'02',label:'Talking Head',text:'80% of your output. Master this first. Direct to camera, problem-first, punchy.'},
+      {n:'03',label:'Green Screen',text:'Strong for counterposition. Attack alternatives while showing their failures on screen.'},
+      {n:'04',label:'Faceless',text:'Product demo + voiceover. Great for repurposing. No face needed.'},
+      {n:'05',label:'Text-Only',text:'Maximum dopamine delay. High share rate. Great for hooks and teasers.'},
+    ]},
+    {title:'Script Structure — 6 Steps',accent:true,items:[
+      {n:'01',label:'Hook (0-5%)',text:'Problem or insecurity. Visual hook first. Direct ICP callout. Super hook line.',col:C.danger},
+      {n:'02',label:'Problem Stack (5-50%)',text:'No product. No hints. Stack the pain. Make them feel seen.',col:C.warning},
+      {n:'03',label:'Counterposition (50-70%)',text:'Attack alternatives they\'ve tried. Why everything else failed.',col:'#a78bfa'},
+      {n:'04',label:'Bridge (~70%)',text:'Earn the reveal. Brief personal credibility. "Then I found..."',col:C.accent},
+      {n:'05',label:'Life Change (70-90%)',text:'Transformation. Not features. What their life is like now.',col:C.success},
+      {n:'06',label:'CTA (90-100%)',text:'Scarcity or urgency. Link in bio. Never say the actual price.',col:C.textSec},
+    ]},
+    {title:'GMV Max Intelligence',accent:true,items:[
+      {text:'Under 200 creators = cheaper amplification on your video.'},
+      {text:'When GMV Max picks up a video, film reply videos immediately.'},
+      {text:'Upward 90-day trend in GMV = GMV Max is in motion. Push more content.'},
+      {text:'BOF content kills organic reach. Keep it to 10% max.'},
+    ]},
+    {title:'Kalodata Filters',items:[
+      {text:'Sort by GMV growth last 30 days'},
+      {text:'Under 200 active creators'},
+      {text:'Commission 15%+ minimum'},
+      {text:'Upward trend 3+ months'},
+      {text:'Product reviews 4.2+ stars'},
+    ]},
+    {title:'Hook Anatomy — 5 Components',items:[
+      {n:'01',label:'Visual Hook',text:'First frame. What they see before audio hits. Make it weird, specific, or tension-creating.'},
+      {n:'02',label:'Direct ICP Callout',text:'"If you\'re a [specific person] who [specific problem]..." — they self-select in.'},
+      {n:'03',label:'Super Hook Line',text:'The one line that makes them stop. Usually a counterintuitive claim or insecurity hit.'},
+      {n:'04',label:'Problem Proof',text:'Show you understand their specific situation. Don\'t be generic.'},
+      {n:'05',label:'Pattern Interrupt',text:'Something in the first 2 seconds that breaks the scroll pattern. Movement, zoom, text pop.'},
+    ]},
+  ];
+
+  const banned=['Weight loss / fat claims','Before/after (debloating ok + disclaimer)','Doctor imagery','GLP-1 references','Cure / treat / prevent','Rx comparisons','Actual prices'];
+  const safe=['Supports digestion / gut balance / energy / confidence','Designed to support / helps maintain','First-person experience only','Debloating with appropriate disclaimer'];
+
+  return <div style={{padding:'32px 24px',maxWidth:900,margin:'0 auto'}}>
+    <div style={{marginBottom:32}}>
+      <div style={{fontFamily:"'Instrument Serif',serif",fontSize:28,color:C.text,letterSpacing:'-0.01em'}}>Playbook</div>
+      <div style={{fontSize:13,color:C.textMuted,marginTop:4}}>Methodology & reference</div>
+    </div>
+
+    <Card style={{marginBottom:32}}>
+      <div style={{fontSize:13,color:C.textSec,marginBottom:12}}>Built on the Danny Fisher Methodology</div>
+      <div style={{display:'flex',gap:10,flexWrap:'wrap'}}>
+        <a href="https://tiktokshop-enazz64w.manus.space/" target="_blank" rel="noopener noreferrer"
+          style={{padding:'6px 14px',border:`1px solid ${C.border}`,borderRadius:20,
+            fontSize:12,color:C.textSec,fontFamily:"'JetBrains Mono',monospace",
+            display:'inline-block',textDecoration:'none'}}>
+          TikTok Shop Script Writer →
+        </a>
+        <a href="https://www.tiktok.com/@fishereffect" target="_blank" rel="noopener noreferrer"
+          style={{padding:'6px 14px',border:`1px solid ${C.border}`,borderRadius:20,
+            fontSize:12,color:C.textSec,fontFamily:"'JetBrains Mono',monospace",
+            display:'inline-block',textDecoration:'none'}}>
+          @fishereffect on TikTok →
+        </a>
+      </div>
+    </Card>
+
+    {sections.map((sec,si)=><div key={si} style={{marginBottom:32}}>
+      <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:10,color:C.textMuted,
+        letterSpacing:'0.15em',textTransform:'uppercase',marginBottom:16}}>{sec.title}</div>
+      <div style={{display:'flex',flexDirection:'column',gap:10}}>
+        {sec.items.map((item,ii)=><div key={ii} style={{
+          background:C.surface,border:`1px solid ${item.col?item.col+'33':C.border}`,
+          borderRadius:12,padding:'14px 18px',
+          borderLeft:item.col?`3px solid ${item.col}`:undefined,
+          display:'flex',gap:16,alignItems:'flex-start'
+        }}>
+          {item.n&&<div style={{fontFamily:"'Instrument Serif',serif",fontSize:22,
+            color:item.col||C.textMuted,flexShrink:0,lineHeight:1,marginTop:2}}>{item.n}</div>}
+          <div>
+            {item.label&&<div style={{fontWeight:600,fontSize:13,color:item.col||C.text,marginBottom:4}}>{item.label}</div>}
+            <div style={{fontSize:13,color:C.text,lineHeight:1.7}}>{item.text||item}</div>
+          </div>
+        </div>)}
+      </div>
+    </div>)}
+
+    <div style={{marginBottom:32}}>
+      <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:10,color:C.textMuted,
+        letterSpacing:'0.15em',textTransform:'uppercase',marginBottom:16}}>TikTok Shop Policy</div>
+      <div style={{display:'flex',gap:12,flexWrap:'wrap'}}>
+        <Card style={{flex:1,minWidth:260}}>
+          <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:10,color:C.danger,letterSpacing:'0.1em',marginBottom:12}}>BANNED</div>
+          <div style={{display:'flex',flexDirection:'column',gap:8}}>
+            {banned.map((b,i)=><div key={i} style={{fontSize:13,color:C.textSec,display:'flex',gap:8,alignItems:'flex-start'}}>
+              <span style={{color:C.danger,flexShrink:0}}>×</span>{b}
+            </div>)}
+          </div>
+        </Card>
+        <Card style={{flex:1,minWidth:260}}>
+          <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:10,color:C.success,letterSpacing:'0.1em',marginBottom:12}}>SAFE</div>
+          <div style={{display:'flex',flexDirection:'column',gap:8}}>
+            {safe.map((s,i)=><div key={i} style={{fontSize:13,color:C.textSec,display:'flex',gap:8,alignItems:'flex-start'}}>
+              <span style={{color:C.success,flexShrink:0}}>✓</span>{s}
+            </div>)}
+          </div>
+        </Card>
+      </div>
+    </div>
+  </div>;
+}
+
+// ── NAV ICONS ─────────────────────────────────────
+function NavIcon({name,active}){
+  const col=active?C.accent:C.textMuted;
+  const w=20,h=20,sw=1.5;
+  const icons={
+    products:<svg width={w} height={h} viewBox="0 0 24 24" fill="none" stroke={col} strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="3" width="6" height="6"/><rect x="9" y="3" width="13" height="3"/>
+      <rect x="9" y="9" width="13" height="3"/><rect x="2" y="12" width="6" height="6"/>
+      <rect x="9" y="14" width="13" height="3"/>
+    </svg>,
+    director:<svg width={w} height={h} viewBox="0 0 24 24" fill="none" stroke={col} strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="5 3 19 12 5 21 5 3"/>
+    </svg>,
+    vault:<svg width={w} height={h} viewBox="0 0 24 24" fill="none" stroke={col} strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+    </svg>,
+    playbook:<svg width={w} height={h} viewBox="0 0 24 24" fill="none" stroke={col} strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+    </svg>
+  };
+  return icons[name]||null;
+}
+
+const VIEWS=[{k:'products',l:'Products'},{k:'director',l:'Director'},{k:'vault',l:'Vault'},{k:'playbook',l:'Playbook'}];
+
+// ── APP ───────────────────────────────────────────
+function App(){
+  const [user,setUser]=useState(null);
+  const [view,setView]=useState('products');
+  const [authLoading,setAuthLoading]=useState(true);
+  const [products,setProducts]=useState([]);
+  const [allVideos,setAllVideos]=useState([]);
+  const [vault,setVault]=useState([]);
+  const [captures,setCaptures]=useState([]);
+  const [directorPreset,setDirectorPreset]=useState(null);
+  const [directorAngle,setDirectorAngle]=useState('');
+  const [showCapture,setShowCapture]=useState(false);
+  const isDesktop=useIsDesktop();
+
+  useEffect(()=>{
+    sb.auth.getSession().then(({data:{session}})=>{
+      setUser(session?.user||null);setAuthLoading(false);
+    });
+    const {data:{subscription}}=sb.auth.onAuthStateChange((_,session)=>{setUser(session?.user||null);});
+    return ()=>subscription.unsubscribe();
+  },[]);
+
+  useEffect(()=>{
+    if(!user)return;
+    sb.from('products').select('*').eq('user_id',user.id).order('created_at').then(({data})=>setProducts(data||[]));
+    sb.from('videos').select('*').eq('user_id',user.id).order('created_at',{ascending:false}).then(({data})=>setAllVideos(data||[]));
+    sb.from('vault').select('*').eq('user_id',user.id).order('created_at',{ascending:false}).then(({data})=>setVault(data||[]));
+    sb.from('captures').select('*').eq('user_id',user.id).order('created_at',{ascending:false}).then(({data})=>setCaptures(data||[]));
+  },[user]);
+
+  // Keyboard shortcut: N = open quick capture
+  useEffect(()=>{
+    function handler(e){
+      if(!user)return;
+      if(e.key==='n'||e.key==='N'){
+        const tag=document.activeElement?.tagName;
+        if(tag==='INPUT'||tag==='TEXTAREA'||tag==='SELECT')return;
+        e.preventDefault();
+        setShowCapture(true);
+      }
+    }
+    window.addEventListener('keydown',handler);
+    return ()=>window.removeEventListener('keydown',handler);
+  },[user]);
+
+  function goToDirector(productId,angle=''){
+    setDirectorPreset(productId);
+    setDirectorAngle(angle);
+    setView('director');
+  }
+
+  function handleUseAsAngle(productId,painPoint){
+    goToDirector(productId,painPoint);
+  }
+
+  function handleUseAsInspiration(entry){
+    setDirectorAngle(`Vault inspiration: ${entry.title} — ${entry.why_it_works||''}`);
+    setView('director');
+  }
+
+  function handleCaptureSave(c){
+    setCaptures(prev=>[c,...prev]);
+  }
+
+  if(authLoading)return<div style={{display:'flex',alignItems:'center',justifyContent:'center',
+    height:'100vh',background:C.bg}}>
+    <div className="breathe" style={{fontFamily:"'JetBrains Mono',monospace",fontSize:12,color:C.textMuted}}>
+      Loading...
+    </div>
+  </div>;
+
+  if(!user)return<AuthScreen onAuth={setUser}/>;
+
+  return<div style={{display:'flex',height:'100vh',background:C.bg,overflow:'hidden'}}>
+    {isDesktop&&<div style={{
+      width:220,background:C.bg,borderRight:`1px solid ${C.borderSubtle}`,
+      display:'flex',flexDirection:'column',flexShrink:0
+    }}>
+      <div style={{padding:'24px 20px 20px',borderBottom:`1px solid ${C.borderSubtle}`}}>
+        <div style={{fontFamily:"'Instrument Serif',serif",fontSize:18,color:C.text}}>Dream Director</div>
+        <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:11,color:C.textMuted,marginTop:3}}>
+          {user.email?.split('@')[0]}
+        </div>
+      </div>
+      <nav style={{flex:1,padding:'12px 10px'}}>
+        {VIEWS.map(v=><button key={v.k} onClick={()=>setView(v.k)} style={{
+          display:'flex',alignItems:'center',gap:12,width:'100%',
+          padding:'10px 12px',borderRadius:8,border:'none',cursor:'pointer',
+          background:view===v.k?C.accentSoft:'transparent',
+          color:view===v.k?C.accent:C.textSec,
+          fontWeight:view===v.k?500:400,fontSize:14,marginBottom:2,textAlign:'left'
+        }}>
+          <NavIcon name={v.k} active={view===v.k}/>{v.l}
+        </button>)}
+      </nav>
+      <div style={{padding:'12px 10px',borderTop:`1px solid ${C.borderSubtle}`}}>
+        <button onClick={()=>setShowCapture(true)} style={{
+          width:'100%',background:C.accentSoft,border:`1px solid ${C.accent}44`,
+          borderRadius:8,color:C.accent,fontSize:12,padding:'8px',cursor:'pointer',
+          fontWeight:500,marginBottom:8
+        }}>+ Quick Capture <span style={{opacity:0.5,fontSize:10}}>(N)</span></button>
+        <button onClick={()=>sb.auth.signOut()} style={{
+          width:'100%',background:'transparent',border:`1px solid ${C.border}`,
+          borderRadius:8,color:C.textMuted,fontSize:12,padding:'8px',cursor:'pointer'
+        }}>Sign Out</button>
+      </div>
+    </div>}
+
+    <div style={{flex:1,display:'flex',flexDirection:'column',overflow:'hidden',position:'relative'}}>
+      {!isDesktop&&<div style={{
+        background:C.bg,borderBottom:`1px solid ${C.borderSubtle}`,
+        padding:'14px 20px',display:'flex',justifyContent:'space-between',
+        alignItems:'center',flexShrink:0
+      }}>
+        <div style={{fontFamily:"'Instrument Serif',serif",fontSize:18,color:C.text}}>Dream Director</div>
+        <button onClick={()=>sb.auth.signOut()} style={{
+          background:'none',border:'none',color:C.textMuted,fontSize:12,cursor:'pointer'
+        }}>Sign out</button>
+      </div>}
+
+      <div style={{flex:1,overflowY:'auto'}}>
+        {view==='products'&&<ProductsView
+          user={user} products={products} setProducts={setProducts}
+          allVideos={allVideos} setAllVideos={setAllVideos}
+          onDirector={goToDirector}
+          captures={captures} setCaptures={setCaptures}
+          onUseAsAngle={handleUseAsAngle}
+          onOpenCapture={()=>setShowCapture(true)}
+        />}
+        {view==='director'&&<DirectorView
+          user={user} products={products}
+          presetProductId={directorPreset}
+          presetAngle={directorAngle}
+          allVideos={allVideos} setAllVideos={setAllVideos}
+          vault={vault} captures={captures}
+        />}
+        {view==='vault'&&<VaultView
+          vault={vault} setVault={setVault}
+          onUseAsInspiration={handleUseAsInspiration}
+        />}
+        {view==='playbook'&&<PlaybookView/>}
+      </div>
+
+      {!isDesktop&&<>
+        {/* FAB */}
+        <button onClick={()=>setShowCapture(true)} style={{
+          position:'absolute',bottom:70,right:20,
+          width:52,height:52,borderRadius:'50%',
+          background:C.accent,border:'none',color:'#fff',
+          fontSize:24,cursor:'pointer',
+          boxShadow:'0 4px 20px rgba(79,110,247,0.5)',
+          display:'flex',alignItems:'center',justifyContent:'center',
+          zIndex:100
+        }}>+</button>
+
+        <div style={{
+          background:C.bg,borderTop:`1px solid ${C.borderSubtle}`,
+          display:'flex',flexShrink:0,
+          paddingBottom:'env(safe-area-inset-bottom)'
+        }}>
+          {VIEWS.map(v=><button key={v.k} onClick={()=>setView(v.k)} style={{
+            flex:1,display:'flex',flexDirection:'column',alignItems:'center',gap:4,
+            background:'transparent',border:'none',cursor:'pointer',padding:'10px 0'
+          }}>
+            <NavIcon name={v.k} active={view===v.k}/>
+            <span style={{fontSize:9,fontFamily:"'JetBrains Mono',monospace",
+              color:view===v.k?C.accent:C.textMuted}}>{v.l}</span>
+          </button>)}
+        </div>
+      </>}
+    </div>
+
+    {showCapture&&<QuickCaptureModal
+      products={products}
+      onClose={()=>setShowCapture(false)}
+      onSave={handleCaptureSave}
+    />}
+  </div>;
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
