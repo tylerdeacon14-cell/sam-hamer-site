@@ -749,20 +749,14 @@
       .testimonial-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
     }
 
-    /* MOBILE PAY-FIRST: surface the Venmo block, show form-reveal button, collapse the long form by default */
+    /* Form always visible on all screen sizes */
     @media (max-width: 600px) {
-      #mobile-pay-first { display: block !important; }
-      #form-reveal-prompt { display: block !important; }
-      /* Collapse the form behind a reveal button on mobile (desktop shows it normally) */
-      #intake-form { display: none; }
-      #intake-form.expanded { display: block; }
-      /* Submission section stays visible because it's outside #intake-form */
-      /* hide cursor glow on mobile */
+      #mobile-pay-first { display: none !important; }
+      #form-reveal-prompt { display: none !important; }
+      #intake-form { display: block !important; }
       #cursor-glow { display: none !important; }
-      /* dim scroll progress on tiny screens */
       #scroll-bar { opacity: 0.6; }
     }
-    /* Desktop: the form is ALWAYS visible. Pay-first/reveal prompt are mobile-only. */
     @media (min-width: 601px) {
       #intake-form { display: block !important; }
       #mobile-pay-first { display: none !important; }
@@ -784,7 +778,13 @@
     /* tighten huge hero padding on mobile */
     .hero { padding-top: 80px !important; padding-bottom: 40px !important; }
     /* Two-column grids collapse */
-    .grid-2col-wide, .form-row-2 { grid-template-columns: 1fr !important; display: grid !important; gap: 16px; }
+    .grid-2col-wide, .form-row-2, .row-2 { grid-template-columns: 1fr !important; display: grid !important; gap: 16px; }
+    /* Submission section padding */
+    .form-section .wrap { padding: 0 16px; }
+    /* Hero padding tighten */
+    .hero .wrap { padding: 0 20px; }
+    /* included card grid single col */
+    .included-card > div > div[style*="grid"] { grid-template-columns: 1fr !important; }
   }
 </style></head>
 <body>
@@ -905,7 +905,7 @@
         </div>
       </div>
 
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;" class="media-kit-explainer">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;" class="media-kit-explainer">
 
         <div>
           <div style="font-size:18px;font-weight:900;color:#1a1a1a;letter-spacing:-0.5px;margin-bottom:12px;line-height:1.2;">What is a media kit?</div>
@@ -967,26 +967,6 @@
         </div>
       </div>
 
-      <!-- DIVIDER -->
-      <div style="border-top:1px solid #e0d9ce;padding-top:20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;">
-        <!-- AFFILIATE ROW -->
-        <div style="display:flex;align-items:center;gap:10px;">
-          <span style="font-size:18px;font-weight:900;color:var(--accent);line-height:1;">3</span>
-          <div>
-            <div style="font-size:13px;font-weight:800;color:var(--accent);line-height:1.2;">conversions = your site built free</div>
-            <div style="font-size:11px;color:#666;margin-top:2px;">Refer 3 creators. We build yours at no cost. <a href="affiliate.html" style="color:#2a9d8f;font-weight:700;text-decoration:underline;text-underline-offset:3px;">Apply here.</a></div>
-          </div>
-        </div>
-        <!-- REFERRAL CODE -->
-        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-          <input type="text" name="referral_code" id="referral-code-input" placeholder="Have a code?" style="background:#fff;border:1px solid #d0c9be;border-radius:10px;padding:10px 14px;font-size:13px;color:#1a1a1a;font-family:Inter,sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;outline:none;width:160px;transition:border-color 0.15s;" onfocus="this.style.borderColor='#2a9d8f'" onblur="this.style.borderColor='#d0c9be'">
-          <button type="button" onclick="applyReferralCode()" style="padding:10px 16px;background:var(--accent);border:none;border-radius:10px;font-size:13px;color:#fff;font-weight:700;text-transform:uppercase;letter-spacing:1px;cursor:pointer;font-family:Inter,sans-serif;white-space:nowrap;">Apply</button>
-          <div id="referral-confirm" style="display:none;font-size:13px;color:var(--accent);font-weight:700;">✓ Applied</div>
-        </div>
-        <div id="price-display-top" style="display:none;width:100%;text-align:center;margin-top:4px;">
-          <div style="font-size:18px;font-weight:900;color:var(--accent);">You save <span id="savings-amount-top">$75</span> → Your price: <span id="final-price-top">$225</span></div>
-        </div>
-      </div>
     </div>
 
 
@@ -1060,12 +1040,12 @@
 
 
     <div style="margin-bottom:28px;padding:20px;background:rgba(160,237,216,0.04);border:1px solid rgba(160,237,216,0.15);border-radius:12px;">
-      <div style="font-size:13px;color:#888;margin-bottom:8px;">Need help filling this out?</div>
-      <div style="font-size:14px;font-weight:700;color:var(--mint);">message dream at discord @ dreamlifevisuals</div>
+      <div style="font-size:13px;color:#888;margin-bottom:4px;">Questions before you submit?</div>
+      <div style="font-size:14px;font-weight:700;color:var(--mint);">DM <a href="https://www.tiktok.com/@dreamlifevisuals" target="_blank" style="color:var(--mint);text-decoration:underline;text-underline-offset:3px;">@dreamlifevisuals</a> on TikTok</div>
     </div>
 
 
-    <form name="creator-brief" method="POST" id="intake-form" enctype="multipart/form-data" data-netlify="true" data-netlify-honeypot="bot-field" action="/success" data-form-visible="true">
+    <form name="creator-brief" method="POST" id="intake-form" enctype="multipart/form-data" data-netlify="true" data-netlify-honeypot="bot-field" action="/tylerdream/success.html" data-form-visible="true">
       <input type="hidden" name="form-name" value="creator-brief">
       <p style="position:absolute;left:-9999px;" aria-hidden="true"><label>Don't fill: <input name="bot-field"></label></p>
       <input type="hidden" name="referral_code" id="hidden-referral-code">
@@ -1381,7 +1361,18 @@
       <div style="background:linear-gradient(135deg,rgba(42,157,143,0.06),rgba(42,157,143,0.02));border:2px solid rgba(42,157,143,0.25);border-radius:18px;padding:32px 36px;margin-bottom:28px;position:relative;overflow:hidden;box-shadow:0 0 40px rgba(42,157,143,0.06);" class="fade-up">
         <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(42,157,143,0.5),transparent);"></div>
         <div style="font-size:12px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:12px;">Ready to build</div>
-        <div style="font-size:22px;font-weight:900;color:var(--text);letter-spacing:-0.5px;margin-bottom:8px;">Send it. Let's go.</div>
+        <div style="font-size:22px;font-weight:900;color:var(--text);letter-spacing:-0.5px;margin-bottom:20px;">Send it. Let's go.</div>
+
+        <!-- REFERRAL CODE -->
+        <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;">
+          <input type="text" id="referral-code-input" placeholder="Affiliate code (optional)" style="flex:1;min-width:0;background:#fff;border:1px solid #d0c9be;border-radius:10px;padding:12px 14px;font-size:14px;color:#1a1a1a;font-family:Inter,sans-serif;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='#2a9d8f'" onblur="this.style.borderColor='#d0c9be'">
+          <button type="button" onclick="applyReferralCode()" style="padding:12px 20px;background:#fff;border:2px solid var(--accent);border-radius:10px;font-size:13px;color:var(--accent);font-weight:800;text-transform:uppercase;letter-spacing:1px;cursor:pointer;font-family:Inter,sans-serif;white-space:nowrap;transition:background 0.15s,color 0.15s;" onmouseover="this.style.background='#2a9d8f';this.style.color='#fff'" onmouseout="this.style.background='#fff';this.style.color='var(--accent)'">Apply</button>
+        </div>
+        <div id="referral-confirm" style="display:none;margin-bottom:14px;padding:10px 14px;background:rgba(42,157,143,0.08);border:1px solid rgba(42,157,143,0.25);border-radius:8px;font-size:13px;color:var(--accent);font-weight:700;"></div>
+        <div id="price-display-top" style="display:none;margin-bottom:16px;text-align:center;">
+          <div style="font-size:16px;font-weight:900;color:var(--accent);">You save <span id="savings-amount-top">$75</span> — Your price: <span id="final-price-top">$225</span></div>
+        </div>
+
         <button type="submit" style="width:100%;background:#2a9d8f;color:#fff;font-size:14px;font-weight:900;letter-spacing:0.8px;text-transform:uppercase;padding:18px;border:none;border-radius:12px;cursor:pointer;transition:background 0.15s,transform 0.15s;box-shadow:0 4px 16px rgba(42,157,143,0.25);" onmouseover="this.style.background='#238577'" onmouseout="this.style.background='#2a9d8f'">Submit brief &rarr;</button>
         <p style="font-size:12px;color:#888;text-align:center;margin-top:14px;line-height:1.6;">Tyler reviews every brief personally. You'll hear back within a few hours.</p>
         <p style="font-size:11px;color:#444;text-align:center;margin-top:8px;">Trouble submitting? Email <a href="mailto:dreambillboard@gmail.com?subject=Build%20brief" style="color:#666;text-decoration:underline;">dreambillboard@gmail.com</a> directly.</p>
@@ -1524,6 +1515,46 @@ function toggleFormReveal(){ revealForm(); }
 })();
 </script>
 <script>
+// ===== Add / Remove account rows =====
+(function(){
+  var container = document.getElementById('accounts-container');
+  var addBtn = document.getElementById('add-account-btn');
+  var rowCount = 2; // 2 rows already in HTML
+
+  function makeRow(n){
+    var platforms = ['TikTok','TikTok Shop','Instagram','YouTube','Twitter / X','Facebook','Pinterest','LinkedIn','Other'];
+    var opts = platforms.map(function(p){
+      return '<option value="'+p+'" style="background:#fff;">'+p+'</option>';
+    }).join('');
+    var row = document.createElement('div');
+    row.className = 'account-row';
+    row.innerHTML = '<div class="account-row-inner">'
+      + '<div class="field-platform"><div class="field"><select name="platform_'+n+'">'+opts+'</select></div></div>'
+      + '<div class="field-handle"><div class="field"><input type="text" name="handle_'+n+'" placeholder="@yourhandle"></div></div>'
+      + '<div class="field-followers"><div class="field"><input type="text" name="followers_'+n+'" placeholder="e.g. 13K"></div></div>'
+      + '<div class="field-likes"><div class="field"><input type="text" name="likes_'+n+'" placeholder="e.g. 684K"></div></div>'
+      + '<div class="field-freq"><div class="field"><input type="text" name="post_freq_'+n+'" placeholder="e.g. Daily, 3x/week"></div></div>'
+      + '<button type="button" class="remove-btn" onclick="removeRow(this)" title="Remove">x</button>'
+      + '</div>';
+    return row;
+  }
+
+  if (addBtn && container) {
+    addBtn.addEventListener('click', function(){
+      rowCount++;
+      container.appendChild(makeRow(rowCount));
+    });
+  }
+
+  window.removeRow = function(btn){
+    var row = btn.closest('.account-row');
+    if (!row) return;
+    // Keep at least 1 row
+    if (container && container.querySelectorAll('.account-row').length <= 1) return;
+    row.remove();
+  };
+})();
+
 // ===== Form submitting-state UX (prevent double-submit, show feedback) =====
 (function(){
   document.addEventListener('submit', function(e){
