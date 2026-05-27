@@ -1,5 +1,4 @@
 [build]
-  base = "tylerdream"
   publish = "tylerdream"
   functions = "tylerdream/netlify/functions"
 
