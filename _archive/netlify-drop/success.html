@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Got it · Tyler Dream</title>
+  <meta name="description" content="Got your brief. I'll be in touch within 24-48 hours.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#080808; --text:#f0f0f0; --muted:#888; --accent:#c8ff00; --mint:#a0edd8; --venmo:#3D95CE; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; min-height: 100vh; overflow-x: hidden; }
+
+    #site-banner-v2 { position: sticky; top: 0; left: 0; right: 0; z-index: 9998; width: 100%; background: rgba(8,8,8,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.06); }
+    #site-banner-v2::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(200,255,0,0.45), rgba(160,237,216,0.3), transparent); }
+    .sb-track { display: flex; align-items: center; gap: 14px; padding: 9px 18px; white-space: nowrap; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: rgba(200,255,0,0.3) transparent; }
+    .sb-track::-webkit-scrollbar { height: 6px; }
+    .sb-track::-webkit-scrollbar-thumb { background: rgba(200,255,0,0.25); border-radius: 3px; }
+    .sb-chip { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; white-space: nowrap; transition: transform 0.15s; flex-shrink: 0; }
+    .sb-chip:hover { transform: translateY(-1px); }
+    .sb-chip--brand { background: rgba(200,255,0,0.08); border: 1px solid rgba(200,255,0,0.28); color: #c8ff00; }
+    .sb-chip--creator { background: rgba(160,237,216,0.08); border: 1px solid rgba(160,237,216,0.28); color: #a0edd8; }
+    .sb-chip--affiliate { background: rgba(168,85,247,0.08); border: 1px solid rgba(168,85,247,0.28); color: #a855f7; }
+    .sb-chip--code { background: transparent; border: 1px dashed rgba(160,237,216,0.35); color: #a0edd8; font-weight: 700; text-transform: none; letter-spacing: 0.2px; }
+    .sb-chip .sb-sub { font-size: 11px; font-weight: 600; opacity: 0.65; text-transform: none; margin-left: 4px; }
+    .sb-dot { width: 5px; height: 5px; border-radius: 50%; display: inline-block; animation: sb-pulse 1.6s infinite; }
+    .sb-chip--brand .sb-dot { background: #c8ff00; }
+    .sb-chip--creator .sb-dot { background: #a0edd8; animation-delay: 0.4s; }
+    .sb-chip--affiliate .sb-dot { background: #a855f7; animation-delay: 0.8s; }
+    @keyframes sb-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+    @media (max-width: 600px) { .sb-track { gap: 10px; padding: 8px 14px; } .sb-chip { padding: 6px 11px; font-size: 11px; } .sb-chip .sb-sub { display: none; } }
+
+    .main { display: flex; align-items: center; justify-content: center; padding: 48px 24px 80px; min-height: calc(100vh - 60px); }
+    .card { max-width: 560px; width: 100%; text-align: center; background: linear-gradient(160deg, #111, #0d0d0d); border: 1px solid rgba(200,255,0,0.2); border-radius: 24px; padding: 48px 36px; position: relative; overflow: hidden; }
+    .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, #c8ff00, #a0edd8, transparent); }
+    .check { width: 64px; height: 64px; border-radius: 50%; background: rgba(200,255,0,0.1); border: 1px solid rgba(200,255,0,0.3); display: flex; align-items: center; justify-content: center; font-size: 32px; color: var(--accent); margin: 0 auto 24px; }
+    h1 { font-size: 36px; font-weight: 900; letter-spacing: -1.5px; color: #fff; margin-bottom: 14px; line-height: 1.1; }
+    .sub { font-size: 15px; color: var(--muted); line-height: 1.7; margin-bottom: 32px; }
+
+    .pay-block { background: rgba(200,255,0,0.04); border: 1px solid rgba(200,255,0,0.18); border-radius: 16px; padding: 28px 24px; margin: 0 0 24px; text-align: center; }
+    .pay-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+    .pay-headline { font-size: 20px; font-weight: 900; color: #fff; letter-spacing: -0.5px; line-height: 1.25; margin-bottom: 8px; }
+    .pay-sub { font-size: 13px; color: #999; line-height: 1.6; margin-bottom: 22px; }
+    .pay-buttons { display: flex; flex-direction: column; gap: 10px; }
+    .pay-btn { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 24px; border-radius: 12px; font-size: 14px; font-weight: 900; text-decoration: none; letter-spacing: 0.5px; transition: opacity 0.15s, transform 0.15s; min-height: 52px; }
+    .pay-btn:hover { transform: translateY(-1px); opacity: 0.92; }
+    .pay-btn--venmo { background: var(--venmo); color: #fff; }
+    .pay-btn--stripe { background: var(--accent); color: #000; }
+    .pay-btn--stripe.disabled { background: transparent; color: rgba(200,255,0,0.4); border: 1px dashed rgba(200,255,0,0.25); cursor: not-allowed; font-weight: 700; letter-spacing: 0.3px; }
+    .pay-btn--stripe.disabled:hover { transform: none; opacity: 1; }
+    .pay-or { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #555; margin: 8px 0; }
+    .pay-note { font-size: 12px; color: #666; margin-top: 18px; line-height: 1.55; }
+
+    .timeline { background: rgba(160,237,216,0.04); border: 1px solid rgba(160,237,216,0.15); border-radius: 14px; padding: 20px; text-align: left; margin-bottom: 24px; }
+    .timeline-title { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--mint); margin-bottom: 12px; }
+    .timeline-row { display: flex; align-items: flex-start; gap: 12px; font-size: 13px; color: #999; line-height: 1.55; padding: 6px 0; }
+    .timeline-row strong { color: #fff; font-weight: 700; }
+    .timeline-num { color: var(--accent); font-weight: 900; flex-shrink: 0; min-width: 18px; }
+
+    .sig { font-size: 14px; font-weight: 700; color: var(--mint); margin: 6px 0 0; }
+    .home { display: inline-block; margin-top: 20px; background: transparent; border: 1px solid rgba(255,255,255,0.12); color: #888; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 12px 24px; border-radius: 10px; text-decoration: none; transition: color 0.15s, border-color 0.15s; }
+    .home:hover { color: #fff; border-color: rgba(255,255,255,0.3); }
+  </style>
+</head>
+<body>
+
+<div id="site-banner-v2" role="navigation" aria-label="Site paths">
+  <div class="sb-track">
+    <a class="sb-chip sb-chip--brand" href="/#contact"><span class="sb-dot"></span>For Brands<span class="sb-sub">Hire Dream</span></a>
+    <a class="sb-chip sb-chip--creator" href="/build"><span class="sb-dot"></span>For Creators<span class="sb-sub">Get a site</span></a>
+    <a class="sb-chip sb-chip--affiliate" href="/affiliate"><span class="sb-dot"></span>Affiliate<span class="sb-sub">$50 per referral</span></a>
+    <a class="sb-chip sb-chip--code" href="/build#referral-code-input">Have a code?</a>
+  </div>
+</div>
+
+<div class="main">
+  <div class="card">
+    <div class="check">&check;</div>
+    <h1>Got it.<br>First draft in 48.</h1>
+    <p class="sub">I read every brief myself. You will hear back within 24 hours to confirm fit, then we start building.</p>
+
+    <div class="pay-block">
+      <div class="pay-eyebrow">Want to lock your spot now?</div>
+      <div class="pay-headline">$300. Pay when you are ready.</div>
+      <div class="pay-sub">Skip the wait. Pay now and your build starts the second I confirm your brief.</div>
+
+      <div class="pay-buttons">
+        <a class="pay-btn pay-btn--venmo" href="https://venmo.com/u/Tyler_dream" target="_blank" rel="noopener">
+          Pay $300 on Venmo &rarr;
+        </a>
+        <div class="pay-or">or</div>
+        <a class="pay-btn pay-btn--stripe disabled" href="mailto:dreambillboard@gmail.com?subject=Stripe%20link%20please">
+          Stripe link sent on request
+        </a>
+      </div>
+      <p class="pay-note">No rush. You can wait for me to confirm fit first. Either way works.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-title">What happens next</div>
+      <div class="timeline-row"><span class="timeline-num">1.</span><span><strong>Today.</strong> I read your brief and message you to confirm fit.</span></div>
+      <div class="timeline-row"><span class="timeline-num">2.</span><span><strong>Within 48 hours.</strong> First draft of your site, live link.</span></div>
+      <div class="timeline-row"><span class="timeline-num">3.</span><span><strong>Refine together.</strong> We dial it in. I don't stop until it hits.</span></div>
+    </div>
+
+    <div class="sig">Tyler Dream</div>
+    <a class="home" href="/">Back to site</a>
+  </div>
+</div>
+
+</body>
+</html>

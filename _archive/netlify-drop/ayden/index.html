@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ayden Lorz · Creator Media Kit</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080808;
+    --bg2: #0d0d0d;
+    --bg3: #121212;
+    --bg4: #171717;
+    --bg5: #1c1c1c;
+    --text: #f2f2f2;
+    --text2: #c8c8c8;
+    --muted: #6b6b6b;
+    --muted2: #444;
+    --sage: #85b598;
+    --sage-bright: #a3ccb4;
+    --sage-pale: #c4dece;
+    --sage-dim: rgba(133,181,152,0.1);
+    --sage-dim2: rgba(133,181,152,0.05);
+    --sage-border: rgba(133,181,152,0.2);
+    --sage-glow: rgba(133,181,152,0.15);
+    --sage-glow2: rgba(133,181,152,0.08);
+    --max: 980px;
+    --font-display: 'Montserrat', sans-serif;
+    --font-body: 'Montserrat', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  /* GRAIN */
+  body::after {
+    content: '';
+    position: fixed; inset: 0; z-index: 9997;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.028;
+  }
+
+  /* SCROLL PROGRESS */
+  #scroll-bar {
+    position: fixed; top: 0; left: 0; height: 1.5px; z-index: 9999;
+    background: linear-gradient(90deg, var(--sage), var(--sage-pale));
+    width: 0%; transition: width 0.06s linear;
+    pointer-events: none;
+  }
+
+  /* ===================== NAV ===================== */
+  nav {
+    position: fixed; top: 1.5px; left: 0; right: 0; z-index: 998;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 48px;
+    background: rgba(8,8,8,0.75);
+    backdrop-filter: blur(32px) saturate(180%);
+    -webkit-backdrop-filter: blur(32px) saturate(180%);
+    border-bottom: 1px solid rgba(255,255,255,0.035);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo-mark {
+    width: 28px; height: 28px; border-radius: 8px;
+    background: var(--sage-dim); border: 1px solid var(--sage-border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-size: 13px; font-weight: 800;
+    color: var(--sage);
+  }
+  .nav-name {
+    font-family: var(--font-display);
+    font-size: 14px; font-weight: 800; color: var(--text);
+    letter-spacing: -0.3px;
+  }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-link {
+    font-size: 11px; font-weight: 600; color: var(--muted);
+    text-decoration: none; letter-spacing: 0.2px;
+    transition: color 0.15s;
+  }
+  .nav-link:hover { color: var(--text2); }
+  .nav-cta {
+    background: var(--sage); color: #050e08;
+    font-size: 11px; font-weight: 800; letter-spacing: 0.8px;
+    text-transform: uppercase; padding: 9px 20px; border-radius: 8px;
+    text-decoration: none; white-space: nowrap;
+    transition: background 0.15s, box-shadow 0.15s;
+  }
+  .nav-cta:hover {
+    background: var(--sage-bright);
+    box-shadow: 0 4px 20px rgba(133,181,152,0.25);
+  }
+
+  /* ===================== HERO ===================== */
+  .hero {
+    min-height: 100dvh;
+    display: grid;
+    grid-template-columns: 55% 45%;
+    align-items: center;
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 130px 48px 80px;
+    gap: 56px;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-bottom: 28px;
+  }
+  .hero-eyebrow-line {
+    width: 32px; height: 1px; background: var(--sage);
+  }
+  .hero-eyebrow-text {
+    font-size: 10px; font-weight: 700; color: var(--sage);
+    letter-spacing: 2.5px; text-transform: uppercase;
+  }
+  .hero-eyebrow-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--sage); animation: blink 2.4s ease-in-out infinite;
+  }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 4.5vw, 58px);
+    font-weight: 800; letter-spacing: -2px; line-height: 1.0;
+    color: #fff; margin-bottom: 24px;
+  }
+  .hero h1 .line-italic {
+    display: block;
+    color: var(--sage);
+    font-style: italic;
+  }
+
+  .hero-sub {
+    font-size: 14.5px; color: var(--muted); line-height: 1.75;
+    margin-bottom: 40px; max-width: 380px; font-weight: 400;
+  }
+
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0; margin-bottom: 40px;
+    border: 1px solid var(--sage-border);
+    border-radius: 16px; overflow: hidden;
+  }
+  .hero-stat {
+    padding: 20px 18px;
+    border-right: 1px solid var(--sage-border);
+    background: var(--sage-dim2);
+    position: relative;
+  }
+  .hero-stat:last-child { border-right: none; }
+  .hero-stat-num {
+    font-family: var(--font-display);
+    font-size: 22px; font-weight: 800; color: var(--sage);
+    letter-spacing: -0.5px; line-height: 1; margin-bottom: 5px;
+  }
+  .hero-stat-label {
+    font-size: 9.5px; color: var(--muted); font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+  }
+
+  .cta-row { display: flex; gap: 12px; align-items: center; }
+  .btn-primary {
+    background: var(--sage); color: #050e08;
+    font-size: 11.5px; font-weight: 800; letter-spacing: 0.4px;
+    padding: 14px 28px; border-radius: 10px; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
+  }
+  .btn-primary:hover {
+    background: var(--sage-bright);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(133,181,152,0.3);
+  }
+  .btn-primary svg { width: 14px; height: 14px; }
+  .btn-ghost {
+    font-size: 11.5px; font-weight: 700; color: var(--muted);
+    text-decoration: none; padding: 14px 20px;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    transition: border-color 0.15s, color 0.15s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn-ghost:hover { border-color: var(--sage-border); color: var(--sage); }
+
+  /* HERO IMAGE */
+  .hero-right { position: relative; }
+  .hero-img-outer {
+    position: relative;
+    /* sage glow halo */
+    filter: drop-shadow(0 0 40px rgba(133,181,152,0.2));
+  }
+  .hero-img-wrap {
+    border-radius: 28px; overflow: hidden;
+    aspect-ratio: 3/4;
+    border: 1px solid var(--sage-border);
+    box-shadow: 0 60px 120px rgba(0,0,0,0.8);
+    position: relative;
+  }
+  .hero-img-wrap img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  /* sage outline ring */
+  .hero-img-ring {
+    position: absolute; inset: -6px; border-radius: 32px;
+    border: 1px solid rgba(133,181,152,0.12);
+    pointer-events: none;
+  }
+  .hero-img-ring2 {
+    position: absolute; inset: -14px; border-radius: 38px;
+    border: 1px solid rgba(133,181,152,0.05);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    position: absolute; bottom: 20px; left: 16px; right: 16px;
+    background: rgba(8,8,8,0.9); backdrop-filter: blur(24px);
+    border: 1px solid var(--sage-border); border-radius: 14px;
+    padding: 14px 18px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .badge-pulse {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--sage); flex-shrink: 0;
+    position: relative;
+  }
+  .badge-pulse::after {
+    content: ''; position: absolute; inset: -4px; border-radius: 50%;
+    background: rgba(133,181,152,0.3); animation: ripple 2s ease-out infinite;
+  }
+  .badge-text { font-size: 12px; color: var(--text2); font-weight: 700; line-height: 1.3; }
+  .badge-text strong { color: var(--sage); font-weight: 800; }
+
+  /* floating accent tag */
+  .hero-float-tag {
+    position: absolute; top: -14px; right: -14px;
+    background: var(--bg3); border: 1px solid var(--sage-border);
+    border-radius: 12px; padding: 10px 14px;
+    font-size: 11px; font-weight: 800; color: var(--sage);
+    letter-spacing: -0.2px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  }
+  .hero-float-tag span { display: block; font-size: 9px; color: var(--muted); font-weight: 600; margin-top: 2px; letter-spacing: 0.5px; text-transform: uppercase; }
+
+  /* ===================== SHARED ===================== */
+  .divider { border: none; border-top: 1px solid rgba(255,255,255,0.04); }
+
+  .section { max-width: var(--max); margin: 0 auto; padding: 96px 48px; }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-bottom: 16px;
+  }
+  .eyebrow-line { width: 24px; height: 1px; background: var(--sage-border); }
+  .eyebrow-text {
+    font-size: 9px; font-weight: 800; letter-spacing: 2.5px;
+    text-transform: uppercase; color: var(--sage);
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(26px, 3vw, 38px); font-weight: 800;
+    letter-spacing: -1.5px; color: #fff; line-height: 1.05;
+    margin-bottom: 12px;
+  }
+  .section-sub {
+    font-size: 14.5px; color: var(--muted); line-height: 1.75;
+    max-width: 480px; font-weight: 400;
+  }
+
+  /* ===================== NUMBERS ===================== */
+  .numbers-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    margin-top: 52px;
+    border: 1px solid var(--sage-border); border-radius: 24px;
+    overflow: hidden;
+  }
+  .number-card {
+    padding: 40px 32px;
+    border-right: 1px solid var(--sage-border);
+    background: linear-gradient(135deg, var(--bg3) 0%, var(--bg2) 100%);
+    position: relative; overflow: hidden;
+    transition: background 0.3s;
+  }
+  .number-card:last-child { border-right: none; }
+  .number-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--sage-border) 50%, transparent 100%);
+  }
+  .number-card::after {
+    content: ''; position: absolute;
+    bottom: -60px; right: -30px;
+    width: 120px; height: 120px; border-radius: 50%;
+    background: radial-gradient(circle, var(--sage-glow2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .number-card:hover { background: linear-gradient(135deg, var(--bg4) 0%, var(--bg3) 100%); }
+  .number-tag {
+    font-size: 8.5px; font-weight: 800; letter-spacing: 2px;
+    text-transform: uppercase; color: rgba(133,181,152,0.4);
+    margin-bottom: 14px;
+  }
+  .number-val {
+    font-family: var(--font-display);
+    font-size: clamp(26px, 2.8vw, 38px); font-weight: 800;
+    color: var(--sage); letter-spacing: -1.5px; line-height: 1;
+    margin-bottom: 10px;
+  }
+  .number-label { font-size: 13px; font-weight: 700; color: var(--text2); margin-bottom: 4px; }
+  .number-sub { font-size: 11px; color: var(--muted2); line-height: 1.4; }
+
+  /* ===================== ABOUT ===================== */
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 420px;
+    gap: 64px; margin-top: 52px; align-items: start;
+  }
+  .about-body { font-size: 15px; color: #8a8a8a; line-height: 1.9; }
+  .about-body p { margin-bottom: 20px; }
+  .about-body p:last-child { margin-bottom: 0; }
+  .about-body strong { color: var(--text2); font-weight: 600; }
+
+  .niches { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+  .niche-pill {
+    background: var(--bg3); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px; padding: 7px 14px;
+    font-size: 11px; font-weight: 700; color: var(--text2);
+    letter-spacing: 0.2px; transition: border-color 0.15s, color 0.15s;
+  }
+  .niche-pill:hover { border-color: var(--sage-border); color: var(--sage); }
+
+  .profile-img-wrap {
+    border-radius: 24px; overflow: hidden;
+    border: 1px solid var(--sage-border);
+    box-shadow:
+      0 0 0 6px rgba(133,181,152,0.05),
+      0 0 40px var(--sage-glow2),
+      0 32px 80px rgba(0,0,0,0.6);
+    aspect-ratio: 9/16;
+    position: relative;
+  }
+  .profile-img-wrap img {
+    width: 100%; height: 112%; display: block;
+    object-fit: cover;
+    object-position: center 22%;
+    margin-top: -12%;
+  }
+
+  /* ===================== MILESTONES ===================== */
+  .milestones { margin-top: 52px; }
+  .milestone {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 24px; align-items: start;
+    padding: 32px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    position: relative;
+  }
+  .milestone:last-child { border-bottom: none; }
+  .milestone-left { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+  .milestone-num {
+    font-family: var(--font-display);
+    font-size: 11px; font-weight: 800; color: var(--sage);
+    background: var(--sage-dim); border: 1px solid var(--sage-border);
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    letter-spacing: 0;
+  }
+  .milestone-date {
+    font-size: 9px; color: var(--muted); font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.2px;
+    white-space: nowrap;
+  }
+  .milestone-text {
+    font-size: 15px; color: var(--text2); line-height: 1.65; font-weight: 500;
+    padding-top: 6px;
+  }
+  .milestone-text strong { color: var(--sage-bright); font-weight: 700; }
+
+  /* ===================== VIDEOS ===================== */
+  .videos-section {
+    background: var(--bg2);
+    border-top: 1px solid rgba(255,255,255,0.04);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    padding: 96px 0;
+  }
+  .videos-inner { max-width: 1440px; margin: 0 auto; padding: 0 48px; }
+  .videos-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-top: 48px;
+  }
+  .video-wrap {
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--bg);
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s;
+    height: 0;
+    padding-bottom: 177.78%;
+    position: relative;
+  }
+  .video-wrap:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.7), 0 0 0 1px var(--sage-border);
+  }
+  .video-wrap blockquote.tiktok-embed {
+    margin: 0 !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    position: absolute !important;
+    top: 0; left: 0; right: 0;
+    height: 130% !important;
+  }
+  .video-wrap blockquote.tiktok-embed iframe {
+    width: 100% !important;
+    min-height: 100% !important;
+  }
+
+  /* ===================== SERVICES ===================== */
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 12px; margin-top: 52px;
+  }
+  .service-card {
+    background: var(--bg3);
+    border: 1px solid rgba(255,255,255,0.055);
+    border-radius: 20px; padding: 32px 28px;
+    transition: border-color 0.25s, transform 0.25s, background 0.25s;
+    position: relative; overflow: hidden;
+    cursor: default;
+  }
+  .service-card::before {
+    content: ''; position: absolute; top: 0; left: 20%; right: 20%; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--sage-border), transparent);
+    opacity: 0; transition: opacity 0.25s;
+  }
+  .service-card::after {
+    content: ''; position: absolute;
+    bottom: -80px; right: -40px;
+    width: 160px; height: 160px; border-radius: 50%;
+    background: radial-gradient(circle, var(--sage-glow2) 0%, transparent 70%);
+    pointer-events: none; opacity: 0; transition: opacity 0.25s;
+  }
+  .service-card:hover {
+    border-color: var(--sage-border);
+    transform: translateY(-5px);
+    background: var(--bg4);
+  }
+  .service-card:hover::before,
+  .service-card:hover::after { opacity: 1; }
+
+  .service-icon-wrap {
+    width: 40px; height: 40px; border-radius: 12px;
+    background: var(--sage-dim); border: 1px solid var(--sage-border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; margin-bottom: 18px;
+  }
+  .service-name {
+    font-family: var(--font-display);
+    font-size: 14px; font-weight: 800; color: #fff;
+    margin-bottom: 10px; letter-spacing: -0.3px;
+  }
+  .service-desc { font-size: 12.5px; color: var(--muted); line-height: 1.7; }
+
+  /* ===================== CONTACT ===================== */
+  .contact-section {
+    padding: 120px 48px;
+    text-align: center;
+    position: relative; overflow: hidden;
+    background: var(--bg);
+  }
+  .contact-section::before {
+    content: '';
+    position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+    width: 700px; height: 500px;
+    background: radial-gradient(ellipse, rgba(133,181,152,0.06) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .contact-inner { max-width: 520px; margin: 0 auto; position: relative; }
+  .contact-title {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 4vw, 52px); font-weight: 800;
+    letter-spacing: -2px; margin-bottom: 16px; line-height: 1.0;
+    color: #fff;
+  }
+  .contact-title em { color: var(--sage); font-style: italic; }
+  .contact-sub {
+    font-size: 14.5px; color: var(--muted); line-height: 1.75;
+    margin-bottom: 44px; font-weight: 400;
+  }
+  .contact-email-wrap {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: var(--bg3); border: 1px solid var(--sage-border);
+    border-radius: 14px; padding: 16px 24px;
+    margin-bottom: 32px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .contact-email-wrap:hover {
+    border-color: var(--sage);
+    box-shadow: 0 0 0 4px var(--sage-glow2);
+  }
+  .contact-email-icon { font-size: 16px; }
+  .contact-email {
+    font-size: 15px; font-weight: 700; color: var(--sage);
+    text-decoration: none; letter-spacing: -0.2px;
+  }
+
+  /* ===================== FOOTER ===================== */
+  footer {
+    padding: 28px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 11px; color: var(--muted2);
+    border-top: 1px solid rgba(255,255,255,0.04);
+  }
+  .footer-left { display: flex; align-items: center; gap: 20px; }
+  footer a { color: #3d3d3d; text-decoration: none; transition: color 0.15s; }
+  footer a:hover { color: var(--sage); }
+  .footer-built {
+    font-size: 10px; font-weight: 700; color: var(--muted2);
+    letter-spacing: 0.5px;
+  }
+  .footer-built a { color: var(--muted); }
+  .footer-built a:hover { color: var(--sage); }
+
+  /* ===================== ANIMATIONS ===================== */
+  .fade-up {
+    opacity: 0; transform: translateY(32px);
+    transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1),
+                transform 0.7s cubic-bezier(0.16,1,0.3,1);
+  }
+  .fade-up.visible { opacity: 1; transform: none; }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  @keyframes ripple {
+    0% { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(2.5); opacity: 0; }
+  }
+
+  /* ===================== MOBILE ===================== */
+  @media (max-width: 860px) {
+    nav { padding: 16px 24px; }
+    .nav-link { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 110px 24px 64px; gap: 48px; min-height: auto; }
+    .hero-right { order: -1; }
+    .hero-img-wrap { aspect-ratio: 4/5; }
+    .hero h1 { font-size: 44px; letter-spacing: -2.5px; }
+    .hero-float-tag { display: none; }
+    .numbers-grid { grid-template-columns: repeat(2, 1fr); }
+    .number-card { border-right: none; border-bottom: 1px solid var(--sage-border); }
+    .number-card:nth-child(odd) { border-right: 1px solid var(--sage-border); }
+    .number-card:nth-last-child(-n+2) { border-bottom: none; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .services-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .section { padding: 72px 24px; }
+    .contact-section { padding: 88px 24px; }
+    .videos-inner { padding: 0 24px; }
+    .videos-section { padding: 72px 0; }
+    .videos-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    footer { flex-direction: column; gap: 12px; text-align: center; padding: 24px; }
+    .milestone { grid-template-columns: 60px 1fr; gap: 16px; }
+  }
+  @media (max-width: 540px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .videos-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .hero h1 { font-size: 38px; letter-spacing: -2px; }
+    .section-title { letter-spacing: -1.8px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="scroll-bar"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">AL</div>
+    <div class="nav-name">Ayden Lorz</div>
+  </a>
+  <div class="nav-right">
+    <a href="#about" class="nav-link">About</a>
+    <a href="#content" class="nav-link">Content</a>
+    <a href="#work" class="nav-link">Work</a>
+    <a href="mailto:aydenl.collabs@gmail.com" class="nav-cta">Work Together</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow fade-up">
+      <div class="hero-eyebrow-line"></div>
+      <div class="hero-eyebrow-text">Creator Media Kit</div>
+      <div class="hero-eyebrow-dot"></div>
+    </div>
+    <h1 class="fade-up">
+      Home.<br>Wellness.
+      <span class="line-italic">Fatherhood.</span>
+    </h1>
+    <p class="hero-sub fade-up">
+      Full-time TikTok creator. Spokane, WA. $2.1M+ in verified TikTok Shop sales. 65M+ views. Building real partnerships with brands that actually fit.
+    </p>
+    <div class="hero-stats fade-up">
+      <div class="hero-stat">
+        <div class="hero-stat-num">13.3K</div>
+        <div class="hero-stat-label">Followers</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">700K</div>
+        <div class="hero-stat-label">Likes</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">65M+</div>
+        <div class="hero-stat-label">Views</div>
+      </div>
+    </div>
+    <div class="cta-row fade-up">
+      <a href="mailto:aydenl.collabs@gmail.com" class="btn-primary">
+        Let's Work Together
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+      <a href="https://www.tiktok.com/@connectz" target="_blank" class="btn-ghost">@connectz</a>
+    </div>
+  </div>
+
+  <div class="hero-right fade-up">
+    <div class="hero-img-outer">
+      <div class="hero-img-ring2"></div>
+      <div class="hero-img-ring"></div>
+      <div class="hero-img-wrap">
+        <img src="https://d33wubrfki0l68.cloudfront.net/a7b9da64-a945-4cef-9e30-1f2da4009977/DSCF1284.jpeg" alt="Ayden Lorz">
+        <div class="hero-badge">
+          <div class="badge-pulse"></div>
+          <div class="badge-text">TikTok Shop Affiliate &middot; <strong>$2.1M+ GMV</strong></div>
+        </div>
+      </div>
+      <div class="hero-float-tag">
+        $370K
+        <span>Best Month</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- NUMBERS -->
+<div class="section fade-up">
+  <div class="eyebrow">
+    <div class="eyebrow-line"></div>
+    <div class="eyebrow-text">By the numbers</div>
+  </div>
+  <div class="section-title">The results speak.</div>
+  <p class="section-sub">Two years in. One platform mastered. Numbers brands actually care about.</p>
+  <div class="numbers-grid">
+    <div class="number-card fade-up">
+      <div class="number-tag">Total GMV</div>
+      <div class="number-val">$2.1M+</div>
+      <div class="number-label">TikTok Shop Sales</div>
+      <div class="number-sub">In under 2 years of posting</div>
+    </div>
+    <div class="number-card fade-up">
+      <div class="number-tag">Content Reach</div>
+      <div class="number-val">65M+</div>
+      <div class="number-label">Total Views</div>
+      <div class="number-sub">Across all posted content</div>
+    </div>
+    <div class="number-card fade-up">
+      <div class="number-tag">Peak Performance</div>
+      <div class="number-val">$370K</div>
+      <div class="number-label">Single Month GMV</div>
+      <div class="number-sub">Proven scalability</div>
+    </div>
+    <div class="number-card fade-up">
+      <div class="number-tag">Out of the Gate</div>
+      <div class="number-val">$190K</div>
+      <div class="number-label">First 40 Days</div>
+      <div class="number-sub">Started March 2024</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ABOUT -->
+<div class="section" id="about">
+  <div class="eyebrow">
+    <div class="eyebrow-line"></div>
+    <div class="eyebrow-text">About</div>
+  </div>
+  <div class="about-grid">
+    <div class="fade-up">
+      <div class="section-title" style="margin-bottom:24px;">Who I am.</div>
+      <div class="about-body">
+        <p>Full-time TikTok creator based in Spokane, WA. My content lives where home living, fashion, and real fatherhood overlap — the kind of content that resonates because it's genuine.</p>
+        <p>I started TikTok Shop affiliate marketing in <strong>March 2024</strong> and generated <strong>$190K in my first 40 days</strong>. Since then I've crossed <strong>$2.1 million in sales</strong> and 65 million views without losing the authenticity that got me here.</p>
+        <p>I'm not chasing volume. I'm building long-term relationships with brands I genuinely align with. Not one-off posts. Real partnerships that compound.</p>
+      </div>
+      <div class="niches">
+        <span class="niche-pill">Home & Living</span>
+        <span class="niche-pill">Wellness</span>
+        <span class="niche-pill">Fatherhood</span>
+        <span class="niche-pill">Lifestyle</span>
+        <span class="niche-pill">Spokane, WA</span>
+      </div>
+    </div>
+    <div class="fade-up">
+      <div class="profile-img-wrap">
+        <img src="https://d33wubrfki0l68.cloudfront.net/a20bd85f-933e-47d9-baaf-1f73e87e245f/IMG_9678.PNG" alt="@connectz TikTok Profile">
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- MILESTONES -->
+<div class="section fade-up">
+  <div class="eyebrow">
+    <div class="eyebrow-line"></div>
+    <div class="eyebrow-text">Journey</div>
+  </div>
+  <div class="section-title">How we got here.</div>
+  <div class="milestones">
+    <div class="milestone fade-up">
+      <div class="milestone-left">
+        <div class="milestone-num">01</div>
+        <div class="milestone-date">Mar 2024</div>
+      </div>
+      <div class="milestone-text">Started TikTok Shop affiliate marketing from scratch with zero audience.</div>
+    </div>
+    <div class="milestone fade-up">
+      <div class="milestone-left">
+        <div class="milestone-num">02</div>
+        <div class="milestone-date">40 Days</div>
+      </div>
+      <div class="milestone-text">Generated <strong>$190,000 in sales</strong> within the first 40 days of posting on TikTok Shop.</div>
+    </div>
+    <div class="milestone fade-up">
+      <div class="milestone-left">
+        <div class="milestone-num">03</div>
+        <div class="milestone-date">Sep 2024</div>
+      </div>
+      <div class="milestone-text">Hit <strong>$370,000 in a single month</strong>, proving the model could scale far beyond early numbers.</div>
+    </div>
+    <div class="milestone fade-up">
+      <div class="milestone-left">
+        <div class="milestone-num">04</div>
+        <div class="milestone-date">Mar 2025</div>
+      </div>
+      <div class="milestone-text">Crossed <strong>$1,000,000 in total sales</strong> within the first full year of consistent posting.</div>
+    </div>
+    <div class="milestone fade-up">
+      <div class="milestone-left">
+        <div class="milestone-num">05</div>
+        <div class="milestone-date">Now</div>
+      </div>
+      <div class="milestone-text">Over <strong>$2.1 million in verified sales</strong> and <strong>65 million views</strong> across 2+ years of content.</div>
+    </div>
+  </div>
+</div>
+
+<!-- VIDEOS -->
+<div class="videos-section fade-up" id="content">
+  <div class="videos-inner">
+    <div class="eyebrow">
+      <div class="eyebrow-line"></div>
+      <div class="eyebrow-text">Content</div>
+    </div>
+    <div class="section-title" style="color:#fff;">See it in action.</div>
+    <p class="section-sub">65M+ views. These are some of the videos that built it.</p>
+    <div class="videos-grid">
+      <div class="video-wrap">
+        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@connectz/video/7633089787448085790" data-video-id="7633089787448085790" data-embed-from="oembed" data-autoplay="0" style="max-width:100%;min-width:0;"><section><a target="_blank" title="@connectz" href="https://www.tiktok.com/@connectz?refer=embed">@connectz</a></section></blockquote>
+      </div>
+      <div class="video-wrap">
+        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@connectz/video/7355217778443390250" data-video-id="7355217778443390250" data-embed-from="oembed" data-autoplay="0" style="max-width:100%;min-width:0;"><section><a target="_blank" title="@connectz" href="https://www.tiktok.com/@connectz?refer=embed">@connectz</a></section></blockquote>
+      </div>
+      <div class="video-wrap">
+        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@connectz/video/7411252425392262430" data-video-id="7411252425392262430" data-embed-from="oembed" data-autoplay="0" style="max-width:100%;min-width:0;"><section><a target="_blank" title="@connectz" href="https://www.tiktok.com/@connectz?refer=embed">@connectz</a></section></blockquote>
+      </div>
+      <div class="video-wrap">
+        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@connectz/video/7424621173775846687" data-video-id="7424621173775846687" data-embed-from="oembed" data-autoplay="0" style="max-width:100%;min-width:0;"><section><a target="_blank" title="@connectz" href="https://www.tiktok.com/@connectz?refer=embed">@connectz</a></section></blockquote>
+      </div>
+      <div class="video-wrap">
+        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@connectz/video/7399794366602022186" data-video-id="7399794366602022186" data-embed-from="oembed" data-autoplay="0" style="max-width:100%;min-width:0;"><section><a target="_blank" title="@connectz" href="https://www.tiktok.com/@connectz?refer=embed">@connectz</a></section></blockquote>
+      </div>
+    </div>
+  </div>
+</div>
+<script async src="https://www.tiktok.com/embed.js"></script>
+
+<hr class="divider">
+
+<!-- SERVICES -->
+<div class="section fade-up" id="work">
+  <div class="eyebrow">
+    <div class="eyebrow-line"></div>
+    <div class="eyebrow-text">What I offer</div>
+  </div>
+  <div class="section-title">How we work together.</div>
+  <p class="section-sub">I don't take every deal. Which is exactly why the ones I do take convert.</p>
+  <div class="services-grid">
+    <div class="service-card fade-up">
+      <div class="service-icon-wrap">🛍️</div>
+      <div class="service-name">TikTok Shop Affiliate</div>
+      <div class="service-desc">Commission-based content driving real sales. $2.1M+ in proven GMV. I only promote products I genuinely believe in.</div>
+    </div>
+    <div class="service-card fade-up">
+      <div class="service-icon-wrap">📅</div>
+      <div class="service-name">Monthly Retainers</div>
+      <div class="service-desc">Ongoing brand partnerships with consistent, high-quality content delivered on a reliable, recurring basis.</div>
+    </div>
+    <div class="service-card fade-up">
+      <div class="service-icon-wrap">🎬</div>
+      <div class="service-name">UGC Partnerships</div>
+      <div class="service-desc">Raw, authentic content created for your brand's channels, ads, and landing pages.</div>
+    </div>
+    <div class="service-card fade-up">
+      <div class="service-icon-wrap">⚖️</div>
+      <div class="service-name">Content Licensing</div>
+      <div class="service-desc">Usage rights for top-performing content across Meta ads, paid social, and e-commerce.</div>
+    </div>
+    <div class="service-card fade-up">
+      <div class="service-icon-wrap">📱</div>
+      <div class="service-name">Cross-Platform</div>
+      <div class="service-desc">Reach across TikTok, Instagram, Facebook, and Meta ads. One creator, multiple touchpoints.</div>
+    </div>
+    <div class="service-card fade-up">
+      <div class="service-icon-wrap">🤝</div>
+      <div class="service-name">Long-Term Brand Deals</div>
+      <div class="service-desc">Building brand relationships that compound over time. Not one-off sponsored posts.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="contact-section fade-up">
+  <div class="contact-inner">
+    <div class="eyebrow" style="justify-content:center;">
+      <div class="eyebrow-line"></div>
+      <div class="eyebrow-text">Get in touch</div>
+      <div class="eyebrow-line"></div>
+    </div>
+    <div class="contact-title">
+      Let's build<br>something <em>real.</em>
+    </div>
+    <p class="contact-sub">I respond fast and I'm selective. If your brand fits, you'll know quickly.</p>
+    <a href="mailto:aydenl.collabs@gmail.com" class="contact-email-wrap" style="text-decoration:none;">
+      <span class="contact-email-icon">✉</span>
+      <span class="contact-email">aydenl.collabs@gmail.com</span>
+    </a>
+    <div style="margin-top:20px;">
+      <a href="https://www.tiktok.com/@connectz" target="_blank" class="btn-ghost">View @connectz on TikTok &rarr;</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <span>Ayden Lorz &middot; Spokane, WA &middot; 2025</span>
+    <a href="mailto:aydenl.collabs@gmail.com">aydenl.collabs@gmail.com</a>
+    <a href="https://www.tiktok.com/@connectz" target="_blank">@connectz</a>
+  </div>
+  <div class="footer-built">Built by <a href="https://tylerdream.com" target="_blank">Dream</a></div>
+</footer>
+
+<script>
+  // Scroll progress
+  window.addEventListener('scroll', function() {
+    const el = document.getElementById('scroll-bar');
+    const p = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    el.style.width = p + '%';
+  });
+
+  // Nav links scroll
+  document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      const t = document.querySelector(this.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+
+  // Fade up
+  const obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.07, rootMargin: '0px 0px -28px 0px' });
+  document.querySelectorAll('.fade-up').forEach(function(el) { obs.observe(el); });
+</script>
+</body>
+</html>

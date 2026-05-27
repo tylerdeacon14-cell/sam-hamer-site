@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Form schemas (do not link)</title>
+  <meta name="robots" content="noindex,nofollow">
+</head>
+<body>
+<!--
+  This file exists so Netlify's build-time form detector finds every form schema in one place.
+  Do not link to it. Do not delete it. Submissions still come from the real pages.
+-->
+
+<!-- BRAND INQUIRY (home) -->
+<form name="brand-inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="hidden" name="form-name" value="brand-inquiry">
+  <input name="bot-field">
+  <input type="text" name="name">
+  <input type="email" name="email">
+  <input type="text" name="brand">
+  <select name="type">
+    <option value=""></option>
+    <option value="Brand deal"></option>
+    <option value="UGC Video"></option>
+    <option value="TikTok Shop"></option>
+    <option value="Long-term"></option>
+    <option value="Other"></option>
+  </select>
+  <textarea name="message"></textarea>
+</form>
+
+<!-- CREATOR BRIEF (build) -->
+<form name="creator-brief" method="POST" enctype="multipart/form-data" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+  <input type="hidden" name="form-name" value="creator-brief">
+  <input name="bot-field">
+  <input type="hidden" name="referral_code">
+  <input type="text" name="name">
+  <input type="email" name="email">
+  <input type="text" name="location">
+  <input type="text" name="niche">
+  <input type="text" name="tagline">
+  <input type="text" name="platform_1">
+  <input type="text" name="handle_1">
+  <input type="text" name="followers_1">
+  <input type="text" name="likes_1">
+  <input type="text" name="frequency_1">
+  <input type="text" name="platform_2">
+  <input type="text" name="handle_2">
+  <input type="text" name="followers_2">
+  <input type="text" name="likes_2">
+  <input type="text" name="frequency_2">
+  <input type="text" name="video_url_1">
+  <input type="text" name="video_url_2">
+  <input type="text" name="video_url_3">
+  <input type="text" name="video_url_4">
+  <input type="text" name="video_url_5">
+  <input type="text" name="milestone_1">
+  <input type="text" name="milestone_2">
+  <input type="text" name="milestone_3">
+  <input type="text" name="milestone_4">
+  <input type="text" name="milestone_5">
+  <input type="text" name="color">
+  <input type="text" name="vibe">
+  <input type="text" name="inspiration">
+  <input type="text" name="other_links">
+  <input type="file" name="hero_photo">
+  <input type="file" name="screenshots">
+  <input type="text" name="avg_views">
+  <input type="text" name="total_gmv">
+  <input type="text" name="brand_deals">
+  <input type="text" name="best_views">
+  <input type="hidden" name="audience_age">
+  <input type="hidden" name="gender_split">
+  <input type="checkbox" name="categories[]" value="Beauty and Skincare">
+  <input type="text" name="content_style">
+  <input type="text" name="past_brands">
+</form>
+
+<!-- AFFILIATE APPLY (affiliate) -->
+<form name="affiliate-apply" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="hidden" name="form-name" value="affiliate-apply">
+  <input name="bot-field">
+  <input type="text" name="name">
+  <input type="email" name="email">
+  <input type="text" name="tiktok">
+  <input type="text" name="instagram">
+  <select name="audience_size">
+    <option value=""></option>
+  </select>
+  <input type="text" name="niche">
+  <textarea name="promo_plan"></textarea>
+  <input type="text" name="referral_source">
+</form>
+
+</body>
+</html>

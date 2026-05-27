@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Problem Hook</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body {
+  width:100%; height:100%; overflow:hidden;
+  background:#080808;
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;
+}
+
+.scene {
+  width:100vw; height:100vh;
+  position:relative; overflow:hidden;
+  display:flex; flex-direction:column;
+  justify-content:center; align-items:flex-start;
+  padding:0 8vw;
+}
+
+/* Background */
+.bg {
+  position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse 50% 50% at 80% 50%, rgba(200,255,0,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 30% 40% at 15% 20%, rgba(255,107,107,0.04) 0%, transparent 60%);
+  pointer-events:none;
+}
+
+/* Tight noise texture */
+.noise {
+  position:absolute; inset:0; pointer-events:none; opacity:0.5;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  background-size:160px 160px;
+}
+
+/* Vertical accent line — left edge */
+.accent-line {
+  position:absolute; left:0; top:0; bottom:0; width:3px;
+  background:linear-gradient(180deg, transparent, #c8ff00 30%, #c8ff00 70%, transparent);
+  opacity:0.8;
+  animation:linePulse 3s ease-in-out infinite;
+}
+@keyframes linePulse{0%,100%{opacity:0.5;}50%{opacity:1;}}
+
+/* TOP LABEL STRIP */
+.top-strip {
+  position:absolute; top:0; left:0; right:0;
+  padding:clamp(14px,2vw,22px) 8vw;
+  display:flex; align-items:center; justify-content:space-between;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  opacity:0;
+  animation:fadeIn 0.5s ease forwards 0.1s;
+}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.top-label {
+  font-size:clamp(10px,1.2vw,12px); font-weight:800;
+  letter-spacing:3px; text-transform:uppercase;
+  color:rgba(200,255,0,0.45);
+}
+.top-right {
+  font-size:clamp(10px,1.2vw,12px); font-weight:700;
+  color:rgba(255,255,255,0.2); letter-spacing:1px;
+}
+
+/* BEAT SYSTEM — fast cuts, feels like a video edit */
+.seq {
+  position:absolute; inset:0;
+  display:flex; flex-direction:column;
+  justify-content:center; align-items:flex-start;
+  padding:clamp(70px,10vh,120px) 8vw 8vw;
+  opacity:0; pointer-events:none;
+}
+
+/* 5 beats × ~2.5s each */
+.b1{animation:cut 2.4s ease forwards 0.3s;}
+.b2{animation:cut 2.4s ease forwards 2.7s;}
+.b3{animation:cut 2.4s ease forwards 5.1s;}
+.b4{animation:cut 2.4s ease forwards 7.5s;}
+.b5{animation:hold 99s ease forwards 9.9s;}
+
+@keyframes cut{
+  0%  {opacity:0;transform:scale(0.97) translateY(12px);}
+  12% {opacity:1;transform:scale(1) translateY(0);}
+  82% {opacity:1;transform:scale(1) translateY(0);}
+  100%{opacity:0;transform:scale(1.02) translateY(-12px);}
+}
+@keyframes hold{
+  0%  {opacity:0;transform:scale(0.97) translateY(12px);}
+  8%  {opacity:1;transform:scale(1) translateY(0);}
+  100%{opacity:1;}
+}
+
+/* On-screen text bubble (TikTok style) */
+.bubble {
+  display:inline-block;
+  background:rgba(0,0,0,0.75);
+  border:1.5px solid rgba(255,255,255,0.12);
+  border-radius:12px;
+  padding:clamp(10px,1.5vw,16px) clamp(16px,2.5vw,28px);
+  backdrop-filter:blur(10px);
+  margin-bottom:20px;
+}
+.bubble-text {
+  font-size:clamp(12px,1.6vw,16px);
+  font-weight:800; letter-spacing:2px; text-transform:uppercase;
+  color:rgba(255,255,255,0.7);
+}
+
+/* MAIN TEXT */
+.main {
+  font-size:clamp(40px,7vw,96px);
+  font-weight:900; line-height:0.95; letter-spacing:-3px;
+  color:#f0f0f0;
+}
+.main .acc{color:#c8ff00;}
+.main .red{color:#ff6b6b;}
+.main .dim{color:rgba(240,240,240,0.28);}
+.main .strike{
+  text-decoration:line-through;
+  text-decoration-color:rgba(255,107,107,0.6);
+  color:rgba(240,240,240,0.35);
+}
+
+/* SUPPORT TEXT */
+.support {
+  margin-top:clamp(16px,2.5vw,28px);
+  font-size:clamp(16px,2.4vw,32px);
+  font-weight:700; color:rgba(240,240,240,0.55);
+  line-height:1.4; letter-spacing:-0.5px;
+  max-width:640px;
+}
+.support strong{color:#f0f0f0; font-weight:900;}
+.support .acc{color:#c8ff00; font-weight:800;}
+
+/* STAT BAR — beat 4 */
+.stat-bar {
+  display:flex; gap:clamp(20px,4vw,48px);
+  margin-top:clamp(16px,2.5vw,28px);
+}
+.stat-item { display:flex; flex-direction:column; gap:4px; }
+.stat-n {
+  font-size:clamp(28px,4.5vw,56px);
+  font-weight:900; color:#c8ff00; letter-spacing:-2px;
+}
+.stat-l {
+  font-size:clamp(9px,1.2vw,12px); font-weight:800;
+  letter-spacing:2px; text-transform:uppercase;
+  color:rgba(240,240,240,0.35);
+}
+
+/* FINAL BEAT */
+.final-badge{
+  display:inline-flex; align-items:center; gap:8px;
+  border:1px solid rgba(255,107,107,0.4);
+  border-radius:100px; padding:7px 18px; margin-bottom:20px;
+}
+.badge-dot{
+  width:7px;height:7px;border-radius:50%;background:#ff6b6b;
+  box-shadow:0 0 10px rgba(255,107,107,0.8);
+  animation:blink 1.1s ease-in-out infinite;
+}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.badge-text{
+  font-size:clamp(10px,1.2vw,12px);font-weight:800;
+  letter-spacing:2px;text-transform:uppercase;color:#ff6b6b;
+}
+
+.cta-big{
+  display:inline-flex; align-items:center; gap:16px;
+  background:#c8ff00; border-radius:14px;
+  padding:clamp(16px,2.5vw,24px) clamp(28px,4.5vw,48px);
+  margin-top:20px;
+  animation:ctaPulse 2s ease-in-out infinite 11s;
+}
+@keyframes ctaPulse{0%,100%{box-shadow:0 0 0 rgba(200,255,0,0);}50%{box-shadow:0 0 60px rgba(200,255,0,0.5);}}
+.cta-big-text{
+  font-size:clamp(16px,2.8vw,36px);
+  font-weight:900; color:#080808; letter-spacing:-0.5px;
+}
+.cta-arrow{
+  font-size:clamp(18px,3vw,38px);
+  font-weight:900; color:#080808;
+  animation:arr 1.3s ease-in-out infinite 11.5s;
+}
+@keyframes arr{0%,100%{transform:translateX(0);}50%{transform:translateX(8px);}}
+
+.cta-note-final{
+  margin-top:14px;
+  font-size:clamp(12px,1.5vw,16px);
+  font-weight:600; color:rgba(255,255,255,0.25);
+}
+
+/* Progress */
+.progress{
+  position:absolute; bottom:0; left:0; height:2px; background:#c8ff00;
+  animation:fill 11.5s linear forwards 0.3s;
+}
+@keyframes fill{from{width:0}to{width:100%}}
+
+.corner{
+  position:absolute; bottom:clamp(16px,2.5vw,30px); right:clamp(20px,3vw,36px);
+  font-size:11px; font-weight:800; letter-spacing:2px; text-transform:uppercase;
+  color:rgba(200,255,0,0.16);
+}
+</style>
+</head>
+<body>
+<div class="scene">
+  <div class="bg"></div>
+  <div class="noise"></div>
+  <div class="accent-line"></div>
+  <div class="progress"></div>
+
+  <div class="top-strip">
+    <div class="top-label">@dreamlifevisuals · 52 sites built</div>
+    <div class="top-right">tylerdream.com</div>
+  </div>
+
+  <!-- BEAT 1: Hook — the problem they feel -->
+  <div class="seq b1">
+    <div class="bubble"><div class="bubble-text">nobody's gonna say this</div></div>
+    <div class="main">
+      your content<br>
+      is <span class="acc">good.</span>
+    </div>
+    <div class="support">
+      your <strong>media kit</strong> is the reason<br>
+      brands aren't responding.
+    </div>
+  </div>
+
+  <!-- BEAT 2: Agitate — what they're doing wrong -->
+  <div class="seq b2">
+    <div class="main">
+      <span class="strike">linktree</span><br>
+      <span class="strike">google doc</span><br>
+      <span class="red">aren't kits.</span>
+    </div>
+    <div class="support">
+      they're placeholders.<br>
+      brands see them and <strong>keep scrolling.</strong>
+    </div>
+  </div>
+
+  <!-- BEAT 3: Proof — what actually works -->
+  <div class="seq b3">
+    <div class="bubble"><div class="bubble-text">what changed for them</div></div>
+    <div class="main">
+      a site.<br>
+      <span class="dim">that's it.</span>
+    </div>
+    <div class="support">
+      kristyn. ayden. sam.<br>
+      got their site → <span class="acc">deals started coming in.</span>
+    </div>
+  </div>
+
+  <!-- BEAT 4: The numbers — credibility -->
+  <div class="seq b4">
+    <div class="main">the results<br><span class="acc">speak.</span></div>
+    <div class="stat-bar">
+      <div class="stat-item">
+        <div class="stat-n">$126K</div>
+        <div class="stat-l">Kristyn GMV</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-n">$2.1M</div>
+        <div class="stat-l">Ayden GMV</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-n">52+</div>
+        <div class="stat-l">Sites Built</div>
+      </div>
+    </div>
+    <div class="support" style="margin-top:20px;">
+      all started with a <strong>$300 site.</strong>
+    </div>
+  </div>
+
+  <!-- BEAT 5: CTA — the payoff they waited for -->
+  <div class="seq b5">
+    <div class="final-badge">
+      <div class="badge-dot"></div>
+      <div class="badge-text">5 spots · limited time</div>
+    </div>
+    <div class="main">
+      get your<br>
+      site <span class="acc">built.</span>
+    </div>
+    <div class="cta-big">
+      <span class="cta-big-text">tylerdream.com</span>
+      <span class="cta-arrow">→</span>
+    </div>
+    <div class="cta-note-final">$300 · 48 hours · link in bio</div>
+  </div>
+
+  <div class="corner">tylerdream.com</div>
+</div>
+</body>
+</html>

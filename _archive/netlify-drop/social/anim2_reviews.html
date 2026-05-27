@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reviews</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body {
+  width:100%; height:100%; overflow:hidden;
+  background:#080808;
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;
+}
+
+.scene {
+  width:100vw; height:100vh;
+  position:relative; overflow:hidden;
+  display:flex; flex-direction:column;
+  justify-content:center; align-items:flex-start;
+  padding:0 8vw;
+}
+
+/* BG */
+.bg-gradient {
+  position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 30%, rgba(200,255,0,0.05) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 10% 70%, rgba(200,255,0,0.03) 0%, transparent 60%);
+  pointer-events:none;
+}
+
+.topbar {
+  position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg, transparent, #c8ff00 40%, transparent);
+  opacity:0.7;
+}
+
+/* SEQUENCE SYSTEM — 3 beats, each ~3.5s */
+.seq {
+  position:absolute; inset:0;
+  display:flex; flex-direction:column;
+  justify-content:center; align-items:flex-start;
+  padding:0 8vw;
+  opacity:0; pointer-events:none;
+}
+
+.b1 { animation: beat 3.4s ease forwards 0.3s; }
+.b2 { animation: beat 3.4s ease forwards 3.7s; }
+.b3 { animation: beat 3.4s ease forwards 7.1s; }
+.b4 { animation: beatHold 99s ease forwards 10.5s; }
+
+@keyframes beat {
+  0%   { opacity:0; transform:translateY(20px); }
+  10%  { opacity:1; transform:translateY(0); }
+  85%  { opacity:1; transform:translateY(0); }
+  100% { opacity:0; transform:translateY(-20px); }
+}
+@keyframes beatHold {
+  0%   { opacity:0; transform:translateY(20px); }
+  8%   { opacity:1; transform:translateY(0); }
+  100% { opacity:1; }
+}
+
+/* TYPE */
+.eyebrow {
+  font-size:clamp(10px,1.3vw,12px);
+  font-weight:800; letter-spacing:3px; text-transform:uppercase;
+  color:rgba(200,255,0,0.5); margin-bottom:18px;
+}
+.headline {
+  font-size:clamp(34px,6vw,80px);
+  font-weight:900; line-height:1.0; letter-spacing:-2.5px; color:#f0f0f0;
+}
+.headline .acc { color:#c8ff00; }
+.headline .dim { color:rgba(240,240,240,0.3); }
+.sub {
+  margin-top:18px;
+  font-size:clamp(16px,2.5vw,30px);
+  font-weight:600; color:rgba(240,240,240,0.6); line-height:1.5; letter-spacing:-0.3px;
+}
+.sub strong { color:#f0f0f0; font-weight:800; }
+
+/* QUOTE CARD */
+.qcard {
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:20px;
+  padding:clamp(20px,3vw,36px) clamp(24px,3.5vw,40px);
+  position:relative;
+  overflow:hidden;
+  max-width:680px;
+  width:100%;
+}
+.qcard::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg, transparent, rgba(200,255,0,0.5), transparent);
+}
+/* shimmer sweep */
+.qcard::after {
+  content:'';
+  position:absolute; top:0; left:-100%; width:50%; height:100%;
+  background:linear-gradient(90deg, transparent, rgba(200,255,0,0.035), transparent);
+  animation:shimmer 3s ease-in-out infinite;
+}
+@keyframes shimmer { 0%{left:-100%} 100%{left:200%} }
+
+.quote-mark {
+  font-size:clamp(48px,7vw,80px);
+  font-weight:900; color:rgba(200,255,0,0.15);
+  line-height:0.7; margin-bottom:10px;
+  font-family:Georgia, serif;
+}
+.quote-text {
+  font-size:clamp(18px,2.8vw,36px);
+  font-weight:800; color:#fff; line-height:1.3; letter-spacing:-0.5px;
+}
+.quote-meta {
+  margin-top:20px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.quote-name {
+  font-size:clamp(11px,1.4vw,14px);
+  font-weight:800; letter-spacing:2px; text-transform:uppercase;
+  color:rgba(200,255,0,0.7);
+}
+.quote-stats {
+  font-size:clamp(11px,1.4vw,14px);
+  font-weight:600; color:rgba(240,240,240,0.3);
+}
+
+/* FINAL BEAT — all 3 stacked mini */
+.mini-cards { display:flex; flex-direction:column; gap:12px; width:100%; max-width:700px; }
+.mini {
+  background:rgba(255,255,255,0.025);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:14px;
+  padding:16px 22px;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:16px;
+  position:relative; overflow:hidden;
+  opacity:0;
+}
+.mini::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg, transparent, rgba(200,255,0,0.3), transparent);
+}
+.m1 { animation:slideCard 0.5s ease forwards 11.2s; }
+.m2 { animation:slideCard 0.5s ease forwards 11.5s; }
+.m3 { animation:slideCard 0.5s ease forwards 11.8s; }
+@keyframes slideCard {
+  from{opacity:0;transform:translateX(-20px);}
+  to{opacity:1;transform:translateX(0);}
+}
+.mini-quote {
+  font-size:clamp(13px,1.8vw,18px); font-weight:700; color:#e0e0e0;
+  flex:1; letter-spacing:-0.2px;
+}
+.mini-who {
+  font-size:clamp(10px,1.2vw,12px); font-weight:800;
+  letter-spacing:1.5px; text-transform:uppercase;
+  color:rgba(200,255,0,0.6); white-space:nowrap;
+}
+
+.cta-block {
+  margin-top:28px; opacity:0;
+  animation:fadeUp 0.6s ease forwards 12.2s;
+}
+.cta-row {
+  display:flex; align-items:center; gap:20px;
+}
+.cta-main {
+  background:#c8ff00; border-radius:100px;
+  padding:clamp(12px,1.8vw,18px) clamp(24px,3.5vw,36px);
+  font-size:clamp(14px,2vw,20px); font-weight:900; color:#080808;
+  letter-spacing:-0.2px;
+  animation:ctaPulse 2.2s ease-in-out infinite 13s;
+}
+@keyframes ctaPulse {
+  0%,100%{box-shadow:0 0 0 rgba(200,255,0,0);}
+  50%{box-shadow:0 0 40px rgba(200,255,0,0.5);}
+}
+.cta-aside {
+  font-size:clamp(12px,1.5vw,16px); color:rgba(255,255,255,0.25); font-weight:600;
+}
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(16px);} to{opacity:1;transform:translateY(0);} }
+
+.corner {
+  position:absolute; bottom:clamp(20px,3vw,36px); right:clamp(20px,3vw,36px);
+  font-size:11px; font-weight:800; letter-spacing:2px; text-transform:uppercase;
+  color:rgba(200,255,0,0.18);
+}
+.progress {
+  position:absolute; bottom:0; left:0; height:2px; background:#c8ff00;
+  animation:fill 13.5s linear forwards 0.3s;
+}
+@keyframes fill { from{width:0} to{width:100%} }
+</style>
+</head>
+<body>
+<div class="scene">
+  <div class="bg-gradient"></div>
+  <div class="topbar"></div>
+  <div class="progress"></div>
+
+  <!-- B1: most creators -->
+  <div class="seq b1">
+    <div class="eyebrow">full-time creator · 52 sites built · trained under top TikTok Shop coach</div>
+    <div class="headline">brands <span class="dim">already</span><br>decided<br>before they <span class="acc">reply.</span></div>
+    <div class="sub">your first impression isn't your content.<br>it's <strong>the link you send.</strong></div>
+  </div>
+
+  <!-- B2: Kristyn -->
+  <div class="seq b2">
+    <div class="eyebrow">kristyn simpson · 203K · health &amp; wellness</div>
+    <div class="qcard">
+      <div class="quote-mark">"</div>
+      <div class="quote-text">Omg! Thank you so much!<br>IT LOOKS SOOO GOOD!!</div>
+      <div class="quote-meta">
+        <div class="quote-name">Kristyn Simpson</div>
+        <div class="quote-stats">$126K GMV · 48 hours after paying</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- B3: Ayden -->
+  <div class="seq b3">
+    <div class="eyebrow">ayden lorz · @connectz · $2.1M gmv</div>
+    <div class="qcard">
+      <div class="quote-mark">"</div>
+      <div class="quote-text">Bro it looks so good omg.<br>Good work dude. Thank you so freaking much!</div>
+      <div class="quote-meta">
+        <div class="quote-name">Ayden Lorz</div>
+        <div class="quote-stats">$2.1M GMV · Home &amp; Living</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- B4: All 3 + CTA -->
+  <div class="seq b4">
+    <div class="eyebrow">3 creators. 3 sites. 52 built total. all engineered the same way.</div>
+    <div class="mini-cards">
+      <div class="mini m1">
+        <div class="mini-quote">"IT LOOKS SOOO GOOD!!"</div>
+        <div class="mini-who">Kristyn · 203K</div>
+      </div>
+      <div class="mini m2">
+        <div class="mini-quote">"Thank you so freaking much!"</div>
+        <div class="mini-who">Ayden · $2.1M</div>
+      </div>
+      <div class="mini m3">
+        <div class="mini-quote">"Bro I can't thank you enough!!"</div>
+        <div class="mini-who">Sam · 75.1K</div>
+      </div>
+    </div>
+    <div class="cta-block">
+      <div class="cta-row">
+        <div class="cta-main">5 spots → tylerdream.com</div>
+        <div class="cta-aside">link in bio</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="corner">tylerdream.com</div>
+</div>
+</body>
+</html>

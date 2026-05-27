@@ -1,0 +1,53 @@
+functionsDirectory = "C:\\Users\\tyler\\OneDrive\\Documents\\Claude\\Projects\\Dream\\netlify-drop\\netlify\\functions"
+functionsDirectoryOrigin = "config-v1"
+plugins = []
+headers = []
+
+[build]
+publish = "C:\\Users\\tyler\\OneDrive\\Documents\\Claude\\Projects\\Dream\\netlify-drop"
+publishOrigin = "config"
+base = "C:\\Users\\tyler\\OneDrive\\Documents\\Claude\\Projects\\Dream\\netlify-drop"
+functions = "C:\\Users\\tyler\\OneDrive\\Documents\\Claude\\Projects\\Dream\\netlify-drop\\netlify\\functions"
+
+[build.environment]
+
+[build.processing]
+
+[build.processing.css]
+
+[build.processing.html]
+
+[build.processing.images]
+
+[build.processing.js]
+
+[build.services]
+
+[functions]
+
+[functions."*"]
+node_bundler = "esbuild"
+
+[[redirects]]
+from = "/preview"
+to = "/build"
+status = 301.0
+force = false
+
+[redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]
+
+[[redirects]]
+from = "/preview.html"
+to = "/build"
+status = 301.0
+force = false
+
+[redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]

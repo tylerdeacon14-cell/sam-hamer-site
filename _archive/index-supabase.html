@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tylerdream — script generator</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0a0a; --surface: #141414; --surface2: #1a1a1a;
+    --border: #242424; --border2: #2e2e2e;
+    --text: #f0f0f0; --muted: #777; --muted2: #444; --red: #f28b82;
+  }
+  body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; font-size: 14px; line-height: 1.6; min-height: 100vh; padding: 2.5rem 1rem; }
+  .container { max-width: 640px; margin: 0 auto; }
+  .logo { font-size: 10px; font-weight: 700; color: var(--muted); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 2.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+  .logo span { color: var(--text); }
+  h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 6px; line-height: 1.2; }
+  .subtitle { font-size: 13px; color: var(--muted); margin-bottom: 2.5rem; }
+  .field { margin-bottom: 14px; }
+  .field label { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .field input, .field textarea, .field select { width: 100%; background: var(--bg); border: 1px solid var(--border2); color: var(--text); font-family: 'Montserrat', sans-serif; font-size: 13px; padding: 10px 12px; border-radius: 6px; outline: none; transition: border-color 0.15s; -webkit-appearance: none; appearance: none; }
+  .field input:focus, .field textarea:focus, .field select:focus { border-color: #555; }
+  .field input::placeholder, .field textarea::placeholder { color: var(--muted2); }
+  .field textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+  .select-wrap { position: relative; }
+  .select-wrap::after { content: '▾'; position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 11px; pointer-events: none; }
+  .select-wrap select { padding-right: 32px; cursor: pointer; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .hook-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .hook-pill { padding: 10px 12px; border: 1px solid var(--border2); border-radius: 6px; background: var(--bg); color: var(--muted); font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer; text-align: left; line-height: 1.4; transition: all 0.15s; }
+  .hook-pill:hover { border-color: #555; color: var(--text); }
+  .hook-pill.selected { border-color: var(--text); color: var(--text); background: var(--surface2); }
+  .section-head { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; margin-top: 24px; }
+  .divider { height: 1px; background: var(--border); margin: 2rem 0; }
+  .btn { width: 100%; padding: 14px; background: var(--text); color: var(--bg); border: none; border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; letter-spacing: 0.08em; margin-top: 1.5rem; transition: opacity 0.15s; text-transform: uppercase; }
+  .btn:hover { opacity: 0.85; }
+  .btn:disabled { opacity: 0.3; cursor: not-allowed; }
+  .loading { display: none; color: var(--muted); font-size: 11px; font-weight: 600; padding: 1rem 0; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; }
+  .error-msg { color: var(--red); font-size: 12px; font-weight: 500; padding: 0.5rem 0; display: none; }
+  .output { display: none; }
+  .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+  .script-box { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; font-size: 14px; line-height: 1.85; color: var(--text); white-space: pre-wrap; word-break: break-word; }
+  .btn-row { display: flex; gap: 8px; margin-top: 10px; }
+  .btn-sm { padding: 8px 16px; background: transparent; border: 1px solid var(--border2); color: var(--muted); border-radius: 6px; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; cursor: pointer; transition: all 0.15s; letter-spacing: 0.1em; text-transform: uppercase; }
+  .btn-sm:hover { color: var(--text); border-color: #555; }
+  .notes-box { background: #0f0f0f; border: 1px solid var(--border); border-left: 3px solid #2e2e2e; border-radius: 8px; padding: 1.25rem; font-size: 12px; line-height: 1.75; color: var(--muted); white-space: pre-wrap; margin-top: 1.25rem; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .pulse { animation: pulse 1.2s infinite; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="logo"><span>tylerdream.com</span> — script generator</div>
+  <h1>write your script.</h1>
+  <p class="subtitle">fill this out. get a ready-to-film talking head script.</p>
+
+  <div class="field">
+    <label>your niche</label>
+    <input type="text" id="niche" placeholder="e.g. women's skincare, fitness, TikTok creators, mom life" />
+  </div>
+  <div class="row">
+    <div class="field">
+      <label>your followers</label>
+      <input type="text" id="followers" placeholder="e.g. 4.2k" />
+    </div>
+    <div class="field">
+      <label>platform</label>
+      <div class="select-wrap">
+        <select id="platform">
+          <option>TikTok</option>
+          <option>Instagram</option>
+          <option>YouTube</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="field">
+    <label>biggest pain before getting your media kit site</label>
+    <textarea id="pain" placeholder="e.g. brands kept ghosting me, sending a Google Doc, had no proof I was legit"></textarea>
+  </div>
+  <div class="field">
+    <label>what changed after you got your site</label>
+    <textarea id="change" placeholder="e.g. landed my first retainer, brands started reaching out, finally looked professional"></textarea>
+  </div>
+  <div class="field">
+    <label>one specific result</label>
+    <input type="text" id="result" placeholder="e.g. landed a paid deal the same week, got 3 brand inquiries in a month" />
+  </div>
+
+  <div class="section-head">pick your hook angle</div>
+  <div class="hook-grid">
+    <button class="hook-pill selected" data-value="income" onclick="selectHook(this)">why you're not hitting $3-5k months</button>
+    <button class="hook-pill" data-value="ghosted" onclick="selectHook(this)">brands keep ghosting you</button>
+    <button class="hook-pill" data-value="bio" onclick="selectHook(this)">stop saying link in bio</button>
+    <button class="hook-pill" data-value="google" onclick="selectHook(this)">you're sending a Google Doc</button>
+    <button class="hook-pill" data-value="serious" onclick="selectHook(this)">brands don't think you're serious</button>
+    <button class="hook-pill" data-value="amateur" onclick="selectHook(this)">you look like an amateur online</button>
+    <button class="hook-pill" data-value="retainer" onclick="selectHook(this)">you can't land a retainer</button>
+    <button class="hook-pill" data-value="inbound" onclick="selectHook(this)">brands never reach out to you</button>
+    <button class="hook-pill" data-value="numbers" onclick="selectHook(this)">good numbers, still no deals</button>
+  </div>
+
+  <button class="btn" id="genBtn" onclick="generateScript()">generate my script</button>
+  <div class="loading pulse" id="loading">writing your script...</div>
+  <div class="error-msg" id="errMsg"></div>
+
+  <div class="output" id="output">
+    <div class="divider"></div>
+    <div class="section-label">your script</div>
+    <div class="script-box" id="scriptBox"></div>
+    <div class="btn-row">
+      <button class="btn-sm" id="copyBtn" onclick="copyScript()">copy script</button>
+      <button class="btn-sm" onclick="generateScript()">regenerate</button>
+    </div>
+    <div class="section-label" style="margin-top:1.75rem;">editor notes</div>
+    <div class="notes-box" id="notesBox"></div>
+  </div>
+</div>
+
+<script>
+function selectHook(el) {
+  document.querySelectorAll('.hook-pill').forEach(p => p.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function getHook() {
+  const sel = document.querySelector('.hook-pill.selected');
+  return sel ? sel.dataset.value : 'income';
+}
+
+const hookMap = {
+  income: "why you're not hitting $3-5k months as a creator",
+  ghosted: "why brands keep ghosting you",
+  bio: "stop saying link in bio — you're sending people nowhere",
+  google: "you're sending a Google Doc as your media kit and it's killing your deals",
+  serious: "brands don't think you're a serious creator",
+  amateur: "you look like an amateur online and you don't even know it",
+  retainer: "you want a retainer but you can't land one",
+  inbound: "brands never reach out to you — you're always chasing them",
+  numbers: "your follower count is solid but you still can't land deals"
+};
+
+async function generateScript() {
+  const niche     = document.getElementById('niche').value.trim();
+  const followers = document.getElementById('followers').value.trim();
+  const platform  = document.getElementById('platform').value;
+  const pain      = document.getElementById('pain').value.trim();
+  const change    = document.getElementById('change').value.trim();
+  const result    = document.getElementById('result').value.trim();
+  const hook      = getHook();
+  const errEl     = document.getElementById('errMsg');
+
+  if (!niche || !pain || !change) {
+    errEl.textContent = 'fill in your niche, pain, and what changed.';
+    errEl.style.display = 'block';
+    return;
+  }
+  errEl.style.display = 'none';
+
+  const btn = document.getElementById('genBtn');
+  const loading = document.getElementById('loading');
+  const output = document.getElementById('output');
+  btn.disabled = true;
+  loading.style.display = 'block';
+  output.style.display = 'none';
+
+  const prompt = `You are an expert TikTok script writer. Write a talking head TikTok script for a creator promoting tylerdream.com — a service that builds professional media kit sites for creators in 48 hours. The creator is an affiliate earning commission per referral.
+
+CREATOR INFO:
+- Niche: ${niche}
+- Followers: ${followers} on ${platform}
+- Pain before: ${pain}
+- What changed: ${change}
+- Specific result: ${result || 'not specified'}
+- Hook angle: ${hookMap[hook]}
+
+RULES:
+1. Never open with the product or anything positive. Open with the pain.
+2. 80% problem, 20% life change. Stay in the problem as long as possible.
+3. Delay the product reveal until at least 70% through.
+4. Short punchy sentences. Conversational. Real person energy.
+5. End CTA: "comment MEDIA KIT and i'll send you the link directly"
+6. All lowercase. Minimal punctuation.
+7. Structure: Hook → Super hook → Problem stack → Bridge (discovery energy not sales energy) → Life change → CTA
+8. Never mention the price.
+9. 60-90 seconds spoken aloud.
+
+Format EXACTLY like this:
+BUBBLE TEXT: [5 words max for pinned on-screen bubble]
+
+SCRIPT:
+[full script, all lowercase]
+
+EDITOR NOTES:
+[talking head setup, screen recording overlay of tylerdream.com in corner, show link sent in a DM, show contact form at end, no music — creator adds music. Any niche-specific visual cues.]`;
+
+  try {
+    const res = await fetch('https://guwjttgkrwdcjnstgquu.supabase.co/functions/v1/generate-script', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: [{ role: 'user', content: prompt }] })
+    });
+
+    const data = await res.json();
+    const text = data.content.map(i => i.text || '').join('');
+
+    const bubbleMatch = text.match(/BUBBLE TEXT:\s*(.+)/);
+    const scriptMatch = text.match(/SCRIPT:\n([\s\S]*?)(?=\nEDITOR NOTES:|$)/);
+    const notesMatch  = text.match(/EDITOR NOTES:\n([\s\S]*?)$/);
+
+    let scriptContent = '';
+    if (bubbleMatch) scriptContent += `on-screen bubble: "${bubbleMatch[1].trim()}"\n\n`;
+    if (scriptMatch) scriptContent += scriptMatch[1].trim();
+
+    document.getElementById('scriptBox').textContent = scriptContent || text;
+    document.getElementById('notesBox').textContent = notesMatch ? notesMatch[1].trim() : 'talking head. screen recording overlay in corner showing tylerdream.com. show link dropped in a DM. show contact form at end. no music.';
+    output.style.display = 'block';
+    output.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } catch(e) {
+    errEl.textContent = 'something went wrong. try again.';
+    errEl.style.display = 'block';
+  }
+
+  btn.disabled = false;
+  loading.style.display = 'none';
+}
+
+function copyScript() {
+  navigator.clipboard.writeText(document.getElementById('scriptBox').textContent).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = 'copied ✓';
+    setTimeout(() => { btn.textContent = 'copy script'; }, 1500);
+  });
+}
+</script>
+</body>
+</html>
+

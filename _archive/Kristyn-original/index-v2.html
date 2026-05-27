@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kristyn Simpson | UGC Creator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --text: #ffffff;
+  --text-secondary: #a6a6a6;
+  --text-tertiary: #666666;
+  --accent: #c8ff00;
+  --accent-dark: #a8d900;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* ANIMATIONS */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(200, 255, 0, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(200, 255, 0, 0.3);
+  }
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 20px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(10, 10, 10, 0.98);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(200, 255, 0, 0.1);
+  animation: fadeInDown 0.6s ease-out;
+}
+
+.nav-brand {
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  color: var(--text);
+}
+
+.nav-brand .accent {
+  color: var(--accent);
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+}
+
+.nav-links a {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: var(--accent);
+}
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 140px 40px 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 80px;
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: 5%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(ellipse at center, rgba(200, 255, 0, 0.05), transparent 70%);
+  pointer-events: none;
+}
+
+.hero-text {
+  flex: 1;
+  max-width: 600px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.hero-headline {
+  font-size: clamp(48px, 8vw, 72px);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  margin-bottom: 24px;
+  color: var(--text);
+  animation: fadeInUp 0.8s ease-out 0.1s both;
+}
+
+.hero-headline .accent {
+  color: var(--accent);
+}
+
+.hero-tagline {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 40px;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 40px;
+  animation: fadeInUp 0.8s ease-out 0.3s both;
+}
+
+.stat-box {
+  background: var(--surface);
+  border: 1px solid rgba(200, 255, 0, 0.1);
+  border-radius: 12px;
+  padding: 24px;
+  transition: all 0.3s ease;
+}
+
+.stat-box:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 24px rgba(200, 255, 0, 0.15);
+  transform: translateY(-4px);
+}
+
+.stat-val {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-primary {
+  display: inline-block;
+  background: var(--accent);
+  color: #000;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 14px 32px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  animation: fadeInUp 0.8s ease-out 0.4s both;
+  box-shadow: 0 0 20px rgba(200, 255, 0, 0.2);
+}
+
+.btn-primary:hover {
+  background: var(--accent-dark);
+  box-shadow: 0 0 32px rgba(200, 255, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.hero-photo {
+  flex: 1;
+  position: relative;
+  animation: slideInRight 0.8s ease-out 0.2s both;
+}
+
+.hero-photo-img {
+  width: 100%;
+  height: 600px;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid rgba(200, 255, 0, 0.1);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  animation: glow 3s ease-in-out infinite;
+}
+
+/* SECTIONS */
+section {
+  padding: 80px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.section-header {
+  margin-bottom: 60px;
+}
+
+.section-eyebrow {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.section-title {
+  font-size: clamp(36px, 5vw, 52px);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  color: var(--text);
+  animation: fadeInUp 0.8s ease-out 0.1s both;
+}
+
+.section-title .accent {
+  color: var(--accent);
+}
+
+/* WHY SECTION */
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.why-card {
+  background: var(--surface);
+  border: 1px solid rgba(200, 255, 0, 0.1);
+  border-radius: 12px;
+  padding: 40px 32px;
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.8s ease-out both;
+}
+
+.why-card:nth-child(1) { animation-delay: 0.1s; }
+.why-card:nth-child(2) { animation-delay: 0.2s; }
+.why-card:nth-child(3) { animation-delay: 0.3s; }
+
+.why-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 32px rgba(200, 255, 0, 0.15);
+  transform: translateY(-6px);
+}
+
+.why-num {
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.why-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.why-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* STYLE SECTION */
+.style-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.style-tag {
+  background: var(--surface);
+  border: 1px solid rgba(200, 255, 0, 0.1);
+  border-radius: 10px;
+  padding: 28px 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.8s ease-out both;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.style-tag:nth-child(1) { animation-delay: 0.05s; }
+.style-tag:nth-child(2) { animation-delay: 0.1s; }
+.style-tag:nth-child(3) { animation-delay: 0.15s; }
+.style-tag:nth-child(4) { animation-delay: 0.2s; }
+.style-tag:nth-child(5) { animation-delay: 0.25s; }
+.style-tag:nth-child(6) { animation-delay: 0.3s; }
+.style-tag:nth-child(7) { animation-delay: 0.35s; }
+.style-tag:nth-child(8) { animation-delay: 0.4s; }
+
+.style-tag:hover {
+  background: rgba(200, 255, 0, 0.08);
+  border-color: var(--accent);
+  box-shadow: 0 0 24px rgba(200, 255, 0, 0.15);
+  transform: translateY(-4px);
+}
+
+/* PLATFORMS SECTION */
+.platforms-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.platform-card {
+  background: var(--surface);
+  border: 1px solid rgba(200, 255, 0, 0.1);
+  border-radius: 12px;
+  padding: 40px 32px;
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.8s ease-out both;
+  text-decoration: none;
+}
+
+.platform-card:nth-child(1) { animation-delay: 0.1s; }
+.platform-card:nth-child(2) { animation-delay: 0.2s; }
+.platform-card:nth-child(3) { animation-delay: 0.3s; }
+.platform-card:nth-child(4) { animation-delay: 0.4s; }
+
+.platform-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 32px rgba(200, 255, 0, 0.15);
+  transform: translateY(-6px);
+}
+
+.platform-name {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.platform-stat {
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.platform-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* CTA SECTION */
+.cta {
+  text-align: center;
+  padding: 80px 40px;
+  margin: 80px 40px;
+  max-width: calc(100% - 80px);
+  background: var(--surface);
+  border: 1px solid rgba(200, 255, 0, 0.1);
+  border-radius: 16px;
+}
+
+.cta-title {
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 900;
+  margin-bottom: 20px;
+  color: var(--text);
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.cta-title .accent {
+  color: var(--accent);
+}
+
+.cta-desc {
+  font-size: 16px;
+  color: var(--text-secondary);
+  margin-bottom: 40px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: fadeInUp 0.8s ease-out 0.1s both;
+}
+
+/* FOOTER */
+footer {
+  border-top: 1px solid rgba(200, 255, 0, 0.1);
+  padding: 60px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-brand {
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+}
+
+.footer-brand .accent {
+  color: var(--accent);
+}
+
+.footer-links {
+  display: flex;
+  gap: 32px;
+}
+
+.footer-links a {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: var(--accent);
+}
+
+.footer-copy {
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .hero {
+    flex-direction: column;
+    padding: 120px 40px 60px;
+    gap: 60px;
+  }
+
+  .hero::before {
+    width: 400px;
+    height: 400px;
+  }
+
+  .hero-photo-img {
+    height: 500px;
+  }
+
+  .why-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .style-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .platforms-grid {
+    grid-template-columns: 1fr;
+  }
+
+  footer {
+    flex-direction: column;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .footer-links {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  nav {
+    padding: 16px 20px;
+  }
+
+  .nav-links {
+    gap: 20px;
+  }
+
+  .nav-links a {
+    font-size: 10px;
+  }
+
+  .hero {
+    padding: 100px 20px 40px;
+  }
+
+  .hero-headline {
+    font-size: clamp(32px, 7vw, 48px);
+  }
+
+  .hero-stats {
+    grid-template-columns: 1fr;
+  }
+
+  section {
+    padding: 60px 20px;
+  }
+
+  .why-grid {
+    gap: 24px;
+  }
+
+  .why-card {
+    padding: 32px 24px;
+  }
+
+  .style-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .style-tag {
+    padding: 20px 16px;
+    font-size: 12px;
+  }
+
+  .cta {
+    margin: 60px 20px;
+    max-width: calc(100% - 40px);
+    padding: 60px 24px;
+  }
+
+  footer {
+    padding: 40px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  nav {
+    padding: 14px 16px;
+  }
+
+  .nav-brand {
+    font-size: 12px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .hero {
+    padding: 80px 16px 30px;
+  }
+
+  .hero::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  .hero-headline {
+    font-size: clamp(28px, 7vw, 40px);
+  }
+
+  .hero-tagline {
+    font-size: 14px;
+  }
+
+  .hero-stats {
+    gap: 16px;
+  }
+
+  .stat-box {
+    padding: 16px 20px;
+  }
+
+  .btn-primary {
+    width: 100%;
+    text-align: center;
+  }
+
+  .hero-photo-img {
+    height: 400px;
+  }
+
+  section {
+    padding: 50px 16px;
+  }
+
+  .why-grid {
+    gap: 20px;
+  }
+
+  .why-card {
+    padding: 24px 16px;
+  }
+
+  .why-num {
+    font-size: 24px;
+  }
+
+  .style-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .style-tag {
+    padding: 16px 12px;
+    font-size: 11px;
+  }
+
+  .platforms-grid {
+    gap: 16px;
+  }
+
+  .platform-card {
+    padding: 28px 20px;
+  }
+
+  .cta {
+    margin: 50px 16px;
+    max-width: calc(100% - 32px);
+    padding: 50px 20px;
+  }
+
+  .cta-title {
+    font-size: 28px;
+  }
+
+  .cta-desc {
+    font-size: 14px;
+  }
+
+  footer {
+    padding: 40px 16px;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">Kristyn <span class="accent">Simpson</span></div>
+  <div class="nav-links">
+    <a href="#why">Why Kristyn</a>
+    <a href="#style">Style</a>
+    <a href="#platforms">Platforms</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-eyebrow">UGC Creator / Chattanooga, TN</div>
+    <h1 class="hero-headline">
+      Real Results. <span class="accent">Authentic Voice.</span>
+    </h1>
+    <p class="hero-tagline">
+      203K+ followers. $126K GMV generated. 2.5M+ total engagement. Proven conversion track record across platforms. Creating content that sells.
+    </p>
+
+    <div class="hero-stats">
+      <div class="stat-box">
+        <div class="stat-val">203K+</div>
+        <div class="stat-label">Total Followers</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val">$126K</div>
+        <div class="stat-label">GMV Generated</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val">2.5M+</div>
+        <div class="stat-label">Total Likes</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val">10+</div>
+        <div class="stat-label">Brand Partners</div>
+      </div>
+    </div>
+
+    <a href="mailto:kristyn@example.com" class="btn-primary">Work Together</a>
+  </div>
+
+  <div class="hero-photo">
+    <img src="./kristyn-hero.jpg" alt="Kristyn Simpson" class="hero-photo-img">
+  </div>
+</section>
+
+<!-- WHY KRISTYN -->
+<section id="why">
+  <div class="section-header">
+    <div class="section-eyebrow">Why Partner</div>
+    <h2 class="section-title">Why Kristyn <span class="accent">Works</span></h2>
+  </div>
+
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-num">01</div>
+      <h3 class="why-title">Proven Conversion</h3>
+      <p class="why-desc">$126K GMV generated. Real ecommerce results. Authentic recommendations that drive measurable sales and repeat customers.</p>
+    </div>
+
+    <div class="why-card">
+      <div class="why-num">02</div>
+      <h3 class="why-title">Authentic Authority</h3>
+      <p class="why-desc">Trusted voice in lifestyle and beauty. Genuine recommendations. Real engagement. Content that resonates and converts.</p>
+    </div>
+
+    <div class="why-card">
+      <div class="why-num">03</div>
+      <h3 class="why-title">Multi-Platform Reach</h3>
+      <p class="why-desc">Active across TikTok, Instagram, YouTube. 203K+ followers. 2.5M+ likes. Diversified audience access and reach.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STYLE SECTION -->
+<section id="style">
+  <div class="section-header">
+    <div class="section-eyebrow">Aesthetic</div>
+    <h2 class="section-title">Her <span class="accent">Style</span></h2>
+  </div>
+
+  <div class="style-grid">
+    <div class="style-tag">Authentic</div>
+    <div class="style-tag">Relatable</div>
+    <div class="style-tag">Trendy</div>
+    <div class="style-tag">Quality</div>
+    <div class="style-tag">Confident</div>
+    <div class="style-tag">Lifestyle</div>
+    <div class="style-tag">Fashion</div>
+    <div class="style-tag">Influencer</div>
+  </div>
+</section>
+
+<!-- PLATFORMS -->
+<section id="platforms">
+  <div class="section-header">
+    <div class="section-eyebrow">Active Channels</div>
+    <h2 class="section-title">Where Kristyn <span class="accent">Creates</span></h2>
+  </div>
+
+  <div class="platforms-grid">
+    <a href="https://www.tiktok.com/@kristynsimpson" target="_blank" rel="noopener" class="platform-card">
+      <div class="platform-name">TikTok Primary</div>
+      <div class="platform-stat">140K+</div>
+      <div class="platform-desc">Main platform. Highest engagement. Proven conversion track record. Daily content strategy.</div>
+    </a>
+
+    <a href="https://www.instagram.com/kristynsimpson_" target="_blank" rel="noopener" class="platform-card">
+      <div class="platform-name">Instagram</div>
+      <div class="platform-stat">63K+</div>
+      <div class="platform-desc">Lifestyle reels. Product partnerships. Growing engaged community. Brand collaborations.</div>
+    </a>
+
+    <a href="#" class="platform-card">
+      <div class="platform-name">YouTube</div>
+      <div class="platform-stat">15K+</div>
+      <div class="platform-desc">Long-form content. Product reviews. In-depth recommendations. Subscriber loyalty.</div>
+    </a>
+
+    <a href="#" class="platform-card">
+      <div class="platform-name">Emerging</div>
+      <div class="platform-stat">Active</div>
+      <div class="platform-desc">Testing new platforms. First-mover advantage. Early audience. Diversified reach.</div>
+    </a>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta">
+  <h2 class="cta-title">Ready to Work <span class="accent">Together?</span></h2>
+  <p class="cta-desc">Let's create authentic content that drives real results for your brand. Connect with Kristyn today.</p>
+  <a href="mailto:kristyn@example.com" class="btn-primary">Get In Touch</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Kristyn <span class="accent">Simpson</span></div>
+  <div class="footer-links">
+    <a href="https://www.tiktok.com/@kristynsimpson" target="_blank">TikTok</a>
+    <a href="https://www.instagram.com/kristynsimpson_" target="_blank">Instagram</a>
+    <a href="mailto:kristyn@example.com">Email</a>
+  </div>
+  <div class="footer-copy">&copy; 2025 Kristyn Simpson.</div>
+</footer>
+
+</body>
+</html>

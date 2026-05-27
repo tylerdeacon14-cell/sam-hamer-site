@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Your Site Built · Tyler Dream</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scrollbar-width: none; scroll-behavior: smooth; }
+    html::-webkit-scrollbar { display: none; }
+    :root {
+      --bg: #080808; --surface: #101010;
+      --border: rgba(255,255,255,0.07);
+      --accent: #c8ff00; --mint: #A0EDD8;
+      --text: #f0f0f0; --muted: #777;
+    }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    @keyframes shimmer { 0%{background-position:200% center} 100%{background-position:-200% center} }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 32px; background: rgba(8,8,8,0.95);
+      backdrop-filter: blur(24px); border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .nav-logo { font-size: 15px; font-weight: 800; color: var(--text); text-decoration: none; letter-spacing: -0.5px; transition: opacity 0.15s; }
+    .nav-logo:hover { opacity: 0.8; }
+    .nav-logo em { color: var(--accent); font-style: normal; }
+    .nav-back { font-size: 13px; font-weight: 600; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+    .nav-back:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      padding: 120px 0 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 400px;
+      background: radial-gradient(ellipse at center, rgba(200,255,0,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 0 32px; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(200,255,0,0.07); border: 1px solid rgba(200,255,0,0.2);
+      border-radius: 100px; padding: 5px 14px;
+      font-size: 11px; font-weight: 700; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 28px;
+    }
+    .hero-badge span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; flex-shrink: 0; }
+
+    .hero h1 {
+      font-size: clamp(42px, 6vw, 72px); font-weight: 900;
+      letter-spacing: -3px; line-height: 1.0; margin-bottom: 20px;
+      background: linear-gradient(135deg, #fff 55%, rgba(200,255,0,0.65) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero p {
+      font-size: 16px; color: var(--muted); line-height: 1.65;
+      max-width: 480px; margin: 0 auto 40px;
+    }
+
+    /* INCLUDED CARD */
+    .included-card {
+      background: linear-gradient(135deg, rgba(200,255,0,0.06), rgba(200,255,0,0.02));
+      border: 1px solid rgba(200,255,0,0.18);
+      border-radius: 20px; padding: 32px; margin-bottom: 40px;
+      position: relative; overflow: hidden; text-align: left;
+    }
+    .included-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(200,255,0,0.5), transparent);
+    }
+    .included-label {
+      font-size: 11px; font-weight: 800; letter-spacing: 2px;
+      text-transform: uppercase; color: rgba(200,255,0,0.6); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .included-price {
+      background: rgba(200,255,0,0.1); border: 1px solid rgba(200,255,0,0.2);
+      border-radius: 6px; padding: 3px 10px; font-size: 13px;
+      font-weight: 900; color: var(--accent);
+    }
+    .included-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px 28px; margin-bottom: 16px;
+    }
+    .included-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 13px; color: #ccc; line-height: 1.6;
+    }
+    .included-item span { color: var(--accent); font-weight: 900; flex-shrink: 0; margin-top: 2px; }
+    .financing-line {
+      font-size: 13px; color: #555; margin-top: 4px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .financing-line a { color: #777; text-decoration: none; font-weight: 600; }
+    .financing-line a:hover { color: #ccc; }
+
+    /* REFERRAL BANNER */
+    .referral-banner {
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+      background: rgba(160,237,216,0.04);
+      border: 1px solid rgba(160,237,216,0.2); border-radius: 16px;
+      padding: 20px 24px; margin-bottom: 28px;
+    }
+    .referral-copy { flex: 1; min-width: 180px; }
+    .referral-copy strong { display: block; font-size: 13px; font-weight: 800; color: rgba(160,237,216,0.85); margin-bottom: 3px; }
+    .referral-copy span { font-size: 12px; color: #555; }
+    .referral-input-wrap { flex: 0 0 200px; }
+    .referral-input-wrap input {
+      width: 100%; background: #080808; color: #a0edd8;
+      border: 1px solid rgba(160,237,216,0.25); border-radius: 9px;
+      padding: 11px 14px; font-size: 13px; font-family: Inter, sans-serif;
+      font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+      outline: none; transition: border-color 0.15s;
+    }
+    .referral-input-wrap input:focus { border-color: rgba(160,237,216,0.5); }
+    .referral-input-wrap input::placeholder { color: #333; letter-spacing: 1px; font-weight: 500; text-transform: none; }
+
+    /* FORM SECTION */
+    .form-section { padding: 0 0 100px; }
+
+    /* FORM BLOCKS */
+    .form-block {
+      border: 1px solid var(--border); border-radius: 20px;
+      overflow: hidden; margin-bottom: 16px;
+      transition: border-color 0.2s;
+    }
+    .form-block:focus-within { border-color: rgba(200,255,0,0.2); }
+    .form-block-header {
+      padding: 20px 28px; display: flex; align-items: center; gap: 16px;
+      border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.015);
+    }
+    .block-num {
+      width: 30px; height: 30px; border-radius: 10px; flex-shrink: 0;
+      background: rgba(200,255,0,0.08); border: 1px solid rgba(200,255,0,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 900; color: rgba(200,255,0,0.7);
+    }
+    .block-title { font-size: 15px; font-weight: 800; color: #fff; letter-spacing: -0.3px; }
+    .block-subtitle { font-size: 12px; color: #3a3a3a; margin-top: 2px; }
+    .form-block-body { padding: 28px; }
+
+    /* FIELDS */
+    .field { margin-bottom: 18px; }
+    .field:last-child { margin-bottom: 0; }
+    .field label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #3a3a3a; margin-bottom: 8px; }
+    .field input[type="text"],
+    .field input[type="email"],
+    .field input[type="url"],
+    .field select,
+    .field textarea {
+      width: 100%; background: #060606; color: #f0f0f0;
+      border: 1px solid rgba(255,255,255,0.07); border-radius: 12px;
+      padding: 13px 16px; font-size: 14px; font-family: Inter, sans-serif; font-weight: 500;
+      outline: none; transition: border-color 0.15s, box-shadow 0.15s; -webkit-appearance: none;
+    }
+    .field input::placeholder, .field textarea::placeholder { color: #2a2a2a; }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      border-color: rgba(200,255,0,0.3); box-shadow: 0 0 0 3px rgba(200,255,0,0.05);
+    }
+    .field select { appearance: none; cursor: pointer; }
+    .field textarea { resize: vertical; line-height: 1.6; }
+    .field-note { font-size: 12px; color: #333; margin-top: 8px; line-height: 1.5; }
+    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    /* FILE UPLOAD */
+    .upload-zone {
+      position: relative; width: 100%;
+      border: 1px dashed rgba(255,255,255,0.1); border-radius: 14px;
+      background: rgba(255,255,255,0.01); padding: 32px 20px;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      cursor: pointer; transition: border-color 0.15s, background 0.15s;
+    }
+    .upload-zone:hover { border-color: rgba(200,255,0,0.25); background: rgba(200,255,0,0.02); }
+    .upload-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+    .upload-icon { font-size: 24px; line-height: 1; color: #2e2e2e; }
+    .upload-label { font-size: 13px; font-weight: 700; color: #444; }
+    .upload-sub { font-size: 11px; color: #2e2e2e; }
+    .upload-zone.has-file { border-color: rgba(200,255,0,0.3); background: rgba(200,255,0,0.03); }
+    .upload-zone.has-file .upload-label { color: rgba(200,255,0,0.8); }
+
+    /* ACCOUNT ROWS */
+    .account-row { margin-bottom: 10px; }
+    .account-row:last-of-type { margin-bottom: 0; }
+    .account-row-inner { display: flex; gap: 10px; align-items: flex-end; }
+    .field-platform { flex: 0 0 130px; }
+    .field-handle { flex: 1; }
+    .field-followers { flex: 0 0 100px; }
+    .field-likes { flex: 0 0 100px; }
+    .field-platform .field,
+    .field-handle .field,
+    .field-followers .field,
+    .field-likes .field { margin-bottom: 0; }
+
+    .remove-btn {
+      width: 38px; height: 44px; flex-shrink: 0;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+      color: #3a3a3a; font-size: 18px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 10px; transition: background 0.15s, color 0.15s;
+      align-self: flex-end;
+    }
+    .remove-btn:hover { background: rgba(255,60,60,0.08); color: #ff5555; border-color: rgba(255,60,60,0.2); }
+
+    .col-headers { display: flex; gap: 10px; margin-bottom: 8px; padding: 0 2px; align-items: center; }
+    .col-headers span { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #2e2e2e; }
+    .ch-platform { flex: 0 0 130px; }
+    .ch-handle { flex: 1; }
+    .ch-followers { flex: 0 0 100px; }
+    .ch-likes { flex: 0 0 100px; }
+    .ch-spacer { width: 38px; }
+
+    .add-row-btn {
+      display: inline-flex; align-items: center; gap: 8px; margin-top: 14px;
+      padding: 9px 16px; border-radius: 8px; cursor: pointer;
+      background: rgba(200,255,0,0.05); border: 1px solid rgba(200,255,0,0.15);
+      color: rgba(200,255,0,0.75); font-size: 12px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.8px; transition: background 0.15s;
+      font-family: Inter, sans-serif;
+    }
+    .add-row-btn:hover { background: rgba(200,255,0,0.1); }
+
+    /* CHECKBOXES */
+    .check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px; }
+    .check-item {
+      display: flex; align-items: center; gap: 10px; padding: 11px 14px;
+      border-radius: 10px; border: 1px solid rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.015); cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .check-item:hover { border-color: rgba(200,255,0,0.18); background: rgba(200,255,0,0.03); }
+    .check-item input[type="checkbox"] {
+      width: 16px; height: 16px; flex-shrink: 0; cursor: pointer;
+      appearance: none; -webkit-appearance: none;
+      border: 1.5px solid rgba(255,255,255,0.12); border-radius: 4px;
+      background: transparent; position: relative;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .check-item input[type="checkbox"]:checked { background: var(--accent); border-color: var(--accent); }
+    .check-item input[type="checkbox"]:checked::after {
+      content: ''; position: absolute; top: 2px; left: 5px;
+      width: 4px; height: 7px;
+      border: 2px solid #000; border-top: none; border-left: none;
+      transform: rotate(45deg);
+    }
+    .check-item span { font-size: 13px; color: #666; font-weight: 500; line-height: 1.3; }
+    .check-item:has(input:checked) { border-color: rgba(200,255,0,0.25); background: rgba(200,255,0,0.04); }
+    .check-item:has(input:checked) span { color: #ccc; }
+
+    /* VIBE PICKER */
+    .vibe-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px; }
+    .vibe-option { position: relative; }
+    .vibe-option input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .vibe-option label {
+      display: block; padding: 13px 16px; border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.02);
+      cursor: pointer; transition: border-color 0.15s, background 0.15s;
+      font-size: 13px; color: #666; font-weight: 600;
+    }
+    .vibe-option input:checked + label { border-color: rgba(200,255,0,0.35); background: rgba(200,255,0,0.06); color: #c8ff00; }
+    .vibe-option label:hover { border-color: rgba(200,255,0,0.2); }
+
+    /* VIDEO / MILESTONE LISTS */
+    .video-input-list { display: flex; flex-direction: column; gap: 8px; }
+    .video-input-row { display: flex; align-items: center; gap: 10px; }
+    .video-num { font-size: 11px; font-weight: 800; color: #2e2e2e; flex-shrink: 0; width: 20px; text-align: right; }
+    .video-input-row input { flex: 1; }
+
+    .milestone-list { display: flex; flex-direction: column; gap: 8px; }
+    .milestone-row { display: flex; gap: 10px; align-items: flex-start; }
+    .milestone-num { font-size: 11px; font-weight: 800; color: #2e2e2e; flex-shrink: 0; width: 20px; text-align: right; padding-top: 14px; }
+    .milestone-row input { flex: 1; }
+
+    /* SUBMIT */
+    .submit-wrap { margin-top: 32px; }
+    .submit-btn {
+      display: block; width: 100%; padding: 20px;
+      background: var(--accent); color: #000;
+      font-size: 15px; font-weight: 900; letter-spacing: 0.8px; text-transform: uppercase;
+      border: none; border-radius: 14px; cursor: pointer;
+      transition: opacity 0.15s, transform 0.15s;
+      box-shadow: 0 0 50px rgba(200,255,0,0.2), 0 4px 20px rgba(0,0,0,0.5);
+      position: relative; overflow: hidden; font-family: Inter, sans-serif;
+    }
+    .submit-btn:hover { opacity: 0.88; transform: translateY(-2px); }
+    .submit-btn::after {
+      content: ''; position: absolute; top: -50%; left: -75%; width: 50%; height: 200%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+      transform: skewX(-20deg); transition: left 0.5s ease;
+    }
+    .submit-btn:hover::after { left: 125%; }
+    .submit-note { text-align: center; font-size: 12px; color: #2e2e2e; margin-top: 14px; line-height: 1.6; }
+
+    /* NEXT STEPS */
+    .next-steps {
+      margin-top: 40px; padding: 36px;
+      border: 1px solid var(--border); border-radius: 24px;
+      position: relative; overflow: hidden; background: rgba(255,255,255,0.01);
+    }
+    .next-steps::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(160,237,216,0.35) 50%, transparent);
+    }
+    .next-steps-title {
+      font-size: 11px; font-weight: 800; color: #3a3a3a;
+      text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 24px;
+    }
+    .next-step-row {
+      display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px;
+    }
+    .next-step-row:last-of-type { margin-bottom: 0; }
+    .step-dot {
+      width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(200,255,0,0.08); border: 1px solid rgba(200,255,0,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 900; color: #c8ff00; margin-top: 1px;
+    }
+    .next-step-row p { font-size: 13px; color: #555; line-height: 1.65; margin: 0; }
+    .next-step-row p strong { color: #fff; }
+
+    .venmo-block { margin-top: 28px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.05); }
+    .venmo-label { font-size: 11px; font-weight: 700; color: #333; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; }
+    .venmo-btn {
+      display: inline-flex; align-items: center; gap: 14px;
+      background: #0e0e0e; border: 1px solid rgba(0,152,255,0.25);
+      border-radius: 14px; padding: 16px 22px; text-decoration: none;
+      transition: border-color 0.2s;
+    }
+    .venmo-btn:hover { border-color: rgba(0,152,255,0.5); }
+    .venmo-avatar {
+      width: 46px; height: 46px; border-radius: 50%;
+      background: linear-gradient(135deg,#c8ff00,#a0edd8);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px; font-weight: 900; color: #000; flex-shrink: 0;
+    }
+    .venmo-name { font-size: 14px; font-weight: 800; color: #fff; }
+    .venmo-handle { font-size: 12px; color: #444; font-weight: 600; margin-top: 2px; }
+    .venmo-cta {
+      margin-left: auto; display: flex; align-items: center; gap: 6px;
+      background: rgba(0,152,255,0.1); border: 1px solid rgba(0,152,255,0.25);
+      border-radius: 8px; padding: 8px 14px;
+      font-size: 11px; font-weight: 800; color: #3D9BE9; letter-spacing: 0.5px;
+    }
+
+    footer { border-top: 1px solid rgba(255,255,255,0.05); padding: 32px; margin-top: 80px; }
+    .footer-inner { max-width: 760px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .footer-logo { font-size: 14px; font-weight: 800; color: #333; }
+    .footer-logo em { color: var(--accent); font-style: normal; }
+    .footer-copy { font-size: 12px; color: #2a2a2a; }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 12px; color: #333; text-decoration: none; font-weight: 600; transition: color 0.15s; }
+    .footer-links a:hover { color: #f0f0f0; }
+
+    @media (max-width: 600px) {
+      .hero { padding: 100px 0 40px; }
+      .wrap { padding: 0 18px; }
+      .form-block-body { padding: 20px 18px; }
+      .form-block-header { padding: 16px 18px; }
+      .next-steps { padding: 24px 20px; }
+      .row-2 { grid-template-columns: 1fr; }
+      .check-grid { grid-template-columns: 1fr; }
+      .vibe-grid { grid-template-columns: 1fr; }
+      .referral-banner { flex-direction: column; }
+      .referral-input-wrap { flex: 1 1 100%; }
+      .account-row-inner { flex-wrap: wrap; }
+      .field-platform { flex: 0 0 calc(50% - 5px); }
+      .field-handle { flex: 1 1 100%; order: -1; }
+      .field-followers, .field-likes { flex: 0 0 calc(50% - 5px); }
+      .remove-btn { align-self: flex-end; }
+      .col-headers { display: none; }
+      .included-grid { grid-template-columns: 1fr !important; }
+      .venmo-cta { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Dream<em>.</em></a>
+  <a href="index.html" class="nav-back">Back to site</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-badge"><span></span>Site Intake</div>
+    <h1>Let's build<br>your site.</h1>
+    <p>Fill this out once. I take everything here and build your custom creator media kit from scratch. Delivered in 48 hours.</p>
+  </div>
+</section>
+
+<section class="form-section">
+  <div class="wrap">
+
+    <!-- WHAT'S INCLUDED -->
+    <div class="included-card">
+      <div class="included-label">
+        What's included
+        <span class="included-price">$500</span>
+      </div>
+      <div class="included-grid">
+        <div class="included-item"><span>✓</span>Custom creator media kit built from scratch</div>
+        <div class="included-item"><span>✓</span>Monthly updates ,  new wins, brands, content and graphics</div>
+        <div class="included-item"><span>✓</span>1-hour post-production session to dial everything in</div>
+        <div class="included-item"><span>✓</span>Your own free Netlify account for site management</div>
+        <div class="included-item"><span>✓</span>Personalization ,  success stories, angles, links and hiring</div>
+        <div class="included-item"><span>✓</span>Live with a contact form. Delivered in 48 hours.</div>
+      </div>
+      <div class="financing-line">
+        <span style="color:#333;font-weight:900;">+</span>
+        Need financing? I get it. <a href="mailto:dreambillboard@gmail.com?subject=Financing question">Let's talk.</a>
+      </div>
+    </div>
+
+    <form action="https://formsubmit.co/dreambillboard@gmail.com" method="POST" id="intake-form" enctype="multipart/form-data">
+      <input type="hidden" name="_subject" value="New site build intake - tylerdream.com">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_cc" value="dreambillboard@gmail.com">
+      <input type="hidden" name="_bcc" value="" id="form-bcc">
+      <input type="hidden" name="_autoresponse" value="Hey! Got your brief - I'll review it and reach out personally within 48 hours. Feel free to reply to this email with any questions. Once you're ready to move forward, pay via Venmo @tyler_dream and I get started right away. Talk soon, Tyler Dream">
+
+      <!-- REFERRAL CODE -->
+      <div class="referral-banner">
+        <div class="referral-copy">
+          <strong>Got a referral code?</strong>
+          <span>Enter it here for 25% off your site.</span>
+        </div>
+        <div class="referral-input-wrap">
+          <input type="text" name="referral_code" placeholder="Enter code" oninput="this.value=this.value.toUpperCase()">
+        </div>
+      </div>
+
+      <!-- BLOCK 1: THE BASICS -->
+      <div class="form-block">
+        <div class="form-block-header">
+          <div class="block-num">1</div>
+          <div>
+            <div class="block-title">The basics</div>
+            <div class="block-subtitle">Your name, location, email, niche</div>
+          </div>
+        </div>
+        <div class="form-block-body">
+          <div class="row-2">
+            <div class="field"><label>Your Name</label><input type="text" name="name" placeholder="First and last" required></div>
+            <div class="field"><label>Email</label><input type="email" name="email" placeholder="you@email.com" required></div>
+          </div>
+          <div class="field"><label>City and State</label><input type="text" name="location" placeholder="e.g. Chicago, IL"></div>
+          <div class="field"><label>What you post about (niche)</label><input type="text" name="niche" placeholder="e.g. Home and Wellness, Fitness, Beauty, Consumer Products" required></div>
+          <div class="field">
+            <label>Your tagline <span style="color:#2a2a2a;font-size:10px;text-transform:none;letter-spacing:0;font-weight:500;">optional ,  we can write this for you</span></label>
+            <input type="text" name="tagline" placeholder='e.g. "Dreams that actually convert"'>
+            <div class="field-note">A short hook that lives under your name on the site. Leave blank and we will write one.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BLOCK 2: YOUR ACCOUNTS -->
+      <div class="form-block">
+        <div class="form-block-header">
+          <div class="block-num">2</div>
+          <div>
+            <div class="block-title">Your accounts</div>
+            <div class="block-subtitle">Up to 4 accounts ,  handle, followers, likes, active or former</div>
+          </div>
+        </div>
+        <div class="form-block-body">
+          <div class="col-headers">
+            <span class="ch-platform">Platform</span>
+            <span class="ch-handle">Handle</span>
+            <span class="ch-followers">Followers</span>
+            <span class="ch-likes">Total Likes</span>
+            <span class="ch-spacer"></span>
+          </div>
+          <div id="accounts-container">
+            <div class="account-row">
+              <div class="account-row-inner">
+                <div class="field-platform"><div class="field">
+                  <select name="platform_1">
+                    <option value="TikTok" selected style="background:#111;">TikTok</option>
+                    <option value="TikTok Shop" style="background:#111;">TikTok Shop</option>
+                    <option value="Instagram" style="background:#111;">Instagram</option>
+                    <option value="YouTube" style="background:#111;">YouTube</option>
+                    <option value="X / Twitter" style="background:#111;">X / Twitter</option>
+                    <option value="Facebook" style="background:#111;">Facebook</option>
+                    <option value="Pinterest" style="background:#111;">Pinterest</option>
+                    <option value="LinkedIn" style="background:#111;">LinkedIn</option>
+                    <option value="Other" style="background:#111;">Other</option>
+                  </select>
+                </div></div>
+                <div class="field-handle"><div class="field"><input type="text" name="handle_1" placeholder="@yourhandle"></div></div>
+                <div class="field-followers"><div class="field"><input type="text" name="followers_1" placeholder="e.g. 13K"></div></div>
+                <div class="field-likes"><div class="field"><input type="text" name="likes_1" placeholder="e.g. 684K"></div></div>
+                <button type="button" class="remove-btn" onclick="removeRow(this)" title="Remove">x</button>
+              </div>
+            </div>
+            <div class="account-row">
+              <div class="account-row-inner">
+                <div class="field-platform"><div class="field">
+                  <select name="platform_2">
+                    <option value="TikTok" style="background:#111;">TikTok</option>
+                    <option value="TikTok Shop" style="background:#111;">TikTok Shop</option>
+                    <option value="Instagram" selected style="background:#111;">Instagram</option>
+                    <option value="YouTube" style="background:#111;">YouTube</option>
+                    <option value="X / Twitter" style="background:#111;">X / Twitter</option>
+                    <option value="Facebook" style="background:#111;">Facebook</option>
+                    <option value="Pinterest" style="background:#111;">Pinterest</option>
+                    <option value="LinkedIn" style="background:#111;">LinkedIn</option>
+                    <option value="Other" style="background:#111;">Other</option>
+                  </select>
+                </div></div>
+                <div class="field-handle"><div class="field"><input type="text" name="handle_2" placeholder="@yourhandle"></div></div>
+                <div class="field-followers"><div class="field"><input type="text" name="followers_2" placeholder="e.g. 4.2K"></div></div>
+                <div class="field-likes"><div class="field"><input type="text" name="likes_2" placeholder="e.g. 120K"></div></div>
+                <button type="button" class="remove-btn" onclick="removeRow(this)" title="Remove">x</button>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="add-row-btn" id="add-account-btn">+ Add another account</button>
+        </div>
+      </div>
+
+      <!-- BLOCK 3: YOUR BEST VIDEOS -->
+      <div class="form-block">
+        <div class="form-block-header">
+          <div class="block-num">3</div>
+          <div>
+            <div class="block-title">Your best videos</div>
+            <div class="block-subtitle">Paste 4-5 TikTok URLs ,  open tiktok.com in desktop, copy the address bar URL</div>
+          </div>
+        </div>
+        <div class="form-block-body">
+          <div class="video-input-list">
+            <div class="video-input-row"><span class="video-num">1</span><div class="field" style="margin:0;flex:1;"><input type="url" name="video_1" placeholder="https://www.tiktok.com/@yourhandle/video/..."></div></div>
+            <div class="video-input-row"><span class="video-num">2</span><div class="field" style="margin:0;flex:1;"><input type="url" name="video_2" placeholder="https://www.tiktok.com/@yourhandle/video/..."></div></div>
+            <div class="video-input-row"><span class="video-num">3</span><div class="field" style="margin:0;flex:1;"><input type="url" name="video_3" placeholder="https://www.tiktok.com/@yourhandle/video/..."></div></div>
+            <div class="video-input-row"><span class="video-num">4</span><div class="field" style="margin:0;flex:1;"><input type="url" name="video_4" placeholder="https://www.tiktok.com/@yourhandle/video/..."></div></div>
+            <div class="video-input-row"><span class="video-num">5</span><div class="field" style="margin:0;flex:1;"><input type="url" name="video_5" placeholder="https://www.tiktok.com/@yourhandle/video/..."></div></div>
+          </div>
+          <div class="field-note" style="margin-top:14px;">These will be embedded on your site. Pick ones that look consistent ,  similar aspect ratio, similar style.</div>
+        </div>
+      </div>
+
+      <!-- BLOCK 4: YOUR JOURNEY -->
+      <div class="form-block">
+        <div class="form-block-header">
+          <div class="block-num">4</div>
+          <div>
+            <div class="block-title">Your journey</div>
+            <div class="block-subtitle">5 milestones, rough dates are fine ,  we will write the story</div>
+          </div>
+        </div>
+        <div class="form-block-body">
+          <div class="milestone-list">
+            <div class="milestone-row"><span class="milestone-num">1</span><div class="field" style="margin:0;flex:1;"><input type="text" name="milestone_1" placeholder='e.g. "Early 2023 - started first account from scratch"'></div></div>
+            <div class="milestone-row"><span class="milestone-num">2</span><div class="field" style="margin:0;flex:1;"><input type="text" name="milestone_2" placeholder='e.g. "Month 6 - first brand reached out"'></div></div>
+            <div class="milestone-row"><span class="milestone-num">3</span><div class="field" style="margin:0;flex:1;"><input type="text" name="milestone_3" placeholder='e.g. "2024 - hit 10K, one video went to 500K views"'></div></div>
+            <div class="milestone-row"><span class="milestone-num">4</span><div class="field" style="margin:0;flex:1;"><input type="text" name="milestone_4" placeholder='e.g. "Signed first paid deal"'></div></div>
+            <div class="milestone-row"><span class="milestone-num">5</span><div class="field" style="margin:0;flex:1;"><input type="text" name="milestone_5" placeholder='e.g. "Now - 3 active brand partnerships, posting daily"'></div></div>
+          </div>
+          <div class="field-note" style="margin-top:14px;">Short is fine. Just tell us what happened and when. We will turn it into the timeline section on your site.</div>
+        </div>
+      </div>
+
+      <!-- BLOCK 5: YOUR LOOK -->
+      <div class="form-block">
+        <div class="form-block-header">
+          <div class="block-num">5</div>
+          <div>
+            <div class="block-title">Your look and feel</div>
+            <div class="block-subtitle">Colors, vibe, and any other links</div>
+          </div>
+        </div>
+        <div class="form-block-body">
+          <div class="field">
+            <label>Favorite color(s) <span style="color:#2a2a2a;font-size:10px;text-transform:none;letter-spacing:0;font-weight:500;">used as accent throughout the site</span></label>
+            <input type="text" name="colors" placeholder="e.g. Electric blue, hot pink, lime green ,  or just dark and minimal">
+          </div>
+          <div class="field">
+            <label>Vibe</label>
+            <div class="vibe-grid">
+              <div class="vibe-option"><input type="radio" name="vibe" id="v1" value="Dark and moody"><label for="v1">Dark and moody</label></div>
+              <div class="vibe-option"><input type="radio" name="vibe" id="v2" value="Clean and minimal"><label for="v2">Clean and minimal</label></div>
+              <div class="vibe-option"><input type="radio" name="vibe" id="v3" value="Bold and loud"><label for="v3">Bold and loud</label></div>
+              <div class="vibe-option"><input type="radio" name="vibe" id="v4" value="Soft and warm"><label for="v4">Soft and warm</label></div>
+              <div class="vibe-option"><input type="radio" name="vibe" id="v5" value="Streetwear / hype"><label for="v5">Streetwear / hype</label></div>
+              <div class="vibe-option"><input type="radio" name="vibe" id="v6" value="Professional / corporate"><label for="v6">Professional / corporate</label></div>
+            </div>
+          </div>
+          <div class="field"><label>Other links to include <span style="color:#2a2a2a;font-size:10px;text-transform:none;letter-spacing:0;font-weight:500;">optional</span></label><input type="text" name="other_links" placeholder="e.g. Instagram, YouTube, Linktree, personal site"></div>
+        </div>
+      </div>
+
+      <!-- BLOCK 6: YOUR PHOTOS -->
+      <div class="form-block">
+        <div class="form-block-header">
+          <div class="block-num">6</div>
+          <div>
+            <div class="block-title">Your photos</div>
+            <div class="block-subtitle">Hero photo plus TikTok profile screenshots</div>
+          </div>
+        </div>
+        <div class="form-block-body">
+          <div class="field">
+            <label>Hero photo</label>
+            <div class="upload-zone" id="hero-zone">
+              <input type="file" name="hero_photo" accept="image/*" onchange="markUploaded(this,'hero-zone','hero-label')">
+              <div class="upload-icon">+</div>
+              <div class="upload-label" id="hero-label">Click to upload or drag and drop</div>
+              <div class="upload-sub">Portrait preferred. Clear face, decent lighting. JPG or PNG.</div>
+            </div>
+          </div>
+          <div class="field" style="margin-top:16px;">
+            <label>TikTok profile screenshots <span style="color:#2a2a2a;font-size:10px;text-transform:none;letter-spacing:0;font-weight:500;">one per account, taken on desktop at tiktok.com/@yourhandle</span></label>
+            <div class="upload-zone" id="ss-zone">
+              <input type="file" name="profile_screenshots" accept="image/*" multiple onchange="markUploaded(this,'ss-zone','ss-label')">
+              <div class="upload-icon">+</div>
+              <div class="upload-label" id="ss-label">Click to upload or drag and drop</div>
+              <div class="upload-sub">Can select multiple files at once.</div>
+            </div>
+          </div>
+          <div class="field-note" style="margin-top:12px;">If uploads do not work on your device, just email the photos to <a href="mailto:dreambillboard@gmail.com" style="color:#444;">dreambillboard@gmail.com</a> with your name in the subject line.</div>
+        </div>
+      </div>
+
+      <!-- BLOCK 7: CONTENT STATS -->
+      <div class="form-block">
+        <div class="form-block-header">
+          <div class="block-num">7</div>
+          <div>
+            <div class="block-title">Content and numbers</div>
+            <div class="block-subtitle">Leave anything blank you are not sure about</div>
+          </div>
+        </div>
+        <div class="form-block-body">
+          <div class="row-2">
+            <div class="field"><label>Avg. Video Views</label><input type="text" name="avg_views" placeholder="e.g. 35K"></div>
+            <div class="field"><label>Best Single Video Views</label><input type="text" name="best_views" placeholder="e.g. 780K"></div>
+          </div>
+          <div class="row-2">
+            <div class="field"><label>Primary Audience Age</label>
+              <select name="audience_age">
+                <option value="" style="background:#111;">Select range</option>
+                <option value="13-17" style="background:#111;">13 - 17</option>
+                <option value="18-24" style="background:#111;">18 - 24</option>
+                <option value="25-34" style="background:#111;">25 - 34</option>
+                <option value="35-44" style="background:#111;">35 - 44</option>
+                <option value="45+" style="background:#111;">45+</option>
+                <option value="Mixed" style="background:#111;">Mixed / varies</option>
+              </select>
+            </div>
+            <div class="field"><label>Gender Split</label><input type="text" name="gender_split" placeholder="e.g. 68% female, 32% male"></div>
+          </div>
+          <div class="field"><label>Product categories you work in</label>
+            <div class="check-grid">
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Beauty and Skincare"><span>Beauty and skincare</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Health and Wellness"><span>Health and wellness</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Fashion and Apparel"><span>Fashion and apparel</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Home and Kitchen"><span>Home and kitchen</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Food and Beverage"><span>Food and beverage</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Fitness and Sports"><span>Fitness and sports</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Personal Care"><span>Personal care</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Pet Supplies"><span>Pet supplies</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Baby and Kids"><span>Baby and kids</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Tech and Gadgets"><span>Tech and gadgets</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Jewelry and Accessories"><span>Jewelry and accessories</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Cleaning and Household"><span>Cleaning and household</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Supplements and Vitamins"><span>Supplements and vitamins</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Outdoor and Garden"><span>Outdoor and garden</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Other"><span>Other</span></label>
+            </div>
+          </div>
+          <div class="field" style="margin-top:16px;"><label>Content style ,  how would you describe your videos?</label><textarea name="content_style" placeholder="e.g. Fast-paced, honest reviews. Hook-first. Real reactions, no scripts." rows="3"></textarea></div>
+          <div class="field"><label>Brands you have worked with <span style="color:#2a2a2a;font-size:10px;text-transform:none;letter-spacing:0;font-weight:500;">optional</span></label><input type="text" name="past_brands" placeholder="e.g. Hismile, Bloom Nutrition, RYZE ,  or none yet"></div>
+        </div>
+      </div>
+
+      <div class="submit-wrap">
+        <button type="submit" class="submit-btn">Submit My Brief</button>
+        <p class="submit-note">Your info goes directly to Tyler. No spam, no sharing.</p>
+      </div>
+
+    </form>
+
+    <!-- NEXT STEPS -->
+    <div class="next-steps">
+      <div class="next-steps-title">What happens next</div>
+      <div class="next-step-row">
+        <div class="step-dot">1</div>
+        <p>You'll get an email from me personally. Feel free to reply with any questions.</p>
+      </div>
+      <div class="next-step-row">
+        <div class="step-dot">2</div>
+        <p>Once you're ready, pay via Venmo <strong>@tyler_dream</strong> and I get started right away.</p>
+      </div>
+      <div class="next-step-row">
+        <div class="step-dot">3</div>
+        <p>First draft delivered within 48 hours. We refine from there.</p>
+      </div>
+      <div class="venmo-block">
+        <div class="venmo-label">Pay via Venmo</div>
+        <a href="https://venmo.com/u/tyler_dream" target="_blank" class="venmo-btn">
+          <div class="venmo-avatar">T</div>
+          <div>
+            <div class="venmo-name">Tyler Dream</div>
+            <div class="venmo-handle">@tyler_dream</div>
+          </div>
+          <div class="venmo-cta">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#3D9BE9"><path d="M19.7 2C20.9 3.9 21.4 5.8 21.4 8.2c0 6.7-5.7 15.4-10.3 21.5H4.8L2 4.6l7.1-.7 1.6 12.7c1.5-2.5 3.3-6.4 3.3-9.1 0-1.5-.3-2.5-.7-3.3L19.7 2z"/></svg>
+            Open Venmo
+          </div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Dream<em>.</em></div>
+    <div class="footer-copy">tylerdream.com</div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="affiliate.html">Affiliate</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+var accountCount = 2;
+
+document.getElementById('add-account-btn').addEventListener('click', function() {
+  if (accountCount >= 4) {
+    this.style.opacity = '0.4';
+    this.style.pointerEvents = 'none';
+    this.textContent = 'Max 4 accounts';
+    return;
+  }
+  accountCount++;
+  var n = accountCount;
+  var container = document.getElementById('accounts-container');
+  var row = document.createElement('div');
+  row.className = 'account-row';
+  row.innerHTML =
+    '<div class="account-row-inner">' +
+      '<div class="field-platform"><div class="field">' +
+        '<select name="platform_' + n + '">' +
+          '<option value="TikTok" style="background:#111;">TikTok</option>' +
+          '<option value="TikTok Shop" style="background:#111;">TikTok Shop</option>' +
+          '<option value="Instagram" style="background:#111;">Instagram</option>' +
+          '<option value="YouTube" style="background:#111;">YouTube</option>' +
+          '<option value="X / Twitter" style="background:#111;">X / Twitter</option>' +
+          '<option value="Facebook" style="background:#111;">Facebook</option>' +
+          '<option value="Pinterest" style="background:#111;">Pinterest</option>' +
+          '<option value="LinkedIn" style="background:#111;">LinkedIn</option>' +
+          '<option value="Other" style="background:#111;">Other</option>' +
+        '</select>' +
+      '</div></div>' +
+      '<div class="field-handle"><div class="field"><input type="text" name="handle_' + n + '" placeholder="@yourhandle"></div></div>' +
+      '<div class="field-followers"><div class="field"><input type="text" name="followers_' + n + '" placeholder="e.g. 5K"></div></div>' +
+      '<div class="field-likes"><div class="field"><input type="text" name="likes_' + n + '" placeholder="e.g. 200K"></div></div>' +
+      '<button type="button" class="remove-btn" onclick="removeRow(this)" title="Remove">x</button>' +
+    '</div>';
+  container.appendChild(row);
+});
+
+function removeRow(btn) {
+  var row = btn.closest('.account-row');
+  var container = document.getElementById('accounts-container');
+  if (container.querySelectorAll('.account-row').length <= 1) return;
+  row.remove();
+  accountCount = Math.max(1, accountCount - 1);
+  var addBtn = document.getElementById('add-account-btn');
+  if (accountCount < 4) {
+    addBtn.style.opacity = '';
+    addBtn.style.pointerEvents = '';
+    addBtn.textContent = '+ Add another account';
+  }
+}
+
+function markUploaded(input, zoneId, labelId) {
+  var zone = document.getElementById(zoneId);
+  var label = document.getElementById(labelId);
+  if (input.files && input.files.length > 0) {
+    zone.classList.add('has-file');
+    if (input.files.length === 1) {
+      label.textContent = input.files[0].name;
+    } else {
+      label.textContent = input.files.length + ' files selected';
+    }
+  }
+}
+
+// Auto-fill referral code from URL param
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var ref = params.get('ref');
+  if (ref) {
+    var field = document.querySelector('input[name="referral_code"]');
+    if (field) {
+      field.value = ref.toUpperCase();
+      var banner = field.closest('.referral-banner');
+      if (banner) {
+        var note = document.createElement('div');
+        note.style.cssText = 'font-size:11px;color:rgba(160,237,216,0.7);font-weight:700;margin-top:6px;letter-spacing:1px;';
+        note.textContent = '✓ Referral code applied';
+        field.parentNode.appendChild(note);
+      }
+    }
+  }
+})();
+
+// Affiliate email lookup ,  add new affiliates here as they join
+var affiliateEmails = {
+  'KRISTYN25': 'kristynwales@gmail.com'
+};
+
+document.getElementById('intake-form').addEventListener('submit', function() {
+  var codeField = document.querySelector('input[name="referral_code"]');
+  var code = codeField ? codeField.value.trim().toUpperCase() : '';
+  if (code && affiliateEmails[code]) {
+    var ccField = document.getElementById('form-bcc');
+    if (ccField) {
+      ccField.value = affiliateEmails[code];
+    }
+  }
+});
+</script>
+
+</body>
+</html>

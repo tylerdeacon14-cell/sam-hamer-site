@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Affiliate</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body {
+  width:100%; height:100%; overflow:hidden;
+  background:#080808;
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;
+}
+
+.scene {
+  width:100vw; height:100vh;
+  position:relative; overflow:hidden;
+  display:flex; flex-direction:column;
+  justify-content:center; align-items:flex-start;
+  padding:0 8vw;
+}
+
+.bg-gradient {
+  position:absolute; inset:0;
+  background:radial-gradient(ellipse 70% 60% at 75% 40%, rgba(200,255,0,0.07) 0%, transparent 65%);
+  pointer-events:none;
+}
+
+/* Moving grid lines — subtle */
+.grid {
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(200,255,0,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200,255,0,0.03) 1px, transparent 1px);
+  background-size:80px 80px;
+  animation:gridDrift 12s linear infinite;
+}
+@keyframes gridDrift { 0%{transform:translateY(0)} 100%{transform:translateY(80px)} }
+
+.topbar {
+  position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg, transparent, #c8ff00 40%, transparent);
+  opacity:0.6;
+}
+
+/* BEATS */
+.seq {
+  position:absolute; inset:0;
+  display:flex; flex-direction:column;
+  justify-content:center; align-items:flex-start;
+  padding:0 8vw;
+  opacity:0; pointer-events:none;
+}
+.b1 { animation:beat 3s ease forwards 0.2s; }
+.b2 { animation:beat 3s ease forwards 3.2s; }
+.b3 { animation:beat 3s ease forwards 6.2s; }
+.b4 { animation:beatHold 99s ease forwards 9.2s; }
+
+@keyframes beat {
+  0%  {opacity:0;transform:translateY(18px);}
+  10% {opacity:1;transform:translateY(0);}
+  85% {opacity:1;transform:translateY(0);}
+  100%{opacity:0;transform:translateY(-18px);}
+}
+@keyframes beatHold {
+  0%  {opacity:0;transform:translateY(18px);}
+  8%  {opacity:1;transform:translateY(0);}
+  100%{opacity:1;}
+}
+
+.eyebrow {
+  font-size:clamp(10px,1.3vw,12px); font-weight:800;
+  letter-spacing:3px; text-transform:uppercase;
+  color:rgba(200,255,0,0.5); margin-bottom:16px;
+}
+.headline {
+  font-size:clamp(36px,6.2vw,82px);
+  font-weight:900; line-height:1.0; letter-spacing:-2.5px; color:#f0f0f0;
+}
+.headline .acc { color:#c8ff00; }
+.headline .dim { color:rgba(240,240,240,0.3); }
+.sub {
+  margin-top:16px;
+  font-size:clamp(16px,2.4vw,30px);
+  font-weight:600; color:rgba(240,240,240,0.6); line-height:1.5;
+}
+.sub strong { color:#f0f0f0; font-weight:800; }
+
+/* BIG MONEY */
+.money-wrap { position:relative; display:inline-block; }
+.money {
+  font-size:clamp(120px,20vw,240px);
+  font-weight:900; color:#c8ff00;
+  letter-spacing:-8px; line-height:0.85;
+}
+.money-glow {
+  position:absolute; inset:0;
+  font-size:clamp(120px,20vw,240px);
+  font-weight:900; color:#c8ff00;
+  letter-spacing:-8px; line-height:0.85;
+  filter:blur(50px); opacity:0.3;
+  animation:moneyPulse 2.5s ease-in-out infinite;
+}
+@keyframes moneyPulse {
+  0%,100%{opacity:0.2;} 50%{opacity:0.5;}
+}
+
+/* STEP ROWS */
+.steps { display:flex; flex-direction:column; gap:clamp(12px,2vw,20px); }
+.step {
+  display:flex; align-items:flex-start; gap:clamp(14px,2vw,20px);
+  opacity:0;
+}
+.s1{animation:slideStep 0.5s ease forwards 9.8s;}
+.s2{animation:slideStep 0.5s ease forwards 10.1s;}
+.s3{animation:slideStep 0.5s ease forwards 10.4s;}
+@keyframes slideStep {
+  from{opacity:0;transform:translateX(-24px);}
+  to{opacity:1;transform:translateX(0);}
+}
+.step-num {
+  width:clamp(28px,3vw,38px); height:clamp(28px,3vw,38px);
+  border-radius:50%;
+  background:rgba(200,255,0,0.08);
+  border:1px solid rgba(200,255,0,0.25);
+  display:flex; align-items:center; justify-content:center;
+  font-size:clamp(11px,1.4vw,14px); font-weight:900; color:#c8ff00;
+  flex-shrink:0; margin-top:2px;
+}
+.step-body {}
+.step-title {
+  font-size:clamp(16px,2.4vw,28px);
+  font-weight:800; color:#f0f0f0; letter-spacing:-0.5px;
+}
+.step-detail {
+  font-size:clamp(13px,1.6vw,18px);
+  font-weight:500; color:rgba(240,240,240,0.4); margin-top:2px;
+}
+
+/* BONUS */
+.bonus {
+  display:inline-flex; align-items:center; gap:12px;
+  background:rgba(200,255,0,0.06);
+  border:1px solid rgba(200,255,0,0.2);
+  border-radius:14px;
+  padding:clamp(12px,1.8vw,18px) clamp(18px,2.5vw,28px);
+  margin-top:24px;
+  opacity:0;
+  animation:fadeUp 0.6s ease forwards 10.8s;
+  position:relative; overflow:hidden;
+}
+.bonus::after {
+  content:''; position:absolute; top:0; left:-100%; width:50%; height:100%;
+  background:linear-gradient(90deg, transparent, rgba(200,255,0,0.06), transparent);
+  animation:shimmer 3s ease-in-out infinite 11s;
+}
+@keyframes shimmer{0%{left:-100%}100%{left:200%}}
+.bonus-star { font-size:clamp(16px,2vw,22px); color:#c8ff00; }
+.bonus-text {
+  font-size:clamp(14px,2vw,22px);
+  font-weight:800; color:rgba(200,255,0,0.9);
+}
+
+/* CTA */
+.cta-row {
+  display:flex; align-items:center; gap:20px;
+  margin-top:24px; opacity:0;
+  animation:fadeUp 0.6s ease forwards 11.2s;
+}
+.cta-btn {
+  background:#c8ff00; border-radius:100px;
+  padding:clamp(12px,1.8vw,18px) clamp(22px,3.5vw,36px);
+  font-size:clamp(14px,2vw,20px); font-weight:900; color:#080808;
+  animation:ctaPulse 2.2s ease-in-out infinite 12s;
+}
+@keyframes ctaPulse{0%,100%{box-shadow:0 0 0 rgba(200,255,0,0);}50%{box-shadow:0 0 40px rgba(200,255,0,0.5);}}
+.cta-note {font-size:clamp(12px,1.4vw,15px);color:rgba(255,255,255,0.25);font-weight:600;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+
+.corner{
+  position:absolute; bottom:clamp(20px,3vw,36px); right:clamp(20px,3vw,36px);
+  font-size:11px; font-weight:800; letter-spacing:2px; text-transform:uppercase;
+  color:rgba(200,255,0,0.18);
+}
+.progress{
+  position:absolute; bottom:0; left:0; height:2px; background:#c8ff00;
+  animation:fill 12.5s linear forwards 0.2s;
+}
+@keyframes fill{from{width:0}to{width:100%}}
+</style>
+</head>
+<body>
+<div class="scene">
+  <div class="bg-gradient"></div>
+  <div class="grid"></div>
+  <div class="topbar"></div>
+  <div class="progress"></div>
+
+  <!-- B1: problem -->
+  <div class="seq b1">
+    <div class="eyebrow">52 creator sites built · trained under top TikTok Shop coach</div>
+    <div class="headline">you already<br>have an<br><span class="acc">audience.</span></div>
+    <div class="sub">the people watching you right now<br>could be <strong>paying you $50 each.</strong></div>
+  </div>
+
+  <!-- B2: mechanism -->
+  <div class="seq b2">
+    <div class="eyebrow">dream affiliate program</div>
+    <div class="money-wrap">
+      <div class="money-glow">$50</div>
+      <div class="money">$50</div>
+    </div>
+    <div class="sub" style="margin-top:12px;">
+      <strong>per creator</strong> you send our way.<br>
+      they get <span style="color:#c8ff00;font-weight:800;">25% off.</span> you keep the rest.
+    </div>
+  </div>
+
+  <!-- B3: the math -->
+  <div class="seq b3">
+    <div class="eyebrow">do the math</div>
+    <div class="headline">3 referrals.<br><span class="dim">your site</span><br><span class="acc">is free.</span></div>
+    <div class="sub">make 3 conversions and we build<br>your own site at <strong>zero cost.</strong></div>
+  </div>
+
+  <!-- B4: CTA -->
+  <div class="seq b4">
+    <div class="eyebrow">5 affiliate spots · @dreamlifevisuals · 11K and building</div>
+    <div class="steps">
+      <div class="step s1">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <div class="step-title">get your personal code</div>
+          <div class="step-detail">unique to you, tracked automatically</div>
+        </div>
+      </div>
+      <div class="step s2">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <div class="step-title">share it anywhere</div>
+          <div class="step-detail">bio, stories, DMs — wherever your people are</div>
+        </div>
+      </div>
+      <div class="step s3">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <div class="step-title">they buy → you get $50</div>
+          <div class="step-detail">every single time. no cap.</div>
+        </div>
+      </div>
+    </div>
+    <div class="bonus">
+      <div class="bonus-star">✦</div>
+      <div class="bonus-text">3 referrals = your own site free</div>
+    </div>
+    <div class="cta-row">
+      <div class="cta-btn">apply → tylerdream.com</div>
+      <div class="cta-note">5 spots · link in bio</div>
+    </div>
+  </div>
+
+  <div class="corner">tylerdream.com</div>
+</div>
+</body>
+</html>

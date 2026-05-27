@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Countdown</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body {
+  width:100%; height:100%; overflow:hidden;
+  background:#080808;
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;
+}
+
+.scene {
+  width:100vw; height:100vh;
+  position:relative; overflow:hidden;
+  display:flex; flex-direction:column;
+  justify-content:center; align-items:flex-start;
+  padding:0 8vw;
+}
+
+/* Background — dramatic vignette */
+.vignette {
+  position:absolute; inset:0;
+  background:radial-gradient(ellipse 90% 90% at 50% 50%, transparent 40%, rgba(0,0,0,0.7) 100%);
+  pointer-events:none;
+}
+.bg-glow {
+  position:absolute; inset:0;
+  background:radial-gradient(ellipse 60% 50% at 65% 45%, rgba(200,255,0,0.09) 0%, transparent 65%);
+  pointer-events:none;
+  animation:glowBreathe 4s ease-in-out infinite;
+}
+@keyframes glowBreathe{0%,100%{opacity:0.7;}50%{opacity:1;}}
+
+/* Horizontal scan line */
+.scan {
+  position:absolute; left:0; right:0; height:3px;
+  background:linear-gradient(90deg, transparent, rgba(200,255,0,0.6), transparent);
+  animation:scanDown 7s linear infinite;
+}
+@keyframes scanDown {
+  0%{top:-3px;opacity:0.8;}
+  100%{top:100vh;opacity:0.8;}
+}
+
+/* BEATS */
+.seq {
+  position:absolute; inset:0;
+  display:flex; flex-direction:column;
+  justify-content:center; align-items:flex-start;
+  padding:0 8vw;
+  opacity:0; pointer-events:none;
+}
+.b1{animation:beat 3s ease forwards 0.2s;}
+.b2{animation:beat 3s ease forwards 3.2s;}
+.b3{animation:beat 3s ease forwards 6.2s;}
+.b4{animation:beatHold 99s ease forwards 9.2s;}
+
+@keyframes beat{
+  0%{opacity:0;transform:translateY(18px);}
+  10%{opacity:1;transform:translateY(0);}
+  85%{opacity:1;transform:translateY(0);}
+  100%{opacity:0;transform:translateY(-18px);}
+}
+@keyframes beatHold{
+  0%{opacity:0;transform:translateY(18px);}
+  8%{opacity:1;transform:translateY(0);}
+  100%{opacity:1;}
+}
+
+.eyebrow{
+  font-size:clamp(10px,1.3vw,12px); font-weight:800;
+  letter-spacing:3px; text-transform:uppercase;
+  color:rgba(200,255,0,0.5); margin-bottom:16px;
+}
+.headline{
+  font-size:clamp(36px,6.5vw,86px);
+  font-weight:900; line-height:1.0; letter-spacing:-2.5px; color:#f0f0f0;
+}
+.headline .acc{color:#c8ff00;}
+.headline .dim{color:rgba(240,240,240,0.3);}
+.sub{
+  margin-top:16px;
+  font-size:clamp(16px,2.4vw,30px);
+  font-weight:600; color:rgba(240,240,240,0.6); line-height:1.5;
+}
+.sub strong{color:#f0f0f0;font-weight:800;}
+
+/* THE BIG 5 — beat 3 hero */
+.num-hero{
+  position:relative; display:inline-block;
+}
+.num-big{
+  font-size:clamp(180px,30vw,340px);
+  font-weight:900; color:#c8ff00;
+  letter-spacing:-16px; line-height:0.85;
+  animation:numPulse 2.5s ease-in-out infinite 6.5s;
+}
+@keyframes numPulse{
+  0%,100%{text-shadow:0 0 60px rgba(200,255,0,0.4);}
+  50%{text-shadow:0 0 120px rgba(200,255,0,0.9),0 0 200px rgba(200,255,0,0.4);}
+}
+.num-glow{
+  position:absolute; inset:0;
+  font-size:clamp(180px,30vw,340px);
+  font-weight:900; color:#c8ff00;
+  letter-spacing:-16px; line-height:0.85;
+  filter:blur(60px); opacity:0.3;
+  animation:glowPulse 2.5s ease-in-out infinite 6.5s;
+}
+@keyframes glowPulse{0%,100%{opacity:0.2;}50%{opacity:0.5;}}
+.num-label{
+  font-size:clamp(28px,5vw,60px);
+  font-weight:900; color:rgba(240,240,240,0.8);
+  letter-spacing:-1px; margin-top:8px;
+}
+
+/* BADGE */
+.badge{
+  display:inline-flex; align-items:center; gap:8px;
+  border:1px solid rgba(255,107,107,0.45);
+  border-radius:100px; padding:7px 18px; margin-bottom:24px;
+}
+.badge-dot{
+  width:7px;height:7px;border-radius:50%;background:#ff6b6b;
+  box-shadow:0 0 10px rgba(255,107,107,0.8);
+  animation:blink 1.1s ease-in-out infinite;
+}
+@keyframes blink{0%,100%{opacity:1;box-shadow:0 0 10px rgba(255,107,107,0.9);}50%{opacity:0.3;box-shadow:none;}}
+.badge-text{
+  font-size:clamp(10px,1.3vw,12px);font-weight:800;
+  letter-spacing:2.5px;text-transform:uppercase;color:#ff6b6b;
+}
+
+/* FINAL BEAT checklist */
+.checks{display:flex;flex-direction:column;gap:clamp(12px,2vw,18px);}
+.check{
+  display:flex;align-items:center;gap:clamp(12px,1.8vw,18px);
+  opacity:0;
+}
+.ck1{animation:fadeUp 0.4s ease forwards 9.8s;}
+.ck2{animation:fadeUp 0.4s ease forwards 10.1s;}
+.ck3{animation:fadeUp 0.4s ease forwards 10.4s;}
+.ck4{animation:fadeUp 0.4s ease forwards 10.7s;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+
+.ck-icon{
+  width:clamp(24px,2.5vw,32px);height:clamp(24px,2.5vw,32px);
+  border-radius:50%;background:rgba(200,255,0,0.1);
+  border:1px solid rgba(200,255,0,0.3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:clamp(12px,1.5vw,16px);color:#c8ff00;font-weight:900;
+  flex-shrink:0;
+}
+.ck-text{
+  font-size:clamp(16px,2.4vw,28px);
+  font-weight:700;color:rgba(240,240,240,0.85);letter-spacing:-0.3px;
+}
+.ck-text .acc{color:#c8ff00;}
+
+/* CTA */
+.cta-final{
+  margin-top:clamp(24px,3.5vw,36px);opacity:0;
+  animation:fadeUp 0.6s ease forwards 11.2s;
+  display:flex;flex-direction:column;gap:12px;
+}
+.cta-url{
+  font-size:clamp(22px,4vw,52px);
+  font-weight:900;color:#c8ff00;letter-spacing:-1.5px;
+  animation:urlPulse 2.2s ease-in-out infinite 12s;
+}
+@keyframes urlPulse{0%,100%{opacity:1;}50%{opacity:0.6;}}
+.cta-note{
+  font-size:clamp(12px,1.5vw,16px);
+  font-weight:600;color:rgba(255,255,255,0.25);
+}
+
+.corner{
+  position:absolute;bottom:clamp(20px,3vw,36px);right:clamp(20px,3vw,36px);
+  font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(200,255,0,0.18);
+}
+.progress{
+  position:absolute;bottom:0;left:0;height:2px;background:#c8ff00;
+  animation:fill 12.5s linear forwards 0.2s;
+}
+@keyframes fill{from{width:0}to{width:100%}}
+</style>
+</head>
+<body>
+<div class="scene">
+  <div class="vignette"></div>
+  <div class="bg-glow"></div>
+  <div class="scan"></div>
+  <div class="progress"></div>
+
+  <!-- B1: problem agitation -->
+  <div class="seq b1">
+    <div class="eyebrow">from the guy who's built 52 of these sites</div>
+    <div class="headline">you don't have<br>a media kit<br><span class="acc">site yet.</span></div>
+    <div class="sub">
+      that's why brands<br>
+      are <strong>ghosting you.</strong>
+    </div>
+  </div>
+
+  <!-- B2: Stakes -->
+  <div class="seq b2">
+    <div class="eyebrow">52 sites built. i know exactly what gets brands to respond.</div>
+    <div class="headline">creators with<br><span class="acc">sites</span> get deals.<br><span class="dim">the rest don't.</span></div>
+    <div class="sub">
+      kristyn. ayden. sam.<br>
+      all converted <strong>after</strong> getting their site.
+    </div>
+  </div>
+
+  <!-- B3: The number — big hero -->
+  <div class="seq b3">
+    <div class="eyebrow">spots remaining</div>
+    <div class="num-hero">
+      <div class="num-glow">5</div>
+      <div class="num-big">5</div>
+    </div>
+    <div class="num-label">spots left this month.</div>
+  </div>
+
+  <!-- B4: close -->
+  <div class="seq b4">
+    <div class="badge">
+      <div class="badge-dot"></div>
+      <div class="badge-text">Closing soon</div>
+    </div>
+    <div class="checks">
+      <div class="check ck1">
+        <div class="ck-icon">✓</div>
+        <div class="ck-text">custom site built <span class="acc">from scratch</span></div>
+      </div>
+      <div class="check ck2">
+        <div class="ck-icon">✓</div>
+        <div class="ck-text"><span class="acc">$300</span> one-time · no subscriptions</div>
+      </div>
+      <div class="check ck3">
+        <div class="ck-icon">✓</div>
+        <div class="ck-text">live in <span class="acc">48 hours</span></div>
+      </div>
+      <div class="check ck4">
+        <div class="ck-icon">✓</div>
+        <div class="ck-text">brands stop ghosting you</div>
+      </div>
+    </div>
+    <div class="cta-final">
+      <div class="cta-url">tylerdream.com</div>
+      <div class="cta-note">link in bio · this closes when they're gone</div>
+    </div>
+  </div>
+
+  <div class="corner">tylerdream.com</div>
+</div>
+</body>
+</html>

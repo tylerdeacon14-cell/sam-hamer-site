@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Your Site Built · Tyler Dream · $300 · 48 Hours</title>
+  <meta name="description" content="Custom creator media kit built in 48 hours. $300 flat, one time. Your story, your stats, your brand. Tyler Dream builds every site personally. You'll love it or we fix it.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tylerdream.com/build.html">
+  <meta property="og:title" content="Get Your Creator Site Built · Tyler Dream">
+  <meta property="og:description" content="A media kit site that closes brand deals. $300. Delivered in 48 hours. Built by a full-time TikTok creator.">
+  <meta property="og:image" content="https://tylerdream.com/kristyn-site-1.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Get Your Creator Site Built · Tyler Dream">
+  <meta name="twitter:description" content="A media kit site that closes brand deals. $300. Delivered in 48 hours.">
+  <meta name="twitter:image" content="https://tylerdream.com/kristyn-site-1.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    :root {
+      --bg: #080808; --surface: #101010;
+      --border: rgba(255,255,255,0.07);
+      --accent: #c8ff00; --mint: #A0EDD8;
+      --text: #f0f0f0; --muted: #777;
+    }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    @keyframes shimmer { 0%{background-position:200% center} 100%{background-position:-200% center} }
+    @keyframes affiliateBreathe { 0%,100%{opacity:0.75;text-shadow:0 0 8px rgba(236,72,153,0.3)} 50%{opacity:1;text-shadow:0 0 18px rgba(236,72,153,0.7),0 0 30px rgba(168,85,247,0.3)} }
+    @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+    @keyframes slide-down { 0%{opacity:0;transform:translateY(-4px)} 50%{opacity:1} 100%{opacity:0;transform:translateY(8px)} }
+    .affiliate-word { background: linear-gradient(135deg,#ec4899,#a855f7); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; font-weight:800; animation: affiliateBreathe 2.5s ease-in-out infinite; }
+
+    .top-banner {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 110;
+      background: linear-gradient(90deg, rgba(160,237,216,0.08) 0%, rgba(200,255,0,0.05) 100%);
+      border-bottom: 1px solid rgba(160,237,216,0.2);
+      padding: 12px 32px; display: flex; align-items: center; justify-content: center; gap: 16px;
+      font-size: 13px; color: #a0edd8; font-weight: 600;
+    }
+    .top-banner a {
+      background: #a0edd8; color: #080808; padding: 8px 16px; border-radius: 8px;
+      text-decoration: none; font-weight: 700; font-size: 12px; transition: opacity 0.15s;
+    }
+    .top-banner a:hover { opacity: 0.85; }
+
+    nav {
+      position: fixed; top: 48px; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 32px; background: rgba(8,8,8,0.95);
+      backdrop-filter: blur(24px); border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .nav-logo { font-size: 15px; font-weight: 800; color: var(--text); text-decoration: none; letter-spacing: -0.5px; transition: opacity 0.15s; }
+    .nav-logo:hover { opacity: 0.8; }
+    .nav-logo em { color: var(--accent); font-style: normal; }
+    .nav-back { font-size: 13px; font-weight: 600; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+    .nav-back:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      padding: 120px 0 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 400px;
+      background: radial-gradient(ellipse at center, rgba(200,255,0,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 0 32px; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(200,255,0,0.07); border: 1px solid rgba(200,255,0,0.2);
+      border-radius: 100px; padding: 5px 14px;
+      font-size: 11px; font-weight: 700; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 28px;
+    }
+    .hero-badge span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; flex-shrink: 0; }
+
+    .hero h1 {
+      font-size: clamp(42px, 6vw, 72px); font-weight: 900;
+      letter-spacing: -3px; line-height: 1.0; margin-bottom: 20px;
+      background: linear-gradient(135deg, #fff 55%, rgba(200,255,0,0.65) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero p {
+      font-size: 16px; color: var(--muted); line-height: 1.65;
+      max-width: 480px; margin: 0 auto 40px;
+    }
+
+    /* INCLUDED CARD */
+    .included-card {
+      background: linear-gradient(160deg, rgba(200,255,0,0.05) 0%, rgba(14,14,14,1) 60%);
+      border: 1px solid rgba(200,255,0,0.15);
+      border-radius: 24px; padding: 36px; margin-bottom: 40px;
+      position: relative; overflow: hidden; text-align: left;
+    }
+    .included-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(200,255,0,0.5), transparent);
+    }
+    .included-label {
+      font-size: 11px; font-weight: 800; letter-spacing: 2px;
+      text-transform: uppercase; color: rgba(200,255,0,0.6); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .included-price {
+      background: rgba(200,255,0,0.1); border: 1px solid rgba(200,255,0,0.2);
+      border-radius: 6px; padding: 3px 10px; font-size: 13px;
+      font-weight: 900; color: var(--accent);
+    }
+    .included-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px 32px; margin-bottom: 0;
+    }
+    .included-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 13px; color: #888; line-height: 1.65;
+    }
+    .included-item span { color: var(--accent); font-weight: 900; flex-shrink: 0; margin-top: 3px; font-size: 12px; }
+    .financing-line {
+      font-size: 13px; color: #888; margin-top: 4px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .financing-line a { color: #777; text-decoration: none; font-weight: 600; }
+    .financing-line a:hover { color: #ccc; }
+
+    /* REFERRAL BANNER */
+    .referral-banner {
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+      background: rgba(160,237,216,0.04);
+      border: 1px solid rgba(160,237,216,0.2); border-radius: 16px;
+      padding: 20px 24px; margin-bottom: 28px;
+    }
+    .referral-copy { flex: 1; min-width: 180px; }
+    .referral-copy strong { display: block; font-size: 13px; font-weight: 800; color: rgba(160,237,216,0.85); margin-bottom: 3px; }
+    .referral-copy span { font-size: 12px; color: #888; }
+    .referral-input-wrap { flex: 0 0 200px; }
+    .referral-input-wrap input {
+      width: 100%; background: #080808; color: #a0edd8;
+      border: 1px solid rgba(160,237,216,0.25); border-radius: 9px;
+      padding: 11px 14px; font-size: 13px; font-family: Inter, sans-serif;
+      font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+      outline: none; transition: border-color 0.15s;
+    }
+    .referral-input-wrap input:focus { border-color: rgba(160,237,216,0.5); }
+    .referral-input-wrap input::placeholder { color: #333; letter-spacing: 1px; font-weight: 500; text-transform: none; }
+
+    /* FORM SECTION */
+    .form-section { padding: 0 0 80px; }
+
+    /* FORM BLOCKS */
+    .form-block {
+      border: 1px solid var(--border); border-radius: 20px;
+      overflow: hidden; margin-bottom: 14px;
+      transition: border-color 0.2s;
+    }
+    .form-block:focus-within { border-color: rgba(200,255,0,0.2); }
+    .form-block-header {
+      padding: 20px 28px; display: flex; align-items: center; gap: 16px;
+      border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.015);
+    }
+    .block-num {
+      width: 30px; height: 30px; border-radius: 10px; flex-shrink: 0;
+      background: rgba(200,255,0,0.08); border: 1px solid rgba(200,255,0,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 900; color: rgba(200,255,0,0.7);
+    }
+    .block-title { font-size: 15px; font-weight: 800; color: #fff; letter-spacing: -0.3px; }
+    .block-subtitle { font-size: 12px; color: #777; margin-top: 2px; }
+    .form-block-body { padding: 28px; }
+
+    /* FIELDS */
+    .field { margin-bottom: 18px; }
+    .field:last-child { margin-bottom: 0; }
+    .field label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-bottom: 8px; }
+    .field input[type="text"],
+    .field input[type="email"],
+    .field input[type="url"],
+    .field select,
+    .field textarea {
+      width: 100%; background: #060606; color: #f0f0f0;
+      border: 1px solid rgba(255,255,255,0.07); border-radius: 12px;
+      padding: 13px 16px; font-size: 14px; font-family: Inter, sans-serif; font-weight: 500;
+      outline: none; transition: border-color 0.15s, box-shadow 0.15s; -webkit-appearance: none;
+    }
+    .field input::placeholder, .field textarea::placeholder { color: #444; }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      border-color: rgba(200,255,0,0.3); box-shadow: 0 0 0 3px rgba(200,255,0,0.05);
+    }
+    .field select { appearance: none; cursor: pointer; }
+    .field textarea { resize: vertical; line-height: 1.6; }
+    .field-note { font-size: 12px; color: #666; margin-top: 8px; line-height: 1.5; }
+    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    /* FILE UPLOAD */
+    .upload-zone {
+      position: relative; width: 100%;
+      border: 1px dashed rgba(255,255,255,0.1); border-radius: 14px;
+      background: rgba(255,255,255,0.01); padding: 32px 20px;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      cursor: pointer; transition: border-color 0.15s, background 0.15s;
+    }
+    .upload-zone:hover { border-color: rgba(200,255,0,0.25); background: rgba(200,255,0,0.02); }
+    .upload-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+    .upload-icon { font-size: 24px; line-height: 1; color: #666; }
+    .upload-label { font-size: 13px; font-weight: 700; color: #888; }
+    .upload-sub { font-size: 11px; color: #666; }
+    .upload-zone.has-file { border-color: rgba(200,255,0,0.3); background: rgba(200,255,0,0.03); }
+    .upload-zone.has-file .upload-label { color: rgba(200,255,0,0.8); }
+
+    /* ACCOUNT ROWS */
+    .account-row { margin-bottom: 10px; }
+    .account-row:last-of-type { margin-bottom: 0; }
+    .account-row-inner { display: flex; gap: 10px; align-items: flex-end; }
+    .field-platform { flex: 0 0 130px; }
+    .field-handle { flex: 1; }
+    .field-followers { flex: 0 0 100px; }
+    .field-likes { flex: 0 0 100px; }
+    .field-platform .field,
+    .field-handle .field,
+    .field-followers .field,
+    .field-likes .field { margin-bottom: 0; }
+
+    .remove-btn {
+      width: 38px; height: 44px; flex-shrink: 0;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+      color: #3a3a3a; font-size: 18px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 10px; transition: background 0.15s, color 0.15s;
+      align-self: flex-end;
+    }
+    .remove-btn:hover { background: rgba(255,60,60,0.08); color: #ff5555; border-color: rgba(255,60,60,0.2); }
+
+    .col-headers { display: flex; gap: 10px; margin-bottom: 8px; padding: 0 2px; align-items: center; }
+    .col-headers span { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #666; }
+    .ch-platform { flex: 0 0 130px; }
+    .ch-handle { flex: 1; }
+    .ch-followers { flex: 0 0 100px; }
+    .ch-likes { flex: 0 0 100px; }
+    .ch-freq { flex: 0 0 130px; }
+    .ch-spacer { width: 38px; }
+    .field-freq { flex: 0 0 130px; }
+
+    .add-row-btn {
+      display: inline-flex; align-items: center; gap: 8px; margin-top: 14px;
+      padding: 9px 16px; border-radius: 8px; cursor: pointer;
+      background: rgba(200,255,0,0.05); border: 1px solid rgba(200,255,0,0.15);
+      color: rgba(200,255,0,0.75); font-size: 12px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.8px; transition: background 0.15s;
+      font-family: Inter, sans-serif;
+    }
+    .add-row-btn:hover { background: rgba(200,255,0,0.1); }
+
+    /* CHECKBOXES */
+    .check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px; }
+    .check-item {
+      display: flex; align-items: center; gap: 10px; padding: 11px 14px;
+      border-radius: 10px; border: 1px solid rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.015); cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .check-item:hover { border-color: rgba(200,255,0,0.18); background: rgba(200,255,0,0.03); }
+    .check-item input[type="checkbox"] {
+      width: 16px; height: 16px; flex-shrink: 0; cursor: pointer;
+      appearance: none; -webkit-appearance: none;
+      border: 1.5px solid rgba(255,255,255,0.12); border-radius: 4px;
+      background: transparent; position: relative;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .check-item input[type="checkbox"]:checked { background: var(--accent); border-color: var(--accent); }
+    .check-item input[type="checkbox"]:checked::after {
+      content: ''; position: absolute; top: 2px; left: 5px;
+      width: 4px; height: 7px;
+      border: 2px solid #000; border-top: none; border-left: none;
+      transform: rotate(45deg);
+    }
+    .check-item span { font-size: 13px; color: #999; font-weight: 500; line-height: 1.3; }
+    .check-item:has(input:checked) { border-color: rgba(200,255,0,0.25); background: rgba(200,255,0,0.04); }
+    .check-item:has(input:checked) span { color: #ccc; }
+
+    /* VIBE PICKER */
+    .vibe-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px; }
+    .vibe-option { position: relative; }
+    .vibe-option input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .vibe-option label {
+      display: block; padding: 13px 16px; border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.02);
+      cursor: pointer; transition: border-color 0.15s, background 0.15s;
+      font-size: 13px; color: #999; font-weight: 600;
+    }
+    .vibe-option input:checked + label { border-color: rgba(200,255,0,0.35); background: rgba(200,255,0,0.06); color: #c8ff00; }
+    .vibe-option label:hover { border-color: rgba(200,255,0,0.2); }
+
+    /* VIDEO / MILESTONE LISTS */
+    .video-input-list { display: flex; flex-direction: column; gap: 8px; }
+    .video-input-row { display: flex; align-items: center; gap: 10px; }
+    .video-num { font-size: 11px; font-weight: 800; color: #555; flex-shrink: 0; width: 20px; text-align: right; }
+    .video-input-row input { flex: 1; }
+
+    .milestone-list { display: flex; flex-direction: column; gap: 8px; }
+    .milestone-row { display: flex; gap: 10px; align-items: flex-start; }
+    .milestone-num { font-size: 11px; font-weight: 800; color: #555; flex-shrink: 0; width: 20px; text-align: right; padding-top: 14px; }
+    .milestone-row input { flex: 1; }
+
+    /* SUBMIT */
+    .submit-wrap { margin-top: 28px; }
+    .submit-btn {
+      display: block; width: 100%; padding: 18px;
+      background: var(--accent); color: #000;
+      font-size: 14px; font-weight: 900; letter-spacing: 0.6px; text-transform: uppercase;
+      border: none; border-radius: 12px; cursor: pointer;
+      transition: opacity 0.15s, transform 0.15s;
+      box-shadow: 0 0 40px rgba(200,255,0,0.18), 0 4px 16px rgba(0,0,0,0.4);
+      position: relative; overflow: hidden; font-family: Inter, sans-serif;
+    }
+    .submit-btn:hover { opacity: 0.88; transform: translateY(-2px); }
+    .submit-btn::after {
+      content: ''; position: absolute; top: -50%; left: -75%; width: 50%; height: 200%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+      transform: skewX(-20deg); transition: left 0.5s ease;
+    }
+    .submit-btn:hover::after { left: 125%; }
+    .submit-note { text-align: center; font-size: 12px; color: #666; margin-top: 14px; line-height: 1.6; }
+
+    /* NEXT STEPS */
+    .next-steps {
+      margin-top: 36px; padding: 32px;
+      border: 1px solid var(--border); border-radius: 20px;
+      position: relative; overflow: hidden; background: rgba(255,255,255,0.01);
+    }
+    .next-steps::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(160,237,216,0.35) 50%, transparent);
+    }
+    .next-steps-title {
+      font-size: 11px; font-weight: 800; color: #888;
+      text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 24px;
+    }
+    .next-step-row {
+      display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px;
+    }
+    .next-step-row:last-of-type { margin-bottom: 0; }
+    .step-dot {
+      width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(200,255,0,0.08); border: 1px solid rgba(200,255,0,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 900; color: #c8ff00; margin-top: 1px;
+    }
+    .next-step-row p { font-size: 13px; color: #888; line-height: 1.65; margin: 0; }
+    .next-step-row p strong { color: #fff; }
+
+
+    footer { border-top: 1px solid rgba(255,255,255,0.05); padding: 32px; margin-top: 80px; }
+    .footer-inner { max-width: 760px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .footer-logo { font-size: 14px; font-weight: 800; color: #777; }
+    .footer-logo em { color: var(--accent); font-style: normal; }
+    .footer-copy { font-size: 12px; color: #666; }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 12px; color: #666; text-decoration: none; font-weight: 600; transition: color 0.15s; }
+    .footer-links a:hover { color: #f0f0f0; }
+
+    @media (max-width: 600px) {
+      .hero { padding: 80px 0 32px; }
+      .wrap { padding: 0 16px; }
+      .form-block-body { padding: 18px 16px; }
+      .form-block-header { padding: 14px 16px; }
+      .next-steps { padding: 20px 16px; }
+      .row-2 { grid-template-columns: 1fr; }
+      .check-grid { grid-template-columns: 1fr; }
+      .vibe-grid { grid-template-columns: 1fr; }
+      .referral-banner { flex-direction: column; }
+      .referral-input-wrap { flex: 1 1 100%; }
+      .account-row-inner { flex-wrap: wrap; gap: 8px 10px; }
+      .field-platform { flex: 0 0 calc(50% - 5px); }
+      .field-handle { flex: 1 1 100%; order: -1; }
+      .field-followers, .field-likes { flex: 0 0 calc(50% - 5px); }
+      .field-freq { display: none; }
+      .remove-btn { align-self: flex-end; }
+      .col-headers { display: none; }
+      .included-grid { grid-template-columns: 1fr; }
+      nav { padding: 0 16px; }
+      .nav-back { font-size: 12px; }
+      .hero h1 { font-size: clamp(28px, 8vw, 44px); }
+      .faq-item { padding: 0; }
+      .submit-btn { font-size: 14px; padding: 14px 24px; }
+      .media-kit-explainer { grid-template-columns: 1fr !important; gap: 20px !important; }
+      /* Mobile optimizations for new elements */
+      .submit-wrap { margin-top: 24px; }
+      svg { width: 20px !important; height: 20px !important; }
+      [style*="grid-template-columns:repeat"] { grid-template-columns: 1fr !important; }
+    }
+  
+    /* ALIVE STYLES */
+    .form-block {
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s;
+    }
+    .form-block:hover {
+      border-color: rgba(200,255,0,0.12);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+      transform: translateY(-1px);
+    }
+    .form-block:focus-within {
+      border-color: rgba(200,255,0,0.25);
+      box-shadow: 0 0 0 1px rgba(200,255,0,0.08), 0 8px 40px rgba(0,0,0,0.4);
+      transform: translateY(-1px);
+    }
+    .vibe-option label { transition: border-color 0.15s, background 0.15s, transform 0.15s, box-shadow 0.15s; }
+    .vibe-option label:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,0.3); }
+    .vibe-option input:checked + label { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(200,255,0,0.1); }
+    .check-item { transition: border-color 0.15s, background 0.15s, transform 0.15s; }
+    .check-item:hover { transform: translateY(-1px); }
+    .upload-zone { transition: border-color 0.2s, background 0.2s, transform 0.2s, box-shadow 0.2s; }
+    .upload-zone:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+    .referral-banner { transition: border-color 0.25s, box-shadow 0.25s; }
+    .referral-banner:hover { border-color: rgba(160,237,216,0.35); box-shadow: 0 0 30px rgba(160,237,216,0.06); }
+    .included-card { transition: border-color 0.25s, box-shadow 0.25s; }
+    .included-card { animation: floatCard 6s ease-in-out infinite; } .included-card-hover-override:hover { border-color: rgba(200,255,0,0.25); box-shadow: 0 0 60px rgba(200,255,0,0.06); }
+    .next-steps { transition: border-color 0.25s, box-shadow 0.25s; }
+    .next-steps:hover { border-color: rgba(160,237,216,0.15); box-shadow: 0 0 40px rgba(160,237,216,0.04); }
+    .field input[type="text"]:hover,
+    .field input[type="email"]:hover,
+    .field input[type="url"]:hover,
+    .field select:hover,
+    .field textarea:hover {
+      border-color: rgba(255,255,255,0.12);
+    }
+    .add-row-btn { transition: background 0.15s, transform 0.15s, box-shadow 0.15s; }
+    .add-row-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(200,255,0,0.08); }
+    .submit-btn { transition: opacity 0.15s, transform 0.2s, box-shadow 0.2s; }
+    .submit-btn:hover { opacity: 1 !important; transform: translateY(-3px) !important; box-shadow: 0 0 60px rgba(200,255,0,0.35), 0 8px 24px rgba(0,0,0,0.5) !important; }
+    .block-num { transition: background 0.2s, border-color 0.2s; }
+    .form-block:hover .block-num { background: rgba(200,255,0,0.14); border-color: rgba(200,255,0,0.3); }
+
+    /* INTERACTIVE CONTROLS */
+    .range-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 3px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 3px;
+      outline: none;
+      cursor: pointer;
+      margin: 12px 0 6px;
+      border: none;
+    }
+    .range-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      border: 2px solid #080808;
+      box-shadow: 0 0 16px rgba(200,255,0,0.35);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .range-slider::-webkit-slider-thumb:hover { transform: scale(1.2); box-shadow: 0 0 28px rgba(200,255,0,0.55); }
+    .range-slider::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: var(--accent); border: 2px solid #080808; box-shadow: 0 0 16px rgba(200,255,0,0.35); }
+    .slider-val {
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 12px;
+      margin-left: 8px;
+      text-transform: none;
+      letter-spacing: 0;
+      font-style: normal;
+    }
+    .slider-ticks { display: flex; justify-content: space-between; font-size: 10px; color: #555; font-weight: 600; margin-top: 2px; }
+    .pill-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .pill {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 40px;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #888;
+      cursor: pointer;
+      font-family: inherit;
+      transition: border-color 0.15s, color 0.15s, background 0.15s, transform 0.15s;
+      line-height: 1;
+    }
+    .pill:hover { border-color: rgba(255,255,255,0.15); color: #aaa; transform: translateY(-1px); }
+    .pill.active { background: rgba(200,255,0,0.07); border-color: rgba(200,255,0,0.4); color: var(--accent); }
+
+    /* FAQ ACCORDION */
+    .faq-item {
+      border: 1px solid rgba(255,255,255,0.07); border-radius: 14px;
+      margin-bottom: 10px; overflow: hidden; cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .faq-item:hover { border-color: rgba(200,255,0,0.2); }
+    .faq-item.open { border-color: rgba(200,255,0,0.25); }
+    .faq-q {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 22px; font-size: 14px; font-weight: 700; color: #ccc;
+      user-select: none;
+    }
+    .faq-arrow { font-size: 18px; color: var(--accent); font-weight: 900; transition: transform 0.25s; flex-shrink: 0; margin-left: 12px; }
+    .faq-item.open .faq-arrow { transform: rotate(45deg); }
+    .faq-a {
+      max-height: 0; overflow: hidden;
+      font-size: 13px; color: #888; line-height: 1.7;
+      padding: 0 22px; transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+    .faq-item.open .faq-a { max-height: 200px; padding: 0 22px 18px; }
+
+    /* SCROLL FADE-UP ANIMATION */
+    .fade-up {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* MOBILE FREQ FIELD */
+    @media (max-width: 600px) {
+      .field-freq { flex: 1 1 100%; }
+      .ch-freq { display: none; }
+    }
+    @media (max-width: 600px) {
+      .proof-grid { grid-template-columns: 1fr !important; }
+    }
+
+    @keyframes breathe {
+      0%   { transform: scale(1) translateY(0px) rotate(var(--rot));    filter: drop-shadow(0 0 18px rgba(160,237,216,0.18)) drop-shadow(0 0 40px rgba(200,255,0,0.09)); }
+      50%  { transform: scale(1.03) translateY(-10px) rotate(var(--rot)); filter: drop-shadow(0 0 32px rgba(160,237,216,0.32)) drop-shadow(0 0 70px rgba(200,255,0,0.16)); }
+      100% { transform: scale(1) translateY(0px) rotate(var(--rot));    filter: drop-shadow(0 0 18px rgba(160,237,216,0.18)) drop-shadow(0 0 40px rgba(200,255,0,0.09)); }
+    }
+    @keyframes badge-glow {
+      0%,100% { box-shadow: 0 0 10px rgba(200,255,0,0.5), 0 0 24px rgba(200,255,0,0.25); }
+      50%      { box-shadow: 0 0 20px rgba(200,255,0,0.85), 0 0 44px rgba(200,255,0,0.4); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes floatCard {
+      0%,100% { transform: translateY(0px);  box-shadow: 0 8px 32px rgba(0,0,0,0.45); }
+      50%      { transform: translateY(-6px); box-shadow: 0 18px 48px rgba(0,0,0,0.6), 0 0 28px rgba(200,255,0,0.07); }
+    }
+    .stream-in {
+      opacity: 0;
+      animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+  
+    /* ========= PRELAUNCH POLISH ========= */
+    ::selection { background: rgba(200,255,0,0.25); color: #fff; }
+
+    #scroll-bar {
+      position: fixed; top: 0; left: 0; height: 2px; z-index: 9999;
+      background: linear-gradient(90deg, #c8ff00, #a0edd8);
+      width: 0%; transition: width 0.1s linear; pointer-events: none;
+    }
+    #cursor-glow {
+      position: fixed; pointer-events: none; z-index: 9998;
+      width: 320px; height: 320px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,255,0,0.06) 0%, transparent 70%);
+      transform: translate(-50%,-50%); transition: opacity 0.3s; opacity: 0;
+    }
+
+    /* CTA button shine */
+    .cta-btn, .pay-btn, button[type="submit"], a.cta {
+      position: relative; overflow: hidden;
+    }
+    .cta-btn::after, .pay-btn::after, button[type="submit"]::after {
+      content: '';
+      position: absolute; top: 0; left: -100%; width: 60%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+      transform: skewX(-20deg);
+      animation: btnShine 3.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes btnShine { 0%{left:-100%} 40%,100%{left:160%} }
+
+    /* Card hover lift */
+    .included-card, .referral-banner, .form-block {
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .included-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(200,255,0,0.1);
+    }
+
+    /* Nav scroll */
+    nav.scrolled {
+      background: rgba(8,8,8,0.98) !important;
+      border-bottom-color: rgba(200,255,0,0.08) !important;
+    }
+
+    /* Proof number glow */
+    .proof-num, [class*="proof"] { text-shadow: 0 0 40px rgba(200,255,0,0.12); }
+
+    /* Gradient section divider */
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, rgba(200,255,0,0.3) 30%, rgba(160,237,216,0.3) 70%, transparent 100%);
+      background-size: 200% 100%;
+      animation: dividerShift 6s ease-in-out infinite alternate;
+      border: none; margin: 0;
+    }
+    @keyframes dividerShift { 0%{background-position:0% center} 100%{background-position:100% center} }
+
+    /* Orb drift */
+    @keyframes orbDrift {
+      0%{transform:translate(0px,0px) scale(1)} 33%{transform:translate(20px,-15px) scale(1.05)}
+      66%{transform:translate(-15px,10px) scale(0.97)} 100%{transform:translate(10px,20px) scale(1.03)}
+    }
+    .ambient-orb { animation: orbDrift 12s ease-in-out infinite alternate; filter: blur(60px); }
+    /* ========= END POLISH ========= */
+
+    /* ========= MOBILE & BROWSER OPTIMIZATION ========= */
+
+    /* Tap highlight removal */
+    * { -webkit-tap-highlight-color: transparent; }
+
+    /* Prevent font size inflation on iOS */
+    html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+    /* Safe area insets for notched phones */
+    nav {
+      padding-left: max(24px, env(safe-area-inset-left)) !important;
+      padding-right: max(24px, env(safe-area-inset-right)) !important;
+    }
+
+    /* Video cards: label bubble never clips */
+    .ugc-grid-5 > div { overflow: visible !important; }
+    .ugc-grid-5 > div > div:first-child { border-radius: 16px; overflow: hidden; }
+
+    /* Mobile nav wrapping fix */
+    @media (max-width: 480px) {
+      nav { padding: 12px 16px !important; gap: 8px !important; flex-wrap: nowrap; }
+      nav > div { gap: 8px !important; }
+      nav a[style*="font-size:11px"] { font-size: 10px !important; padding: 7px 10px !important; }
+    }
+
+    /* Touch-friendly tap targets */
+    @media (max-width: 768px) {
+      a, button { min-height: 44px; }
+      .ugc-grid-5 { gap: 10px !important; }
+      .wrap { padding: 0 16px !important; }
+    }
+
+    /* Proof section: 2-col on mobile */
+    @media (max-width: 600px) {
+      .proof-grid, [class*="proof-grid"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 16px !important;
+      }
+      .hero h1 { letter-spacing: -1.5px !important; }
+    }
+
+    /* Video aspect ratio on very small screens */
+    @media (max-width: 400px) {
+      .ugc-grid-5 { grid-template-columns: 1fr 1fr !important; }
+    }
+
+    /* Firefox: custom scrollbar */
+    html { scrollbar-width: none; }
+
+    /* Safari: fix for position:sticky inside overflow */
+    @supports (-webkit-touch-callout: none) {
+      .ambient-orb { will-change: transform; }
+    }
+
+    /* Ensure buttons are full-width on mobile */
+    @media (max-width: 600px) {
+      .hero a[style*="padding:16px"], .hero button {
+        display: block !important; width: 100% !important; text-align: center !important;
+        box-sizing: border-box !important;
+      }
+    }
+    /* ========= END MOBILE OPTIMIZATION ========= */
+
+
+    /* ===== THANK YOU MODAL ===== */
+    #ty-modal {
+      display: none; position: fixed; inset: 0; z-index: 10000;
+      align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.85); backdrop-filter: blur(12px);
+      padding: 24px;
+    }
+    #ty-modal.open { display: flex; animation: modalFadeIn 0.3s ease; }
+    @keyframes modalFadeIn { from{opacity:0;transform:scale(0.95)} to{opacity:1;transform:scale(1)} }
+    .ty-card {
+      background: linear-gradient(160deg,#111,#0d0d0d);
+      border: 1px solid rgba(200,255,0,0.2);
+      border-radius: 28px; padding: 52px 48px;
+      max-width: 480px; width: 100%; text-align: center;
+      position: relative; overflow: hidden;
+      box-shadow: 0 48px 96px rgba(0,0,0,0.7), 0 0 0 1px rgba(200,255,0,0.06);
+    }
+    .ty-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, #c8ff00, #a0edd8, transparent);
+    }
+    .ty-check {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: rgba(200,255,0,0.1); border: 1px solid rgba(200,255,0,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; margin: 0 auto 24px;
+      animation: checkBounce 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.1s both;
+    }
+    @keyframes checkBounce { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
+    .ty-card h2 {
+      font-size: 26px; font-weight: 900; letter-spacing: -1px;
+      color: #fff; margin-bottom: 12px; line-height: 1.1;
+    }
+    .ty-card p {
+      font-size: 15px; color: #666; line-height: 1.65;
+      margin-bottom: 32px;
+    }
+    .ty-card p em { color: #fff; font-style: normal; font-weight: 700; }
+    .ty-sig {
+      font-size: 13px; font-weight: 800; color: rgba(200,255,0,0.6);
+      letter-spacing: 1px; text-transform: uppercase; margin-bottom: 32px;
+    }
+    .ty-close {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--accent,#c8ff00); color: #000;
+      font-size: 13px; font-weight: 900; letter-spacing: 0.5px;
+      padding: 13px 28px; border-radius: 100px; border: none;
+      cursor: pointer; transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .ty-close:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,255,0,0.3); }
+    @media(max-width:480px) { .ty-card { padding: 40px 28px; } .ty-card h2 { font-size: 22px; } }
+    /* ===== END MODAL ===== */
+
+  
+    /* iOS input zoom prevention */
+    input, select, textarea { font-size: max(16px, 1em); }
+  </style>
+<style>
+    /* Mobile spacing pass */
+    @media (max-width: 600px) {
+      .form-block { margin-bottom: 16px; }
+      .form-block-header { gap: 12px; }
+      .block-num { width: 32px; height: 32px; font-size: 13px; flex-shrink: 0; }
+      .pill-group { gap: 6px; }
+      .pill { padding: 6px 12px; font-size: 11px; }
+      .field { margin-bottom: 14px; }
+      .field label { margin-bottom: 5px; }
+      .next-step-row { gap: 12px; padding: 14px 0; }
+      .next-step-icon { width: 32px; height: 32px; font-size: 15px; flex-shrink: 0; }
+      .included-card { padding: 16px; }
+      .media-kit-explainer > div { padding: 0; }
+      .testimonial-grid { grid-template-columns: 1fr !important; }
+    }
+    @media (min-width: 768px) {
+      .testimonial-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+    }
+</style></head>
+<body>
+
+<!-- THANK YOU MODAL -->
+<div id="ty-modal" role="dialog" aria-modal="true" aria-labelledby="ty-heading">
+  <div class="ty-card">
+    <div class="ty-check">✓</div>
+    <h2 id="ty-heading">Thank you.</h2>
+    <p>We are excited to review your profile and will be in touch soon.</p>
+    <div class="ty-sig">Dream</div>
+    <button class="ty-close" onclick="document.getElementById('ty-modal').classList.remove('open')">Sounds good ✓</button>
+  </div>
+</div>
+
+<div id="scroll-bar"></div>
+<div id="cursor-glow"></div>
+
+<nav style="top:0;">
+  <a href="index.html" class="nav-logo">Dream<em>.</em></a>
+  <a href="index.html" class="nav-back">Back to site</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-badge"><span></span>tylerdream.com</div>
+    <h1>The site that makes<br><em style="color:var(--accent);font-style:normal;">brands say yes.</em></h1>
+    <div class="stream-in" style="animation-delay:0.2s;margin-bottom:20px;padding:12px 16px;background:rgba(200,255,0,0.04);border:1px solid rgba(200,255,0,0.15);border-radius:12px;display:inline-block;">
+      <div style="font-size:12px;font-weight:700;letter-spacing:0.5px;color:var(--accent);text-transform:uppercase;">Live in 48 hours</div>
+    </div>
+    <p class="stream-in" style="animation-delay:0.25s;margin-bottom:4px;font-size:18px;color:#ccc;line-height:1.6;max-width:500px;font-weight:500;">Stop sending brands your TikTok handle. Send them a link that closes.</p>
+    <p class="stream-in" style="animation-delay:0.35s;margin-bottom:8px;font-size:14px;color:#555;line-height:1.7;max-width:480px;">Built from scratch around you. Your story, your stats, your look. Live in 48 hours. You approve everything.</p>
+
+
+
+
+
+    <!-- WHY A MEDIA KIT -->
+    <div style="margin-bottom:48px;padding:40px;background:linear-gradient(160deg,#0f0f0f,#0a0a0a);border:1px solid rgba(255,255,255,0.07);border-radius:24px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(200,255,0,0.3),transparent);"></div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+        <div style="font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:rgba(200,255,0,0.5);">The basics</div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(200,255,0,0.6);display:flex;align-items:center;gap:6px;">
+          <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 1s infinite;"></span>
+          11 creators building this week
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;" class="media-kit-explainer">
+
+        <div>
+          <div style="font-size:18px;font-weight:900;color:#fff;letter-spacing:-0.5px;margin-bottom:12px;line-height:1.2;">What is a media kit?</div>
+          <div style="font-size:14px;color:#555;line-height:1.7;">A media kit is your creator resume. It's a single link you send to brands that shows who you are, what you create, how big your audience is, and what it costs to work with you. Instead of copy-pasting your stats into a DM, you send one clean link and look like a professional.</div>
+        </div>
+
+        <div>
+          <div style="font-size:18px;font-weight:900;color:#fff;letter-spacing:-0.5px;margin-bottom:12px;line-height:1.2;">Why do you need one?</div>
+          <div style="font-size:14px;color:#555;line-height:1.7;">Brands receive hundreds of creator pitches. The ones without a link get ignored. A media kit tells a brand everything they need to decide in under 60 seconds: your niche, your numbers, your content, your rates. Without it, you're asking them to do work you should have done for them.</div>
+        </div>
+
+      </div>
+
+      <div style="margin-top:28px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.05);display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#666;">
+          <span style="color:#c8ff00;font-weight:900;">✓</span> Replaces the "can you send your stats?" DM
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#666;">
+          <span style="color:#c8ff00;font-weight:900;">✓</span> Signals you take this seriously
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#666;">
+          <span style="color:#c8ff00;font-weight:900;">✓</span> Works while you sleep. Brands find you
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#666;">
+          <span style="color:#c8ff00;font-weight:900;">✓</span> Closes deals faster than a pitch deck
+        </div>
+      </div>
+    </div>
+
+    <!-- RECENT BUILD SCREENSHOTS -->
+    <div class="stream-in" style="animation-delay:0.4s;margin-bottom:40px;">
+      <!-- badge -->
+      <div style="text-align:center;margin-bottom:16px;">
+        <span style="display:inline-flex;align-items:center;gap:8px;background:rgba(8,8,8,0.9);border:1px solid rgba(200,255,0,0.7);border-radius:40px;padding:7px 20px;animation:badge-glow 2.5s ease-in-out infinite;white-space:nowrap;">
+          <span style="width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;box-shadow:0 0 8px rgba(200,255,0,0.9);"></span>
+          <span style="font-size:11px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);">Recent build 🔥</span>
+        </span>
+      </div>
+      <!-- SITE SHOWCASES: KRISTYN + AYDEN -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+
+        <!-- KRISTYN -->
+        <div style="position:relative;">
+          <div style="position:absolute;inset:-20px;background:radial-gradient(ellipse at 50% 60%,rgba(200,255,0,0.06) 0%,transparent 70%);pointer-events:none;border-radius:40px;"></div>
+          <div style="position:relative;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);box-shadow:0 30px 60px rgba(0,0,0,0.7),0 0 0 1px rgba(200,255,0,0.08);">
+            <div style="background:#141414;padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,0.06);">
+              <div style="display:flex;gap:5px;">
+                <div style="width:8px;height:8px;border-radius:50%;background:#ff5f57;"></div>
+                <div style="width:8px;height:8px;border-radius:50%;background:#febc2e;"></div>
+                <div style="width:8px;height:8px;border-radius:50%;background:#28c840;"></div>
+              </div>
+              <div style="flex:1;background:#0d0d0d;border:1px solid rgba(255,255,255,0.07);border-radius:5px;padding:4px 10px;font-size:10px;color:#444;font-family:monospace;">kristynsimpson.netlify.app</div>
+              <div style="width:5px;height:5px;border-radius:50%;background:#c8ff00;animation:pulse 2s infinite;flex-shrink:0;"></div>
+            </div>
+            <a href="https://kristynsimpson.netlify.app/" target="_blank" rel="noopener"><img src="./kristyn-site-1.png" style="width:100%;display:block;" alt="Kristyn Simpson creator site built by Dream"></a>
+          </div>
+          <a href="https://kristynsimpson.netlify.app/" target="_blank" rel="noopener" style="position:absolute;bottom:-14px;right:16px;background:#c8ff00;color:#000;font-size:10px;font-weight:900;letter-spacing:1px;text-transform:uppercase;padding:6px 14px;border-radius:100px;box-shadow:0 8px 24px rgba(200,255,0,0.3);white-space:nowrap;text-decoration:none;display:block;">Kristyn Simpson ↗</a>
+        </div>
+
+        <!-- AYDEN -->
+        <div style="position:relative;">
+          <div style="position:absolute;inset:-20px;background:radial-gradient(ellipse at 50% 60%,rgba(200,255,0,0.06) 0%,transparent 70%);pointer-events:none;border-radius:40px;"></div>
+          <div style="position:relative;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);box-shadow:0 30px 60px rgba(0,0,0,0.7),0 0 0 1px rgba(200,255,0,0.08);">
+            <div style="background:#141414;padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,0.06);">
+              <div style="display:flex;gap:5px;">
+                <div style="width:8px;height:8px;border-radius:50%;background:#ff5f57;"></div>
+                <div style="width:8px;height:8px;border-radius:50%;background:#febc2e;"></div>
+                <div style="width:8px;height:8px;border-radius:50%;background:#28c840;"></div>
+              </div>
+              <div style="flex:1;background:#0d0d0d;border:1px solid rgba(255,255,255,0.07);border-radius:5px;padding:4px 10px;font-size:10px;color:#444;font-family:monospace;">aydenlorz.netlify.app</div>
+              <div style="width:5px;height:5px;border-radius:50%;background:#c8ff00;animation:pulse 2s infinite;flex-shrink:0;"></div>
+            </div>
+            <a href="https://aydenlorz.netlify.app/" target="_blank" rel="noopener"><img src="./ayden site screen shot.png" style="width:100%;display:block;" alt="Ayden Lorz creator site built by Dream"></a>
+          </div>
+          <a href="https://aydenlorz.netlify.app/" target="_blank" rel="noopener" style="position:absolute;bottom:-14px;right:16px;background:#c8ff00;color:#000;font-size:10px;font-weight:900;letter-spacing:1px;text-transform:uppercase;padding:6px 14px;border-radius:100px;box-shadow:0 8px 24px rgba(200,255,0,0.3);white-space:nowrap;text-decoration:none;display:block;">Ayden Lorz ↗</a>
+        </div>
+
+      </div>
+
+      <!-- Spacing for badges -->
+      <div style="height:32px;"></div>
+
+      <!-- AYDEN DISCORD PROOF -->
+      <div style="max-width:600px;margin:0 auto 8px;">
+        <img src="./ayden discord proof.png" style="width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 20px 40px rgba(0,0,0,0.5);" alt="Ayden Lorz Discord reaction to his site">
+      </div>
+
+      <!-- Spacing for badge -->
+      <div style="height:24px;"></div>
+      <div style="text-align:center;margin-bottom:8px;">
+        <a href="preview.html" style="font-size:13px;font-weight:700;color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:color 0.15s;" onmouseover="this.style.color='#c8ff00'" onmouseout="this.style.color=''">
+          <span>See the full breakdown of what's included</span>
+          <span style="font-size:11px;">→</span>
+        </a>
+      </div>
+
+      <!-- TIKTOK CONTENT PROOF -->
+      <div style="margin-top:48px;padding-top:40px;border-top:1px solid rgba(255,255,255,0.05);text-align:center;">
+        <div style="margin-bottom:28px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(200,255,0,0.5);margin-bottom:12px;">Real creators. Real conversions.</div>
+          <div style="font-size:18px;font-weight:900;color:#fff;">See it working on TikTok</div>
+        </div>
+        <div style="display:flex;justify-content:center;">
+          <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@freedomwith_k/video/7639512910414368014" data-unique-id="freedomwith_k" data-video-id="7639512910414368014" style="max-width: 325px;"></blockquote>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- REFERRAL CODE SECTION (HIGH VISIBILITY) -->
+    <div class="wrap" style="margin-bottom:40px;">
+      <div style="background:rgba(160,237,216,0.06);border:1px solid rgba(160,237,216,0.2);border-radius:16px;padding:24px;text-align:center;">
+        <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:rgba(160,237,216,0.6);margin-bottom:12px;">Have an affiliate code?</div>
+        <div style="display:flex;align-items:center;gap:12px;max-width:500px;margin:0 auto;margin-bottom:12px;flex-wrap:wrap;justify-content:center;">
+          <input type="text" name="referral_code" id="referral-code-input" placeholder="Enter code for discount" style="background:rgba(0,0,0,0.3);border:1px solid rgba(160,237,216,0.25);border-radius:10px;padding:12px 16px;font-size:13px;color:#a0edd8;font-family:Inter,sans-serif;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;outline:none;flex:1;min-width:150px;transition:border-color 0.15s,background 0.15s;" onfocus="this.style.borderColor='rgba(160,237,216,0.5)';this.style.background='rgba(0,0,0,0.5)'" onblur="this.style.borderColor='rgba(160,237,216,0.25)';this.style.background='rgba(0,0,0,0.3)'">
+          <button type="button" onclick="applyReferralCode()" style="padding:12px 20px;background:rgba(160,237,216,0.15);border:1px solid rgba(160,237,216,0.3);border-radius:10px;font-size:13px;color:#a0edd8;font-weight:700;text-transform:uppercase;letter-spacing:1px;cursor:pointer;transition:background 0.15s,border-color 0.15s;font-family:Inter,sans-serif;white-space:nowrap;">Apply code</button>
+        </div>
+        <div id="referral-confirm" style="display:none;padding:12px;background:rgba(160,237,216,0.1);border:1px solid rgba(160,237,216,0.3);border-radius:8px;font-size:13px;color:#a0edd8;font-weight:700;">✓ Code applied</div>
+        <div id="price-display-top" style="display:none;text-align:center;margin-top:12px;">
+          <div style="font-size:11px;color:#666;margin-bottom:4px;">You save</div>
+          <div style="font-size:20px;font-weight:900;color:#a0edd8;letter-spacing:-0.5px;"><span id="savings-amount-top">$75</span> → Your price: <span id="final-price-top" style="color:#c8ff00;">$225</span></div>
+        </div>
+      </div>
+    </div>
+
+        <!-- WHAT'S INCLUDED -->
+    <div class="included-card fade-up stream-in" style="animation-delay:0.15s;">
+      <div style="margin-bottom:32px;">
+        <div style="font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(200,255,0,0.5);margin-bottom:12px;">What's included</div>
+        <div style="font-size:clamp(18px,4vw,28px);font-weight:900;color:#fff;letter-spacing:-0.5px;line-height:1.3;">A custom creator site built around you. Your stats. Your videos. Your brand. Not a template. A proven site that makes brands take you seriously.</div>
+      </div>
+
+      <!-- EVERYTHING INCLUDED SECTION -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-bottom:32px;">
+        <div style="background:rgba(200,255,0,0.04);border:1px solid rgba(200,255,0,0.15);border-radius:14px;padding:20px;">
+          <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:8px;">✓ Custom domain</div>
+          <div style="font-size:13px;color:#888;line-height:1.6;">yourname.com connected and live. We handle DNS, SSL, and hosting config.</div>
+        </div>
+        <div style="background:rgba(200,255,0,0.04);border:1px solid rgba(200,255,0,0.15);border-radius:14px;padding:20px;">
+          <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:8px;">✓ Live stats section</div>
+          <div style="font-size:13px;color:#888;line-height:1.6;">Followers, views, engagement — pulled from your actual accounts and displayed on the site.</div>
+        </div>
+        <div style="background:rgba(200,255,0,0.04);border:1px solid rgba(200,255,0,0.15);border-radius:14px;padding:20px;">
+          <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:8px;">✓ Video showcase</div>
+          <div style="font-size:13px;color:#888;line-height:1.6;">Your best content embedded and displayed in a scroll-stopping grid. Brands see your work instantly.</div>
+        </div>
+        <div style="background:rgba(200,255,0,0.04);border:1px solid rgba(200,255,0,0.15);border-radius:14px;padding:20px;">
+          <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:8px;">✓ Brand rates page</div>
+          <div style="font-size:13px;color:#888;line-height:1.6;">A clean, confident page showing what you offer and what it costs. No more DM negotiations from zero.</div>
+        </div>
+        <div style="background:rgba(200,255,0,0.04);border:1px solid rgba(200,255,0,0.15);border-radius:14px;padding:20px;">
+          <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:8px;">✓ Contact form</div>
+          <div style="font-size:13px;color:#888;line-height:1.6;">Brands submit a brief directly on your site. Goes straight to your inbox. You decide who you work with.</div>
+        </div>
+        <div style="background:rgba(200,255,0,0.04);border:1px solid rgba(200,255,0,0.15);border-radius:14px;padding:20px;">
+          <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:8px;">✓ Mobile-first design</div>
+          <div style="font-size:13px;color:#888;line-height:1.6;">Built for how brands actually look you up — on their phone, in 30 seconds, between meetings.</div>
+        </div>
+      </div>
+
+      <!-- AFFILIATE BOX -->
+      <div style="display:inline-flex;align-items:center;gap:10px;background:rgba(200,255,0,0.06);border:1px solid rgba(200,255,0,0.18);border-radius:10px;padding:10px 16px;">
+        <span style="font-size:18px;font-weight:900;color:#c8ff00;line-height:1;">3</span>
+        <div>
+          <div style="font-size:13px;font-weight:800;color:#c8ff00;line-height:1.2;">conversions = your site built free</div>
+          <div style="font-size:11px;color:#555;margin-top:2px;">Become an affiliate. Refer 3 creators. We build yours at no cost. <a href="affiliate.html" style="color:#777;font-weight:700;text-decoration:underline;text-underline-offset:3px;">Apply here.</a></div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    </section>
+
+
+<!-- HOW IT WORKS -->
+<section style="padding:56px 0;border-top:1px solid rgba(255,255,255,0.05);">
+  <div class="wrap" style="max-width:680px;">
+    <div style="text-align:center;margin-bottom:36px;">
+      <div style="font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;">How it works</div>
+      <div style="font-size:clamp(22px,3vw,30px);font-weight:900;color:#fff;letter-spacing:-1px;">Fill out the brief. We handle the rest.</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:0;">
+      <div style="display:flex;gap:20px;align-items:flex-start;padding:20px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+        <div style="font-size:22px;font-weight:900;color:var(--accent);width:36px;flex-shrink:0;line-height:1;">01</div>
+        <div><div style="font-size:15px;font-weight:800;color:#fff;margin-bottom:4px;">Fill the brief below</div><div style="font-size:13px;color:#666;line-height:1.6;">Your accounts, stats, content, and vibe. Takes about 5 minutes.</div></div>
+      </div>
+      <div style="display:flex;gap:20px;align-items:flex-start;padding:20px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+        <div style="font-size:22px;font-weight:900;color:var(--accent);width:36px;flex-shrink:0;line-height:1;">02</div>
+        <div><div style="font-size:15px;font-weight:800;color:#fff;margin-bottom:4px;">We build it in 48 hours</div><div style="font-size:13px;color:#666;line-height:1.6;">Custom site, your brand, your story. No templates. Built around your content.</div></div>
+      </div>
+      <div style="display:flex;gap:20px;align-items:flex-start;padding:20px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+        <div style="font-size:22px;font-weight:900;color:var(--accent);width:36px;flex-shrink:0;line-height:1;">03</div>
+        <div><div style="font-size:15px;font-weight:800;color:#fff;margin-bottom:4px;">You review and approve</div><div style="font-size:13px;color:#666;line-height:1.6;">We share a live preview. You give feedback. We don&rsquo;t stop until it&rsquo;s exactly right.</div></div>
+      </div>
+      <div style="display:flex;gap:20px;align-items:flex-start;padding:20px 0;">
+        <div style="font-size:22px;font-weight:900;color:var(--accent);width:36px;flex-shrink:0;line-height:1;">04</div>
+        <div><div style="font-size:15px;font-weight:800;color:#fff;margin-bottom:4px;">You go live</div><div style="font-size:13px;color:#666;line-height:1.6;">Your site is hosted, live, and yours forever. Share the link. Brands open it and reply.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="form-section">
+  <div class="wrap">
+
+    <!-- SOCIAL PROOF -->
+    <div class="stream-in" style="animation-delay:0.3s;margin-top:32px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;">
+        <div style="width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite;flex-shrink:0;"></div>
+        <div style="font-size:11px;font-weight:900;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);">What creators and brands are saying</div>
+      </div>
+      <div class="testimonial-grid" style="display:grid;gap:24px;">
+
+        <!-- Testimonial 1: Brand Partner -->
+        <div style="border:1px solid rgba(200,255,0,0.18);border-radius:16px;background:#0d0d0d;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.4);transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 16px 48px rgba(200,255,0,0.1)'" onmouseout="this.style.transform='';this.style.boxShadow='0 8px 32px rgba(0,0,0,0.4)'">
+          <div style="height:2px;background:linear-gradient(90deg,transparent,rgba(200,255,0,0.5),transparent);"></div>
+          <div style="padding:24px;">
+            <div style="display:flex;gap:4px;margin-bottom:12px;">
+              <span style="color:#c8ff00;font-size:13px;">★★★★★</span>
+            </div>
+            <p style="font-size:13px;color:#ccc;line-height:1.7;margin:0 0 16px;">The site is incredible. Brands have been reaching out directly because of it. Tyler nailed the vibe and made it feel premium. Highly recommend.</p>
+            <div style="display:flex;align-items:center;gap:12px;border-top:1px solid rgba(255,255,255,0.05);padding-top:12px;">
+              <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#c8ff00,#a0edd8);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#000;flex-shrink:0;">S</div>
+              <div>
+                <div style="font-size:13px;font-weight:700;color:#fff;">Sam L.</div>
+                <div style="font-size:11px;color:#888;">Beauty Brand Partnership</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2: Affiliate Creator -->
+        <div style="border:1px solid rgba(160,237,216,0.15);border-radius:16px;background:#0d0d0d;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.4);transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 16px 48px rgba(160,237,216,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow='0 8px 32px rgba(0,0,0,0.4)'">
+          <div style="height:2px;background:linear-gradient(90deg,transparent,rgba(160,237,216,0.5),transparent);"></div>
+          <div style="padding:24px;">
+            <div style="display:flex;gap:4px;margin-bottom:12px;">
+              <span style="color:#c8ff00;font-size:13px;">★★★★★</span>
+            </div>
+            <p style="font-size:13px;color:#ccc;line-height:1.7;margin:0 0 16px;">48 hours. That's how fast. Got my site, shared it the same day, and closed 2 brand deals in the first week. The ROI is instant.</p>
+            <div style="display:flex;align-items:center;gap:12px;border-top:1px solid rgba(255,255,255,0.05);padding-top:12px;">
+              <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#a0edd8,#a0edd8);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#000;flex-shrink:0;">M</div>
+              <div>
+                <div style="font-size:13px;font-weight:700;color:#fff;">Marcus T.</div>
+                <div style="font-size:11px;color:#888;">TikTok Shop Affiliate</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3: Creator Results -->
+        <div style="border:1px solid rgba(255,255,255,0.08);border-radius:16px;background:#0d0d0d;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.3);transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 16px 48px rgba(0,0,0,0.5)'" onmouseout="this.style.transform='';this.style.boxShadow='0 8px 32px rgba(0,0,0,0.3)'">
+          <div style="height:2px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);"></div>
+          <div style="padding:24px;">
+            <div style="display:flex;gap:4px;margin-bottom:12px;">
+              <span style="color:#c8ff00;font-size:13px;">★★★★★</span>
+            </div>
+            <p style="font-size:13px;color:#ccc;line-height:1.7;margin:0 0 16px;">Tyler doesn't just build a site. He understands what converts. The landing page is designed to close deals. Every element intentional.</p>
+            <div style="display:flex;align-items:center;gap:12px;border-top:1px solid rgba(255,255,255,0.05);padding-top:12px;">
+              <div style="width:40px;height:40px;border-radius:50%;background:#1a1a1a;border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;flex-shrink:0;">A</div>
+              <div>
+                <div style="font-size:13px;font-weight:700;color:#fff;">Ayden L.</div>
+                <div style="font-size:11px;color:#888;">8K Followers, Growing</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+    <!-- MOBILE PAY-FIRST FLOW -->
+    <div id="mobile-pay-first" style="display:none;margin-bottom:40px;background:linear-gradient(135deg,#0d0d0d,#101010);border:1px solid rgba(200,255,0,0.15);border-radius:18px;padding:28px 24px;text-align:center;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(200,255,0,0.3),transparent);"></div>
+      <div style="font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(200,255,0,0.5);margin-bottom:12px;">Quick start</div>
+      <div style="font-size:20px;font-weight:900;color:#fff;letter-spacing:-0.5px;margin-bottom:12px;">Lock in your spot</div>
+      <p style="font-size:13px;color:#888;line-height:1.6;margin:0 0 20px;">Send payment. Details after. We'll reach out to confirm everything.</p>
+      <div style="background:#0a0a0a;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:20px;margin-bottom:18px;text-align:center;">
+        <div style="font-size:12px;color:#888;margin-bottom:4px;">Price with your code</div>
+        <div style="font-size:32px;font-weight:900;color:#fff;margin-bottom:2px;">$225</div>
+        <div style="font-size:10px;color:#555;text-transform:uppercase;letter-spacing:1px;">via Venmo</div>
+      </div>
+      <a href="https://www.venmo.com/u/Tyler_dream" target="_blank" style="display:block;background:#c8ff00;color:#000;font-size:14px;font-weight:900;padding:12px 24px;border-radius:10px;text-decoration:none;letter-spacing:0.5px;margin-bottom:14px;transition:opacity 0.15s;" onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">@tyler_dream on Venmo →</a>
+      <button type="button" onclick="toggleFormReveal()" style="width:100%;background:transparent;border:1px solid rgba(200,255,0,0.25);color:rgba(200,255,0,0.7);padding:10px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;transition:border-color 0.15s,color 0.15s;font-family:Inter,sans-serif;text-transform:uppercase;letter-spacing:1px;">+ Tell us more (optional)</button>
+    </div>
+
+    <!-- FORM REVEAL TOGGLE (MOBILE) -->
+    <div id="form-reveal-prompt" style="display:none;margin-bottom:20px;padding:14px;background:rgba(200,255,0,0.04);border:1px solid rgba(200,255,0,0.15);border-radius:10px;text-align:center;">
+      <div style="font-size:12px;color:#888;margin-bottom:10px;">Optional: give us context for the best build</div>
+      <button type="button" onclick="revealForm()" style="background:rgba(200,255,0,0.1);border:1px solid rgba(200,255,0,0.25);color:#c8ff00;padding:8px 16px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;transition:background 0.15s;font-family:Inter,sans-serif;text-transform:uppercase;letter-spacing:0.8px;">Show the form</button>
+    </div>
+
+    <div style="margin-bottom:28px;padding:20px;background:rgba(160,237,216,0.04);border:1px solid rgba(160,237,216,0.15);border-radius:12px;">
+      <div style="font-size:13px;color:#888;margin-bottom:8px;">Need help filling this out?</div>
+      <div style="font-size:14px;font-weight:700;color:var(--mint);">message dream at discord @ dreamlifevisuals</div>
+    </div>
+
+
+    <form name="intake" method="POST" id="intake-form" enctype="multipart/form-data" style="display:none;" data-form-visible="false" netlify>
+      <input type="hidden" name="referral_code" id="hidden-referral-code">
+
+      <!-- BLOCK 1: THE BASICS -->
+      <div class="form-block fade-up">
+        <div class="form-block-header">
+          <div class="block-num">1</div>
+          <div>
+            <div class="block-title">The basics</div>
+            <div class="block-subtitle">Your name, location, and what you create</div>
+          </div>
+        </div>
+        <div class="form-block-body">
+          <div class="row-2">
+            <div class="field"><label>Your Name</label><input type="text" name="name" placeholder="First and last" required></div>
+            <div class="field"><label>Email</label><input type="email" name="email" placeholder="you@email.com" required></div>
+          </div>
+          <div class="field"><label>City and State</label><input type="text" name="location" placeholder="e.g. Chicago, IL"></div>
+          <div class="field"><label>What you post about</label>
+            <div class="pill-group" id="niche-pills">
+              <button type="button" class="pill" onclick="togglePillMulti(this,'niche-pills','niche')">Beauty &amp; Skincare</button>
+              <button type="button" class="pill" onclick="togglePillMulti(this,'niche-pills','niche')">Health &amp; Wellness</button>
+              <button type="button" class="pill" onclick="togglePillMulti(this,'niche-pills','niche')">Fitness</button>
+              <button type="button" class="pill" onclick="togglePillMulti(this,'niche-pills','niche')">Fashion</button>
+              <button type="button" class="pill" onclick="togglePillMulti(this,'niche-pills','niche')">Home &amp; Kitchen</button>
+              <button type="button" class="pill" onclick="togglePillMulti(this,'niche-pills','niche')">Food &amp; Beverage</button>
+              <button type="button" class="pill" onclick="togglePillMulti(this,'niche-pills','niche')">Tech &amp; AI</button>
+              <button type="button" class="pill" onclick="togglePillMulti(this,'niche-pills','niche')">Finance &amp; Business</button>
+              <button type="button" class="pill" onclick="togglePillMulti(this,'niche-pills','niche')">Pets</button>
+              <button type="button" class="pill" onclick="togglePillMulti(this,'niche-pills','niche')">Lifestyle</button>
+              <button type="button" class="pill" onclick="togglePillMulti(this,'niche-pills','niche')">Travel</button>
+              <button type="button" class="pill" onclick="togglePillMulti(this,'niche-pills','niche')">Comedy &amp; Entertainment</button>
+            </div>
+            <input type="hidden" name="niche" id="niche">
+            <input type="text" name="niche_other" placeholder="Or type it in: AI tools, luxury, gaming..." style="margin-top:10px;">
+          </div>
+          <div class="field">
+            <label>Your tagline <span style="color:#2a2a2a;font-size:10px;text-transform:none;letter-spacing:0;font-weight:500;">optional ,  we can write this for you</span></label>
+            <input type="text" name="tagline" placeholder='e.g. "Content that stops the scroll and closes the deal."'>
+            <div class="field-note">A short hook that lives under your name on the site. Leave blank and we will write one.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BLOCK 2: YOUR ACCOUNTS -->
+      <div class="form-block fade-up">
+        <div class="form-block-header">
+          <div class="block-num">2</div>
+          <div>
+            <div class="block-title">Your accounts</div>
+            <div class="block-subtitle">Up to 4 accounts ,  handle, followers, likes, active or former</div>
+          </div>
+        </div>
+        <div class="form-block-body">
+          <div class="col-headers">
+            <span class="ch-platform">Platform</span>
+            <span class="ch-handle">Handle</span>
+            <span class="ch-followers">Followers</span>
+            <span class="ch-likes">Total Likes</span>
+            <span class="ch-freq">Post Frequency</span>
+            <span class="ch-spacer"></span>
+          </div>
+          <div id="accounts-container">
+            <div class="account-row">
+              <div class="account-row-inner">
+                <div class="field-platform"><div class="field">
+                  <select name="platform_1">
+                    <option value="TikTok" selected style="background:#111;">TikTok</option>
+                    <option value="TikTok Shop" style="background:#111;">TikTok Shop</option>
+                    <option value="Instagram" style="background:#111;">Instagram</option>
+                    <option value="YouTube" style="background:#111;">YouTube</option>
+                    <option value="X / Twitter" style="background:#111;">X / Twitter</option>
+                    <option value="Facebook" style="background:#111;">Facebook</option>
+                    <option value="Pinterest" style="background:#111;">Pinterest</option>
+                    <option value="LinkedIn" style="background:#111;">LinkedIn</option>
+                    <option value="Other" style="background:#111;">Other</option>
+                  </select>
+                </div></div>
+                <div class="field-handle"><div class="field"><input type="text" name="handle_1" placeholder="@yourhandle"></div></div>
+                <div class="field-followers"><div class="field"><input type="text" name="followers_1" placeholder="e.g. 13K"></div></div>
+                <div class="field-likes"><div class="field"><input type="text" name="likes_1" placeholder="e.g. 684K"></div></div>
+                <div class="field-freq"><div class="field"><input type="text" name="post_freq_1" placeholder="e.g. Daily, 3x per week"></div></div>
+                <button type="button" class="remove-btn" onclick="removeRow(this)" title="Remove">x</button>
+              </div>
+            </div>
+            <div class="account-row">
+              <div class="account-row-inner">
+                <div class="field-platform"><div class="field">
+                  <select name="platform_2">
+                    <option value="TikTok" style="background:#111;">TikTok</option>
+                    <option value="TikTok Shop" style="background:#111;">TikTok Shop</option>
+                    <option value="Instagram" selected style="background:#111;">Instagram</option>
+                    <option value="YouTube" style="background:#111;">YouTube</option>
+                    <option value="X / Twitter" style="background:#111;">X / Twitter</option>
+                    <option value="Facebook" style="background:#111;">Facebook</option>
+                    <option value="Pinterest" style="background:#111;">Pinterest</option>
+                    <option value="LinkedIn" style="background:#111;">LinkedIn</option>
+                    <option value="Other" style="background:#111;">Other</option>
+                  </select>
+                </div></div>
+                <div class="field-handle"><div class="field"><input type="text" name="handle_2" placeholder="@yourhandle"></div></div>
+                <div class="field-followers"><div class="field"><input type="text" name="followers_2" placeholder="e.g. 4.2K"></div></div>
+                <div class="field-likes"><div class="field"><input type="text" name="likes_2" placeholder="e.g. 120K"></div></div>
+                <div class="field-freq"><div class="field"><input type="text" name="post_freq_2" placeholder="e.g. Daily, 3x per week"></div></div>
+                <button type="button" class="remove-btn" onclick="removeRow(this)" title="Remove">x</button>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="add-row-btn" id="add-account-btn">+ Add another account</button>
+        </div>
+      </div>
+
+      <!-- BLOCK 3: YOUR BEST VIDEOS -->
+      <div class="form-block fade-up">
+        <div class="form-block-header">
+          <div class="block-num">3</div>
+          <div>
+            <div class="block-title">Your best videos</div>
+            <div class="block-subtitle">Paste 4-5 TikTok URLs ,  open tiktok.com in desktop, copy the address bar URL</div>
+            <div style="font-size:12px;color:#555;margin-top:4px;line-height:1.5;">On mobile: tap Share on your TikTok video, then tap Copy Link. Paste that here.</div>
+          </div>
+        </div>
+        <div class="form-block-body">
+          <div class="video-input-list">
+            <div class="video-input-row"><span class="video-num">1</span><div class="field" style="margin:0;flex:1;"><input type="url" name="video_1" placeholder="https://www.tiktok.com/@yourhandle/video/..."></div></div>
+            <div class="video-input-row"><span class="video-num">2</span><div class="field" style="margin:0;flex:1;"><input type="url" name="video_2" placeholder="https://www.tiktok.com/@yourhandle/video/..."></div></div>
+            <div class="video-input-row"><span class="video-num">3</span><div class="field" style="margin:0;flex:1;"><input type="url" name="video_3" placeholder="https://www.tiktok.com/@yourhandle/video/..."></div></div>
+            <div class="video-input-row"><span class="video-num">4</span><div class="field" style="margin:0;flex:1;"><input type="url" name="video_4" placeholder="https://www.tiktok.com/@yourhandle/video/..."></div></div>
+            <div class="video-input-row"><span class="video-num">5</span><div class="field" style="margin:0;flex:1;"><input type="url" name="video_5" placeholder="https://www.tiktok.com/@yourhandle/video/..."></div></div>
+          </div>
+          <div class="field-note" style="margin-top:14px;">These will be embedded on your site. Pick ones that look consistent ,  similar aspect ratio, similar style.</div>
+        </div>
+      </div>
+
+      <!-- BLOCK 4: YOUR JOURNEY -->
+      <div class="form-block fade-up">
+        <div class="form-block-header">
+          <div class="block-num">4</div>
+          <div>
+            <div class="block-title">Your journey</div>
+            <div class="block-subtitle">5 milestones, rough dates are fine ,  we will write the story</div>
+          </div>
+        </div>
+        <div class="form-block-body">
+          <div class="milestone-list">
+            <div class="milestone-row"><span class="milestone-num">1</span><div class="field" style="margin:0;flex:1;"><input type="text" name="milestone_1" placeholder='e.g. "Early 2023 - started first account from scratch"'></div></div>
+            <div class="milestone-row"><span class="milestone-num">2</span><div class="field" style="margin:0;flex:1;"><input type="text" name="milestone_2" placeholder='e.g. "Month 6 - first brand reached out"'></div></div>
+            <div class="milestone-row"><span class="milestone-num">3</span><div class="field" style="margin:0;flex:1;"><input type="text" name="milestone_3" placeholder='e.g. "2024 - hit 10K, one video went to 500K views"'></div></div>
+            <div class="milestone-row"><span class="milestone-num">4</span><div class="field" style="margin:0;flex:1;"><input type="text" name="milestone_4" placeholder='e.g. "Signed first paid deal"'></div></div>
+            <div class="milestone-row"><span class="milestone-num">5</span><div class="field" style="margin:0;flex:1;"><input type="text" name="milestone_5" placeholder='e.g. "Now - 3 active brand partnerships, posting daily"'></div></div>
+          </div>
+          <div class="field-note" style="margin-top:14px;">Short is fine. Just tell us what happened and when. We will turn it into the timeline section on your site.</div>
+        </div>
+      </div>
+
+      <!-- BLOCK 5: YOUR LOOK -->
+      <div class="form-block fade-up">
+        <div class="form-block-header">
+          <div class="block-num">5</div>
+          <div>
+            <div class="block-title">Your look and feel</div>
+            <div class="block-subtitle">Colors, vibe, and any other links</div>
+          </div>
+        </div>
+        <div class="form-block-body">
+          <div class="field">
+            <label>Favorite color(s) <span style="color:#2a2a2a;font-size:10px;text-transform:none;letter-spacing:0;font-weight:500;">used as accent throughout the site</span></label>
+            <input type="text" name="colors" placeholder="e.g. Electric blue, hot pink, lime green ,  or just dark and minimal">
+          </div>
+          <div class="field">
+            <label>Vibe</label>
+            <div class="vibe-grid">
+              <div class="vibe-option"><input type="radio" name="vibe" id="v1" value="Dark and moody"><label for="v1">Dark and moody</label></div>
+              <div class="vibe-option"><input type="radio" name="vibe" id="v2" value="Clean and minimal"><label for="v2">Clean and minimal</label></div>
+              <div class="vibe-option"><input type="radio" name="vibe" id="v3" value="Bold and loud"><label for="v3">Bold and loud</label></div>
+              <div class="vibe-option"><input type="radio" name="vibe" id="v4" value="Soft and warm"><label for="v4">Soft and warm</label></div>
+              <div class="vibe-option"><input type="radio" name="vibe" id="v5" value="Streetwear / hype"><label for="v5">Streetwear / hype</label></div>
+              <div class="vibe-option"><input type="radio" name="vibe" id="v6" value="Professional / corporate"><label for="v6">Professional / corporate</label></div>
+            </div>
+          </div>
+          <div class="field"><label>Any sites, creators, or brands whose look you love? <span style="color:#2a2a2a;font-size:10px;text-transform:none;letter-spacing:0;font-weight:500;">optional</span></label><input type="text" name="inspiration" placeholder="e.g. a TikTok handle, a website you like, a brand aesthetic you want us to reference."></div>
+          <div class="field"><label>Other links to include <span style="color:#2a2a2a;font-size:10px;text-transform:none;letter-spacing:0;font-weight:500;">optional</span></label><input type="text" name="other_links" placeholder="e.g. Instagram, YouTube, Linktree, personal site"></div>
+        </div>
+      </div>
+
+      <!-- BLOCK 6: YOUR PHOTOS -->
+      <div class="form-block fade-up">
+        <div class="form-block-header">
+          <div class="block-num">6</div>
+          <div>
+            <div class="block-title">Your photos</div>
+            <div class="block-subtitle">Hero photo plus TikTok profile screenshots</div>
+          </div>
+        </div>
+        <div class="form-block-body">
+          <div class="field">
+            <label>Hero photo</label>
+            <div class="upload-zone" id="hero-zone">
+              <input type="file" name="hero_photo" accept="image/*" onchange="markUploaded(this,'hero-zone','hero-label')">
+              <div class="upload-icon">+</div>
+              <div class="upload-label" id="hero-label">Click to upload or drag and drop</div>
+              <div class="upload-sub">Portrait preferred. Clear face, decent lighting. JPG or PNG.</div>
+            </div>
+          </div>
+          <div class="field" style="margin-top:16px;">
+            <label>TikTok profile screenshots <span style="color:var(--accent);font-size:10px;text-transform:none;letter-spacing:0;font-weight:700;">one per account, at tiktok.com/@yourhandle</span></label>
+            <div class="upload-zone" id="ss-zone">
+              <input type="file" name="profile_screenshots" accept="image/*" multiple onchange="markUploaded(this,'ss-zone','ss-label')">
+              <div class="upload-icon">+</div>
+              <div class="upload-label" id="ss-label">Click to upload or drag and drop</div>
+              <div class="upload-sub">Can select multiple files at once.</div>
+            </div>
+          </div>
+          <div class="field-note" style="margin-top:12px;">If uploads do not work on your device, just email the photos to <a href="mailto:dreambillboard@gmail.com" style="color:#444;">dreambillboard@gmail.com</a> with your name in the subject line.</div>
+        </div>
+      </div>
+
+      <!-- BLOCK 7: CONTENT STATS -->
+      <div class="form-block fade-up">
+        <div class="form-block-header">
+          <div class="block-num">7</div>
+          <div>
+            <div class="block-title">Your credibility. In numbers.</div>
+            <div class="block-subtitle">Brands scan these first. Views, GMV, deals completed. These become your social proof.</div>
+          </div>
+        </div>
+        <div class="form-block-body">
+          <div class="field">
+            <label>Avg. video views</label>
+            <input type="text" name="avg_views" placeholder="e.g. 5K, 50K, 200K">
+          </div>
+          <div class="field" style="margin-top:20px;">
+            <label>Total GMV (TikTok Shop sales generated) <span style="color:#2a2a2a;font-size:10px;text-transform:none;letter-spacing:0;font-weight:500;">optional</span></label>
+            <input type="text" name="total_gmv" placeholder="e.g. $12K, $227K, just starting out" style="width:100%;background:#0d0d0d;color:#f0f0f0;border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:13px 16px;font-size:14px;font-family:Inter,sans-serif;outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='rgba(200,255,0,0.35)'" onblur="this.style.borderColor='rgba(255,255,255,0.07)'">
+          </div>
+          <div class="field" style="margin-top:20px;">
+            <label>Brand deals completed <span style="color:#2a2a2a;font-size:10px;text-transform:none;letter-spacing:0;font-weight:500;">optional</span></label>
+            <input type="text" name="brand_deals" placeholder="e.g. 3 paid deals, 12 gifted, none yet" style="width:100%;background:#0d0d0d;color:#f0f0f0;border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:13px 16px;font-size:14px;font-family:Inter,sans-serif;outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='rgba(200,255,0,0.35)'" onblur="this.style.borderColor='rgba(255,255,255,0.07)'">
+          </div>
+          <div class="field" style="margin-top:20px;">
+            <label>Best single video views</label>
+            <input type="text" name="best_views" placeholder="e.g. 780K, 1.2M, around 50K" style="width:100%;background:#0d0d0d;color:#f0f0f0;border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:13px 16px;font-size:14px;font-family:Inter,sans-serif;outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='rgba(200,255,0,0.35)'" onblur="this.style.borderColor='rgba(255,255,255,0.07)'">
+          </div>
+          <div class="field" style="margin-top:24px;">
+            <label>Primary audience age</label>
+            <div class="pill-group" id="age-pills">
+              <button type="button" class="pill" onclick="selectPill(this,'age-pills','audience_age')">13 - 17</button>
+              <button type="button" class="pill" onclick="selectPill(this,'age-pills','audience_age')">18 - 24</button>
+              <button type="button" class="pill" onclick="selectPill(this,'age-pills','audience_age')">25 - 34</button>
+              <button type="button" class="pill" onclick="selectPill(this,'age-pills','audience_age')">35 - 44</button>
+              <button type="button" class="pill" onclick="selectPill(this,'age-pills','audience_age')">45+</button>
+              <button type="button" class="pill" onclick="selectPill(this,'age-pills','audience_age')">Mixed</button>
+            </div>
+            <input type="hidden" name="audience_age" id="audience_age">
+          </div>
+          <div class="field" style="margin-top:24px;">
+            <label>Audience gender split &nbsp;<span style="color:var(--accent);font-weight:800;font-size:12px;" id="gender-label">50% F / 50% M</span></label>
+            <input type="range" id="gender-slider" min="0" max="100" value="50" class="range-slider" oninput="updateGender(this)">
+            <input type="hidden" name="gender_split" id="gender_split" value="50% Female / 50% Male">
+            <div class="slider-ticks"><span>All female</span><span>50/50</span><span>All male</span></div>
+          </div>
+          <div class="field"><label>Product categories you work in</label>
+            <div class="check-grid">
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Beauty and Skincare"><span>Beauty and skincare</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Health and Wellness"><span>Health and wellness</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Fashion and Apparel"><span>Fashion and apparel</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Home and Kitchen"><span>Home and kitchen</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Food and Beverage"><span>Food and beverage</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Fitness and Sports"><span>Fitness and sports</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Personal Care"><span>Personal care</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Pet Supplies"><span>Pet supplies</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Baby and Kids"><span>Baby and kids</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Tech and Gadgets"><span>Tech and gadgets</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Jewelry and Accessories"><span>Jewelry and accessories</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Cleaning and Household"><span>Cleaning and household</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Supplements and Vitamins"><span>Supplements and vitamins</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Outdoor and Garden"><span>Outdoor and garden</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Other"><span>Other</span></label>
+            </div>
+          </div>
+          <div class="field" style="margin-top:16px;"><label>Content style ,  how would you describe your videos?</label><textarea name="content_style" placeholder="e.g. Fast-paced, honest reviews. Hook-first. Real reactions, no scripts." rows="3"></textarea></div>
+          <div class="field"><label>Brands you have worked with <span style="color:#2a2a2a;font-size:10px;text-transform:none;letter-spacing:0;font-weight:500;">optional</span></label><input type="text" name="past_brands" placeholder="e.g. Hismile, Bloom Nutrition, RYZE ,  or none yet"></div>
+        </div>
+      </div>
+
+      <!-- SUBMISSION SECTION -->
+      <div style="background:linear-gradient(135deg,rgba(200,255,0,0.05),rgba(200,255,0,0.02));border:2px solid rgba(200,255,0,0.25);border-radius:18px;padding:32px 36px;margin-bottom:28px;position:relative;overflow:hidden;box-shadow:0 0 40px rgba(200,255,0,0.08);" class="fade-up">
+        <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(200,255,0,0.5),transparent);"></div>
+        <div style="font-size:10px;font-weight:800;letter-spacing:2.5px;text-transf

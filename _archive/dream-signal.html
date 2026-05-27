@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Signal — Generative Art</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --anthropic-dark: #141413;
+            --anthropic-light: #faf9f5;
+            --anthropic-mid-gray: #b0aea5;
+            --anthropic-light-gray: #e8e6dc;
+            --anthropic-orange: #d97757;
+            --anthropic-blue: #6a9bcc;
+            --anthropic-green: #788c5d;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--anthropic-light) 0%, #f5f3ee 100%);
+            min-height: 100vh;
+            color: var(--anthropic-dark);
+        }
+        .container { display: flex; min-height: 100vh; padding: 20px; gap: 20px; }
+        .sidebar {
+            width: 300px;
+            flex-shrink: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(20,20,19,0.1);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        .sidebar h1 {
+            font-family: 'Lora', serif;
+            font-size: 22px;
+            font-weight: 500;
+            color: var(--anthropic-dark);
+            margin-bottom: 6px;
+        }
+        .sidebar .subtitle {
+            color: var(--anthropic-mid-gray);
+            font-size: 13px;
+            margin-bottom: 28px;
+            line-height: 1.5;
+        }
+        .control-section { margin-bottom: 28px; }
+        .control-section h3 {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--anthropic-dark);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .control-section h3::before {
+            content: '•';
+            color: var(--anthropic-orange);
+            font-weight: bold;
+        }
+        .seed-input {
+            width: 100%;
+            background: var(--anthropic-light);
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            margin-bottom: 10px;
+            border: 1px solid var(--anthropic-light-gray);
+            text-align: center;
+            color: var(--anthropic-dark);
+        }
+        .seed-input:focus {
+            outline: none;
+            border-color: var(--anthropic-orange);
+            box-shadow: 0 0 0 2px rgba(217,119,87,0.1);
+            background: white;
+        }
+        .seed-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+        .control-group { margin-bottom: 18px; }
+        .control-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--anthropic-dark);
+            margin-bottom: 7px;
+        }
+        .slider-container { display: flex; align-items: center; gap: 10px; }
+        .slider-container input[type="range"] {
+            flex: 1;
+            height: 4px;
+            background: var(--anthropic-light-gray);
+            border-radius: 2px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        .slider-container input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            background: var(--anthropic-orange);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .slider-container input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+            background: #c86641;
+        }
+        .slider-container input[type="range"]::-moz-range-thumb {
+            width: 14px;
+            height: 14px;
+            background: var(--anthropic-orange);
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+        }
+        .value-display {
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            color: var(--anthropic-mid-gray);
+            min-width: 44px;
+            text-align: right;
+        }
+        .color-group { margin-bottom: 14px; }
+        .color-group label { display: block; font-size: 12px; color: var(--anthropic-mid-gray); margin-bottom: 5px; }
+        .color-picker-container { display: flex; align-items: center; gap: 8px; }
+        .color-picker-container input[type="color"] {
+            width: 30px; height: 30px;
+            border: none; border-radius: 6px;
+            cursor: pointer; background: none; padding: 0;
+        }
+        .color-value { font-family: 'Courier New', monospace; font-size: 11px; color: var(--anthropic-mid-gray); }
+        .button {
+            background: var(--anthropic-orange);
+            color: white;
+            border: none;
+            padding: 9px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+            font-family: 'Poppins', sans-serif;
+        }
+        .button:hover { background: #c86641; transform: translateY(-1px); }
+        .button:active { transform: translateY(0); }
+        .button.secondary { background: var(--anthropic-blue); }
+        .button.secondary:hover { background: #5a8bb8; }
+        .button.tertiary { background: var(--anthropic-green); }
+        .button.tertiary:hover { background: #6b7b52; }
+        .button.dark { background: #2a2a2a; }
+        .button.dark:hover { background: #1a1a1a; }
+        .button-row { display: flex; gap: 8px; }
+        .button-row .button { flex: 1; }
+        .canvas-area { flex: 1; display: flex; align-items: center; justify-content: center; min-width: 0; }
+        #canvas-container {
+            width: 100%;
+            max-width: 900px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(20,20,19,0.2);
+        }
+        #canvas-container canvas { display: block; width: 100% !important; height: auto !important; }
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 300px;
+            font-size: 14px;
+            color: var(--anthropic-mid-gray);
+            background: #080808;
+            border-radius: 12px;
+        }
+        .divider {
+            height: 1px;
+            background: var(--anthropic-light-gray);
+            margin: 4px 0 28px 0;
+        }
+        @media (max-width: 700px) {
+            .container { flex-direction: column; }
+            .sidebar { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="sidebar">
+        <h1>Dream Signal</h1>
+        <div class="subtitle">Noise fields expressing momentum — the visual language of Tyler Dream.</div>
+
+        <div class="control-section">
+            <h3>Seed</h3>
+            <input type="number" id="seed-input" class="seed-input" value="2026" onchange="updateSeed()">
+            <div class="seed-controls">
+                <button class="button secondary" onclick="previousSeed()">← Prev</button>
+                <button class="button secondary" onclick="nextSeed()">Next →</button>
+            </div>
+            <button class="button tertiary" style="margin-bottom:0" onclick="randomSeedAndUpdate()">↻ Random</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="control-section">
+            <h3>Parameters</h3>
+
+            <div class="control-group">
+                <label>Particle Count</label>
+                <div class="slider-container">
+                    <input type="range" id="particleCount" min="500" max="8000" step="250" value="3500" oninput="updateParam('particleCount', +this.value)">
+                    <span class="value-display" id="particleCount-value">3500</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>Signal Density</label>
+                <div class="slider-container">
+                    <input type="range" id="noiseScale" min="0.001" max="0.015" step="0.001" value="0.004" oninput="updateParam('noiseScale', +this.value)">
+                    <span class="value-display" id="noiseScale-value">0.004</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>Trail Length</label>
+                <div class="slider-container">
+                    <input type="range" id="trailAlpha" min="5" max="60" step="1" value="18" oninput="updateParam('trailAlpha', +this.value)">
+                    <span class="value-display" id="trailAlpha-value">18</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>Flow Speed</label>
+                <div class="slider-container">
+                    <input type="range" id="speed" min="0.5" max="4.0" step="0.25" value="1.75" oninput="updateParam('speed', +this.value)">
+                    <span class="value-display" id="speed-value">1.75</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>Glow Intensity</label>
+                <div class="slider-container">
+                    <input type="range" id="glowAlpha" min="0" max="60" step="2" value="22" oninput="updateParam('glowAlpha', +this.value)">
+                    <span class="value-display" id="glowAlpha-value">22</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>Noise Drift</label>
+                <div class="slider-container">
+                    <input type="range" id="zSpeed" min="0.0001" max="0.003" step="0.0001" value="0.0005" oninput="updateParam('zSpeed', +this.value)">
+                    <span class="value-display" id="zSpeed-value">0.0005</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="control-section">
+            <h3>Colors</h3>
+            <div class="color-group">
+                <label>Signal — Lime</label>
+                <div class="color-picker-container">
+                    <input type="color" id="color1" value="#c8ff00" onchange="updateColor(0, this.value)">
+                    <span class="color-value" id="color1-value">#c8ff00</span>
+                </div>
+            </div>
+            <div class="color-group">
+                <label>Signal — Mint</label>
+                <div class="color-picker-container">
+                    <input type="color" id="color2" value="#a0edd8" onchange="updateColor(1, this.value)">
+                    <span class="color-value" id="color2-value">#a0edd8</span>
+                </div>
+            </div>
+            <div class="color-group">
+                <label>Signal — Purple</label>
+                <div class="color-picker-container">
+                    <input type="color" id="color3" value="#a855f7" onchange="updateColor(2, this.value)">
+                    <span class="color-value" id="color3-value">#a855f7</span>
+                </div>
+            </div>
+            <div class="color-group">
+                <label>Background</label>
+                <div class="color-picker-container">
+                    <input type="color" id="bgColor" value="#080808" onchange="updateBgColor(this.value)">
+                    <span class="color-value" id="bgColor-value">#080808</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="control-section">
+            <h3>Actions</h3>
+            <div class="button-row" style="margin-bottom:8px">
+                <button class="button" onclick="resetParameters()">Reset</button>
+                <button class="button dark" onclick="savePNG()">Save PNG</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="canvas-area">
+        <div id="canvas-container">
+            <div class="loading">Initializing Dream Signal...</div>
+        </div>
+    </div>
+</div>
+
+<script>
+let params = {
+    seed: 2026,
+    particleCount: 3500,
+    noiseScale: 0.004,
+    trailAlpha: 18,
+    speed: 1.75,
+    glowAlpha: 22,
+    zSpeed: 0.0005,
+    palette: ['#c8ff00', '#a0edd8', '#a855f7'],
+    bg: '#080808'
+};
+
+const defaults = JSON.parse(JSON.stringify(params));
+
+let particles = [];
+let zOff = 0;
+let pg;
+let glowLayer;
+
+function hexToRgb(hex) {
+    const r = parseInt(hex.slice(1,3),16);
+    const g = parseInt(hex.slice(3,5),16);
+    const b = parseInt(hex.slice(5,7),16);
+    return {r,g,b};
+}
+
+function setup() {
+    let cnv = createCanvas(1080, 1080);
+    cnv.parent('canvas-container');
+    colorMode(RGB, 255, 255, 255, 255);
+    document.querySelector('.loading').style.display = 'none';
+    initSystem();
+}
+
+function initSystem() {
+    randomSeed(params.seed);
+    noiseSeed(params.seed);
+    zOff = 0;
+    particles = [];
+    for (let i = 0; i < params.particleCount; i++) {
+        particles.push(newParticle());
+    }
+    let bgc = hexToRgb(params.bg);
+    background(bgc.r, bgc.g, bgc.b);
+}
+
+function newParticle() {
+    return {
+        x: random(width),
+        y: random(height),
+        vx: 0,
+        vy: 0,
+        life: random(120, 400),
+        age: random(0, 300),
+        colorIdx: floor(random(3)),
+        size: random(0.6, 2.2),
+        speed: random(0.6, 1.4)
+    };
+}
+
+function draw() {
+    let bgc = hexToRgb(params.bg);
+
+    // Fade trail
+    noStroke();
+    fill(bgc.r, bgc.g, bgc.b, params.trailAlpha);
+    rect(0, 0, width, height);
+
+    zOff += params.zSpeed;
+
+    for (let p of particles) {
+        p.age++;
+
+        // Perlin noise angle — layered octaves for richness
+        let nx = p.x * params.noiseScale;
+        let ny = p.y * params.noiseScale;
+        let angle = noise(nx, ny, zOff) * TWO_PI * 2.5
+                  + noise(nx * 2.1, ny * 2.1, zOff * 0.7) * PI * 0.6;
+
+        let spd = params.speed * p.speed;
+        p.vx = lerp(p.vx, cos(angle) * spd, 0.12);
+        p.vy = lerp(p.vy, sin(angle) * spd, 0.12);
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0 || p.x > width || p.y < 0 || p.y > height || p.age > p.life) {
+            Object.assign(p, newParticle());
+            p.age = 0;
+        }
+
+        let col = hexToRgb(params.palette[p.colorIdx]);
+        let lifeFrac = p.age / p.life;
+        let alpha = sin(lifeFrac * PI) * 200 + 55;
+
+        // Glow halo
+        if (params.glowAlpha > 0) {
+            noStroke();
+            fill(col.r, col.g, col.b, params.glowAlpha);
+            ellipse(p.x, p.y, p.size * 7, p.size * 7);
+        }
+
+        // Core particle
+        noStroke();
+        fill(col.r, col.g, col.b, alpha);
+        ellipse(p.x, p.y, p.size, p.size);
+    }
+}
+
+function updateParam(key, val) {
+    params[key] = val;
+    document.getElementById(key + '-value').textContent = val;
+    if (key === 'particleCount') {
+        // Resize particle pool
+        while (particles.length < params.particleCount) particles.push(newParticle());
+        while (particles.length > params.particleCount) particles.pop();
+    }
+}
+
+function updateColor(idx, hex) {
+    params.palette[idx] = hex;
+    const keys = ['color1','color2','color3'];
+    document.getElementById(keys[idx] + '-value').textContent = hex;
+}
+
+function updateBgColor(hex) {
+    params.bg = hex;
+    document.getElementById('bgColor-value').textContent = hex;
+}
+
+function updateSeedDisplay() {
+    document.getElementById('seed-input').value = params.seed;
+}
+
+function updateSeed() {
+    let v = parseInt(document.getElementById('seed-input').value);
+    if (v > 0) { params.seed = v; initSystem(); }
+    else updateSeedDisplay();
+}
+
+function previousSeed() {
+    params.seed = Math.max(1, params.seed - 1);
+    updateSeedDisplay(); initSystem();
+}
+
+function nextSeed() {
+    params.seed++;
+    updateSeedDisplay(); initSystem();
+}
+
+function randomSeedAndUpdate() {
+    params.seed = Math.floor(Math.random() * 999999) + 1;
+    updateSeedDisplay(); initSystem();
+}
+
+function savePNG() {
+    saveCanvas('dream-signal-seed-' + params.seed, 'png');
+}
+
+function resetParameters() {
+    params = JSON.parse(JSON.stringify(defaults));
+
+    document.getElementById('particleCount').value = params.particleCount;
+    document.getElementById('particleCount-value').textContent = params.particleCount;
+    document.getElementById('noiseScale').value = params.noiseScale;
+    document.getElementById('noiseScale-value').textContent = params.noiseScale;
+    document.getElementById('trailAlpha').value = params.trailAlpha;
+    document.getElementById('trailAlpha-value').textContent = params.trailAlpha;
+    document.getElementById('speed').value = params.speed;
+    document.getElementById('speed-value').textContent = params.speed;
+    document.getElementById('glowAlpha').value = params.glowAlpha;
+    document.getElementById('glowAlpha-value').textContent = params.glowAlpha;
+    document.getElementById('zSpeed').value = params.zSpeed;
+    document.getElementById('zSpeed-value').textContent = params.zSpeed;
+
+    document.getElementById('color1').value = params.palette[0];
+    document.getElementById('color1-value').textContent = params.palette[0];
+    document.getElementById('color2').value = params.palette[1];
+    document.getElementById('color2-value').textContent = params.palette[1];
+    document.getElementById('color3').value = params.palette[2];
+    document.getElementById('color3-value').textContent = params.palette[2];
+    document.getElementById('bgColor').value = params.bg;
+    document.getElementById('bgColor-value').textContent = params.bg;
+
+    updateSeedDisplay();
+    initSystem();
+}
+
+window.addEventListener('load', updateSeedDisplay);
+</script>
+</body>
+</html>
