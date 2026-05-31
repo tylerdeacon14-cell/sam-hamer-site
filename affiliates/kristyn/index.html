@@ -134,10 +134,70 @@ img {
 .fade-up:nth-child(4) { animation-delay: 0.4s; }
 .fade-up:nth-child(5) { animation-delay: 0.5s; }
 
+/* AFFILIATE BAR */
+.aff-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  background: linear-gradient(135deg, #0d0f1f 0%, #12142a 100%);
+  border-bottom: 1px solid rgba(255,77,125,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 9px 24px;
+  flex-wrap: wrap;
+}
+.aff-bar-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #ff4d7d, #ff7fa0);
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 7px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: opacity 0.15s, transform 0.15s;
+  white-space: nowrap;
+}
+.aff-bar-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+.aff-bar-cta svg { flex-shrink: 0; }
+.aff-bar-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #ff4d4d;
+  white-space: nowrap;
+}
+.aff-bar-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #ff4d4d;
+  animation: aff-pulse 1.6s ease-in-out infinite;
+  flex-shrink: 0;
+}
+@keyframes aff-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(255,77,77,0.4); }
+  50% { opacity: 0.7; box-shadow: 0 0 0 4px rgba(255,77,77,0); }
+}
+@media (max-width: 600px) {
+  .aff-bar { gap: 10px; padding: 8px 16px; }
+  .aff-bar-cta { font-size: 11px; padding: 6px 12px; }
+  .aff-bar-meta { font-size: 11px; }
+}
+
 /* NAV */
 nav {
   position: fixed;
-  top: 0;
+  top: 38px;
   left: 0;
   right: 0;
   z-index: 100;
@@ -214,7 +274,7 @@ nav {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding: 140px 40px 60px;
+  padding: 175px 40px 60px;
   max-width: 1400px;
   margin: 0 auto;
   gap: 100px;
@@ -743,6 +803,7 @@ footer {
 @media (max-width: 768px) {
   nav {
     padding: 16px 20px;
+    top: 44px;
   }
 
   .nav-links {
@@ -754,7 +815,7 @@ footer {
   }
 
   .hero {
-    padding: 100px 20px 40px;
+    padding: 190px 20px 40px;
   }
 
   .hero-headline {
@@ -882,6 +943,18 @@ footer {
 </style>
 </head>
 <body>
+
+<!-- AFFILIATE BAR -->
+<div class="aff-bar">
+  <a class="aff-bar-cta" href="https://tylerdream.com/build?ref=KRISTYN25" target="_blank" rel="noopener">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+    Like my site? Get yours here
+  </a>
+  <div class="aff-bar-meta">
+    <div class="aff-bar-dot"></div>
+    $75 off — live now
+  </div>
+</div>
 
 <!-- NAV -->
 <nav>
