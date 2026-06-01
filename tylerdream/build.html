@@ -786,7 +786,59 @@
     /* included card grid single col */
     .included-card > div > div[style*="grid"] { grid-template-columns: 1fr !important; }
   }
-</style></head>
+</style>
+<style id="build-mobile-v2">
+@media (max-width: 768px) {
+  /* Hero */
+  .hero { padding: 100px 20px 48px !important; }
+  .hero h1 { font-size: 38px !important; letter-spacing: -1.5px !important; }
+
+  /* Site preview cards */
+  .preview-grid { grid-template-columns: 1fr !important; }
+
+  /* Form blocks */
+  .form-block { padding: 20px 16px !important; }
+  .form-block-body { padding: 16px !important; }
+  .row-2 { grid-template-columns: 1fr !important; }
+
+  /* Pitch story steps */
+  .pitch-step { flex-direction: column !important; }
+
+  /* Wrap */
+  .wrap { padding: 0 20px !important; max-width: 100% !important; }
+
+  /* Running banner */
+  #running-banner { flex-direction: column !important; text-align: center !important; }
+
+  /* Guarantee */
+  .guarantee-badges { flex-direction: column !important; align-items: center !important; gap: 12px !important; }
+
+  /* Nav */
+  nav { padding: 12px 20px !important; }
+
+  /* Pill groups */
+  .pill-group { gap: 8px !important; }
+  .pill { font-size: 12px !important; padding: 8px 12px !important; }
+
+  /* Preview grid 2 col -> 1 col */
+  div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+}
+
+@media (max-width: 480px) {
+  .hero h1 { font-size: 32px !important; }
+}
+
+/* Touch targets */
+@media (max-width: 768px) {
+  button, .btn-primary, input[type="submit"], a.cta-btn {
+    min-height: 48px;
+  }
+  input[type="text"], input[type="email"], input[type="tel"], select, textarea {
+    font-size: 16px !important;
+  }
+}
+</style>
+</head>
 <body>
 <!-- ==== UNIFIED SITE BANNER (every page) ==== -->
 <style>
@@ -887,7 +939,7 @@
       <div style="font-size:12px;font-weight:700;letter-spacing:0.5px;color:var(--accent);text-transform:uppercase;">Live in 48 hours</div>
     </div>
     <p class="stream-in" style="animation-delay:0.25s;margin-bottom:4px;font-size:18px;color:#555;line-height:1.6;max-width:500px;font-weight:500;">Your story. Your stats. Your look. Built in 48 hours. You approve everything. We don't stop until it's exactly right.</p>
-    <p class="hero-price-line stream-in" style="animation-delay:0.35s;margin-bottom:8px;">$300 flat &nbsp;&middot;&nbsp; 48 hours &nbsp;&middot;&nbsp; Yours forever</p>
+    
 
 
 
@@ -1426,6 +1478,62 @@
         </div>
       </div>
 
+      <!-- PITCH STORY SECTION -->
+      <div style="background:#fff;border:1px solid #e0d9ce;border-radius:20px;padding:36px;margin-bottom:32px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(42,157,143,0.4),transparent);"></div>
+        <div style="font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:20px;">How I pitch brands (and how you should too)</div>
+        <div style="display:flex;flex-direction:column;gap:20px;">
+
+          <div style="display:flex;gap:16px;align-items:flex-start;">
+            <div style="min-width:28px;height:28px;border-radius:50%;background:rgba(42,157,143,0.1);border:1px solid rgba(42,157,143,0.2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:var(--accent);flex-shrink:0;">1</div>
+            <div>
+              <div style="font-size:14px;font-weight:800;color:#1a1a1a;margin-bottom:4px;">Respond right away. Be specific.</div>
+              <div style="font-size:13px;color:#555;line-height:1.6;">When a brand reaches out I reply immediately with a message specific to their product. Proof I actually read the brief. Then I share my approach: problem-led content, late product reveals, and exactly how I'd angle their specific product.</div>
+              <div style="margin-top:16px;border-radius:12px;overflow:hidden;border:1px solid #e0d9ce;max-width:420px;">
+                <img src="TRYBE DM.png" alt="Real pitch example" style="width:100%;display:block;">
+                <div style="background:#f5f0e8;padding:10px 14px;font-size:11px;color:#888;font-weight:600;letter-spacing:1px;text-transform:uppercase;">Real pitch. Brand replied same day.</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:16px;align-items:flex-start;">
+            <div style="min-width:28px;height:28px;border-radius:50%;background:rgba(42,157,143,0.1);border:1px solid rgba(42,157,143,0.2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:var(--accent);flex-shrink:0;">2</div>
+            <div>
+              <div style="font-size:14px;font-weight:800;color:#1a1a1a;margin-bottom:4px;">Prove yourself first, then pitch the retainer.</div>
+              <div style="font-size:13px;color:#555;line-height:1.6;">I tell them I'll prove myself in the first video or two, then push for a call to pitch the retainer. Recently I've been negotiating retainers before even sending content because they can see the volume I'm doing on Trybe. That sells itself.</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:16px;align-items:flex-start;">
+            <div style="min-width:28px;height:28px;border-radius:50%;background:rgba(42,157,143,0.1);border:1px solid rgba(42,157,143,0.2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:var(--accent);flex-shrink:0;">3</div>
+            <div>
+              <div style="font-size:14px;font-weight:800;color:#1a1a1a;margin-bottom:4px;">Shoot high. Always.</div>
+              <div style="font-size:13px;color:#555;line-height:1.6;">On the call I pitch the retainer: I'll find your winning angle and guarantee consistent content flow. Last month I was negotiating $500 retainers. Now I'm talking $3K minimum. If they don't respond I send a note 24 hours later. Not pushy, just genuine. If they ghost me, it wasn't the right brand anyway.</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:16px;align-items:flex-start;">
+            <div style="min-width:28px;height:28px;border-radius:50%;background:rgba(42,157,143,0.1);border:1px solid rgba(42,157,143,0.2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:var(--accent);flex-shrink:0;">4</div>
+            <div>
+              <div style="font-size:14px;font-weight:800;color:#1a1a1a;margin-bottom:4px;">I use Claude to write my pitch messages.</div>
+              <div style="font-size:13px;color:#555;line-height:1.6;">I've trained it on my 8 years of corporate sales background and it generates full conversations tailored to each brand. That's the difference. And one more thing: I always drop my media kit link at the end. A link to your media kit closes deals faster than anything else. <em style="color:var(--accent);font-weight:700;">(Only 2 affiliate spots left.)</em></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- GUARANTEE + PRICE -->
+      <div style="background:linear-gradient(135deg,rgba(42,157,143,0.06),rgba(42,157,143,0.02));border:1px solid rgba(42,157,143,0.2);border-radius:16px;padding:28px;margin-bottom:32px;text-align:center;">
+        <div style="font-size:36px;font-weight:900;color:#1a1a1a;letter-spacing:-1px;margin-bottom:6px;">$300 <span style="font-size:16px;font-weight:600;color:#888;letter-spacing:0;">flat &middot; one time</span></div>
+        <div style="font-size:13px;color:#888;margin-bottom:16px;">48 hours &middot; Yours forever &middot; We revise until you love it</div>
+        <div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#555;"><span style="color:var(--accent);">&#10003;</span> Love it or we rebuild it free</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#555;"><span style="color:var(--accent);">&#10003;</span> No questions asked</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#555;"><span style="color:var(--accent);">&#10003;</span> No time limit on revisions</div>
+        </div>
+      </div>
+
       <!-- SUBMISSION SECTION -->
       <div style="background:linear-gradient(135deg,rgba(42,157,143,0.06),rgba(42,157,143,0.02));border:2px solid rgba(42,157,143,0.25);border-radius:18px;padding:32px 36px;margin-bottom:28px;position:relative;overflow:hidden;box-shadow:0 0 40px rgba(42,157,143,0.06);" class="fade-up">
         <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(42,157,143,0.5),transparent);"></div>
@@ -1501,247 +1609,4 @@ function handleStripePayment() {
   }
   function applyCode(code, fromUrl){
     if (!code) return;
-    code = String(code).trim().toUpperCase();
-    if (code.length < 3) return;
-    var input = document.getElementById('referral-code-input');
-    var hidden = document.getElementById('hidden-referral-code');
-    var confirm = document.getElementById('referral-confirm');
-    var price = document.getElementById('price-display-top');
-    if (input) input.value = code;
-    if (hidden) hidden.value = code;
-    if (confirm) { confirm.style.display = 'block'; confirm.textContent = '✓ ' + code + ' applied. 25% off.'; }
-    if (price) price.style.display = 'block';
-    // no localStorage persistence
-    if (fromUrl) {
-      var banner = document.getElementById('ref-banner');
-      if (!banner) {
-        banner = document.createElement('div');
-        banner.id = 'ref-banner';
-        banner.style.cssText = 'position:sticky;top:0;left:0;right:0;z-index:9998;background:#c8ff00;color:#000;font-family:Inter,sans-serif;font-size:13px;font-weight:800;text-align:center;padding:10px 16px;letter-spacing:0.3px;box-shadow:0 2px 12px rgba(0,0,0,0.25);';
-        banner.innerHTML = code + ' applied. 25% off. Your price: <strong>$225</strong>. <a href="#referral-code-input" style="color:#000;text-decoration:underline;font-weight:900;margin-left:8px;">See</a>';
-        document.body.insertBefore(banner, document.body.firstChild);
-      }
-    }
-  }
-  window.applyReferralCode = function(){
-    var input = document.getElementById('referral-code-input');
-    if (input) applyCode(input.value, false);
-  };
-  document.addEventListener('DOMContentLoaded', function(){
-    var fromUrl = getParam('ref') || getParam('code');
-    if (fromUrl) applyCode(fromUrl, true);
-  });
-})();
-
-// Pill selectors used in form
-function selectPill(btn, groupId, hiddenId){
-  var group = document.getElementById(groupId);
-  if (!group) return;
-  group.querySelectorAll('.pill').forEach(function(p){ p.classList.remove('active'); });
-  btn.classList.add('active');
-  var hidden = document.getElementById(hiddenId);
-  if (hidden) hidden.value = btn.textContent.trim();
-}
-function updateGender(slider){
-  var v = slider.value;
-  var label = document.getElementById('gender-label');
-  var hidden = document.getElementById('gender_split');
-  var f = 100 - v, m = v;
-  if (label) label.textContent = f + '% F / ' + m + '% M';
-  if (hidden) hidden.value = f + '% Female / ' + m + '% Male';
-}
-function revealForm(){
-  var form = document.getElementById('intake-form');
-  if (form) {
-    form.classList.add('expanded');
-    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-  var prompt = document.getElementById('form-reveal-prompt');
-  if (prompt) prompt.style.display = 'none';
-  var payFirst = document.getElementById('mobile-pay-first');
-  if (payFirst) payFirst.style.display = 'none';
-}
-function toggleFormReveal(){ revealForm(); }
-
-// Scroll progress bar — uses the existing #scroll-bar element
-(function(){
-  var bar = document.getElementById('scroll-bar');
-  if (!bar) return;
-  window.addEventListener('scroll', function(){
-    bar.style.width = Math.min(window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100, 100) + '%';
-  }, { passive: true });
-})();
-
-// Fade-up on intersect
-(function(){
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){ if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-up,.stream-in').forEach(function(el){ io.observe(el); });
-})();
-</script>
-<script>
-// ===== Add / Remove account rows =====
-(function(){
-  var container = document.getElementById('accounts-container');
-  var addBtn = document.getElementById('add-account-btn');
-  var rowCount = 2; // 2 rows already in HTML
-
-  function makeRow(n){
-    var platforms = ['TikTok','TikTok Shop','Instagram','YouTube','Twitter / X','Facebook','Pinterest','LinkedIn','Other'];
-    var opts = platforms.map(function(p){
-      return '<option value="'+p+'" style="background:#fff;">'+p+'</option>';
-    }).join('');
-    var row = document.createElement('div');
-    row.className = 'account-row';
-    row.innerHTML = '<div class="account-row-inner">'
-      + '<div class="field-platform"><div class="field"><select name="platform_'+n+'">'+opts+'</select></div></div>'
-      + '<div class="field-handle"><div class="field"><input type="text" name="handle_'+n+'" placeholder="@yourhandle"></div></div>'
-      + '<div class="field-followers"><div class="field"><input type="text" name="followers_'+n+'" placeholder="e.g. 13K"></div></div>'
-      + '<div class="field-likes"><div class="field"><input type="text" name="likes_'+n+'" placeholder="e.g. 684K"></div></div>'
-      + '<div class="field-freq"><div class="field"><input type="text" name="post_freq_'+n+'" placeholder="e.g. Daily, 3x/week"></div></div>'
-      + '<button type="button" class="remove-btn" onclick="removeRow(this)" title="Remove">x</button>'
-      + '</div>';
-    return row;
-  }
-
-  if (addBtn && container) {
-    addBtn.addEventListener('click', function(){
-      rowCount++;
-      container.appendChild(makeRow(rowCount));
-    });
-  }
-
-  window.removeRow = function(btn){
-    var row = btn.closest('.account-row');
-    if (!row) return;
-    // Keep at least 1 row
-    if (container && container.querySelectorAll('.account-row').length <= 1) return;
-    row.remove();
-  };
-})();
-
-// ===== Form submitting-state UX (prevent double-submit, show feedback) =====
-(function(){
-  document.addEventListener('submit', function(e){
-    var form = e.target;
-    if (!form || form.tagName !== 'FORM') return;
-    var btn = form.querySelector('button[type="submit"], input[type="submit"]');
-    if (!btn) return;
-    if (btn.dataset.submitting === '1') {
-      e.preventDefault();
-      return false;
-    }
-    btn.dataset.submitting = '1';
-    btn.dataset.originalText = btn.innerHTML || btn.value;
-    var label = 'Sending…';
-    if (btn.innerHTML !== undefined) btn.innerHTML = label; else btn.value = label;
-    btn.style.opacity = '0.75';
-    btn.style.cursor = 'wait';
-    // Restore after 12s in case something hangs, so user can retry
-    setTimeout(function(){
-      if (btn.dataset.submitting === '1') {
-        if (btn.innerHTML !== undefined) btn.innerHTML = btn.dataset.originalText; else btn.value = btn.dataset.originalText;
-        btn.style.opacity = '';
-        btn.style.cursor = '';
-        btn.dataset.submitting = '';
-      }
-    }, 12000);
-  }, false);
-})();
-</script>
-
-<!-- SPIN THE WHEEL POPUP -->
-<div id="wheel-overlay" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);align-items:center;justify-content:center;">
-  <div style="background:#fff;border-radius:24px;max-width:420px;width:92%;padding:36px 32px;text-align:center;position:relative;box-shadow:0 32px 80px rgba(0,0,0,0.4);">
-    <button onclick="closeWheel()" style="position:absolute;top:14px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;color:#888;line-height:1;">✕</button>
-
-    <!-- Pre-spin view -->
-    <div id="wheel-pre">
-      <div style="font-size:32px;margin-bottom:8px;">🎡</div>
-      <div style="font-size:22px;font-weight:900;letter-spacing:-0.5px;color:#1a1a1a;margin-bottom:6px;">Spin for a gift</div>
-      <div style="font-size:14px;color:#666;margin-bottom:24px;line-height:1.5;">Enter your email to spin. One of these is yours.</div>
-      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px;text-align:left;">
-        <div style="display:flex;align-items:center;gap:12px;background:#f5f0e8;border-radius:12px;padding:14px 16px;">
-          <span style="font-size:20px;">🎁</span>
-          <div><div style="font-size:13px;font-weight:800;color:#1a1a1a;">Brand Intro</div><div style="font-size:12px;color:#666;">Tyler personally intro's you to a brand</div></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:12px;background:#f5f0e8;border-radius:12px;padding:14px 16px;">
-          <span style="font-size:20px;">🤝</span>
-          <div><div style="font-size:13px;font-weight:800;color:#1a1a1a;">Collab Opportunity</div><div style="font-size:12px;color:#666;">Get featured in Dream's next campaign</div></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:12px;background:#f5f0e8;border-radius:12px;padding:14px 16px;">
-          <span style="font-size:20px;">💸</span>
-          <div><div style="font-size:13px;font-weight:800;color:#1a1a1a;">$50 Off Your Site</div><div style="font-size:12px;color:#666;">Applied automatically at checkout</div></div>
-        </div>
-      </div>
-      <input type="email" id="wheel-email" placeholder="your@email.com" style="width:100%;border:1.5px solid #d0c9be;border-radius:12px;padding:14px 16px;font-size:14px;font-family:Inter,sans-serif;outline:none;margin-bottom:12px;box-sizing:border-box;" onfocus="this.style.borderColor='#2a9d8f'" onblur="this.style.borderColor='#d0c9be'">
-      <button onclick="spinWheel()" style="width:100%;background:#2a9d8f;color:#fff;border:none;border-radius:12px;padding:15px;font-size:15px;font-weight:800;cursor:pointer;font-family:Inter,sans-serif;letter-spacing:0.3px;">Spin the wheel 🎡</button>
-    </div>
-
-    <!-- Spinning view -->
-    <div id="wheel-spinning" style="display:none;">
-      <div style="font-size:48px;margin:16px 0;animation:spin-emoji 0.5s linear infinite;" id="spin-emoji">🎡</div>
-      <div style="font-size:16px;font-weight:700;color:#1a1a1a;">Spinning...</div>
-    </div>
-
-    <!-- Result view -->
-    <div id="wheel-result" style="display:none;">
-      <div style="font-size:48px;margin-bottom:12px;" id="result-emoji">🎁</div>
-      <div style="font-size:20px;font-weight:900;color:#1a1a1a;margin-bottom:8px;" id="result-title">You won!</div>
-      <div style="font-size:14px;color:#555;line-height:1.6;margin-bottom:24px;" id="result-body">Your prize is on the way.</div>
-      <button onclick="closeWheel()" style="width:100%;background:#1a1a1a;color:#fff;border:none;border-radius:12px;padding:15px;font-size:15px;font-weight:800;cursor:pointer;font-family:Inter,sans-serif;">Claim it — get my site built</button>
-    </div>
-  </div>
-</div>
-
-<style>
-@keyframes spin-emoji { 0%{transform:rotate(0deg)} 100%{transform:rotate(360deg)} }
-</style>
-
-<script>
-(function(){
-  var prizes = [
-    { emoji:'🎁', title:'Brand Intro', body:"Tyler will personally intro you to one of his brand contacts. Check your email within 24 hours." },
-    { emoji:'🤝', title:'Collab Opportunity', body:"You're in for Dream's next creator campaign. Tyler will DM you on TikTok." },
-    { emoji:'💸', title:'$50 Off Your Site', body:"Code SPIN50 gives you $50 off. Apply it in the referral code box on this page." }
-  ];
-  var shown = false;
-
-  function showWheel(){
-    if(shown) return;
-    try { if(localStorage.getItem('wheel_done')) return; } catch(e){}
-    shown = true;
-    var el = document.getElementById('wheel-overlay');
-    el.style.display = 'flex';
-  }
-
-  window.closeWheel = function(){
-    document.getElementById('wheel-overlay').style.display = 'none';
-    try { localStorage.setItem('wheel_done','1'); } catch(e){}
-  };
-
-  window.spinWheel = function(){
-    var email = document.getElementById('wheel-email').value.trim();
-    if(!email || !email.includes('@')){ document.getElementById('wheel-email').style.borderColor='#e63946'; document.getElementById('wheel-email').focus(); return; }
-    document.getElementById('wheel-pre').style.display='none';
-    document.getElementById('wheel-spinning').style.display='block';
-    setTimeout(function(){
-      var prize = prizes[Math.floor(Math.random()*prizes.length)];
-      document.getElementById('wheel-spinning').style.display='none';
-      document.getElementById('result-emoji').textContent = prize.emoji;
-      document.getElementById('result-title').textContent = 'You won: ' + prize.title + '!';
-      document.getElementById('result-body').textContent = prize.body;
-      document.getElementById('wheel-result').style.display='block';
-      try { localStorage.setItem('wheel_done','1'); localStorage.setItem('wheel_email', email); } catch(e){}
-    }, 2200);
-  };
-
-  // Show after 8 seconds or on exit intent
-  setTimeout(showWheel, 8000);
-  document.addEventListener('mouseleave', function(e){ if(e.clientY < 10) showWheel(); });
-})();
-</script>
-
-</body>
-</html>
+    code 
