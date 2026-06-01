@@ -1572,5 +1572,64 @@ function copyHook(btn, text) {
   }, false);
 })();
 </script>
+<style id="affiliate-premium">
+/* Step cards hover */
+.step-card, [class*="step"] { transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
+
+/* Perk cards hover */
+.perk-card { transition: transform 0.2s, box-shadow 0.2s !important; }
+.perk-card:hover { transform: translateY(-4px) !important; box-shadow: 0 12px 32px rgba(0,0,0,0.4) !important; }
+
+/* Script tool pills */
+.sb-pill { transition: background 0.15s, transform 0.15s; }
+.sb-pill:hover { transform: scale(1.03); }
+.sb-pill.active { box-shadow: 0 0 0 2px var(--accent) !important; }
+
+/* Form inputs */
+input:focus, textarea:focus {
+  border-color: rgba(200,255,0,0.4) !important;
+  box-shadow: 0 0 0 3px rgba(200,255,0,0.06) !important;
+  outline: none !important;
+}
+
+/* CTA button glow */
+a[style*="background:#c8ff00"], button[style*="background:#c8ff00"] {
+  transition: transform 0.15s, box-shadow 0.15s !important;
+}
+a[style*="background:#c8ff00"]:hover, button[style*="background:#c8ff00"]:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 28px rgba(200,255,0,0.3) !important;
+}
+
+/* Entrance animation */
+@keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+.fade-in { opacity:0; transform:translateY(20px); transition: opacity 0.6s, transform 0.6s; }
+.fade-in.visible { opacity:1; transform:translateY(0); }
+
+/* Script output glow */
+#script-output { transition: box-shadow 0.3s; }
+#script-output:not(:empty) { box-shadow: 0 0 32px rgba(200,255,0,0.08); }
+
+/* Alternating section depth */
+.section:nth-child(even) { background: rgba(255,255,255,0.01); }
+
+@media (max-width: 768px) {
+  .wrap { padding: 0 20px !important; }
+  .hero h1 { font-size: 38px !important; }
+  .grid-2col { grid-template-columns: 1fr !important; }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var els = document.querySelectorAll('.fade-in');
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  els.forEach(function(el) { io.observe(el); });
+});
+</script>
 </body>
 </html>

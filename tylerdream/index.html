@@ -2087,7 +2087,7 @@ img, video, iframe, svg { max-width: 100%; height: auto; }
 
 <!-- JOURNEY / TIMELINE -->
 <section class="journey-section section fade-in" id="journey">
-  <div style="padding:80px 24px;border-top:1px solid rgba(255,255,255,0.05);">
+  <div style="padding:60px 24px 40px;border-top:1px solid rgba(255,255,255,0.05);">
     <div style="max-width:980px;margin:0 auto;">
       <div style="font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:40px;">The Journey</div>
       <div class="timeline-grid" style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;">
@@ -2167,8 +2167,8 @@ img, video, iframe, svg { max-width: 100%; height: auto; }
       <!-- YOUR SITE CARD -->
       <div style="background:linear-gradient(160deg,#131313 0%,#0e0e0e 100%);border:1px solid rgba(200,255,0,0.18);border-radius:24px;padding:48px 40px;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:flex-start;">
         <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#c8ff00 40%,transparent);"></div>
-        <div style="font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:rgba(200,255,0,0.6);margin-bottom:16px;">Your Site</div>
-        <div style="font-size:clamp(36px,5vw,56px);font-weight:900;color:#fff;letter-spacing:-2px;line-height:1.05;margin-bottom:32px;">A media kit that<br><em style="color:#c8ff00;font-style:normal;">closes deals.</em></div>
+        <div style="font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:rgba(200,255,0,0.6);margin-bottom:16px;">UGC Creators</div>
+        <div style="font-size:clamp(36px,5vw,56px);font-weight:900;color:#fff;letter-spacing:-2px;line-height:1.05;margin-bottom:32px;">Not hitting<br><em style="color:#c8ff00;font-style:normal;">$6k–$13k months?</em><br><span style="font-size:clamp(18px,2.5vw,24px);color:#888;font-weight:600;letter-spacing:-0.5px;">Send brands your link.</span></div>
         <a href="build.html" style="display:inline-block;background:#c8ff00;color:#000;font-size:13px;font-weight:900;letter-spacing:0.8px;text-transform:uppercase;padding:16px 28px;border-radius:10px;text-decoration:none;margin-top:auto;">Get your site built →</a>
       </div>
 
@@ -2176,7 +2176,7 @@ img, video, iframe, svg { max-width: 100%; height: auto; }
       <div style="background:linear-gradient(160deg,#131313 0%,#0e0e0e 100%);border:1px solid rgba(168,85,247,0.2);border-radius:24px;padding:48px 40px;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:flex-start;">
         <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#a855f7 40%,#ec4899 70%,transparent);"></div>
         <div style="font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:rgba(168,85,247,0.7);margin-bottom:16px;">Affiliate Program</div>
-        <div style="font-size:clamp(36px,5vw,56px);font-weight:900;color:#fff;letter-spacing:-2px;line-height:1.05;margin-bottom:32px;">Earn <em style="background:linear-gradient(135deg,#a855f7,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:normal;">$50</em><br>per referral.</div>
+        <div style="font-size:clamp(36px,5vw,56px);font-weight:900;color:#fff;letter-spacing:-2px;line-height:1.05;margin-bottom:32px;">Earn <em style="background:linear-gradient(135deg,#a855f7,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:normal;">$50</em><br>per conversion.</div>
         <a href="affiliate.html" style="display:inline-block;background:linear-gradient(135deg,#a855f7,#ec4899);color:#fff;font-size:13px;font-weight:900;letter-spacing:0.8px;text-transform:uppercase;padding:16px 28px;border-radius:10px;text-decoration:none;margin-top:auto;">Become an affiliate →</a>
       </div>
 
@@ -2420,6 +2420,93 @@ img, video, iframe, svg { max-width: 100%; height: auto; }
   }
 })();
 </script>
+<style id="premium-polish">
+/* ── HOVER STATES ── */
+.proof-item { transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s !important; }
+.proof-item:hover { transform: translateY(-4px) !important; box-shadow: 0 16px 40px rgba(0,0,0,0.5) !important; border-color: rgba(200,255,0,0.2) !important; }
+
+.account-card { transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s !important; }
+.account-card:hover { transform: translateY(-3px) !important; box-shadow: 0 12px 32px rgba(0,0,0,0.5) !important; }
+
+/* Video cards hover */
+.video-grid-4 > div { transition: transform 0.2s; }
+.video-grid-4 > div:hover { transform: translateY(-4px); }
+
+/* Timeline cards hover */
+.timeline-grid > div { transition: transform 0.2s, box-shadow 0.2s !important; cursor: default; }
+.timeline-grid > div:hover { transform: translateY(-3px) !important; box-shadow: 0 8px 24px rgba(0,0,0,0.4) !important; }
+
+/* Brand grid hover */
+.brand-grid > div { transition: transform 0.2s, border-color 0.2s !important; }
+.brand-grid > div:hover { transform: translateY(-2px) !important; border-color: rgba(255,255,255,0.1) !important; }
+
+/* ── ENTRANCE ANIMATIONS ── */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes scaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+@keyframes shimmerBg { 0%,100% { background-position: 200% center; } 50% { background-position: 0% center; } }
+
+.journey-section .timeline-grid > div:nth-child(1) { animation: fadeUp 0.5s ease 0.05s both; }
+.journey-section .timeline-grid > div:nth-child(2) { animation: fadeUp 0.5s ease 0.1s both; }
+.journey-section .timeline-grid > div:nth-child(3) { animation: fadeUp 0.5s ease 0.15s both; }
+.journey-section .timeline-grid > div:nth-child(4) { animation: fadeUp 0.5s ease 0.2s both; }
+.journey-section .timeline-grid > div:nth-child(5) { animation: fadeUp 0.5s ease 0.25s both; }
+
+.brand-grid > div:nth-child(odd) { animation: fadeUp 0.4s ease both; }
+.brand-grid > div:nth-child(even) { animation: fadeUp 0.4s ease 0.08s both; }
+
+/* ── DEPTH & SHADING ── */
+/* Alternating section backgrounds for visual depth */
+.proof-section { background: linear-gradient(180deg, #0a0a0a 0%, #080808 100%) !important; }
+.journey-section { background: #0c0c0c !important; }
+.accounts-section { background: linear-gradient(180deg, #080808 0%, #0a0a0a 100%) !important; }
+
+/* Proof items glow accent on number */
+.proof-num { text-shadow: 0 0 40px rgba(200,255,0,0.15); }
+
+/* PC cards subtle glow */
+.pc-card { background: linear-gradient(160deg, #131313, #0e0e0e) !important; }
+.pc-card:hover { box-shadow: 0 20px 60px rgba(0,0,0,0.6) !important; border-color: rgba(200,255,0,0.12) !important; }
+
+/* ── ACCENT HIGHLIGHTS ── */
+/* Green left border on section labels */
+.label { border-left: 2px solid var(--accent); padding-left: 10px; }
+
+/* ── ACTIVE/LIVE DOT ── */
+.live-dot { animation: pulse 1.5s ease-in-out infinite; }
+
+/* ── MARQUEE FADE EDGES ── */
+.marquee::before, .marquee::after { width: 80px !important; }
+
+/* ── SECTION DIVIDERS ── */
+section + section { border-top: 1px solid rgba(255,255,255,0.04); }
+
+/* ── BUTTON GLOW ON HOVER ── */
+a[style*="background:#c8ff00"]:hover, button[style*="background:#c8ff00"]:hover {
+  box-shadow: 0 0 24px rgba(200,255,0,0.35) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* ── SCROLL REVEAL ── */
+.fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 768px) {
+  .label { border-left: 2px solid var(--accent); padding-left: 8px; font-size: 9px !important; }
+}
+</style>
+
+<script id="scroll-reveal">
+document.addEventListener('DOMContentLoaded', function() {
+  var els = document.querySelectorAll('.fade-in');
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  els.forEach(function(el) { io.observe(el); });
+});
+</script>
 </body>
 </html>
   document.addEventListener('DOMContentLoaded', init);
@@ -2443,6 +2530,93 @@ img, video, iframe, svg { max-width: 100%; height: auto; }
   }, { threshold: 0.08 });
   fadeEls.forEach(function(el) { io.observe(el); });
 })();
+</script>
+<style id="premium-polish">
+/* ── HOVER STATES ── */
+.proof-item { transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s !important; }
+.proof-item:hover { transform: translateY(-4px) !important; box-shadow: 0 16px 40px rgba(0,0,0,0.5) !important; border-color: rgba(200,255,0,0.2) !important; }
+
+.account-card { transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s !important; }
+.account-card:hover { transform: translateY(-3px) !important; box-shadow: 0 12px 32px rgba(0,0,0,0.5) !important; }
+
+/* Video cards hover */
+.video-grid-4 > div { transition: transform 0.2s; }
+.video-grid-4 > div:hover { transform: translateY(-4px); }
+
+/* Timeline cards hover */
+.timeline-grid > div { transition: transform 0.2s, box-shadow 0.2s !important; cursor: default; }
+.timeline-grid > div:hover { transform: translateY(-3px) !important; box-shadow: 0 8px 24px rgba(0,0,0,0.4) !important; }
+
+/* Brand grid hover */
+.brand-grid > div { transition: transform 0.2s, border-color 0.2s !important; }
+.brand-grid > div:hover { transform: translateY(-2px) !important; border-color: rgba(255,255,255,0.1) !important; }
+
+/* ── ENTRANCE ANIMATIONS ── */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes scaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+@keyframes shimmerBg { 0%,100% { background-position: 200% center; } 50% { background-position: 0% center; } }
+
+.journey-section .timeline-grid > div:nth-child(1) { animation: fadeUp 0.5s ease 0.05s both; }
+.journey-section .timeline-grid > div:nth-child(2) { animation: fadeUp 0.5s ease 0.1s both; }
+.journey-section .timeline-grid > div:nth-child(3) { animation: fadeUp 0.5s ease 0.15s both; }
+.journey-section .timeline-grid > div:nth-child(4) { animation: fadeUp 0.5s ease 0.2s both; }
+.journey-section .timeline-grid > div:nth-child(5) { animation: fadeUp 0.5s ease 0.25s both; }
+
+.brand-grid > div:nth-child(odd) { animation: fadeUp 0.4s ease both; }
+.brand-grid > div:nth-child(even) { animation: fadeUp 0.4s ease 0.08s both; }
+
+/* ── DEPTH & SHADING ── */
+/* Alternating section backgrounds for visual depth */
+.proof-section { background: linear-gradient(180deg, #0a0a0a 0%, #080808 100%) !important; }
+.journey-section { background: #0c0c0c !important; }
+.accounts-section { background: linear-gradient(180deg, #080808 0%, #0a0a0a 100%) !important; }
+
+/* Proof items glow accent on number */
+.proof-num { text-shadow: 0 0 40px rgba(200,255,0,0.15); }
+
+/* PC cards subtle glow */
+.pc-card { background: linear-gradient(160deg, #131313, #0e0e0e) !important; }
+.pc-card:hover { box-shadow: 0 20px 60px rgba(0,0,0,0.6) !important; border-color: rgba(200,255,0,0.12) !important; }
+
+/* ── ACCENT HIGHLIGHTS ── */
+/* Green left border on section labels */
+.label { border-left: 2px solid var(--accent); padding-left: 10px; }
+
+/* ── ACTIVE/LIVE DOT ── */
+.live-dot { animation: pulse 1.5s ease-in-out infinite; }
+
+/* ── MARQUEE FADE EDGES ── */
+.marquee::before, .marquee::after { width: 80px !important; }
+
+/* ── SECTION DIVIDERS ── */
+section + section { border-top: 1px solid rgba(255,255,255,0.04); }
+
+/* ── BUTTON GLOW ON HOVER ── */
+a[style*="background:#c8ff00"]:hover, button[style*="background:#c8ff00"]:hover {
+  box-shadow: 0 0 24px rgba(200,255,0,0.35) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* ── SCROLL REVEAL ── */
+.fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 768px) {
+  .label { border-left: 2px solid var(--accent); padding-left: 8px; font-size: 9px !important; }
+}
+</style>
+
+<script id="scroll-reveal">
+document.addEventListener('DOMContentLoaded', function() {
+  var els = document.querySelectorAll('.fade-in');
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  els.forEach(function(el) { io.observe(el); });
+});
 </script>
 </body>
 </html>
