@@ -1555,7 +1555,7 @@ img, video, iframe, svg { max-width: 100%; height: auto; }
 </head>
 <body data-new-gr-c-s-check-loaded="14.1136.0" data-gr-ext-installed="">
 <!-- COUNTDOWN BANNER -->
-<div id="countdown-banner" style="background:linear-gradient(90deg,#1a0500,#2d0d00,#1a0500);border-bottom:1px solid rgba(255,107,107,0.25);padding:10px 20px;text-align:center;width:100%;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;">
+<div id="countdown-banner" style="background:linear-gradient(90deg,#1a0500,#2d0d00,#1a0500);border-bottom:1px solid rgba(255,107,107,0.25);padding:10px 20px;text-align:center;width:100%;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:10000;">
   <span style="display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#ff6b6b;white-space:nowrap;">
     <span style="width:6px;height:6px;border-radius:50%;background:#ff6b6b;box-shadow:0 0 8px rgba(255,107,107,0.8);animation:pulse 1.2s infinite;flex-shrink:0;"></span>
     Limited Time
@@ -1816,20 +1816,20 @@ img, video, iframe, svg { max-width: 100%; height: auto; }
         <div style="font-size:13px;font-weight:700;color:#fff;text-align:center;letter-spacing:0.5px;">ARRØ</div>
       </div>
 
-      <!-- Chesapeake Crab Connection -->
-      <div style="display:flex;flex-direction:column;gap:12px;">
-        <div style="position:relative;border-radius:16px;overflow:hidden;background:#111;aspect-ratio:9/16;cursor:pointer;" onclick="this.querySelector('video').paused?this.querySelector('video').play():this.querySelector('video').pause()">
-          <iframe src="https://drive.google.com/file/d/1zRAglL3ZL96yNi_Cv5XBJaMVDBRfze4y/preview" style="width:100%;height:100%;border:none;display:block;" allow="autoplay" allowfullscreen></iframe>
-        </div>
-        <div style="font-size:13px;font-weight:700;color:#fff;text-align:center;letter-spacing:0.5px;">Chesapeake Crab Connection</div>
-      </div>
-
       <!-- MECHE -->
       <div style="display:flex;flex-direction:column;gap:12px;">
-        <div style="position:relative;border-radius:16px;overflow:hidden;background:#111;aspect-ratio:9/16;cursor:pointer;" onclick="this.querySelector('video').paused?this.querySelector('video').play():this.querySelector('video').pause()">
+        <div style="position:relative;border-radius:16px;overflow:hidden;background:#111;aspect-ratio:9/16;cursor:pointer;">
           <iframe src="https://drive.google.com/file/d/1OlYwWXhu_4zLj-iRzJhVzRE6jB1rq2Qw/preview" style="width:100%;height:100%;border:none;display:block;" allow="autoplay" allowfullscreen></iframe>
         </div>
         <div style="font-size:13px;font-weight:700;color:#fff;text-align:center;letter-spacing:0.5px;">MECHE</div>
+      </div>
+
+      <!-- Chesapeake Crab -->
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div style="position:relative;border-radius:16px;overflow:hidden;background:#111;aspect-ratio:9/16;cursor:pointer;">
+          <iframe src="https://drive.google.com/file/d/1zRAglL3ZL96yNi_Cv5XBJaMVDBRfze4y/preview" style="width:100%;height:100%;border:none;display:block;" allow="autoplay" allowfullscreen></iframe>
+        </div>
+        <div style="font-size:13px;font-weight:700;color:#fff;text-align:center;letter-spacing:0.5px;">Chesapeake Crab</div>
       </div>
 
       <!-- Phrasly AI -->
