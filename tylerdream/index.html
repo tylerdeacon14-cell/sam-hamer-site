@@ -1554,6 +1554,36 @@ img, video, iframe, svg { max-width: 100%; height: auto; }
 </style>
 </head>
 <body data-new-gr-c-s-check-loaded="14.1136.0" data-gr-ext-installed="">
+<!-- COUNTDOWN BANNER -->
+<div id="countdown-banner" style="background:linear-gradient(90deg,#1a0500,#2d0d00,#1a0500);border-bottom:1px solid rgba(255,107,107,0.25);padding:10px 20px;text-align:center;width:100%;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;">
+  <span style="display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#ff6b6b;white-space:nowrap;">
+    <span style="width:6px;height:6px;border-radius:50%;background:#ff6b6b;box-shadow:0 0 8px rgba(255,107,107,0.8);animation:pulse 1.2s infinite;flex-shrink:0;"></span>
+    Limited Time
+  </span>
+  <span style="font-size:13px;font-weight:700;color:#fff;white-space:nowrap;">Every site: 10 brand outreaches + 3 personal intros from Tyler</span>
+  <span style="font-size:13px;font-weight:900;color:#ff6b6b;font-variant-numeric:tabular-nums;white-space:nowrap;" id="countdown-timer">00h 00m 00s</span>
+  <a href="build.html" style="background:#ff6b6b;color:#fff;font-size:11px;font-weight:900;padding:6px 14px;border-radius:6px;text-decoration:none;white-space:nowrap;flex-shrink:0;">Claim now</a>
+</div>
+<script>
+(function(){
+  var key='dream_cd_end';
+  var end;
+  try{end=localStorage.getItem(key);}catch(e){}
+  if(!end||Date.now()>parseInt(end)){
+    end=Date.now()+72*60*60*1000;
+    try{localStorage.setItem(key,end);}catch(e){}
+  }
+  function tick(){
+    var d=parseInt(end)-Date.now();
+    if(d<=0){document.getElementById('countdown-timer').textContent='Offer ending soon';return;}
+    var h=Math.floor(d/3600000),m=Math.floor((d%3600000)/60000),s=Math.floor((d%60000)/1000);
+    document.getElementById('countdown-timer').textContent=
+      String(h).padStart(2,'0')+'h '+String(m).padStart(2,'0')+'m '+String(s).padStart(2,'0')+'s left';
+  }
+  tick();setInterval(tick,1000);
+})();
+</script>
+
 <div id="scroll-bar"></div>
 <div id="cursor-glow"></div>
 <div id="scroll-progress"></div>
