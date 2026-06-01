@@ -1476,24 +1476,9 @@
             <input type="text" name="best_views" placeholder="e.g. 780K, 1.2M, around 50K" style="width:100%;background:#fff;color:#1a1a1a;border:1px solid #d0c9be;border-radius:10px;padding:13px 16px;font-size:14px;font-family:Inter,sans-serif;outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='#2a9d8f'" onblur="this.style.borderColor='#d0c9be'">
           </div>
           <div class="field" style="margin-top:24px;">
-            <label>Primary audience age</label>
-            <div class="pill-group" id="age-pills">
-              <button type="button" class="pill" onclick="selectPill(this,'age-pills','audience_age')">13 - 17</button>
-              <button type="button" class="pill" onclick="selectPill(this,'age-pills','audience_age')">18 - 24</button>
-              <button type="button" class="pill" onclick="selectPill(this,'age-pills','audience_age')">25 - 34</button>
-              <button type="button" class="pill" onclick="selectPill(this,'age-pills','audience_age')">35 - 44</button>
-              <button type="button" class="pill" onclick="selectPill(this,'age-pills','audience_age')">45+</button>
-              <button type="button" class="pill" onclick="selectPill(this,'age-pills','audience_age')">Mixed</button>
-            </div>
-            <input type="hidden" name="audience_age" id="audience_age">
+            <label>Current brands, products, or brands you want to work with <span style="font-weight:500;font-size:12px;text-transform:none;letter-spacing:0;">(optional)</span></label>
+            <input type="text" name="brand_targets" placeholder="e.g. Hismile, Bloom Nutrition, RYZE, or categories like wellness, tech, beauty" style="width:100%;background:#fff;color:#1a1a1a;border:1px solid #d0c9be;border-radius:10px;padding:13px 16px;font-size:14px;font-family:Inter,sans-serif;outline:none;transition:border-color 0.15s;">
           </div>
-          <div class="field" style="margin-top:24px;">
-            <label>Audience gender split &nbsp;<span style="color:var(--accent);font-weight:800;font-size:12px;" id="gender-label">50% F / 50% M</span></label>
-            <input type="range" id="gender-slider" min="0" max="100" value="50" class="range-slider" oninput="updateGender(this)">
-            <input type="hidden" name="gender_split" id="gender_split" value="50% Female / 50% Male">
-            <div class="slider-ticks"><span>All female</span><span>50/50</span><span>All male</span></div>
-          </div>
-          <div class="field"><label>Product categories you work in</label>
             <div class="check-grid">
               <label class="check-item"><input type="checkbox" name="categories[]" value="Beauty and Skincare"><span>Beauty and skincare</span></label>
               <label class="check-item"><input type="checkbox" name="categories[]" value="Health and Wellness"><span>Health and wellness</span></label>
