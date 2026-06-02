@@ -1051,7 +1051,7 @@
         <div class="form-title">Your application</div>
         <div class="form-subtitle">I'll review and send your referral link personally.</div>
 
-        <form name="affiliate-apply" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/success">
+        <form name="affiliate-apply" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handleFormSubmit(event)">
           <input type="hidden" name="form-name" value="affiliate-apply">
           <p style="position:absolute;left:-9999px;" aria-hidden="true"><label>Don't fill: <input name="bot-field"></label></p>
 
