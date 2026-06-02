@@ -2536,6 +2536,21 @@ document.addEventListener('DOMContentLoaded', function() {
 .video-grid-4 > div > div:first-child { aspect-ratio: 9/16 !important; width: 100% !important; overflow: hidden !important; }
 </style>
 
+
+<style id="mobile-fixes-index">
+@media (max-width: 600px) {
+  /* Stats bar wraps to column */
+  #stats-bar-wrap { flex-direction: column !important; gap: 6px !important; text-align: center; }
+  /* Hide the dots between stats */
+  .stats-dot { display: none !important; }
+  /* Hero photo max width */
+  .hero-photo { max-width: 260px !important; }
+  /* Recent build card full width */
+  .recent-build-card { max-width: 100% !important; }
+  /* Kristyn preview card */
+  .hero-ctas + div { max-width: 100% !important; }
+}
+</style>
 </body>
 </html>
   document.addEventListener('DOMContentLoaded', init);

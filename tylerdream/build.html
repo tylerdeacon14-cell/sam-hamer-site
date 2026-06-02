@@ -74,7 +74,7 @@
     .hero-badge span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; flex-shrink: 0; }
 
     .hero h1 {
-      font-size: clamp(42px, 6vw, 72px); font-weight: 900;
+      font-size: clamp(30px, 6vw, 58px); font-weight: 900;
       letter-spacing: -3px; line-height: 1.0; margin-bottom: 20px;
       color: var(--text);
     }
@@ -1609,5 +1609,28 @@ function markUploaded(input, zoneId, labelId) {
 
 </script>
 
+
+<style id="mobile-fixes-build">
+@media (max-width: 600px) {
+  /* What's included 2+3 grid → all 1-col */
+  .included-2col, .included-3col { grid-template-columns: 1fr !important; }
+  /* Account row table overflow */
+  .account-row-inner { flex-direction: column !important; gap: 8px !important; }
+  .field-platform, .field-handle, .field-followers, .field-likes, .field-freq { flex: none !important; width: 100% !important; }
+  .col-headers { display: none !important; }
+  /* Hero trust signals wrap */
+  .hero-trust-row { flex-direction: column !important; gap: 6px !important; }
+  /* Reduce hero padding */
+  .hero { padding: 80px 16px 32px !important; }
+  /* What you get 3-col grid */
+  [style*="grid-template-columns:1fr 1fr 1fr"] { grid-template-columns: 1fr !important; }
+  [style*="grid-template-columns: 1fr 1fr 1fr"] { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 480px) {
+  /* What you get 2-col → 1-col */
+  [style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+  [style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
+}
+</style>
 </body>
 </html>

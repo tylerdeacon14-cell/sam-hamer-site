@@ -1539,5 +1539,21 @@ document.addEventListener('DOMContentLoaded', function() {
   els.forEach(function(el) { io.observe(el); });
 });
 </script>
+
+<style id="mobile-fixes-affiliate">
+@media (max-width: 600px) {
+  /* Hero stat row stacks */
+  .hero-stat-row { flex-direction: column !important; gap: 16px !important; align-items: center !important; }
+  /* Hero CTAs stack */
+  .hero > .wrap > div[style*="display:flex;gap:16px"] { flex-direction: column !important; align-items: center !important; }
+  /* Script tool pills wrap properly */
+  .sb-pill { font-size: 13px !important; padding: 8px 14px !important; }
+  /* Form row 2-col → 1-col */
+  .form-row-2 { grid-template-columns: 1fr !important; }
+  /* Reduce H1 */
+  .hero h1 { font-size: 34px !important; letter-spacing: -1.5px !important; }
+  /* Steps grid already 1-col at 640px */
+}
+</style>
 </body>
 </html>
