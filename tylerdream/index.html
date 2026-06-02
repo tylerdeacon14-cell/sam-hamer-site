@@ -2542,6 +2542,41 @@ document.addEventListener('DOMContentLoaded', function() {
 @media(max-width:860px) { .ugc-video-grid { grid-template-columns:repeat(2,1fr) !important; gap:12px !important; } }
 @media(max-width:480px) { .ugc-video-grid { grid-template-columns:repeat(2,1fr) !important; gap:8px !important; } }
 </style>
+
+<!-- THANK YOU MODAL -->
+<style>
+#ty-modal-contact { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:9999; align-items:center; justify-content:center; padding:24px; }
+#ty-modal-contact.open { display:flex; animation:modalFadeIn 0.3s ease; }
+@keyframes modalFadeIn { from{opacity:0;transform:scale(0.95)} to{opacity:1;transform:scale(1)} }
+#ty-modal-contact .ty-card { background:#111; border:1px solid rgba(200,255,0,0.2); border-radius:20px; padding:40px 36px; max-width:420px; width:100%; text-align:center; }
+#ty-modal-contact .ty-check { font-size:36px; margin-bottom:16px; }
+#ty-modal-contact h2 { font-size:22px; font-weight:900; color:#fff; margin-bottom:12px; }
+#ty-modal-contact p { font-size:14px; color:#888; line-height:1.6; margin-bottom:8px; }
+#ty-modal-contact .ty-close { margin-top:20px; background:#c8ff00; color:#000; font-size:13px; font-weight:900; padding:12px 28px; border:none; border-radius:10px; cursor:pointer; font-family:Inter,sans-serif; }
+</style>
+<div id="ty-modal-contact" role="dialog" aria-modal="true">
+  <div class="ty-card">
+    <div class="ty-check">🎉</div>
+    <h2>Message received!</h2>
+    <p>Tyler will get back to you shortly.</p>
+    <p>In the meantime, drop him a DM on Instagram — <a href="https://www.instagram.com/tylerdreamofficial" target="_blank" style="color:#c8ff00;font-weight:700;text-decoration:none;">@tylerdreamofficial</a></p>
+    <button class="ty-close" onclick="document.getElementById('ty-modal-contact').classList.remove('open');document.body.style.overflow='';">Got it ✓</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var cf = document.querySelector('form[action*="formsubmit"], form[data-netlify]');
+  if (!cf) return;
+  cf.addEventListener('submit', function(e){
+    e.preventDefault();
+    fetch(cf.action || '/', { method:'POST', body: new FormData(cf) });
+    document.getElementById('ty-modal-contact').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    cf.reset();
+  });
+})();
+</script>
 </body>
 </html>
   document.addEventListener('DOMContentLoaded', init);

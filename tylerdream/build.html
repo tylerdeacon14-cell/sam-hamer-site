@@ -908,11 +908,12 @@
 <!-- THANK YOU MODAL -->
 <div id="ty-modal" role="dialog" aria-modal="true" aria-labelledby="ty-heading">
   <div class="ty-card">
-    <div class="ty-check">✓</div>
-    <h2 id="ty-heading">Thank you.</h2>
-    <p>We are excited to review your profile and will be in touch soon.</p>
+    <div class="ty-check">🎉</div>
+    <h2 id="ty-heading">Brief received!</h2>
+    <p style="margin-bottom:12px;">Tyler reviews every brief personally and will follow up within a few hours.</p>
+    <p style="font-size:14px;color:#888;margin-bottom:20px;">In the meantime, drop him a DM on Instagram — <a href="https://www.instagram.com/tylerdreamofficial" target="_blank" style="color:var(--accent);font-weight:700;text-decoration:none;">@tylerdreamofficial</a></p>
     <div class="ty-sig">Dream</div>
-    <button class="ty-close" onclick="document.getElementById('ty-modal').classList.remove('open')">Sounds good ✓</button>
+    <button class="ty-close" onclick="document.getElementById('ty-modal').classList.remove('open')">Got it ✓</button>
   </div>
 </div>
 
@@ -1554,12 +1555,11 @@ function markUploaded(input, zoneId, labelId) {
         // send to formsubmit via fetch
         var data = new FormData(form);
         fetch(form.action, { method: 'POST', body: data });
-        // show payment card
+        // show thank you modal
+        document.getElementById('ty-modal').classList.add('open');
+        document.body.style.overflow = 'hidden';
+        // hide form
         form.style.display = 'none';
-        var payCard = document.getElementById('payment-card');
-        payCard.style.display = 'block';
-        setTimeout(function(){ payCard.classList.add('visible'); }, 50);
-        payCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
         // handle referral discount display
         var code = document.getElementById('referral-code-input').value.trim();
         var discLine = document.getElementById('referral-discount-line');

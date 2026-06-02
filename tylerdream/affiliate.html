@@ -732,11 +732,12 @@
 <!-- THANK YOU MODAL -->
 <div id="ty-modal" role="dialog" aria-modal="true" aria-labelledby="ty-heading">
   <div class="ty-card">
-    <div class="ty-check">✓</div>
-    <h2 id="ty-heading">Thank you.</h2>
-    <p>We are excited to review your profile and will be in touch soon.</p>
+    <div class="ty-check">🎉</div>
+    <h2 id="ty-heading">Application received!</h2>
+    <p style="margin-bottom:12px;">Tyler reviews every application personally. Your referral link arrives within 48 hours.</p>
+    <p style="font-size:14px;color:#888;margin-bottom:20px;">In the meantime, DM Tyler on Instagram — <a href="https://www.instagram.com/tylerdreamofficial" target="_blank" style="color:var(--accent);font-weight:700;text-decoration:none;">@tylerdreamofficial</a></p>
     <div class="ty-sig">Dream</div>
-    <button class="ty-close" onclick="document.getElementById('ty-modal').classList.remove('open');document.body.style.overflow='';">Sounds good ✓</button>
+    <button class="ty-close" onclick="document.getElementById('ty-modal').classList.remove('open');document.body.style.overflow='';">Got it ✓</button>
   </div>
 </div>
 
@@ -1393,12 +1394,10 @@ function handleFormSubmit(e) {
     body: new URLSearchParams(new FormData(form)).toString()
   })
     .then(function() {
-      form.style.display = 'none';
-      // Show thank you message
-      var resultDiv = document.createElement('div');
-      resultDiv.style.cssText = 'padding:32px;background:rgba(200,255,0,0.05);border:1px solid rgba(200,255,0,0.2);border-radius:12px;text-align:center;';
-      resultDiv.innerHTML = '<div style="font-size:18px;font-weight:900;color:#fff;margin-bottom:8px;">Thanks for applying</div><div style="font-size:13px;color:#888;line-height:1.6;">I\'ll review your application and send your referral link within 48 hours. Check your email (including spam folder).</div>';
-      form.parentElement.appendChild(resultDiv);
+      // Show thank you modal
+      document.getElementById('ty-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      form.reset();
     })
     .catch(function(err) {
       alert('Something went wrong. Email dreambillboard@gmail.com directly.');
