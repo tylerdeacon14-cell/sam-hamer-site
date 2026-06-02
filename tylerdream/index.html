@@ -1776,7 +1776,7 @@ img, video, iframe, svg { max-width: 100%; height: auto; }
       <div style="font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--mint);margin-bottom:12px;">UGC Work</div>
       <h2 style="font-size:clamp(28px,3.5vw,42px);font-weight:900;letter-spacing:-1.5px;color:#fff;margin:0;">Content I've made.</h2>
     </div>
-    <div class="video-grid-4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;width:100%;box-sizing:border-box;">
+    <div class="video-grid-4" style="display:grid;gap:16px;width:100%;box-sizing:border-box;padding:0 16px;">
 
       <!-- ARRØ -->
       <div style="display:flex;flex-direction:column;gap:12px;">
@@ -2456,7 +2456,7 @@ document.addEventListener('DOMContentLoaded', function() {
   els.forEach(function(el) { io.observe(el); });
 });
 </script>
-<style id="video-mobile-fix">
+<!-- removed --><style id="video-mobile-fix-old" style="display:none"><!--
 @media (max-width: 768px) {
   .video-grid-4 { grid-template-columns: repeat(2,1fr) !important; gap: 12px !important; padding: 0 16px !important; }
   .video-grid-4 > div { width: 100% !important; }
@@ -2488,6 +2488,14 @@ document.addEventListener('DOMContentLoaded', function() {
   .hero h1 { font-size: 34px !important; }
   .proof-grid { grid-template-columns: repeat(2,1fr) !important; }
 }
+</style>
+
+<style id="video-fix-final">
+.video-grid-4 { grid-template-columns: repeat(4, 1fr) !important; }
+@media (max-width: 900px) { .video-grid-4 { grid-template-columns: repeat(2, 1fr) !important; padding: 0 12px !important; gap: 12px !important; } }
+@media (max-width: 480px) { .video-grid-4 { grid-template-columns: repeat(2, 1fr) !important; padding: 0 8px !important; gap: 8px !important; } }
+.video-grid-4 > div { width: 100% !important; min-width: 0 !important; }
+.video-grid-4 > div > div:first-child { aspect-ratio: 9/16 !important; width: 100% !important; overflow: hidden !important; }
 </style>
 
 </body>
@@ -2601,7 +2609,7 @@ document.addEventListener('DOMContentLoaded', function() {
   els.forEach(function(el) { io.observe(el); });
 });
 </script>
-<style id="video-mobile-fix">
+<!-- removed --><style id="video-mobile-fix-old" style="display:none"><!--
 @media (max-width: 768px) {
   .video-grid-4 { grid-template-columns: repeat(2,1fr) !important; gap: 12px !important; padding: 0 16px !important; }
   .video-grid-4 > div { width: 100% !important; }
@@ -2633,6 +2641,14 @@ document.addEventListener('DOMContentLoaded', function() {
   .hero h1 { font-size: 34px !important; }
   .proof-grid { grid-template-columns: repeat(2,1fr) !important; }
 }
+</style>
+
+<style id="video-fix-final">
+.video-grid-4 { grid-template-columns: repeat(4, 1fr) !important; }
+@media (max-width: 900px) { .video-grid-4 { grid-template-columns: repeat(2, 1fr) !important; padding: 0 12px !important; gap: 12px !important; } }
+@media (max-width: 480px) { .video-grid-4 { grid-template-columns: repeat(2, 1fr) !important; padding: 0 8px !important; gap: 8px !important; } }
+.video-grid-4 > div { width: 100% !important; min-width: 0 !important; }
+.video-grid-4 > div > div:first-child { aspect-ratio: 9/16 !important; width: 100% !important; overflow: hidden !important; }
 </style>
 
 </body>
