@@ -985,50 +985,347 @@
         </div>
       </div>
 
-    <!-- WHAT'S INCLUDED + REFERRAL MERGED -->
-    <div class="included-card fade-up stream-in" id="brief-form" style="animation-delay:0.15s;">
-      <div style="font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:20px;">What's included</div>
 
-      <!-- INCLUDED GRID -->
-      <div style="margin-bottom:24px;">
-        <div style="font-size:13px;font-weight:700;color:#888;margin-bottom:16px;">Not a template. Built from scratch, around you.</div>
-        <div style="display:flex;flex-direction:column;gap:12px;">
-          <div style="display:flex;gap:12px;align-items:flex-start;padding:16px;background:#faf7f2;border-radius:12px;border:1px solid #e0d9ce;">
-            <span style="color:var(--accent);font-weight:900;font-size:16px;flex-shrink:0;">✓</span>
-            <div><div style="font-size:14px;font-weight:800;color:#1a1a1a;margin-bottom:3px;">Your site, built around you.</div><div style="font-size:13px;color:#666;line-height:1.6;">Your story, your stats, your content. Not a template. Every element intentional.</div></div>
+<section class="form-section" id="brief-form">
+  <div class="wrap">
+    <form action="https://formsubmit.co/dreambillboard@gmail.com" method="POST" id="intake-form" enctype="multipart/form-data">
+      <input type="hidden" name="_subject" value="New site build intake - tylerdream.com">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_cc" value="dreambillboard@gmail.com">
+      <input type="hidden" name="_bcc" value="" id="form-bcc">
+      <input type="hidden" name="_autoresponse" value="Hey! Got your brief — Tyler will review it personally and reach out within a few hours with your secure Stripe payment link. Feel free to reply to this email with any questions. Talk soon, Tyler Dream">
+
+      <!-- REFERRAL CODE -->
+      <div class="referral-banner" id="referral-banner">
+        <div class="referral-copy">
+          <strong>Got a referral code from one of our <span class="affiliate-word">Affiliates</span>?</strong>
+          <span>Enter it for 25% off: <span style="color:var(--accent);font-weight:700;">only $225</span></span>
+        </div>
+        <div class="referral-input-wrap">
+          <input type="text" name="referral_code" id="referral-code-input" placeholder="Enter code" oninput="handleCodeInput(this)">
+        </div>
+        <div id="referral-confirm" style="display:none;width:100%;margin-top:12px;background:rgba(42,157,143,0.06);border:1px solid rgba(42,157,143,0.2);border-radius:12px;padding:14px 18px;display:none;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="color:var(--accent);font-size:14px;font-weight:900;">✓</span>
+            <span style="color:var(--accent);font-size:13px;font-weight:800;letter-spacing:0.3px;">Referral code applied</span>
           </div>
-          <div style="display:flex;gap:12px;align-items:flex-start;padding:16px;background:#faf7f2;border-radius:12px;border:1px solid #e0d9ce;">
-            <span style="color:var(--accent);font-weight:900;font-size:16px;flex-shrink:0;">✓</span>
-            <div><div style="font-size:14px;font-weight:800;color:#1a1a1a;margin-bottom:3px;">A contact form brands fill out directly.</div><div style="font-size:13px;color:#666;line-height:1.6;">You choose who you work with. Brands come to you.</div></div>
-          </div>
-          <div style="display:flex;gap:12px;align-items:flex-start;padding:16px;background:#faf7f2;border-radius:12px;border:1px solid #e0d9ce;">
-            <span style="color:var(--accent);font-weight:900;font-size:16px;flex-shrink:0;">✓</span>
-            <div><div style="font-size:14px;font-weight:800;color:#1a1a1a;margin-bottom:3px;">Mobile-first. Built for how brands actually look you up.</div><div style="font-size:13px;color:#666;line-height:1.6;">On their phone. In 30 seconds. Before they ever reply to your DM.</div></div>
+          <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+            <div style="text-align:right;">
+              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:2px;">You saved</div>
+              <div style="font-size:20px;font-weight:900;color:var(--accent);letter-spacing:-0.5px;" id="savings-amount">$75</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:2px;">Your price</div>
+              <div style="font-size:20px;font-weight:900;color:var(--accent);letter-spacing:-0.5px;" id="final-price">$225</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- REFERRAL CODE -->
-        <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;">
-          <input type="text" id="referral-code-input" placeholder="Affiliate code (optional)" style="flex:1;min-width:0;background:#fff;border:1px solid #d0c9be;border-radius:10px;padding:12px 14px;font-size:14px;color:#1a1a1a;font-family:Inter,sans-serif;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='#2a9d8f'" onblur="this.style.borderColor='#d0c9be'">
-          <button type="button" onclick="applyReferralCode()" style="padding:12px 20px;background:#fff;border:2px solid var(--accent);border-radius:10px;font-size:13px;color:var(--accent);font-weight:800;text-transform:uppercase;letter-spacing:1px;cursor:pointer;font-family:Inter,sans-serif;white-space:nowrap;transition:background 0.15s,color 0.15s;" onmouseover="this.style.background='#2a9d8f';this.style.color='#fff'" onmouseout="this.style.background='#fff';this.style.color='var(--accent)'">Apply</button>
-        </div>
-        <div id="referral-confirm" style="display:none;margin-bottom:14px;padding:10px 14px;background:rgba(42,157,143,0.08);border:1px solid rgba(42,157,143,0.25);border-radius:8px;font-size:13px;color:var(--accent);font-weight:700;"></div>
-        <div id="price-display-top" style="display:none;margin-bottom:16px;text-align:center;">
-          <div style="font-size:16px;font-weight:900;color:var(--accent);">You save <span id="savings-amount-top">$75</span> — Your price: <span id="final-price-top">$225</span></div>
-        </div>
-
-        <div style="text-align:center;margin-bottom:16px;">
-          <div style="font-size:12px;font-weight:800;color:#888;letter-spacing:1px;text-transform:uppercase;">
-            <span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:6px;height:6px;border-radius:50%;background:#c8ff00;animation:pulse 1.5s infinite;display:inline-block;"></span> Tyler personally builds every site. Currently taking 3 new briefs this week.</span>
+      <!-- BLOCK 1: THE BASICS -->
+      <div class="form-block fade-up">
+        <div class="form-block-header">
+          <div class="block-num">1</div>
+          <div>
+            <div class="block-title">The basics</div>
+            <div class="block-subtitle">Your name, location, and what you create</div>
           </div>
         </div>
-        <button type="submit" style="width:100%;background:#2a9d8f;color:#fff;font-size:14px;font-weight:900;letter-spacing:0.8px;text-transform:uppercase;padding:18px;border:none;border-radius:12px;cursor:pointer;transition:background 0.15s,transform 0.15s;box-shadow:0 4px 16px rgba(42,157,143,0.25);" onmouseover="this.style.background='#238577'" onmouseout="this.style.background='#2a9d8f'">Submit brief &rarr;</button>
-        <p style="font-size:12px;color:#888;text-align:center;margin-top:14px;line-height:1.6;">Submit your brief. Tyler will follow up within a few hours to confirm details and send payment info. You'll hear back within a few hours.</p>
-        <p style="font-size:11px;color:#444;text-align:center;margin-top:8px;">Trouble submitting? Email <a href="mailto:dreambillboard@gmail.com?subject=Build%20brief" style="color:#666;text-decoration:underline;">dreambillboard@gmail.com</a> directly.</p>
+        <div class="form-block-body">
+          <div class="row-2">
+            <div class="field"><label>Your Name</label><input type="text" name="name" placeholder="First and last" required></div>
+            <div class="field"><label>Email</label><input type="email" name="email" placeholder="you@email.com" required></div>
+          </div>
+          <div class="field"><label>City and State</label><input type="text" name="location" placeholder="e.g. Chicago, IL"></div>
+          <div class="field"><label>What you post about</label>
+            <div class="pill-group" id="niche-pills">
+              <button type="button" class="pill" onclick="togglePillMulti(this,'niche-pills','niche')">Beauty &amp; Skincare</button>
+              <button type="button" class="pill" onclick="togglePillMulti(this,'niche-pills','niche')">Health &amp; Wellness</button>
+              <button type="button" class="pill" onclick="togglePillMulti(this,'niche-pills','niche')">Fitness</button>
+              <button type="button" class="pill" onclick="togglePillMulti(this,'niche-pills','niche')">Fashion</button>
+              <button type="button" class="pill" onclick="togglePillMulti(this,'niche-pills','niche')">Home &amp; Kitchen</button>
+              <button type="button" class="pill" onclick="togglePillMulti(this,'niche-pills','niche')">Food &amp; Beverage</button>
+              <button type="button" class="pill" onclick="togglePillMulti(this,'niche-pills','niche')">Tech &amp; AI</button>
+              <button type="button" class="pill" onclick="togglePillMulti(this,'niche-pills','niche')">Finance &amp; Business</button>
+              <button type="button" class="pill" onclick="togglePillMulti(this,'niche-pills','niche')">Pets</button>
+              <button type="button" class="pill" onclick="togglePillMulti(this,'niche-pills','niche')">Lifestyle</button>
+              <button type="button" class="pill" onclick="togglePillMulti(this,'niche-pills','niche')">Travel</button>
+              <button type="button" class="pill" onclick="togglePillMulti(this,'niche-pills','niche')">Comedy &amp; Entertainment</button>
+            </div>
+            <input type="hidden" name="niche" id="niche">
+            <input type="text" name="niche_other" placeholder="Or type it in: AI tools, luxury, gaming..." style="margin-top:10px;">
+          </div>
+          <div class="field">
+            <label>Your tagline <span style="color:var(--text-muted);font-size:10px;text-transform:none;letter-spacing:0;font-weight:500;">optional ,  we can write this for you</span></label>
+            <input type="text" name="tagline" placeholder='e.g. "Content that stops the scroll and closes the deal."'>
+            <div class="field-note">A short hook that lives under your name on the site. Leave blank and we will write one.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BLOCK 2: YOUR ACCOUNTS -->
+      <div class="form-block fade-up">
+        <div class="form-block-header">
+          <div class="block-num">2</div>
+          <div>
+            <div class="block-title">Your accounts</div>
+            <div class="block-subtitle">Up to 4 accounts ,  handle, followers, likes, active or former</div>
+          </div>
+        </div>
+        <div class="form-block-body">
+          <div class="col-headers">
+            <span class="ch-platform">Platform</span>
+            <span class="ch-handle">Handle</span>
+            <span class="ch-followers">Followers</span>
+            <span class="ch-likes">Total Likes</span>
+            <span class="ch-freq">Post Frequency</span>
+            <span class="ch-spacer"></span>
+          </div>
+          <div id="accounts-container">
+            <div class="account-row">
+              <div class="account-row-inner">
+                <div class="field-platform"><div class="field">
+                  <select name="platform_1">
+                    <option value="TikTok" selected>TikTok</option>
+                    <option value="TikTok Shop">TikTok Shop</option>
+                    <option value="Instagram">Instagram</option>
+                    <option value="YouTube">YouTube</option>
+                    <option value="X / Twitter">X / Twitter</option>
+                    <option value="Facebook">Facebook</option>
+                    <option value="Pinterest">Pinterest</option>
+                    <option value="LinkedIn">LinkedIn</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div></div>
+                <div class="field-handle"><div class="field"><input type="text" name="handle_1" placeholder="@yourhandle"></div></div>
+                <div class="field-followers"><div class="field"><input type="text" name="followers_1" placeholder="e.g. 13K"></div></div>
+                <div class="field-likes"><div class="field"><input type="text" name="likes_1" placeholder="e.g. 684K"></div></div>
+                <div class="field-freq"><div class="field"><input type="text" name="post_freq_1" placeholder="e.g. Daily, 3x per week"></div></div>
+                <button type="button" class="remove-btn" onclick="removeRow(this)" title="Remove">x</button>
+              </div>
+            </div>
+            <div class="account-row">
+              <div class="account-row-inner">
+                <div class="field-platform"><div class="field">
+                  <select name="platform_2">
+                    <option value="TikTok">TikTok</option>
+                    <option value="TikTok Shop">TikTok Shop</option>
+                    <option value="Instagram" selected>Instagram</option>
+                    <option value="YouTube">YouTube</option>
+                    <option value="X / Twitter">X / Twitter</option>
+                    <option value="Facebook">Facebook</option>
+                    <option value="Pinterest">Pinterest</option>
+                    <option value="LinkedIn">LinkedIn</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div></div>
+                <div class="field-handle"><div class="field"><input type="text" name="handle_2" placeholder="@yourhandle"></div></div>
+                <div class="field-followers"><div class="field"><input type="text" name="followers_2" placeholder="e.g. 4.2K"></div></div>
+                <div class="field-likes"><div class="field"><input type="text" name="likes_2" placeholder="e.g. 120K"></div></div>
+                <div class="field-freq"><div class="field"><input type="text" name="post_freq_2" placeholder="e.g. Daily, 3x per week"></div></div>
+                <button type="button" class="remove-btn" onclick="removeRow(this)" title="Remove">x</button>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="add-row-btn" id="add-account-btn">+ Add another account</button>
+        </div>
+      </div>
+
+      <!-- BLOCK 3: YOUR BEST VIDEOS -->
+      <div class="form-block fade-up">
+        <div class="form-block-header">
+          <div class="block-num">3</div>
+          <div>
+            <div class="block-title">Your best videos</div>
+            <div class="block-subtitle">Paste 4-5 TikTok URLs ,  open tiktok.com in desktop, copy the address bar URL</div>
+            <div style="font-size:12px;color:var(--text-muted);margin-top:4px;line-height:1.5;">On mobile: tap Share on your TikTok video, then tap Copy Link. Paste that here.</div>
+          </div>
+        </div>
+        <div class="form-block-body">
+          <div class="video-input-list">
+            <div class="video-input-row"><span class="video-num">1</span><div class="field" style="margin:0;flex:1;"><input type="url" name="video_1" placeholder="https://www.tiktok.com/@yourhandle/video/..."></div></div>
+            <div class="video-input-row"><span class="video-num">2</span><div class="field" style="margin:0;flex:1;"><input type="url" name="video_2" placeholder="https://www.tiktok.com/@yourhandle/video/..."></div></div>
+            <div class="video-input-row"><span class="video-num">3</span><div class="field" style="margin:0;flex:1;"><input type="url" name="video_3" placeholder="https://www.tiktok.com/@yourhandle/video/..."></div></div>
+            <div class="video-input-row"><span class="video-num">4</span><div class="field" style="margin:0;flex:1;"><input type="url" name="video_4" placeholder="https://www.tiktok.com/@yourhandle/video/..."></div></div>
+            <div class="video-input-row"><span class="video-num">5</span><div class="field" style="margin:0;flex:1;"><input type="url" name="video_5" placeholder="https://www.tiktok.com/@yourhandle/video/..."></div></div>
+          </div>
+          <div class="field-note" style="margin-top:14px;">These will be embedded on your site. Pick ones that look consistent ,  similar aspect ratio, similar style.</div>
+        </div>
+      </div>
+
+      <!-- BLOCK 4: YOUR JOURNEY -->
+      <div class="form-block fade-up">
+        <div class="form-block-header">
+          <div class="block-num">4</div>
+          <div>
+            <div class="block-title">Your journey</div>
+            <div class="block-subtitle">5 milestones, rough dates are fine ,  we will write the story</div>
+          </div>
+        </div>
+        <div class="form-block-body">
+          <div class="milestone-list">
+            <div class="milestone-row"><span class="milestone-num">1</span><div class="field" style="margin:0;flex:1;"><input type="text" name="milestone_1" placeholder='e.g. "Early 2023 - started first account from scratch"'></div></div>
+            <div class="milestone-row"><span class="milestone-num">2</span><div class="field" style="margin:0;flex:1;"><input type="text" name="milestone_2" placeholder='e.g. "Month 6 - first brand reached out"'></div></div>
+            <div class="milestone-row"><span class="milestone-num">3</span><div class="field" style="margin:0;flex:1;"><input type="text" name="milestone_3" placeholder='e.g. "2024 - hit 10K, one video went to 500K views"'></div></div>
+            <div class="milestone-row"><span class="milestone-num">4</span><div class="field" style="margin:0;flex:1;"><input type="text" name="milestone_4" placeholder='e.g. "Signed first paid deal"'></div></div>
+            <div class="milestone-row"><span class="milestone-num">5</span><div class="field" style="margin:0;flex:1;"><input type="text" name="milestone_5" placeholder='e.g. "Now - 3 active brand partnerships, posting daily"'></div></div>
+          </div>
+          <div class="field-note" style="margin-top:14px;">Short is fine. Just tell us what happened and when. We will turn it into the timeline section on your site.</div>
+        </div>
+      </div>
+
+      <!-- BLOCK 5: YOUR LOOK -->
+      <div class="form-block fade-up">
+        <div class="form-block-header">
+          <div class="block-num">5</div>
+          <div>
+            <div class="block-title">Your look and feel</div>
+            <div class="block-subtitle">Colors, vibe, and any other links</div>
+          </div>
+        </div>
+        <div class="form-block-body">
+          <div class="field">
+            <label>Favorite color(s) <span style="color:var(--text-muted);font-size:10px;text-transform:none;letter-spacing:0;font-weight:500;">used as accent throughout the site</span></label>
+            <input type="text" name="colors" placeholder="e.g. Electric blue, hot pink, lime green ,  or just dark and minimal">
+          </div>
+          <div class="field">
+            <label>Vibe</label>
+            <div class="vibe-grid">
+              <div class="vibe-option"><input type="radio" name="vibe" id="v1" value="Dark and moody"><label for="v1">Dark and moody</label></div>
+              <div class="vibe-option"><input type="radio" name="vibe" id="v2" value="Clean and minimal"><label for="v2">Clean and minimal</label></div>
+              <div class="vibe-option"><input type="radio" name="vibe" id="v3" value="Bold and loud"><label for="v3">Bold and loud</label></div>
+              <div class="vibe-option"><input type="radio" name="vibe" id="v4" value="Soft and warm"><label for="v4">Soft and warm</label></div>
+              <div class="vibe-option"><input type="radio" name="vibe" id="v5" value="Streetwear / hype"><label for="v5">Streetwear / hype</label></div>
+              <div class="vibe-option"><input type="radio" name="vibe" id="v6" value="Professional / corporate"><label for="v6">Professional / corporate</label></div>
+            </div>
+          </div>
+          <div class="field"><label>Any sites, creators, or brands whose look you love? <span style="color:var(--text-muted);font-size:10px;text-transform:none;letter-spacing:0;font-weight:500;">optional</span></label><input type="text" name="inspiration" placeholder="e.g. a TikTok handle, a website you like, a brand aesthetic you want us to reference."></div>
+          <div class="field"><label>Other links to include <span style="color:var(--text-muted);font-size:10px;text-transform:none;letter-spacing:0;font-weight:500;">optional</span></label><input type="text" name="other_links" placeholder="e.g. Instagram, YouTube, Linktree, personal site"></div>
+        </div>
+      </div>
+
+      <!-- BLOCK 6: YOUR PHOTOS -->
+      <div class="form-block fade-up">
+        <div class="form-block-header">
+          <div class="block-num">6</div>
+          <div>
+            <div class="block-title">Your photos</div>
+            <div class="block-subtitle">Hero photo plus TikTok profile screenshots</div>
+          </div>
+        </div>
+        <div class="form-block-body">
+          <div class="field">
+            <label>Hero photo</label>
+            <div class="upload-zone" id="hero-zone">
+              <input type="file" name="hero_photo" accept="image/*" onchange="markUploaded(this,'hero-zone','hero-label')">
+              <div class="upload-icon">+</div>
+              <div class="upload-label" id="hero-label">Click to upload or drag and drop</div>
+              <div class="upload-sub">Portrait preferred. Clear face, decent lighting. JPG or PNG.</div>
+            </div>
+          </div>
+          <div class="field" style="margin-top:16px;">
+            <label>TikTok profile screenshots <span style="color:var(--accent);font-size:10px;text-transform:none;letter-spacing:0;font-weight:700;">one per account, taken on desktop at tiktok.com/@yourhandle</span></label>
+            <div class="upload-zone" id="ss-zone">
+              <input type="file" name="profile_screenshots" accept="image/*" multiple onchange="markUploaded(this,'ss-zone','ss-label')">
+              <div class="upload-icon">+</div>
+              <div class="upload-label" id="ss-label">Click to upload or drag and drop</div>
+              <div class="upload-sub">Can select multiple files at once.</div>
+            </div>
+          </div>
+          <div class="field-note" style="margin-top:12px;">If uploads do not work on your device, just email the photos to <a href="mailto:dreambillboard@gmail.com" style="color:var(--accent);">dreambillboard@gmail.com</a> with your name in the subject line.</div>
+        </div>
+      </div>
+
+      <!-- BLOCK 7: CONTENT STATS -->
+      <div class="form-block fade-up">
+        <div class="form-block-header">
+          <div class="block-num">7</div>
+          <div>
+            <div class="block-title">Your numbers</div>
+            <div class="block-subtitle">Free text is fine. Leave anything blank you are not sure about.</div>
+          </div>
+        </div>
+        <div class="form-block-body">
+          <div class="field">
+            <label>Avg. video views <span class="slider-val" id="avg-views-label">~10K</span></label>
+            <input type="range" id="avg-views-slider" min="0" max="11" value="3" class="range-slider" oninput="updateSlider('avg-views-slider','avg-views-label',avgViewsScale,'avg_views')">
+            <input type="hidden" name="avg_views" id="avg_views" value="~10K">
+            <div class="slider-ticks"><span>Under 1K</span><span>1M+</span></div>
+          </div>
+          <div class="field" style="margin-top:20px;">
+            <label>Total GMV (TikTok Shop sales generated) <span style="color:var(--text-muted);font-size:10px;text-transform:none;letter-spacing:0;font-weight:500;">optional</span></label>
+            <input type="text" name="total_gmv" placeholder="e.g. $12K, $227K, just starting out" style="width:100%;background:var(--input-bg);color:var(--text);border:1px solid var(--input-border);border-radius:10px;padding:13px 16px;font-size:14px;font-family:Inter,sans-serif;outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--input-border)'">
+          </div>
+          <div class="field" style="margin-top:20px;">
+            <label>Brand deals completed <span style="color:var(--text-muted);font-size:10px;text-transform:none;letter-spacing:0;font-weight:500;">optional</span></label>
+            <input type="text" name="brand_deals" placeholder="e.g. 3 paid deals, 12 gifted, none yet" style="width:100%;background:var(--input-bg);color:var(--text);border:1px solid var(--input-border);border-radius:10px;padding:13px 16px;font-size:14px;font-family:Inter,sans-serif;outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--input-border)'">
+          </div>
+          <div class="field" style="margin-top:20px;">
+            <label>Best single video views</label>
+            <input type="text" name="best_views" placeholder="e.g. 780K, 1.2M, around 50K" style="width:100%;background:var(--input-bg);color:var(--text);border:1px solid var(--input-border);border-radius:10px;padding:13px 16px;font-size:14px;font-family:Inter,sans-serif;outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--input-border)'">
+          </div>
+          <div class="field" style="margin-top:24px;">
+            <label>Primary audience age</label>
+            <div class="pill-group" id="age-pills">
+              <button type="button" class="pill" onclick="selectPill(this,'age-pills','audience_age')">13 - 17</button>
+              <button type="button" class="pill" onclick="selectPill(this,'age-pills','audience_age')">18 - 24</button>
+              <button type="button" class="pill" onclick="selectPill(this,'age-pills','audience_age')">25 - 34</button>
+              <button type="button" class="pill" onclick="selectPill(this,'age-pills','audience_age')">35 - 44</button>
+              <button type="button" class="pill" onclick="selectPill(this,'age-pills','audience_age')">45+</button>
+              <button type="button" class="pill" onclick="selectPill(this,'age-pills','audience_age')">Mixed</button>
+            </div>
+            <input type="hidden" name="audience_age" id="audience_age">
+          </div>
+          <div class="field" style="margin-top:24px;">
+            <label>Audience gender split <span class="slider-val" id="gender-label">50% F / 50% M</span></label>
+            <input type="range" id="gender-slider" min="0" max="100" value="50" class="range-slider" oninput="updateGender(this)">
+            <input type="hidden" name="gender_split" id="gender_split" value="50% Female / 50% Male">
+            <div class="slider-ticks"><span>All female</span><span>All male</span></div>
+          </div>
+          <div class="field"><label>Product categories you work in</label>
+            <div class="check-grid">
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Beauty and Skincare"><span>Beauty and skincare</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Health and Wellness"><span>Health and wellness</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Fashion and Apparel"><span>Fashion and apparel</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Home and Kitchen"><span>Home and kitchen</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Food and Beverage"><span>Food and beverage</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Fitness and Sports"><span>Fitness and sports</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Personal Care"><span>Personal care</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Pet Supplies"><span>Pet supplies</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Baby and Kids"><span>Baby and kids</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Tech and Gadgets"><span>Tech and gadgets</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Jewelry and Accessories"><span>Jewelry and accessories</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Cleaning and Household"><span>Cleaning and household</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Supplements and Vitamins"><span>Supplements and vitamins</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Outdoor and Garden"><span>Outdoor and garden</span></label>
+              <label class="check-item"><input type="checkbox" name="categories[]" value="Other"><span>Other</span></label>
+            </div>
+          </div>
+          <div class="field" style="margin-top:16px;"><label>Content style ,  how would you describe your videos?</label><textarea name="content_style" placeholder="e.g. Fast-paced, honest reviews. Hook-first. Real reactions, no scripts." rows="3"></textarea></div>
+          <div class="field"><label>Brands you have worked with <span style="color:var(--text-muted);font-size:10px;text-transform:none;letter-spacing:0;font-weight:500;">optional</span></label><input type="text" name="past_brands" placeholder="e.g. Hismile, Bloom Nutrition, RYZE ,  or none yet"></div>
+        </div>
+      </div>
+
+      <!-- SUBMISSION SECTION -->
+      <div style="background:#fff;border:1px solid rgba(42,157,143,0.2);border-radius:18px;padding:24px;margin-bottom:28px;position:relative;overflow:hidden;box-shadow:0 2px 12px rgba(42,157,143,0.06);" class="fade-up">
+        <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(42,157,143,0.4),transparent);"></div>
+        <div style="font-size:10px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;">What you get</div>
+        <div style="font-size:16px;font-weight:900;color:#1a1a1a;letter-spacing:-0.5px;margin-bottom:12px;">A site worth sending brands to.</div>
+        <p style="font-size:14px;color:var(--text);line-height:1.55;margin:0 0 12px;font-weight:600;letter-spacing:-0.2px;">Most creators email a rate card in a Google Doc. You send a link that closes the deal before the call.</p>
+        <p style="font-size:12px;color:var(--muted);line-height:1.6;margin:0;">Your story, stats, wins and a live contact form — built to make brands say yes before they even reply.</p>
+      </div>
+
+      <div class="submit-wrap">
+        <button type="submit" class="submit-btn" id="form-submit-btn">Send it. Let's build.</button>
+        <p class="submit-note">Tyler reviews every brief personally. You'll hear back within a few hours.</p>
+        <p style="font-size:11px;color:var(--muted);margin-top:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;">We guarantee you will love it.</p>
       </div>
 
     </form>
+  </div>
+</section>
+
   </div>
 </section>
 
@@ -1138,5 +1435,170 @@ function handleStripePayment() {
 
 })();
 </script>
+
+<script>
+
+var accountCount = 2;
+
+document.getElementById('add-account-btn').addEventListener('click', function() {
+  if (accountCount >= 4) {
+    this.style.opacity = '0.4';
+    this.style.pointerEvents = 'none';
+    this.textContent = 'Max 4 accounts';
+    return;
+  }
+  accountCount++;
+  var n = accountCount;
+  var container = document.getElementById('accounts-container');
+  var row = document.createElement('div');
+  row.className = 'account-row';
+  row.innerHTML =
+    '<div class="account-row-inner">' +
+      '<div class="field-platform"><div class="field">' +
+        '<select name="platform_' + n + '">' +
+          '<option value="TikTok">TikTok</option>' +
+          '<option value="TikTok Shop">TikTok Shop</option>' +
+          '<option value="Instagram">Instagram</option>' +
+          '<option value="YouTube">YouTube</option>' +
+          '<option value="X / Twitter">X / Twitter</option>' +
+          '<option value="Facebook">Facebook</option>' +
+          '<option value="Pinterest">Pinterest</option>' +
+          '<option value="LinkedIn">LinkedIn</option>' +
+          '<option value="Other">Other</option>' +
+        '</select>' +
+      '</div></div>' +
+      '<div class="field-handle"><div class="field"><input type="text" name="handle_' + n + '" placeholder="@yourhandle"></div></div>' +
+      '<div class="field-followers"><div class="field"><input type="text" name="followers_' + n + '" placeholder="e.g. 13K"></div></div>' +
+      '<div class="field-likes"><div class="field"><input type="text" name="likes_' + n + '" placeholder="e.g. 684K"></div></div>' +
+      '<div class="field-freq"><div class="field"><input type="text" name="post_freq_' + n + '" placeholder="e.g. Daily, 3x per week"></div></div>' +
+      '<button type="button" class="remove-btn" onclick="removeRow(this)" title="Remove">x</button>' +
+    '</div>' +
+  '</div>';
+  container.appendChild(row);
+});
+
+function removeRow(btn) {
+  var row = btn.closest('.account-row');
+  if (row) row.remove();
+}
+
+function markUploaded(input, zoneId, labelId) {
+  if (input.files && input.files.length > 0) {
+    document.getElementById(zoneId).classList.add('has-file');
+    var names = Array.from(input.files).map(function(f){return f.name;}).join(', ');
+    document.getElementById(labelId).textContent = names;
+  }
+}
+
+  var avgViewsScale = ['Under 1K','~2K','~5K','~10K','~20K','~35K','~50K','~75K','~100K','~200K','~500K','~1M+'];
+  var bestViewsScale = ['Under 5K','~10K','~25K','~50K','~100K','~250K','~500K','~750K','~1M','~2M','~5M+'];
+
+  function updateSlider(sliderId, labelId, scale, hiddenId) {
+    var el = document.getElementById(sliderId);
+    var v = parseInt(el.value);
+    var text = scale[Math.min(v, scale.length-1)];
+    document.getElementById(labelId).textContent = text;
+    document.getElementById(hiddenId).value = text;
+    var pct = (v / parseInt(el.max)) * 100;
+    el.style.background = 'linear-gradient(to right,rgba(42,157,143,0.7) 0%,rgba(42,157,143,0.7) '+pct+'%,#e0d9ce '+pct+'%,#e0d9ce 100%)';
+  }
+
+  function updateGender(el) {
+    var v = parseInt(el.value);
+    document.getElementById('gender-label').textContent = v+'% F / '+(100-v)+'% M';
+    document.getElementById('gender_split').value = v+'% Female / '+(100-v)+'% Male';
+    var pct = v;
+    el.style.background = 'linear-gradient(to right,rgba(42,157,143,0.65) 0%,rgba(42,157,143,0.65) '+pct+'%,rgba(233,196,106,0.5) '+pct+'%,rgba(233,196,106,0.5) 100%)';
+  }
+
+  function selectPill(btn, groupId, hiddenId) {
+    document.getElementById(groupId).querySelectorAll('.pill').forEach(function(p){p.classList.remove('active');});
+    btn.classList.add('active');
+    document.getElementById(hiddenId).value = btn.textContent.trim();
+  }
+
+  function togglePillMulti(btn, groupId, hiddenId) {
+    btn.classList.toggle('active');
+    var vals = [];
+    document.getElementById(groupId).querySelectorAll('.pill.active').forEach(function(p){vals.push(p.textContent.trim());});
+    document.getElementById(hiddenId).value = vals.join(', ');
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    updateSlider('avg-views-slider','avg-views-label',avgViewsScale,'avg_views');
+    updateGender(document.getElementById('gender-slider'));
+
+    // FADE-UP SCROLL OBSERVER
+    var fadeEls = document.querySelectorAll('.fade-up');
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+    fadeEls.forEach(function(el) { observer.observe(el); });
+
+    // FORM SUBMIT -> PAYMENT CARD
+    var form = document.getElementById('intake-form');
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        // send to formsubmit via fetch
+        var data = new FormData(form);
+        fetch(form.action, { method: 'POST', body: data });
+        // show payment card
+        form.style.display = 'none';
+        var payCard = document.getElementById('payment-card');
+        payCard.style.display = 'block';
+        setTimeout(function(){ payCard.classList.add('visible'); }, 50);
+        payCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // handle referral discount display
+        var code = document.getElementById('referral-code-input').value.trim();
+        var discLine = document.getElementById('referral-discount-line');
+        if (code) {
+          discLine.style.display = 'block';
+          discLine.textContent = 'Referral code applied: 25% off — you pay $225.';
+          document.getElementById('stripe-pay-btn').textContent = 'Pay $225 and start my build →';
+        } else {
+          discLine.style.display = 'none';
+          document.getElementById('stripe-pay-btn').textContent = 'Pay $300 and start my build →';
+        }
+      });
+    }
+  });
+
+  function handleStripePayment(e) {
+    e.preventDefault();
+    var payCard = document.getElementById('payment-card');
+    var confirm = document.getElementById('payment-confirm');
+    payCard.style.display = 'none';
+    confirm.style.display = 'block';
+    setTimeout(function(){ confirm.classList.add('visible'); }, 50);
+    confirm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // FAQ ACCORDION
+  function toggleFaq(index) {
+    var items = document.querySelectorAll('.faq-item');
+    items.forEach(function(item, i) {
+      if (i === index) {
+        item.classList.toggle('open');
+      } else {
+        item.classList.remove('open');
+      }
+    });
+  }
+
+  function handleCodeInput(input) {
+    var code = input.value.trim().toUpperCase();
+    var confirm = document.getElementById('referral-confirm');
+    if (code.length >= 3) {
+      confirm.style.display = 'flex';
+    } else {
+      confirm.style.display = 'none';
+    }
+  }
+
+</script>
+
 </body>
 </html>
