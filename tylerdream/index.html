@@ -1805,48 +1805,34 @@ p, .hero-hook, .hero-sub, .hero-tagline { font-size: 16px !important; line-heigh
     </div>
     <div class="video-grid-4" style="display:grid;gap:16px;width:100%;box-sizing:border-box;padding:0 16px;">
 
-      <!-- ARRØ -->
+      <!-- Meche 1 -->
       <div style="display:flex;flex-direction:column;gap:12px;">
-        <div style="position:relative;border-radius:16px;overflow:hidden;background:#111;aspect-ratio:9/16;cursor:pointer;" onclick="this.querySelector('video').paused?this.querySelector('video').play():this.querySelector('video').pause()">
-          <video poster="thumbnails/ARRØ_thumb.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" playsinline preload="none">
-            <source src="videos/ARRØ.mp4" type="video/mp4">
-          </video>
-          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;" class="play-overlay">
-            <div style="width:48px;height:48px;border-radius:50%;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
-            </div>
-          </div>
-        </div>
-        <div style="font-size:13px;font-weight:700;color:#fff;text-align:center;letter-spacing:0.5px;">ARRØ</div>
-      </div>
-
-      <!-- MECHE -->
-      <div style="display:flex;flex-direction:column;gap:12px;">
-        <div style="position:relative;border-radius:16px;overflow:hidden;background:#111;aspect-ratio:9/16;cursor:pointer;">
+        <div style="position:relative;border-radius:16px;overflow:hidden;background:#111;aspect-ratio:9/16;">
           <iframe src="https://drive.google.com/file/d/1zRAglL3ZL96yNi_Cv5XBJaMVDBRfze4y/preview" style="width:100%;height:100%;border:none;display:block;" allow="autoplay" allowfullscreen></iframe>
         </div>
-        <div style="font-size:13px;font-weight:700;color:#fff;text-align:center;letter-spacing:0.5px;">MECHE</div>
+        <div style="font-size:13px;font-weight:700;color:#fff;text-align:center;letter-spacing:0.5px;">Meche</div>
+      </div>
+
+      <!-- Meche 2 -->
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div style="position:relative;border-radius:16px;overflow:hidden;background:#111;aspect-ratio:9/16;">
+          <iframe src="https://drive.google.com/file/d/1LKTWU38qnGtmo8tEXFR9glu41fZIQgdY/preview" style="width:100%;height:100%;border:none;display:block;" allow="autoplay" allowfullscreen></iframe>
+        </div>
+        <div style="font-size:13px;font-weight:700;color:#fff;text-align:center;letter-spacing:0.5px;">Meche</div>
       </div>
 
       <!-- Chesapeake Crab -->
       <div style="display:flex;flex-direction:column;gap:12px;">
-        <div style="position:relative;border-radius:16px;overflow:hidden;background:#111;aspect-ratio:9/16;cursor:pointer;">
-          <iframe src="https://drive.google.com/file/d/1OlYwWXhu_4zLj-iRzJhVzRE6jB1rq2Qw/preview" style="width:100%;height:100%;border:none;display:block;" allow="autoplay" allowfullscreen></iframe>
+        <div style="position:relative;border-radius:16px;overflow:hidden;background:#111;aspect-ratio:9/16;">
+          <iframe src="https://drive.google.com/file/d/1c9xYCwEDIt2rgjFZqtByylEjwh6Rjegg/preview" style="width:100%;height:100%;border:none;display:block;" allow="autoplay" allowfullscreen></iframe>
         </div>
         <div style="font-size:13px;font-weight:700;color:#fff;text-align:center;letter-spacing:0.5px;">Chesapeake Crab</div>
       </div>
 
       <!-- Phrasly AI -->
       <div style="display:flex;flex-direction:column;gap:12px;">
-        <div style="position:relative;border-radius:16px;overflow:hidden;background:#111;aspect-ratio:9/16;cursor:pointer;" onclick="this.querySelector('video').paused?this.querySelector('video').play():this.querySelector('video').pause()">
-          <video poster="thumbnails/PhraslyAI_thumb.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" playsinline preload="none">
-            <source src="videos/Phrasly AI.mp4" type="video/mp4">
-          </video>
-          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;" class="play-overlay">
-            <div style="width:48px;height:48px;border-radius:50%;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
-            </div>
-          </div>
+        <div style="position:relative;border-radius:16px;overflow:hidden;background:#111;aspect-ratio:9/16;">
+          <iframe src="https://drive.google.com/file/d/1m7laziNRnq-pPmKbLn6yhVXi-MXJ8goM/preview" style="width:100%;height:100%;border:none;display:block;" allow="autoplay" allowfullscreen></iframe>
         </div>
         <div style="font-size:13px;font-weight:700;color:#fff;text-align:center;letter-spacing:0.5px;">Phrasly AI</div>
       </div>
@@ -2550,6 +2536,11 @@ document.addEventListener('DOMContentLoaded', function() {
   /* Kristyn preview card */
   .hero-ctas + div { max-width: 100% !important; }
 }
+</style>
+<style id="video-grid-responsive">
+.ugc-video-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+@media(max-width:860px) { .ugc-video-grid { grid-template-columns:repeat(2,1fr) !important; gap:12px !important; } }
+@media(max-width:480px) { .ugc-video-grid { grid-template-columns:repeat(2,1fr) !important; gap:8px !important; } }
 </style>
 </body>
 </html>
