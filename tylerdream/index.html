@@ -2153,6 +2153,49 @@ p, .hero-hook, .hero-sub, .hero-tagline { font-size: 16px !important; line-heigh
 
 
 <!-- BRAND CONTACT -->
+<!-- HOW I WORK -->
+<section style="padding:80px 24px;background:#0a0a0a;border-top:1px solid rgba(255,255,255,0.05);">
+  <div style="max-width:var(--max);margin:0 auto;">
+    <div style="text-align:center;margin-bottom:48px;">
+      <div style="font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:12px;">For Brands</div>
+      <h2 style="font-size:clamp(28px,4vw,44px);font-weight:900;letter-spacing:-1.5px;color:#fff;margin:0;">How I Work.</h2>
+    </div>
+    <div id="how-i-work-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px;">
+      <div style="background:#111;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:28px 24px;">
+        <div style="font-size:13px;font-weight:900;color:#fff;margin-bottom:10px;letter-spacing:-0.2px;">Full Production Operation</div>
+        <div style="font-size:13px;color:#666;line-height:1.65;">Chicago-based, two editors on staff, fast turnaround. No hand holding needed.</div>
+      </div>
+      <div style="background:#111;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:28px 24px;">
+        <div style="font-size:13px;font-weight:900;color:#fff;margin-bottom:10px;letter-spacing:-0.2px;">Weekly Iterations</div>
+        <div style="font-size:13px;color:#666;line-height:1.65;">I test angles, read the data, and pivot fast. I don't drop one video and disappear.</div>
+      </div>
+      <div style="background:#111;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:28px 24px;">
+        <div style="font-size:13px;font-weight:900;color:#fff;margin-bottom:10px;letter-spacing:-0.2px;">Retained Focus</div>
+        <div style="font-size:13px;color:#666;line-height:1.65;">Brands I commit to get my full attention and consistent volume. I protect my time so I can protect yours.</div>
+      </div>
+      <div style="background:#111;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:28px 24px;">
+        <div style="font-size:13px;font-weight:900;color:#fff;margin-bottom:10px;letter-spacing:-0.2px;">Open Communication</div>
+        <div style="font-size:13px;color:#666;line-height:1.65;">I move fast and stay communicative. Happy to jump on a call before we kick anything off.</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-bottom:32px;">
+      <p style="font-size:13px;color:#444;font-weight:600;letter-spacing:0.2px;">Approaching capacity. Retained brands get priority.</p>
+    </div>
+    <div style="text-align:center;">
+      <a href="#contact" style="display:inline-block;background:#c8ff00;color:#000;font-size:14px;font-weight:900;padding:16px 36px;border-radius:10px;text-decoration:none;letter-spacing:0.5px;">Work with me →</a>
+    </div>
+  </div>
+</section>
+
+<style>
+@media (max-width:768px) {
+  #how-i-work-grid { grid-template-columns: repeat(2,1fr) !important; }
+}
+@media (max-width:480px) {
+  #how-i-work-grid { grid-template-columns: 1fr !important; }
+}
+</style>
+
 <section style="padding:100px 0;border-top:1px solid rgba(255,255,255,0.05);position:relative;" id="contact">
   <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:500px;height:300px;background:radial-gradient(circle,rgba(160,237,216,0.04) 0%,transparent 70%);pointer-events:none;"></div>
   <div class="wrap">
@@ -2598,6 +2641,29 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 @media (max-width: 480px) {
   .video-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 8px !important; padding: 0 12px !important; }
+}
+</style>
+<style id="mobile-thumb-fix">
+@media (max-width: 860px) {
+  .video-grid-4 { 
+    grid-template-columns: repeat(2, minmax(0,1fr)) !important; 
+    gap: 10px !important; 
+    padding: 0 16px !important;
+  }
+  .video-grid-4 > div { min-width: 0 !important; width: 100% !important; }
+  .video-grid-4 > div > div[style*="aspect-ratio:9/16"] { 
+    width: 100% !important; 
+    overflow: hidden !important;
+  }
+  .video-grid-4 iframe { 
+    width: 100% !important; 
+    height: 100% !important;
+    position: absolute !important;
+    top: 0; left: 0;
+  }
+  .video-grid-4 > div > div[style*="aspect-ratio:9/16"] {
+    position: relative !important;
+  }
 }
 </style>
 </body>
