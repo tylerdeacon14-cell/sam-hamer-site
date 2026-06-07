@@ -1071,6 +1071,24 @@
               <input type="text" name="tiktok" placeholder="@yourhandle">
             </div>
 
+          <div class="form-field">
+            <label>Best way to reach you</label>
+            <select name="contact_method" onchange="handleAffContactMethod(this)">
+              <option value="">Select one</option>
+              <option value="Email (already provided)">Email — use the one I provided</option>
+              <option value="Text">Text / SMS</option>
+              <option value="Phone call">Phone call</option>
+              <option value="Google Meet">Google Meet</option>
+              <option value="Microsoft Teams">Microsoft Teams</option>
+              <option value="Discord">Discord</option>
+              <option value="Social media DM">Social media DM</option>
+            </select>
+          </div>
+          <div class="form-field" id="aff-contact-detail" style="display:none;">
+            <label id="aff-contact-label">Contact detail</label>
+            <input type="text" name="contact_detail" id="aff-contact-input" placeholder="">
+          </div>
+
           <p style="font-size:13px;color:rgba(255,255,255,0.4);text-align:center;margin-bottom:6px;">Tyler reviews every application personally. You'll hear back within 48 hours.</p>
           <p style="font-size:12px;color:#444;text-align:center;margin-bottom:16px;">High-volume affiliates can discuss retainer arrangements after approval.</p>
           <button type="submit" class="btn-submit">Get my referral link →</button>
@@ -1383,6 +1401,28 @@ function sbLocalData() {
 }
 
 // ─── Form submit ──────────────────────────────────────────────────────────────
+function handleAffContactMethod(select) {
+  var val = select.value;
+  var wrap = document.getElementById('aff-contact-detail');
+  var label = document.getElementById('aff-contact-label');
+  var input = document.getElementById('aff-contact-input');
+  var map = {
+    'Text': { label: 'Your phone number', placeholder: 'e.g. (312) 555-0100' },
+    'Phone call': { label: 'Your phone number', placeholder: 'e.g. (312) 555-0100' },
+    'Google Meet': { label: 'Your email for the invite', placeholder: 'you@email.com' },
+    'Microsoft Teams': { label: 'Your Teams email', placeholder: 'you@work.com' },
+    'Discord': { label: 'Your Discord username', placeholder: 'e.g. tyler#1234 or @tyler' },
+    'Social media DM': { label: 'Your handle and platform', placeholder: 'e.g. @dreamlifevisuals on TikTok' },
+  };
+  if (val && val !== 'Email (already provided)' && map[val]) {
+    wrap.style.display = 'block';
+    label.textContent = map[val].label;
+    input.placeholder = map[val].placeholder;
+  } else {
+    wrap.style.display = 'none';
+  }
+}
+
 function handleFormSubmit(e) {
   e.preventDefault();
   var form = e.target;
