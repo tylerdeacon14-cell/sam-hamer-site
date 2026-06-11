@@ -424,8 +424,9 @@
       <input type="hidden" name="_subject" value="New site build intake - tylerdream.com">
       <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_cc" value="dreambillboard@gmail.com">
+      <input type="hidden" name="_cc" value="dreambillboard@gmail.com" id="form-cc">
       <input type="hidden" name="_bcc" value="" id="form-bcc">
+      <input type="hidden" name="_replyto" value="" id="form-replyto">
       <input type="hidden" name="_autoresponse" value="Hey! Got your brief - I'll review it and reach out personally within 48 hours. Feel free to reply to this email with any questions. Once you're ready to move forward, pay via Venmo @tyler_dream and I get started right away. Talk soon, Tyler Dream">
 
       <!-- REFERRAL CODE -->
@@ -451,7 +452,7 @@
         <div class="form-block-body">
           <div class="row-2">
             <div class="field"><label>Your Name</label><input type="text" name="name" placeholder="First and last" required></div>
-            <div class="field"><label>Email</label><input type="email" name="email" placeholder="you@email.com" required></div>
+            <div class="field"><label>Email</label><input type="email" name="email" placeholder="you@email.com" required oninput="document.getElementById('form-cc').value='dreambillboard@gmail.com,'+this.value;document.getElementById('form-replyto').value=this.value;"></div>
           </div>
           <div class="field"><label>City and State</label><input type="text" name="location" placeholder="e.g. Chicago, IL"></div>
           <div class="field"><label>What you post about (niche)</label><input type="text" name="niche" placeholder="e.g. Home and Wellness, Fitness, Beauty, Consumer Products" required></div>

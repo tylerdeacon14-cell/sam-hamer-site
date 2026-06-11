@@ -1091,8 +1091,9 @@
       <input type="hidden" name="_subject" value="New site build intake - tylerdream.com">
       <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_cc" value="dreambillboard@gmail.com">
+      <input type="hidden" name="_cc" value="dreambillboard@gmail.com" id="form-cc">
       <input type="hidden" name="_bcc" value="" id="form-bcc">
+      <input type="hidden" name="_replyto" value="" id="form-replyto">
       <input type="hidden" name="_autoresponse" value="Hey! Got your brief — Tyler will review it personally and reach out within a few hours with your secure Stripe payment link. Feel free to reply to this email with any questions. Talk soon, Tyler Dream">
 
       <!-- GUARANTEE BANNER -->
@@ -1159,7 +1160,7 @@
         <div class="form-block-body">
           <div class="row-2">
             <div class="field"><label>Your Name</label><input type="text" name="name" placeholder="First and last" required></div>
-            <div class="field"><label>Email</label><input type="email" name="email" placeholder="you@email.com" required></div>
+            <div class="field"><label>Email</label><input type="email" name="email" placeholder="you@email.com" required oninput="document.getElementById('form-cc').value='dreambillboard@gmail.com,'+this.value;document.getElementById('form-replyto').value=this.value;"></div>
           </div>
           <div class="field"><label>City and State</label><input type="text" name="location" placeholder="e.g. Chicago, IL"></div>
           <div class="field"><label>What you post about</label>
