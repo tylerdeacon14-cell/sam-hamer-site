@@ -1094,6 +1094,7 @@
       <input type="hidden" name="_cc" value="dreambillboard@gmail.com" id="form-cc">
       <input type="hidden" name="_bcc" value="" id="form-bcc">
       <input type="hidden" name="_replyto" value="" id="form-replyto">
+      <input type="hidden" name="_next" value="https://tylerdream.com/success.html">
       <input type="hidden" name="_autoresponse" value="Hey! Got your brief — Tyler will review it personally and reach out within a few hours with your secure Stripe payment link. Feel free to reply to this email with any questions. Talk soon, Tyler Dream">
 
       <!-- GUARANTEE BANNER -->
@@ -1703,68 +1704,8 @@ function markUploaded(input, zoneId, labelId) {
     }, { threshold: 0.2 });
     pitchLines.forEach(function(el) { pitchObserver.observe(el); });
 
-    // FORM SUBMIT -> PAYMENT CARD
-    var form = document.getElementById('intake-form');
-    if (form) {
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        // send to formsubmit via fetch with error fallback
-        var data = new FormData(form);
-        fetch(form.action, { method: 'POST', body: data })
-          .then(function(res) {
-            if (!res.ok) {
-              // fallback: create a hidden iframe and POST natively so submission is not lost
-              var iframe = document.createElement('iframe');
-              iframe.name = 'fs-fallback';
-              iframe.style.display = 'none';
-              document.body.appendChild(iframe);
-              var fallbackForm = document.createElement('form');
-              fallbackForm.action = form.action;
-              fallbackForm.method = 'POST';
-              fallbackForm.enctype = 'multipart/form-data';
-              fallbackForm.target = 'fs-fallback';
-              var fd2 = new FormData(form);
-              fd2.forEach(function(val, key) {
-                if (typeof val === 'string') {
-                  var input = document.createElement('input');
-                  input.type = 'hidden';
-                  input.name = key;
-                  input.value = val;
-                  fallbackForm.appendChild(input);
-                }
-              });
-              document.body.appendChild(fallbackForm);
-              fallbackForm.submit();
-            }
-          })
-          .catch(function() {
-            // network error — try native submit to iframe
-            var iframe = document.createElement('iframe');
-            iframe.name = 'fs-fallback2';
-            iframe.style.display = 'none';
-            document.body.appendChild(iframe);
-            form.target = 'fs-fallback2';
-            form.removeEventListener('submit', arguments.callee);
-            form.submit();
-          });
-        // show thank you modal immediately (don't wait on network)
-        document.getElementById('ty-modal').classList.add('open');
-        document.body.style.overflow = 'hidden';
-        // hide form
-        form.style.display = 'none';
-        // handle referral discount display
-        var code = document.getElementById('referral-code-input').value.trim();
-        var discLine = document.getElementById('referral-discount-line');
-        if (code) {
-          discLine.style.display = 'block';
-          discLine.textContent = 'Referral code applied: 25% off — you pay $225.';
-          document.getElementById('stripe-pay-btn').textContent = 'Pay $225 and start my build →';
-        } else {
-          discLine.style.display = 'none';
-          document.getElementById('stripe-pay-btn').textContent = 'Pay $300 and start my build →';
-        }
-      });
-    }
+    // FORM SUBMIT — native POST to FormSubmit, redirects to success.html
+    // No fetch, no JS intercept — works in TikTok in-app browser and all others
   });
 
   function handleStripePayment(e) {
