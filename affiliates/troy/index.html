@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Troy Stone · Creator Media Kit</title>
+  <meta name="description" content="Troy Stone. Full-time TikTok creator. 285K+ followers. $478K GMV. Health, wellness, fitness, lifestyle, and motorcycle content that converts.">
+  <meta property="og:title" content="Troy Stone · Creator Media Kit">
+  <meta property="og:description" content="285K+ followers. $478K GMV. Content that actually sells.">
+  <meta property="og:image" content="tracks-395_Original.jpeg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scrollbar-width: none; }
+    html::-webkit-scrollbar { display: none; }
+    :root {
+      --bg: #060609;
+      --surface: #0c0c12;
+      --surface2: #111118;
+      --border: #1a1a24;
+      --border2: #242430;
+      --accent: #4169ff;
+      --accent2: #6080ff;
+      --glow: rgba(65,105,255,0.2);
+      --soft: rgba(65,105,255,0.08);
+      --text: #ededf5;
+      --muted: #6e6e99;
+      --muted2: #35354a;
+      --max: 1080px;
+      --r: 18px;
+    }
+    body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+    a { text-decoration:none; color:inherit; }
+    .wrap { max-width:var(--max); margin:0 auto; padding:0 28px; }
+
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    @keyframes photoGlow { 0%,100%{box-shadow:0 0 0 1px var(--border),0 32px 80px rgba(0,0,0,0.8),0 0 30px rgba(65,105,255,0.12),0 0 0 1px rgba(65,105,255,0.08)} 50%{box-shadow:0 0 0 1px var(--border),0 32px 80px rgba(0,0,0,0.8),0 0 60px rgba(65,105,255,0.28),0 0 0 1px rgba(65,105,255,0.2)} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+    .fade { opacity:0; transform:translateY(24px); transition:opacity 0.65s cubic-bezier(0.16,1,0.3,1),transform 0.65s cubic-bezier(0.16,1,0.3,1); }
+    .fade.in { opacity:1; transform:translateY(0); }
+
+    /* SCROLL BAR */
+    #bar { position:fixed;top:0;left:0;height:2px;z-index:9999;width:0%;background:linear-gradient(90deg,var(--accent),#7b9fff);box-shadow:0 0 8px var(--glow); }
+
+    /* NAV */
+    nav { position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 32px;background:rgba(6,6,9,0.82);backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--border); }
+    .nav-logo { font-size:16px;font-weight:900;color:#fff;letter-spacing:-0.6px; }
+    .nav-logo span { color:var(--accent); }
+    .nav-links { display:flex;align-items:center;gap:32px; }
+    .nav-links a { font-size:13px;font-weight:600;color:var(--muted);transition:color 0.15s; }
+    .nav-links a:hover { color:var(--text); }
+    .nav-cta { background:var(--accent)!important;color:#fff!important;padding:9px 22px!important;border-radius:9px!important;font-weight:800!important;font-size:13px!important;box-shadow:0 0 20px var(--glow);transition:opacity 0.15s!important; }
+    .nav-cta:hover { opacity:0.82!important; }
+
+    /* HERO */
+    .hero { min-height:100dvh;display:flex;align-items:center;padding:120px 28px 80px;position:relative;overflow:hidden; }
+    .hero-bg { position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 65% 40%,rgba(65,105,255,0.06) 0%,transparent 70%);pointer-events:none; }
+    .hero-grid { position:absolute;inset:0;background-image:linear-gradient(rgba(65,105,255,0.035) 1px,transparent 1px),linear-gradient(90deg,rgba(65,105,255,0.035) 1px,transparent 1px);background-size:56px 56px;pointer-events:none;mask-image:radial-gradient(ellipse 90% 80% at 50% 40%,black 0%,transparent 100%); }
+    .hero-inner { max-width:var(--max);margin:0 auto;width:100%;display:flex;align-items:center;gap:36px;position:relative;z-index:1; }
+    .hero-text { flex:1;min-width:0; }
+    .hero-badge { display:inline-flex;align-items:center;gap:9px;background:var(--soft);border:1px solid rgba(65,105,255,0.25);border-radius:100px;padding:7px 18px;font-size:11px;font-weight:800;color:var(--accent2);text-transform:uppercase;letter-spacing:1.4px;margin-bottom:32px; }
+    .hero-badge::before { content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite;flex-shrink:0; }
+    .hero h1 { font-size:clamp(44px,6.5vw,84px);font-weight:900;line-height:0.92;letter-spacing:-3px;margin-bottom:28px;color:#fff; }
+    .hero h1 em { display:block;background:linear-gradient(130deg,var(--accent) 0%,#8aa0ff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:normal; }
+    .hero-sub { font-size:16px;color:var(--muted);line-height:1.75;max-width:480px;margin-bottom:44px;font-weight:500; }
+    .hero-sub strong { color:#fff;font-weight:700; }
+    .type-word { color:var(--accent2);font-weight:700;border-right:2px solid var(--accent);padding-right:2px;white-space:nowrap;overflow:hidden;display:inline-block;width:0;vertical-align:bottom; }
+    .type-word.done { border-right:none; }
+    #hero-name { color:#fff;font-weight:inherit;font-size:inherit;letter-spacing:inherit;line-height:inherit;display:inline;border-right-color:#fff; }
+    @keyframes dotPulse { 0%,100%{opacity:1} 50%{opacity:0.15} }
+    #hero-dot { animation:none; }
+    @keyframes blink { 0%,100%{border-color:var(--accent)} 50%{border-color:transparent} }
+    .hero-ctas { display:flex;gap:14px;flex-wrap:wrap;align-items:center; }
+    .btn-primary { background:var(--accent);color:#fff;font-size:14px;font-weight:800;padding:15px 32px;border-radius:11px;box-shadow:0 0 32px var(--glow);transition:opacity 0.15s,transform 0.15s;display:inline-flex;align-items:center;gap:8px;position:relative;overflow:hidden; }
+    .btn-primary::after { content:'';position:absolute;top:-50%;left:-75%;width:50%;height:200%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);transform:skewX(-20deg);transition:left 0.5s ease; }
+    .btn-primary:hover::after { left:125%; }
+    .btn-primary:hover { opacity:0.85;transform:translateY(-2px); }
+    .btn-ghost { background:transparent;color:var(--muted);font-size:14px;font-weight:600;padding:15px 32px;border-radius:11px;border:1px solid var(--border2);transition:border-color 0.15s,color 0.15s;display:inline-flex;align-items:center;gap:8px; }
+    .btn-ghost:hover { border-color:var(--accent);color:var(--text); }
+
+    /* HERO PHOTO */
+    .hero-photo { flex:0 0 auto;display:flex;gap:16px;align-items:center; }
+    .photo-frame { width:360px;height:520px;border-radius:22px;overflow:hidden;position:relative;background:var(--surface2);border:1px solid rgba(65,105,255,0.18);box-shadow:0 0 0 1px var(--border),0 32px 80px rgba(0,0,0,0.8),0 0 30px rgba(65,105,255,0.12);animation:photoGlow 3.5s ease-in-out infinite;transition:box-shadow 0.4s ease; }
+    .hero-video-frame { width:180px;height:320px;border-radius:18px;overflow:hidden;position:relative;background:#000;border:1px solid rgba(65,105,255,0.15);box-shadow:0 0 0 1px var(--border),0 24px 60px rgba(0,0,0,0.8);flex-shrink:0; }
+    .photo-frame img { width:100%;height:100%;object-fit:cover;object-position:center 35%;display:block;transition:transform 0.4s ease; }
+    .photo-frame:hover img { transform:scale(1.03); }
+    .photo-frame::after { content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 55%,rgba(6,6,9,0.55) 100%);pointer-events:none; }
+    .photo-frame:hover { box-shadow:0 0 0 1px var(--border),0 32px 80px rgba(0,0,0,0.8),0 0 0 2px var(--accent),0 0 40px rgba(65,105,255,0.35); }
+
+    /* STATS BAR */
+    .stats-bar { border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--surface); }
+    .stats-inner { max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr); }
+    .stat { padding:30px 20px;border-right:1px solid var(--border);text-align:center;transition:background 0.2s;position:relative; }
+    .stat:last-child { border-right:none; }
+    .stat:hover { background:var(--surface2); }
+    .stat::before { content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:opacity 0.3s; }
+    .stat:hover::before { opacity:1; }
+    .stat-num { font-size:clamp(24px,3vw,38px);font-weight:900;letter-spacing:-1.5px;line-height:1;margin-bottom:6px;background:linear-gradient(135deg,#fff 40%,var(--accent2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+    .stat-lbl { font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1.2px; }
+
+    /* SECTION */
+    section.pad { padding:88px 28px; }
+    .section-tag { font-size:10px;font-weight:900;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:16px;display:flex;align-items:center;gap:14px; }
+    .section-tag::after { content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(65,105,255,0.35),transparent); }
+    h2 { font-size:clamp(28px,4vw,50px);font-weight:900;letter-spacing:-2px;line-height:1;color:#fff; }
+
+    /* ACCOUNTS */
+    .accounts-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:48px;grid-auto-rows:1fr; }
+    .account-card { background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:26px;display:flex;flex-direction:column;gap:18px;transition:border-color 0.2s,transform 0.2s,box-shadow 0.2s;position:relative;overflow:hidden;min-height:260px; }
+    .account-card::before { content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(65,105,255,0.45),transparent);opacity:0;transition:opacity 0.3s; }
+    .account-card:hover::before { opacity:1; }
+    .account-card:hover { border-color:rgba(65,105,255,0.3);transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,0,0,0.5),0 0 0 1px rgba(65,105,255,0.1); }
+    .ac-top { display:flex;align-items:center;gap:14px; }
+    .ac-avatar { width:56px;height:56px;border-radius:50%;flex-shrink:0;border:2px solid var(--border2);background:var(--border2) center/cover no-repeat; }
+    .ac-name { font-size:15px;font-weight:900;color:var(--text);line-height:1.2; }
+    .ac-platform { font-size:11px;color:var(--muted);font-weight:600;margin-top:3px; }
+    .ac-desc { font-size:13px;color:var(--muted);line-height:1.65;flex:1; }
+    .ac-stats { display:flex;gap:24px;border-top:1px solid var(--border);padding-top:16px;margin-top:auto; }
+    .ac-stat-num { font-size:20px;font-weight:900;letter-spacing:-0.8px;color:var(--accent); }
+    .ac-stat-lbl { font-size:10px;color:var(--muted2);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-top:3px; }
+    .ac-link { font-size:11px;color:var(--muted2);font-weight:700;letter-spacing:0.5px; }
+
+    /* VIDEOS */
+    .videos-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:48px;max-width:700px;margin-left:auto;margin-right:auto; }
+    .video-card { border-radius:16px;overflow:hidden;border:1px solid var(--border);background:#000;position:relative;transition:transform 0.2s,border-color 0.2s,box-shadow 0.2s;aspect-ratio:9/16;display:block;cursor:pointer;min-height:480px; }
+    .video-card:hover { transform:translateY(-4px);border-color:rgba(65,105,255,0.4);box-shadow:0 16px 40px rgba(65,105,255,0.12),0 8px 24px rgba(0,0,0,0.6); }
+    .video-card img { width:100%;height:100%;object-fit:cover;display:block; }
+    .video-card .play-overlay { position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.18);transition:background 0.2s; }
+    .video-card:hover .play-overlay { background:rgba(0,0,0,0.32); }
+    .video-play-btn { width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,0.18);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;transition:transform 0.2s,background 0.2s; }
+    .video-card:hover .video-play-btn { transform:scale(1.1);background:rgba(65,105,255,0.7); }
+    .video-play-btn svg { width:20px;height:20px;fill:#fff;margin-left:3px; }
+    .video-card .video-label { position:absolute;bottom:0;left:0;right:0;padding:40px 14px 12px;background:linear-gradient(transparent,rgba(0,0,0,0.92));pointer-events:none;z-index:2; }
+    .video-label-handle { font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent); }
+    .video-label-caption { font-size:11px;color:rgba(255,255,255,0.7);margin-top:3px;font-weight:600;line-height:1.4; }
+    /* INSTA CARD */
+    .insta-card { border-radius:16px;overflow:hidden;border:1px solid var(--border);background:#000;position:relative;display:block;cursor:pointer;margin-top:16px;transition:transform 0.2s,border-color 0.2s,box-shadow 0.2s; }
+    .insta-card:hover { transform:translateY(-3px);border-color:rgba(65,105,255,0.4);box-shadow:0 16px 40px rgba(65,105,255,0.12); }
+    .insta-card img { width:100%;display:block;object-fit:cover; }
+    .insta-card .play-overlay { position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.15);transition:background 0.2s; }
+    .insta-card:hover .play-overlay { background:rgba(0,0,0,0.28); }
+    .insta-label { position:absolute;bottom:0;left:0;right:0;padding:32px 16px 12px;background:linear-gradient(transparent,rgba(0,0,0,0.88));display:flex;align-items:flex-end;justify-content:space-between;pointer-events:none; }
+    .insta-label-left .video-label-handle { color:#e1306c; }
+    .insta-ugc-tag { font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.2);padding:4px 10px;border-radius:6px; }
+    .vt-bg { position:absolute;inset:0;display:flex;align-items:center;justify-content:center; }
+    .vt-icon { opacity:0.06;pointer-events:none; }
+    .vt-text { font-size:11px;font-weight:700;color:rgba(255,255,255,0.52);text-align:center;line-height:1.5;max-width:120px;position:absolute;bottom:44px;left:0;right:0;margin:0 auto;padding:0 12px; }
+
+    /* MARQUEE */
+    .brands-section { padding:52px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--surface);overflow:hidden; }
+    .brands-lbl { text-align:center;font-size:10px;font-weight:900;letter-spacing:3px;text-transform:uppercase;color:var(--muted2);margin-bottom:32px; }
+    .marquee-wrap { overflow:hidden;position:relative; }
+    .marquee { display:flex;gap:0;width:max-content;will-change:transform; }
+    .marquee:hover { animation-play-state:paused; }
+    @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-33.333%)} }
+    .brand-chip { display:flex;align-items:center;justify-content:center;padding:0 20px;height:60px;flex-shrink:0; }
+    .brand-chip svg { display:block; }
+
+    /* LIFESTYLE FEATURE */
+    .feature-inner { max-width:var(--max);margin:0 auto;padding:88px 28px;display:flex;align-items:center;gap:72px; }
+    .feature-video { flex:0 0 260px;border-radius:18px;overflow:hidden;border:1px solid rgba(65,105,255,0.2);box-shadow:0 0 60px rgba(65,105,255,0.12),0 32px 64px rgba(0,0,0,0.7);aspect-ratio:9/16; }
+    .feature-video iframe { width:100%;height:100%;border:none;display:block; }
+    .feature-text { flex:1; }
+    .feature-text p { font-size:16px;color:var(--muted);line-height:1.8;margin-bottom:20px; }
+    .feature-links { display:flex;gap:12px;flex-wrap:wrap;margin-top:36px; }
+    .link-pill { display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:9px;font-size:13px;font-weight:700;transition:all 0.15s; }
+    .link-pill.primary { background:var(--soft);border:1px solid rgba(65,105,255,0.25);color:var(--accent2); }
+    .link-pill.primary:hover { background:rgba(65,105,255,0.14); }
+    .link-pill.ghost { background:transparent;border:1px solid var(--border2);color:var(--muted); }
+    .link-pill.ghost:hover { border-color:var(--accent);color:var(--text); }
+
+    /* AUDIENCE */
+    .audience-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:48px; }
+    .audience-card { background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:32px 24px;text-align:center;transition:border-color 0.2s,transform 0.2s; }
+    .audience-card:hover { border-color:rgba(65,105,255,0.28);transform:translateY(-2px); }
+    .audience-num { font-size:clamp(26px,4vw,42px);font-weight:900;letter-spacing:-1.5px;background:linear-gradient(135deg,#fff 30%,var(--accent2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px; }
+    .audience-lbl { font-size:13px;font-weight:700;color:var(--muted);margin-bottom:6px; }
+    .audience-sub { font-size:12px;color:var(--muted2);line-height:1.55; }
+
+    /* CONTACT */
+    .contact-inner { max-width:560px;margin:0 auto; }
+    .contact-inner > p { font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:40px; }
+    .form-box { background:var(--surface);border:1px solid rgba(65,105,255,0.15);border-radius:22px;padding:40px;box-shadow:0 0 60px rgba(65,105,255,0.05); }
+    .form-row { margin-bottom:18px; }
+    .form-row label { display:block;font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:8px; }
+    .form-row input, .form-row textarea, .form-row select { width:100%;background:var(--bg);color:var(--text);border:1px solid var(--border2);border-radius:10px;padding:13px 16px;font-size:14px;font-family:'Inter',sans-serif;transition:border-color 0.15s,box-shadow 0.15s;outline:none;appearance:none; }
+    .form-row input:focus, .form-row textarea:focus, .form-row select:focus { border-color:var(--accent);box-shadow:0 0 0 3px rgba(65,105,255,0.1); }
+    .form-row textarea { resize:vertical;min-height:110px;line-height:1.55; }
+    .form-row select option { background:var(--surface2); }
+    .form-submit { width:100%;background:var(--accent);color:#fff;font-size:15px;font-weight:900;padding:16px;border:none;border-radius:11px;cursor:pointer;transition:opacity 0.15s;margin-top:8px;box-shadow:0 0 28px var(--glow);font-family:'Inter',sans-serif; }
+    .form-submit:hover { opacity:0.84; }
+    .direct { margin-top:18px;text-align:center;font-size:13px;color:var(--muted); }
+    .direct a { color:var(--text);font-weight:700;transition:color 0.15s; }
+    .direct a:hover { color:var(--accent); }
+
+    /* TIMELINE */
+    .timeline { margin-top:48px;position:relative;padding-left:32px; }
+    .timeline::before { content:'';position:absolute;left:0;top:6px;bottom:6px;width:2px;background:linear-gradient(to bottom,var(--accent),rgba(65,105,255,0.08)); }
+    .tl-item { padding:0 0 44px 40px;position:relative; }
+    .tl-item:last-child { padding-bottom:0; }
+    .tl-dot { position:absolute;left:-7px;top:5px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:2px solid var(--border2);transition:border-color 0.3s,box-shadow 0.3s; }
+    .tl-item.now .tl-dot { background:var(--accent);border-color:var(--accent);box-shadow:0 0 0 4px rgba(65,105,255,0.15),0 0 16px var(--glow); }
+    .tl-year { font-size:11px;font-weight:900;color:var(--accent);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:6px; }
+    .tl-item.now .tl-year::after { content:'LIVE'; font-size:8px; font-weight:900; letter-spacing:2px; background:var(--accent); color:#fff; border-radius:4px; padding:2px 6px; margin-left:10px; vertical-align:middle; }
+    .tl-title { font-size:clamp(17px,2vw,22px);font-weight:900;color:#fff;letter-spacing:-0.5px;margin-bottom:6px; }
+    .tl-desc { font-size:14px;color:var(--muted);line-height:1.65;max-width:540px; }
+
+    /* CATEGORY PILLS */
+    .pill-row { display:flex;flex-wrap:wrap;gap:8px;margin-top:28px; }
+    .pill { background:var(--surface2);border:1px solid var(--border2);border-radius:100px;padding:6px 16px;font-size:12px;font-weight:700;color:var(--muted);letter-spacing:0.3px;transition:border-color 0.2s,color 0.2s; }
+    .pill:hover { border-color:var(--accent);color:var(--text); }
+
+    /* FOOTER */
+    footer { border-top:1px solid var(--border);padding:36px 28px; }
+    .footer-inner { max-width:var(--max);margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px; }
+    .footer-logo { font-size:14px;font-weight:900;color:var(--muted2);letter-spacing:-0.3px; }
+    .footer-logo span { color:var(--accent); }
+    .footer-built { font-size:12px;color:var(--muted2); }
+    .footer-built a { color:#fff;text-decoration:none;font-weight:900; }
+    .footer-built a span { color:#c8ff00; }
+    .footer-links { display:flex;gap:20px; }
+    .footer-links a { font-size:12px;color:var(--muted2);font-weight:700;transition:color 0.15s; }
+    .footer-links a:hover { color:var(--text); }
+
+    /* MODAL */
+    #modal { display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;align-items:center;justify-content:center;padding:24px; }
+    #modal.open { display:flex;animation:fadeUp 0.3s ease; }
+    .modal-card { background:var(--surface);border:1px solid rgba(65,105,255,0.22);border-radius:22px;padding:44px 40px;max-width:400px;width:100%;text-align:center; }
+    .modal-icon { font-size:42px;margin-bottom:18px; }
+    .modal-card h2 { font-size:22px;font-weight:900;color:#fff;margin-bottom:12px;letter-spacing:-0.6px; }
+    .modal-card p { font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:6px; }
+    .modal-close { margin-top:22px;background:var(--accent);color:#fff;font-size:13px;font-weight:900;padding:12px 28px;border:none;border-radius:10px;cursor:pointer;font-family:'Inter',sans-serif; }
+
+    /* MOBILE */
+    @media (max-width:900px) {
+      .hero-inner { flex-direction:column-reverse;gap:40px; }
+      .hero-photo { flex:none;width:100%;max-width:260px;margin:0 auto; }
+      .photo-frame { width:100%;height:auto;aspect-ratio:3/4; }
+      .hero-video-frame { display:none; }
+      .stats-inner { grid-template-columns:repeat(3,1fr); }
+      .stat:nth-child(3) { border-right:none; }
+      .accounts-grid { grid-template-columns:1fr 1fr; }
+      .videos-grid { grid-template-columns:1fr;max-width:360px; }
+      .insta-card { margin-top:12px; }
+      .audience-grid { grid-template-columns:1fr; }
+      .feature-inner { flex-direction:column;gap:40px;padding:64px 28px; }
+      .feature-video { flex:none;width:100%;max-width:240px;align-self:center; }
+      nav { padding:14px 20px; }
+      .nav-links { display:none; }
+      .footer-inner { flex-direction:column;text-align:center; }
+      .footer-links { justify-content:center; }
+    }
+    @media (max-width:540px) {
+      .hero { padding:100px 20px 60px; }
+      .hero h1 { font-size:40px;letter-spacing:-2px; }
+      section.pad { padding:64px 20px; }
+      .stats-inner { grid-template-columns:repeat(2,1fr); }
+      .stat:nth-child(2) { border-right:none; }
+      .stat:nth-child(3) { border-right:1px solid var(--border); }
+      .stat:nth-child(4) { border-right:none; }
+      .accounts-grid { grid-template-columns:1fr; }
+      .videos-grid { grid-template-columns:repeat(2,1fr);gap:10px; }
+      .form-box { padding:28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="bar"></div>
+
+
+<!-- MODAL -->
+<div id="modal">
+  <div class="modal-card">
+    <div class="modal-icon" style="font-size:42px;margin-bottom:18px;">✓</div>
+    <h2>Sent.</h2>
+    <p>Troy reviews every brand inquiry personally. Expect a response within 24 hours.</p>
+    <p style="margin-top:8px;">Follow on Instagram: <a href="https://www.instagram.com/mrtroystone" target="_blank" style="color:var(--accent);font-weight:800;">@mrtroystone</a></p>
+    <button class="modal-close" onclick="document.getElementById('modal').classList.remove('open');document.body.style.overflow='';">Close</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Troy<span>.</span></a>
+  <div class="nav-links">
+    <a href="#content">Content</a>
+    <a href="#journey">Story</a>
+    <a href="#accounts">Platforms</a>
+    <a href="#contact" class="nav-cta">Work with me</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge fade in">Jacksonville, FL &nbsp;·&nbsp; Full-time &nbsp;·&nbsp; 7 active deals</div>
+      <h1 class="fade in" style="transition-delay:0.05s;"><span class="type-word" id="hero-name" data-text="Troy Stone"></span><span id="hero-dot" style="opacity:0;color:#fff;">.</span><br><em>$478K sold.</em></h1>
+      <div class="hero-sub fade in" style="transition-delay:0.1s;">
+        <p>Troy built his platform from the ground up with a camera, <span class="type-word" data-text="consistency"></span> and <span class="type-word" data-text="authentic"></span> content that made people stop mid-scroll.</p>
+        <p style="margin-top:14px;">Today, his brand blends health, wellness, fitness, lifestyle, relatability, and UGC to create affiliate marketing content that feels natural while driving real conversions.</p>
+        <p style="margin-top:14px;">Creating full-time since 2026, Troy brings brands a trusted voice, an engaged audience, and content built around connection first.</p>
+      </div>
+      <div class="hero-ctas fade in" style="transition-delay:0.15s;">
+        <a class="btn-primary" href="#contact">Work with me</a>
+        <a class="btn-ghost" href="#content">See the content &darr;</a>
+      </div>
+    </div>
+    <div class="hero-photo fade in" style="transition-delay:0.2s;">
+      <div class="photo-frame">
+        <img src="tracks-395_Original (1).jpeg" alt="Troy Stone" loading="eager">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat"><div class="stat-num" data-target="285" data-suffix="K+">285K+</div><div class="stat-lbl">Followers</div></div>
+    <div class="stat"><div class="stat-num" data-prefix="$" data-target="478" data-suffix="K">$478K</div><div class="stat-lbl">GMV</div></div>
+    <div class="stat"><div class="stat-num" data-target="7">7</div><div class="stat-lbl">Active Brand Deals</div></div>
+    <div class="stat"><div class="stat-num" data-target="20" data-suffix="+">20+</div><div class="stat-lbl">Brand Deals</div></div>
+    <div class="stat"><div class="stat-num" data-target="2.6" data-suffix="M">2.6M</div><div class="stat-lbl">Top Video Views</div></div>
+  </div>
+</div>
+
+<!-- ACCOUNTS -->
+<section class="pad" id="accounts" style="background:var(--surface);border-top:1px solid var(--border);">
+  <div class="wrap">
+    <div class="section-tag fade">Platforms</div>
+    <h2 class="fade">One voice.<br>Six accounts.</h2>
+    <div class="accounts-grid" style="margin-top:48px;">
+
+      <!-- 1. mrtroystone69 TikTok -->
+      <a class="account-card fade" href="https://www.tiktok.com/@mrtroystone69" target="_blank">
+        <div class="ac-top">
+          <div class="ac-avatar" style="background-image:url('36571c8762ec982155efc9365e56356d~tplv-tiktokx-cropcenter_1080_1080.jpeg');background-position:center center;"></div>
+          <div>
+            <div class="ac-name">mrtroystone</div>
+            <div class="ac-platform">TikTok &middot; @mrtroystone69</div>
+          </div>
+        </div>
+        <div class="ac-desc">Motorcycles, lifestyle, real life. 160K followers built from nothing, one video at a time.</div>
+        <div class="ac-stats">
+          <div><div class="ac-stat-num">160.2K</div><div class="ac-stat-lbl">Followers</div></div>
+          <div><div class="ac-stat-num">2.8M</div><div class="ac-stat-lbl">Likes</div></div>
+        </div>
+        <div class="ac-link">View on TikTok &rarr;</div>
+      </a>
+
+      <!-- 2. Instagram (verified, 158K) -->
+      <a class="account-card fade" href="https://www.instagram.com/mrtroystone" target="_blank">
+        <div class="ac-top">
+          <div class="ac-avatar" style="background-image:url('36571c8762ec982155efc9365e56356d~tplv-tiktokx-cropcenter_1080_1080.jpeg');background-position:center center;"></div>
+          <div>
+            <div class="ac-name">mrtroystone <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="display:inline-block;vertical-align:middle;margin-left:4px;margin-bottom:2px;"><circle cx="12" cy="12" r="11" fill="#4169ff"/><path d="M7 12l3.5 3.5L17 8.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="ac-platform">Instagram &middot; Verified</div>
+          </div>
+        </div>
+        <div class="ac-desc">Life on two wheels. Helping people break free and go after what they actually want.</div>
+        <div class="ac-stats">
+          <div><div class="ac-stat-num">158K</div><div class="ac-stat-lbl">Followers</div></div>
+        </div>
+        <div class="ac-link">View on Instagram &rarr;</div>
+      </a>
+
+      <!-- 3. Rooted Strength -->
+      <a class="account-card fade" href="https://www.tiktok.com/@rooted_strength" target="_blank">
+        <div class="ac-top">
+          <div class="ac-avatar" style="background-image:url('61f8f3cde764ebe4b29db828abffdcac~tplv-tiktokx-cropcenter_1080_1080.jpeg');background-position:center center;"></div>
+          <div>
+            <div class="ac-name">Rooted Strength</div>
+            <div class="ac-platform">TikTok Shop &middot; @rooted_strength</div>
+          </div>
+        </div>
+        <div class="ac-desc">Health supplements, vitamins, and wellness stack reviews. Honest content that converts.</div>
+        <div class="ac-stats">
+          <div><div class="ac-stat-num">81.3K</div><div class="ac-stat-lbl">Followers</div></div>
+          <div><div class="ac-stat-num">399.3K</div><div class="ac-stat-lbl">Likes</div></div>
+        </div>
+        <div class="ac-link">View on TikTok &rarr;</div>
+      </a>
+
+      <!-- 4. Vital Wellness -->
+      <a class="account-card fade" href="https://www.tiktok.com/@vitalwellnessandhealth" target="_blank">
+        <div class="ac-top">
+          <div class="ac-avatar" style="background-image:url('b1b1ce3f5a21760e8ff868d7d2d23c9d~tplv-tiktokx-cropcenter_1080_1080.jpeg');background-position:center center;"></div>
+          <div>
+            <div class="ac-name">Vital Wellness</div>
+            <div class="ac-platform">TikTok Shop &middot; @vitalwellnessandhealth</div>
+          </div>
+        </div>
+        <div class="ac-desc">Fitness, wellness, and personal care. Helping people show up stronger every day.</div>
+        <div class="ac-stats">
+          <div><div class="ac-stat-num">32.2K</div><div class="ac-stat-lbl">Followers</div></div>
+          <div><div class="ac-stat-num">1.5M</div><div class="ac-stat-lbl">Likes</div></div>
+        </div>
+        <div class="ac-link">View on TikTok &rarr;</div>
+      </a>
+
+      <!-- 5. Deals From Troy -->
+      <a class="account-card fade" href="https://www.tiktok.com/@dealsfromtroy" target="_blank">
+        <div class="ac-top">
+          <div class="ac-avatar" style="background-image:url('6b24bda67cec900904fff1f82c2ab980~tplv-tiktokx-cropcenter_1080_1080.jpeg');background-position:center top;"></div>
+          <div>
+            <div class="ac-name">dealsfromtroy</div>
+            <div class="ac-platform">TikTok Shop &middot; @dealsfromtroy</div>
+          </div>
+        </div>
+        <div class="ac-desc">Fast product reviews, tech, and everyday finds. If it's worth buying, I'll tell you.</div>
+        <div class="ac-stats">
+          <div><div class="ac-stat-num">12.3K</div><div class="ac-stat-lbl">Followers</div></div>
+          <div><div class="ac-stat-num">95.4K</div><div class="ac-stat-lbl">Likes</div></div>
+        </div>
+        <div class="ac-link">View on TikTok &rarr;</div>
+      </a>
+
+      <!-- 6. YouTube -->
+      <a class="account-card fade" href="https://www.youtube.com/@mrtroystone" target="_blank">
+        <div class="ac-top">
+          <div class="ac-avatar" style="background-image:url('channels4_profile.jpg');background-position:center center;"></div>
+          <div>
+            <div class="ac-name">MrTroyStone</div>
+            <div class="ac-platform">YouTube &middot; @mrtroystone</div>
+          </div>
+        </div>
+        <div class="ac-desc">Here to inspire, be creative, and help others. Motorcycles, lifestyle, and long-form content.</div>
+        <div class="ac-stats">
+          <div><div class="ac-stat-num">5.91K</div><div class="ac-stat-lbl">Subscribers</div></div>
+        </div>
+        <div class="ac-link">View on YouTube &rarr;</div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<section class="pad" id="content" style="border-top:1px solid var(--border);">
+  <div class="wrap">
+    <div class="section-tag fade">Content</div>
+    <h2 class="fade">Real content.<br>Real results.</h2>
+    <div class="videos-grid" style="margin-top:48px;">
+
+      <div class="video-card fade" onclick="playGDrive(this,'v12044gd0000d3tsuanog65g7p44vk70.mp4')" style="cursor:pointer;">
+        <img src="thumb1.jpg" alt="Don't get scammed - Nitric oxide">
+        <div class="play-overlay"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+        <div class="video-label">
+          <div class="video-label-handle">@rooted_strength</div>
+          <div class="video-label-caption">Don't get scammed on nitric oxide</div>
+        </div>
+      </div>
+
+      <div class="video-card fade" onclick="playGDrive(this,'v12044gd0000d6pksjnog65sgp3f9hh0.mp4')" style="cursor:pointer;">
+        <img src="thumb2.jpg" alt="HARSH truth whats holding your glow up back">
+        <div class="play-overlay"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+        <div class="video-label">
+          <div class="video-label-handle">@rooted_strength</div>
+          <div class="video-label-caption">HARSH truth holding your glow up back</div>
+        </div>
+      </div>
+
+      <div class="video-card fade" onclick="playGDrive(this,'v12044gd0000d7q0agnog65grfstpps0.mp4')" style="cursor:pointer;">
+        <img src="thumb3.jpg" alt="1 month update avoiding sugar and food cravings">
+        <div class="play-overlay"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+        <div class="video-label">
+          <div class="video-label-handle">@vitalwellnessandhealth</div>
+          <div class="video-label-caption">1 month update - avoiding sugar cravings</div>
+        </div>
+      </div>
+
+      <div class="video-card fade" onclick="playGDrive(this,'v15044gf0000d73d657og65s3a1ckijg.mp4')" style="cursor:pointer;">
+        <img src="thumb4.jpg" alt="GHK-CU 2 week update">
+        <div class="play-overlay"><div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+        <div class="video-label">
+          <div class="video-label-handle">@vitalwellnessandhealth</div>
+          <div class="video-label-caption">GHK-CU 2 week update</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Instagram UGC Demo - centered below grid -->
+    <div style="margin-top:28px;background:var(--surface2);border:1px solid rgba(65,105,255,0.15);border-radius:18px;padding:20px;max-width:420px;margin-left:auto;margin-right:auto;">
+      <div style="font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:16px;display:flex;align-items:center;gap:10px;">
+        <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;"></span>
+        UGC Demo &middot; @mrtroystone
+      </div>
+      <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DDKfP9oRTVZ/?utm_source=ig_embed" data-instgrm-version="14" style="background:#FFF;border:0;border-radius:10px;margin:0;max-width:100%;min-width:280px;padding:0;width:100%;"></blockquote>
+      <script async src="https://www.instagram.com/embed.js"></script>
+    </div>
+  </div>
+</section>
+
+<!-- BRANDS -->
+<div class="brands-section">
+  <div class="brands-lbl">Brands Troy has worked with</div>
+  <div class="marquee-wrap">
+    <div style="position:absolute;left:0;top:0;bottom:0;width:120px;background:linear-gradient(90deg,var(--surface),transparent);z-index:2;pointer-events:none;"></div>
+    <div style="position:absolute;right:0;top:0;bottom:0;width:120px;background:linear-gradient(-90deg,var(--surface),transparent);z-index:2;pointer-events:none;"></div>
+    <div class="marquee" id="marquee">
+      <!-- SET 1 -->
+      <div class="brand-chip">
+        <svg width="148" height="44" viewBox="0 0 148 44"><rect x="1" y="1" width="146" height="42" rx="8" fill="rgba(65,180,100,0.07)" stroke="rgba(65,180,100,0.18)" stroke-width="1"/><text x="74" y="27" font-family="Inter,Arial,sans-serif" font-size="12" font-weight="800" fill="rgba(65,200,100,0.7)" text-anchor="middle" letter-spacing="1.5">NUTRICOST</text></svg>
+      </div>
+      <div class="brand-chip">
+        <svg width="152" height="44" viewBox="0 0 152 44"><rect x="1" y="1" width="150" height="42" rx="8" fill="rgba(255,160,30,0.07)" stroke="rgba(255,160,30,0.18)" stroke-width="1"/><text x="76" y="27" font-family="Inter,Arial,sans-serif" font-size="12" font-weight="800" fill="rgba(255,170,50,0.7)" text-anchor="middle" letter-spacing="1">GURUNANDA</text></svg>
+      </div>
+      <div class="brand-chip">
+        <svg width="188" height="44" viewBox="0 0 188 44"><rect x="1" y="1" width="186" height="42" rx="8" fill="rgba(80,180,220,0.07)" stroke="rgba(80,180,220,0.18)" stroke-width="1"/><text x="94" y="27" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="800" fill="rgba(80,190,230,0.7)" text-anchor="middle" letter-spacing="1.5">MICRO INGREDIENTS</text></svg>
+      </div>
+      <div class="brand-chip">
+        <svg width="136" height="44" viewBox="0 0 136 44"><rect x="1" y="1" width="134" height="42" rx="8" fill="rgba(140,80,240,0.07)" stroke="rgba(140,80,240,0.18)" stroke-width="1"/><text x="68" y="27" font-family="Inter,Arial,sans-serif" font-size="12" font-weight="800" fill="rgba(160,100,255,0.7)" text-anchor="middle" letter-spacing="2">UNC LABS</text></svg>
+      </div>
+      <div class="brand-chip">
+        <svg width="164" height="44" viewBox="0 0 164 44"><rect x="1" y="1" width="162" height="42" rx="8" fill="rgba(30,160,255,0.07)" stroke="rgba(30,160,255,0.18)" stroke-width="1"/><text x="82" y="27" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="800" fill="rgba(60,180,255,0.7)" text-anchor="middle" letter-spacing="1.5">PEAK REVIVALS</text></svg>
+      </div>
+      <div class="brand-chip">
+        <svg width="188" height="44" viewBox="0 0 188 44"><rect x="1" y="1" width="186" height="42" rx="8" fill="rgba(220,60,100,0.07)" stroke="rgba(220,60,100,0.18)" stroke-width="1"/><text x="94" y="27" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="800" fill="rgba(240,80,120,0.7)" text-anchor="middle" letter-spacing="1">RENUEBYSCIENCE</text></svg>
+      </div>
+      <div class="brand-chip">
+        <svg width="100" height="44" viewBox="0 0 100 44"><rect x="1" y="1" width="98" height="42" rx="8" fill="rgba(65,105,255,0.09)" stroke="rgba(65,105,255,0.2)" stroke-width="1"/><text x="50" y="27" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="900" fill="rgba(100,140,255,0.7)" text-anchor="middle" letter-spacing="3">NBT</text></svg>
+      </div>
+      <div class="brand-chip">
+        <svg width="144" height="44" viewBox="0 0 144 44"><rect x="1" y="1" width="142" height="42" rx="8" fill="rgba(255,80,20,0.07)" stroke="rgba(255,80,20,0.18)" stroke-width="1"/><text x="72" y="27" font-family="Inter,Arial,sans-serif" font-size="12" font-weight="800" fill="rgba(255,110,50,0.7)" text-anchor="middle" letter-spacing="1.5">QUAD LOCK</text></svg>
+      </div>
+      <!-- SET 2 (exact duplicate for seamless loop) -->
+      <div class="brand-chip">
+        <svg width="148" height="44" viewBox="0 0 148 44"><rect x="1" y="1" width="146" height="42" rx="8" fill="rgba(65,180,100,0.07)" stroke="rgba(65,180,100,0.18)" stroke-width="1"/><text x="74" y="27" font-family="Inter,Arial,sans-serif" font-size="12" font-weight="800" fill="rgba(65,200,100,0.7)" text-anchor="middle" letter-spacing="1.5">NUTRICOST</text></svg>
+      </div>
+      <div class="brand-chip">
+        <svg width="152" height="44" viewBox="0 0 152 44"><rect x="1" y="1" width="150" height="42" rx="8" fill="rgba(255,160,30,0.07)" stroke="rgba(255,160,30,0.18)" stroke-width="1"/><text x="76" y="27" font-family="Inter,Arial,sans-serif" font-size="12" font-weight="800" fill="rgba(255,170,50,0.7)" text-anchor="middle" letter-spacing="1">GURUNANDA</text></svg>
+      </div>
+      <div class="brand-chip">
+        <svg width="188" height="44" viewBox="0 0 188 44"><rect x="1" y="1" width="186" height="42" rx="8" fill="rgba(80,180,220,0.07)" stroke="rgba(80,180,220,0.18)" stroke-width="1"/><text x="94" y="27" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="800" fill="rgba(80,190,230,0.7)" text-anchor="middle" letter-spacing="1.5">MICRO INGREDIENTS</text></svg>
+      </div>
+      <div class="brand-chip">
+        <svg width="136" height="44" viewBox="0 0 136 44"><rect x="1" y="1" width="134" height="42" rx="8" fill="rgba(140,80,240,0.07)" stroke="rgba(140,80,240,0.18)" stroke-width="1"/><text x="68" y="27" font-family="Inter,Arial,sans-serif" font-size="12" font-weight="800" fill="rgba(160,100,255,0.7)" text-anchor="middle" letter-spacing="2">UNC LABS</text></svg>
+      </div>
+      <div class="brand-chip">
+        <svg width="164" height="44" viewBox="0 0 164 44"><rect x="1" y="1" width="162" height="42" rx="8" fill="rgba(30,160,255,0.07)" stroke="rgba(30,160,255,0.18)" stroke-width="1"/><text x="82" y="27" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="800" fill="rgba(60,180,255,0.7)" text-anchor="middle" letter-spacing="1.5">PEAK REVIVALS</text></svg>
+      </div>
+      <div class="brand-chip">
+        <svg width="188" height="44" viewBox="0 0 188 44"><rect x="1" y="1" width="186" height="42" rx="8" fill="rgba(220,60,100,0.07)" stroke="rgba(220,60,100,0.18)" stroke-width="1"/><text x="94" y="27" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="800" fill="rgba(240,80,120,0.7)" text-anchor="middle" letter-spacing="1">RENUEBYSCIENCE</text></svg>
+      </div>
+      <div class="brand-chip">
+        <svg width="100" height="44" viewBox="0 0 100 44"><rect x="1" y="1" width="98" height="42" rx="8" fill="rgba(65,105,255,0.09)" stroke="rgba(65,105,255,0.2)" stroke-width="1"/><text x="50" y="27" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="900" fill="rgba(100,140,255,0.7)" text-anchor="middle" letter-spacing="3">NBT</text></svg>
+      </div>
+      <div class="brand-chip">
+        <svg width="144" height="44" viewBox="0 0 144 44"><rect x="1" y="1" width="142" height="42" rx="8" fill="rgba(255,80,20,0.07)" stroke="rgba(255,80,20,0.18)" stroke-width="1"/><text x="72" y="27" font-family="Inter,Arial,sans-serif" font-size="12" font-weight="800" fill="rgba(255,110,50,0.7)" text-anchor="middle" letter-spacing="1.5">QUAD LOCK</text></svg>
+      </div>
+      <!-- SET 3 -->
+      <div class="brand-chip"><svg width="148" height="44" viewBox="0 0 148 44"><rect x="1" y="1" width="146" height="42" rx="8" fill="rgba(65,180,100,0.07)" stroke="rgba(65,180,100,0.18)" stroke-width="1"/><text x="74" y="27" font-family="Inter,Arial,sans-serif" font-size="12" font-weight="800" fill="rgba(65,200,100,0.7)" text-anchor="middle" letter-spacing="1.5">NUTRICOST</text></svg></div>
+      <div class="brand-chip"><svg width="152" height="44" viewBox="0 0 152 44"><rect x="1" y="1" width="150" height="42" rx="8" fill="rgba(255,160,30,0.07)" stroke="rgba(255,160,30,0.18)" stroke-width="1"/><text x="76" y="27" font-family="Inter,Arial,sans-serif" font-size="12" font-weight="800" fill="rgba(255,170,50,0.7)" text-anchor="middle" letter-spacing="1">GURUNANDA</text></svg></div>
+      <div class="brand-chip"><svg width="188" height="44" viewBox="0 0 188 44"><rect x="1" y="1" width="186" height="42" rx="8" fill="rgba(80,180,220,0.07)" stroke="rgba(80,180,220,0.18)" stroke-width="1"/><text x="94" y="27" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="800" fill="rgba(80,190,230,0.7)" text-anchor="middle" letter-spacing="1.5">MICRO INGREDIENTS</text></svg></div>
+      <div class="brand-chip"><svg width="136" height="44" viewBox="0 0 136 44"><rect x="1" y="1" width="134" height="42" rx="8" fill="rgba(140,80,240,0.07)" stroke="rgba(140,80,240,0.18)" stroke-width="1"/><text x="68" y="27" font-family="Inter,Arial,sans-serif" font-size="12" font-weight="800" fill="rgba(160,100,255,0.7)" text-anchor="middle" letter-spacing="2">UNC LABS</text></svg></div>
+      <div class="brand-chip"><svg width="164" height="44" viewBox="0 0 164 44"><rect x="1" y="1" width="162" height="42" rx="8" fill="rgba(30,160,255,0.07)" stroke="rgba(30,160,255,0.18)" stroke-width="1"/><text x="82" y="27" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="800" fill="rgba(60,180,255,0.7)" text-anchor="middle" letter-spacing="1.5">PEAK REVIVALS</text></svg></div>
+      <div class="brand-chip"><svg width="188" height="44" viewBox="0 0 188 44"><rect x="1" y="1" width="186" height="42" rx="8" fill="rgba(220,60,100,0.07)" stroke="rgba(220,60,100,0.18)" stroke-width="1"/><text x="94" y="27" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="800" fill="rgba(240,80,120,0.7)" text-anchor="middle" letter-spacing="1">RENUEBYSCIENCE</text></svg></div>
+      <div class="brand-chip"><svg width="100" height="44" viewBox="0 0 100 44"><rect x="1" y="1" width="98" height="42" rx="8" fill="rgba(65,105,255,0.09)" stroke="rgba(65,105,255,0.2)" stroke-width="1"/><text x="50" y="27" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="900" fill="rgba(100,140,255,0.7)" text-anchor="middle" letter-spacing="3">NBT</text></svg></div>
+      <div class="brand-chip"><svg width="144" height="44" viewBox="0 0 144 44"><rect x="1" y="1" width="142" height="42" rx="8" fill="rgba(255,80,20,0.07)" stroke="rgba(255,80,20,0.18)" stroke-width="1"/><text x="72" y="27" font-family="Inter,Arial,sans-serif" font-size="12" font-weight="800" fill="rgba(255,110,50,0.7)" text-anchor="middle" letter-spacing="1.5">QUAD LOCK</text></svg></div>
+    </div>
+  </div>
+</div>
+
+<!-- LIFESTYLE FEATURE -->
+<div style="background:var(--bg);border-top:1px solid var(--border);position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 50% 70% at 30% 50%,rgba(65,105,255,0.05) 0%,transparent 70%);pointer-events:none;"></div>
+  <div class="feature-inner">
+    <div class="feature-video fade">
+      <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;">
+        <source src="v12044gd0000cstao3vog65r3j66c2hg.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="feature-text fade">
+      <div class="section-tag">The person behind it</div>
+      <h2 style="margin-bottom:24px;">Troy built his platform<br>from the ground up.</h2>
+      <p>Troy built his audience through real-life motorcycle content, not a scripted persona. His brand is rooted in authenticity, consistency, and trust — the same qualities he brings into health, wellness, beauty, personal care, supplements, and everyday TikTok Shop products.</p>
+      <p>By creating content that feels relatable, honest, and lived-in, Troy connects with his audience in a way that turns attention into action and helps brands drive real conversions.</p>
+      <div class="feature-links">
+        <a class="link-pill primary" href="https://www.tiktok.com/@mrtroystone69" target="_blank">Follow on TikTok</a>
+        <a class="link-pill ghost" href="https://www.instagram.com/mrtroystone" target="_blank">Instagram</a>
+        <a class="link-pill ghost" href="https://www.youtube.com/@mrtroystone" target="_blank">YouTube</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<section class="pad" id="journey" style="background:var(--bg);border-top:1px solid var(--border);">
+  <div class="wrap">
+    <div class="section-tag fade">The Journey</div>
+    <h2 class="fade">Built from scratch.<br>For real.</h2>
+    <div class="timeline">
+      <div class="tl-item fade">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2023</div>
+        <div class="tl-title">Started from zero.</div>
+        <div class="tl-desc">No audience, no playbook. A camera, a motorcycle, and a commitment to figure it out. Posted consistently and never stopped.</div>
+      </div>
+      <div class="tl-item fade">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2025</div>
+        <div class="tl-title">First brand deal closed.</div>
+        <div class="tl-desc">Landed the first paid partnership. Proof that organic, authentic content closes deals. The first of 20+.</div>
+      </div>
+      <div class="tl-item fade">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2025</div>
+        <div class="tl-title">First $10K in TikTok Shop sales.</div>
+        <div class="tl-desc">Hit the first major GMV milestone. Content that converts, not just content that entertains.</div>
+      </div>
+      <div class="tl-item fade">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2026</div>
+        <div class="tl-title">Full-time. No going back.</div>
+        <div class="tl-desc">Made the leap. $478K GMV and growing. Six accounts across five platforms, content as the full-time business.</div>
+      </div>
+      <div class="tl-item now fade">
+        <div class="tl-dot"></div>
+        <div class="tl-year">Now</div>
+        <div class="tl-title">7 active brand deals. Looking for more.</div>
+        <div class="tl-desc">Running a full content operation across health, wellness, fitness, lifestyle, and motorcycles. Seven active brand deals. The trajectory is up and to the right.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIENCE -->
+<section class="pad" style="background:var(--surface);border-top:1px solid var(--border);">
+  <div class="wrap">
+    <div class="section-tag fade">Audience</div>
+    <h2 class="fade">Who's watching<br>and buying.</h2>
+    <p style="font-size:15px;color:var(--muted);max-width:560px;margin-top:16px;line-height:1.7;" class="fade">Health-conscious. Fitness-driven. Motorcycle culture. 25-47 year olds with disposable income who buy based on trust, not ads.</p>
+    <div class="audience-grid">
+      <div class="audience-card fade">
+        <div class="audience-num">25-47</div>
+        <div class="audience-lbl">Primary Age Range</div>
+        <div class="audience-sub">High-intent buyers. Brand-loyal when trust is earned.</div>
+      </div>
+      <div class="audience-card fade">
+        <div class="audience-num">50/50</div>
+        <div class="audience-lbl">Male / Female Split</div>
+        <div class="audience-sub">Broad product fit across wellness, lifestyle, and gear.</div>
+      </div>
+      <div class="audience-card fade">
+        <div class="audience-num">100%</div>
+        <div class="audience-lbl">Organic Reach</div>
+        <div class="audience-sub">No paid growth. Every view earned. Every sale real.</div>
+      </div>
+    </div>
+    <p style="font-size:11px;font-weight:900;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-top:56px;margin-bottom:12px;" class="fade">What he converts</p>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:0;line-height:1.6;" class="fade">Troy converts across a wide range of categories. His audience follows his taste, not just his niche.</p>
+    <div class="pill-row fade">
+      <div class="pill">Health &amp; Wellness</div>
+      <div class="pill">Supplements &amp; Vitamins</div>
+      <div class="pill">Fitness</div>
+      <div class="pill">Personal Care</div>
+      <div class="pill">Beauty &amp; Skincare</div>
+      <div class="pill">Tech &amp; Gadgets</div>
+      <div class="pill">Outdoor &amp; Garden</div>
+      <div class="pill">Pet Supplies</div>
+      <div class="pill">Fashion</div>
+      <div class="pill">Jewelry &amp; Accessories</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="pad" id="contact" style="border-top:1px solid var(--border);">
+  <div class="wrap">
+    <div class="contact-inner">
+      <div class="section-tag fade">Brand Inquiries</div>
+      <h2 class="fade" style="margin-bottom:20px;">Ready to work?</h2>
+      <p class="fade">$478K in GMV. 20+ brand deals. Seven active right now. If your product fits a health-conscious, trust-first audience, this is the form to fill out. Troy reviews every inquiry personally.</p>
+      <div class="form-box fade">
+        <form id="contact-form" action="https://formsubmit.co/troy@stonescreations.com" method="POST">
+          <input type="hidden" name="_subject" value="Brand Inquiry - Troy Stone">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+          <div class="form-row">
+            <label>Your Name</label>
+            <input type="text" name="name" placeholder="First and last" required>
+          </div>
+          <div class="form-row">
+            <label>Brand / Company</label>
+            <input type="text" name="brand" placeholder="Brand or company name" required>
+          </div>
+          <div class="form-row">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="your@email.com" required>
+          </div>
+          <div class="form-row">
+            <label>What are you looking for?</label>
+            <select name="type">
+              <option value="">Select a collaboration type</option>
+              <option>TikTok Shop affiliate</option>
+              <option>Paid UGC / sponsored content</option>
+              <option>Long-term retainer</option>
+              <option>One-off campaign</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label>Tell me about the brand</label>
+            <textarea name="message" placeholder="Product, budget range, timeline, what you're trying to achieve..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Send it</button>
+        </form>
+        <div class="direct">Or email directly: <a href="mailto:troy@stonescreations.com">troy@stonescreations.com</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Troy<span>.</span></div>
+    <div class="footer-built">Built by <a href="https://tylerdream.com" target="_blank">Dream<span>.</span></a></div>
+    <div class="footer-links">
+      <a href="https://www.tiktok.com/@mrtroystone69" target="_blank">TikTok</a>
+      <a href="https://www.instagram.com/mrtroystone" target="_blank">Instagram</a>
+      <a href="https://www.youtube.com/@mrtroystone" target="_blank">YouTube</a>
+      <a href="mailto:troy@stonescreations.com">Email</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+
+// Inline video swap — replaces thumbnail with local mp4 on click
+function playGDrive(card, file) {
+  card.onclick = null;
+  card.style.cursor = 'default';
+  card.innerHTML = '<video src="' + file + '" autoplay controls playsinline style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;background:#000;"></video>';
+}
+
+// Typed cursor animation for hero keywords
+(function() {
+  var nameEl = document.getElementById('hero-name');
+  var words = Array.from(document.querySelectorAll('.type-word:not(#hero-name)'));
+
+  function typeWord(el, text, speed, cb) {
+    el.style.animation = 'blink 0.7s step-end infinite';
+    var i = 0;
+    var t = setInterval(function() {
+      i++;
+      el.textContent = text.slice(0, i);
+      el.style.width = 'auto';
+      if (i >= text.length) {
+        clearInterval(t);
+        el.style.animation = '';
+        el.classList.add('done');
+        if (cb) setTimeout(cb, 200);
+      }
+    }, speed);
+  }
+
+  function runSequence(index) {
+    if (index >= words.length) return;
+    typeWord(words[index], words[index].dataset.text, 52, function() {
+      runSequence(index + 1);
+    });
+  }
+
+  // Type name first at 80ms, then show pulsing dot, then type sub-copy words
+  setTimeout(function() {
+    typeWord(nameEl, nameEl.dataset.text, 80, function() {
+      var dot = document.getElementById('hero-dot');
+      dot.style.opacity = '1';
+      dot.style.animation = 'dotPulse 1.8s ease-in-out infinite';
+      setTimeout(function() { runSequence(0); }, 500);
+    });
+  }, 500);
+})();
+
+// Scroll progress
+window.addEventListener('scroll', function() {
+  var p = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+  document.getElementById('bar').style.width = (p * 100) + '%';
+});
+
+// Fade on scroll
+var io = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade').forEach(function(el) { io.observe(el); });
+
+// Count-up
+(function() {
+  function ease(t) { return 1 - Math.pow(1-t,3); }
+  function run(el) {
+    if (el.dataset.done) return; el.dataset.done = '1';
+    var target = parseFloat(el.dataset.target) || 0;
+    var pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
+    var dec = String(target).includes('.');
+    var dur = 1400, start = null;
+    function frame(ts) {
+      if (!start) start = ts;
+      var p = Math.min((ts-start)/dur, 1);
+      var v = target * ease(p);
+      el.textContent = pre + (dec ? v.toFixed(1) : Math.floor(v)) + suf;
+      if (p < 1) requestAnimationFrame(frame);
+      else el.textContent = pre + target + suf;
+    }
+    requestAnimationFrame(frame);
+  }
+  var sio = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) { run(e.target); sio.unobserve(e.target); } });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-target]').forEach(function(el) { sio.observe(el); });
+})();
+
+// Marquee — measure exact 1/3 and animate
+(function() {
+  var m = document.getElementById('marquee');
+  if (!m) return;
+  var w = m.scrollWidth / 3;
+  var style = document.createElement('style');
+  style.textContent = '@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-' + w + 'px)}}';
+  document.head.appendChild(style);
+  m.style.animation = 'marquee 36s linear infinite';
+  m.addEventListener('mouseenter', function(){ m.style.animationPlayState='paused'; });
+  m.addEventListener('mouseleave', function(){ m.style.animationPlayState='running'; });
+})();
+
+// Form submit
+document.getElementById('contact-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  fetch(this.action, { method: 'POST', body: new FormData(this) });
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  this.reset();
+});
+</script>
+</body>
+</html>

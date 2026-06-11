@@ -753,7 +753,7 @@
 <!-- HERO -->
 <section <div class="hero">
   <div class="wrap">
-    <h1 class="stream-in" style="animation-delay:0.1s;">Earn <em style="color:#a855f7;font-style:normal;">$50</em> per conversion.</h1>
+    <h1 class="stream-in" style="animation-delay:0.1s;">Earn <em style="color:#a855f7;font-style:normal;">$50</em> <span class="fx-type" data-text="per conversion."></span></h1>
     <p class="hero-sub stream-in" style="animation-delay:0.2s;">Share your link. Someone buys. You get paid.</p>
     <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:28px;">
       <a href="#apply" style="display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#000;font-size:14px;font-weight:900;padding:14px 28px;border-radius:10px;text-decoration:none;letter-spacing:0.5px;">Apply now &rarr;</a>
@@ -794,7 +794,7 @@
 <section class="steps-section">
   <div class="wrap">
     <div class="section-label">How it works</div>
-    <h2>Three steps.<br>You're done.</h2>
+    <h2><em class="fx-underline" style="font-style:normal;">Three steps.</em><br>You're done.</h2>
 
     <div class="steps-grid">
       <div class="step-card">
@@ -1593,6 +1593,64 @@ document.addEventListener('DOMContentLoaded', function() {
   .hero h1 { font-size: 34px !important; letter-spacing: -1.5px !important; }
   /* Steps grid already 1-col at 640px */
 }
+
+/* ── SHARED EFFECTS ── */
+.fx-scramble { display:inline; }
+.fx-type { display:inline;border-right:2px solid #c8ff00;padding-right:2px; }
+.fx-type.done { border-right:none; }
+.fx-underline { position:relative;display:inline; }
+.fx-underline::after { content:'';position:absolute;bottom:-3px;left:0;width:0;height:2px;background:linear-gradient(90deg,#c8ff00,#a0edd8);border-radius:2px;transition:width 0.7s cubic-bezier(0.16,1,0.3,1); }
+.fx-underline.in::after { width:100%; }
+.fx-chip { background:rgba(200,255,0,0.07);border:1px solid rgba(200,255,0,0.25);border-radius:6px;padding:2px 10px;color:#c8ff00;display:inline-block; }
+@keyframes fx-blink { 0%,100%{border-color:#c8ff00} 50%{border-color:transparent} }
 </style>
+<script>
+(function() {
+  var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&';
+  document.querySelectorAll('.fx-scramble').forEach(function(el) {
+    var original = el.dataset.text;
+    var done = false;
+    function scramble() {
+      if (done) return;
+      var iterations = 0;
+      var iv = setInterval(function() {
+        el.textContent = original.split('').map(function(c, i) {
+          if (i < iterations) return original[i];
+          return c === ' ' ? ' ' : chars[Math.floor(Math.random() * chars.length)];
+        }).join('');
+        iterations += 0.4;
+        if (iterations >= original.length) { clearInterval(iv); el.textContent = original; done = true; }
+      }, 40);
+    }
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) { if (e.isIntersecting) { scramble(); io.disconnect(); } });
+    }, { threshold: 0.3 });
+    io.observe(el);
+  });
+  document.querySelectorAll('.fx-type').forEach(function(el) {
+    var text = el.dataset.text;
+    var fired = false;
+    el.style.animation = 'fx-blink 0.7s step-end infinite';
+    function start() {
+      if (fired) return; fired = true;
+      var i = 0;
+      var iv = setInterval(function() {
+        i++; el.textContent = text.slice(0, i);
+        if (i >= text.length) { clearInterval(iv); el.style.animation=''; el.classList.add('done'); }
+      }, 48);
+    }
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) { if (e.isIntersecting) { start(); io.disconnect(); } });
+    }, { threshold: 0.5 });
+    io.observe(el);
+  });
+  document.querySelectorAll('.fx-underline').forEach(function(el) {
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) { if (e.isIntersecting) { el.classList.add('in'); io.disconnect(); } });
+    }, { threshold: 0.5 });
+    io.observe(el);
+  });
+})();
+</script>
 </body>
 </html>
