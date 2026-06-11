@@ -1707,10 +1707,46 @@ function markUploaded(input, zoneId, labelId) {
     if (form) {
       form.addEventListener('submit', function(e) {
         e.preventDefault();
-        // send to formsubmit via fetch
+        // send to formsubmit via fetch with error fallback
         var data = new FormData(form);
-        fetch(form.action, { method: 'POST', body: data });
-        // show thank you modal
+        fetch(form.action, { method: 'POST', body: data })
+          .then(function(res) {
+            if (!res.ok) {
+              // fallback: create a hidden iframe and POST natively so submission is not lost
+              var iframe = document.createElement('iframe');
+              iframe.name = 'fs-fallback';
+              iframe.style.display = 'none';
+              document.body.appendChild(iframe);
+              var fallbackForm = document.createElement('form');
+              fallbackForm.action = form.action;
+              fallbackForm.method = 'POST';
+              fallbackForm.enctype = 'multipart/form-data';
+              fallbackForm.target = 'fs-fallback';
+              var fd2 = new FormData(form);
+              fd2.forEach(function(val, key) {
+                if (typeof val === 'string') {
+                  var input = document.createElement('input');
+                  input.type = 'hidden';
+                  input.name = key;
+                  input.value = val;
+                  fallbackForm.appendChild(input);
+                }
+              });
+              document.body.appendChild(fallbackForm);
+              fallbackForm.submit();
+            }
+          })
+          .catch(function() {
+            // network error — try native submit to iframe
+            var iframe = document.createElement('iframe');
+            iframe.name = 'fs-fallback2';
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+            form.target = 'fs-fallback2';
+            form.removeEventListener('submit', arguments.callee);
+            form.submit();
+          });
+        // show thank you modal immediately (don't wait on network)
         document.getElementById('ty-modal').classList.add('open');
         document.body.style.overflow = 'hidden';
         // hide form
