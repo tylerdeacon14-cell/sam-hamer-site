@@ -1660,5 +1660,95 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 })();
 </script>
+
+<!-- ── DREAM ANALYTICS: affiliate.html ── -->
+<script>
+(function() {
+  if (typeof gtag === 'undefined') return;
+
+  var page = 'affiliate';
+
+  // 1. SCROLL DEPTH
+  var scrollMilestones = { 25: false, 50: false, 75: false, 100: false };
+  window.addEventListener('scroll', function() {
+    var scrolled = window.scrollY + window.innerHeight;
+    var total = document.documentElement.scrollHeight;
+    var pct = Math.round((scrolled / total) * 100);
+    [25, 50, 75, 100].forEach(function(m) {
+      if (!scrollMilestones[m] && pct >= m) {
+        scrollMilestones[m] = true;
+        gtag('event', 'scroll_depth', { page: page, depth: m, depth_label: m + '%' });
+      }
+    });
+  }, { passive: true });
+
+  // 2. TIME ON PAGE
+  var timeMarks = { 15: false, 30: false, 60: false, 120: false };
+  var startTime = Date.now();
+  setInterval(function() {
+    var secs = Math.round((Date.now() - startTime) / 1000);
+    [15, 30, 60, 120].forEach(function(t) {
+      if (!timeMarks[t] && secs >= t) {
+        timeMarks[t] = true;
+        gtag('event', 'time_on_page', { page: page, seconds: t });
+      }
+    });
+  }, 5000);
+
+  // 3. AFFILIATE APPLICATION FORM — start + submit
+  var affForm = document.querySelector('form[name="affiliate-apply"]');
+  if (affForm) {
+    var affStarted = false;
+    affForm.querySelectorAll('input, textarea, select').forEach(function(field) {
+      field.addEventListener('focus', function() {
+        if (!affStarted) {
+          affStarted = true;
+          gtag('event', 'form_start', { page: page, form: 'affiliate_apply' });
+        }
+      }, { once: true });
+    });
+    affForm.addEventListener('submit', function() {
+      var name = (affForm.querySelector('[name="name"]') || {}).value || '';
+      var email = (affForm.querySelector('[name="email"]') || {}).value || '';
+      var tiktok = (affForm.querySelector('[name="tiktok"]') || {}).value || '';
+      gtag('event', 'form_submit', {
+        page: page,
+        form: 'affiliate_apply',
+        submitter_name: name,
+        submitter_email: email,
+        tiktok_handle: tiktok
+      });
+    });
+  }
+
+  // 4. CTA CLICKS — any link to build page
+  document.querySelectorAll('a[href*="build.html"]').forEach(function(el) {
+    el.addEventListener('click', function() {
+      gtag('event', 'cta_click', { page: page, label: el.innerText.trim().substring(0, 50) });
+    });
+  });
+
+  // 5. PILL CLICKS — platform selection tracking
+  document.querySelectorAll('#pill-platform .pill, [id*="pill"] .pill').forEach(function(el) {
+    el.addEventListener('click', function() {
+      gtag('event', 'pill_select', { page: page, value: el.innerText.trim() });
+    });
+  });
+
+  // 6. SECTION VISIBILITY
+  var sections = document.querySelectorAll('section, .form-section');
+  var sectionObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        var id = e.target.id || 'section';
+        gtag('event', 'section_view', { page: page, section: id.substring(0, 40) });
+        sectionObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(function(s) { sectionObs.observe(s); });
+
+})();
+</script>
 </body>
 </html>

@@ -1766,44 +1766,131 @@ function markUploaded(input, zoneId, labelId) {
     // FORM SUBMIT — intercept, backup to Sheets, then submit
     var form = document.getElementById('intake-form');
     if (form) {
-      form.addEventListener('submit', function(e) {
-        e.preventDefault(); // hold the form
+      form.addEventLis'submit', function(e) {
+        e.preventDefault();
+        var refCode = (document.getElementById('referral-code-input') || {}).value || '';
 
-        // TikTok enctype fix
-        var fileInput = form.querySelector('input[type="file"]');
-        if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
-          form.enctype = 'application/x-www-form-urlencoded';
-          if (fileInput) fileInput.disabled = true;
-        }
-
-        // GA4: track submit
-        if (typeof gtag !== 'undefined') {
+        // GA4 form_submit event
+        if (typeof gtag === 'function') {
           gtag('event', 'form_submit', {
             event_category: 'engagement',
             event_label: 'build_brief',
-            referral_code: (document.getElementById('referral-code-input') || {}).value || ''
+            referral_code: refCode
           });
         }
 
-        // Collect all form data
+        // Backup to Sheets
         var data = {};
-        form.querySelectorAll('input, textarea, select').forEach(function(el) {
-          if (el.name) data[el.name] = el.value;
-        });
+        var fields = form.elements;
+        for (var i = 0; i < fields.length; i++) {
+          if (fields[i].name) data[fields[i].name] = fields[i].value;
+        }
+        try {
+          fetch('/.netlify/functions/log-submission', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          }).catch(function(){});
+        } catch(ex){}
 
-        // Fire backup to Sheets, then submit form regardless of result
-        fetch('/.netlify/functions/log-submission', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        }).catch(function(){}).finally(function() {
-          form.submit();
-        });
-
-        // Fallback: if fetch hangs more than 3 seconds, submit anyway
-        setTimeout(function() { try { form.submit(); } catch(e){} }, 3000);
+        // Submit form after brief delay
+        setTimeout(function() { form.submit(); }, 300);
       });
     }
   });
 
-  function handle
+</script>
+
+<script>
+// ===== GA4 TRACKING — build.html =====
+(function() {
+  if (typeof gtag !== 'function') return;
+  var page = 'build';
+
+  // Scroll depth tracking
+  var scrollFired = { 25: false, 50: false, 75: false, 100: false };
+  window.addEventListener('scroll', function() {
+    var scrolled = window.scrollY + window.innerHeight;
+    var total = document.documentElement.scrollHeight;
+    var pct = Math.round((scrolled / total) * 100);
+    [25, 50, 75, 100].forEach(function(d) {
+      if (!scrollFired[d] && pct >= d) {
+        scrollFired[d] = true;
+        gtag('event', 'scroll_depth', { page: page, depth: d });
+      }
+    });
+  }, { passive: true });
+
+  // Time on page
+  var timeFired = { 15: false, 30: false, 60: false, 120: false };
+  [15, 30, 60, 120].forEach(function(s) {
+    setTimeout(function() {
+      if (!timeFired[s]) {
+        timeFired[s] = true;
+        gtag('event', 'time_on_page', { page: page, seconds: s });
+      }
+    }, s * 1000);
+  });
+
+  // form_start — first time any field is touched
+  var formStartFired = false;
+  var form = document.getElementById('intake-form');
+  if (form) {
+    var firstInputHandler = function(e) {
+      if (!formStartFired && e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT')) {
+        formStartFired = true;
+        gtag('event', 'form_start', { page: page, form: 'build_brief' });
+        form.removeEventListener('focusin', firstInputHandler);
+      }
+    };
+    form.addEventListener('focusin', firstInputHandler);
+
+    // Enhanced form_submit — capture key fields
+    form.addEventListener('submit', function() {
+      var name = (form.querySelector('[name="name"]') || {}).value || '';
+      var email = (form.querySelector('[name="email"]') || {}).value || '';
+      var tiktok = (form.querySelector('[name="tiktok"]') || form.querySelector('[name="handle_1"]') || {}).value || '';
+      var refCode = (document.getElementById('referral-code-input') || {}).value || '';
+      gtag('event', 'form_submit', {
+        page: page,
+        form: 'build_brief',
+        submitter_name: name,
+        submitter_email: email,
+        tiktok_handle: tiktok,
+        referral_code: refCode
+      });
+    });
+  }
+
+  // Pill click tracking
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.pill');
+    if (!btn) return;
+    gtag('event', 'pill_select', {
+      page: page,
+      pill_label: btn.textContent.trim(),
+      pill_group: (btn.closest('[id]') || {}).id || ''
+    });
+  });
+
+  // CTA / section visibility
+  var sections = document.querySelectorAll('section[id], [data-section]');
+  if (sections.length && 'IntersectionObserver' in window) {
+    var sectionObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          gtag('event', 'section_view', {
+            page: page,
+            section_id: entry.target.id || entry.target.dataset.section || 'unknown'
+          });
+          sectionObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    sections.forEach(function(s) { sectionObserver.observe(s); });
+  }
+})();
+</script>
+
+</body>
+</html>

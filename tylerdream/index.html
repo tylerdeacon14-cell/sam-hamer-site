@@ -2728,5 +2728,95 @@ a[style*="background:#c8ff00"]:hover, button[style*="background:#c8ff00"]:hover 
 
 })();
 </script>
+
+<!-- ── DREAM ANALYTICS: index.html ── -->
+<script>
+(function() {
+  if (typeof gtag === 'undefined') return;
+
+  var page = 'index';
+
+  // 1. SCROLL DEPTH — fire at 25/50/75/100%
+  var scrollMilestones = { 25: false, 50: false, 75: false, 100: false };
+  window.addEventListener('scroll', function() {
+    var scrolled = window.scrollY + window.innerHeight;
+    var total = document.documentElement.scrollHeight;
+    var pct = Math.round((scrolled / total) * 100);
+    [25, 50, 75, 100].forEach(function(m) {
+      if (!scrollMilestones[m] && pct >= m) {
+        scrollMilestones[m] = true;
+        gtag('event', 'scroll_depth', { page: page, depth: m, depth_label: m + '%' });
+      }
+    });
+  }, { passive: true });
+
+  // 2. TIME ON PAGE — fire at 15s, 30s, 60s, 120s
+  var timeMarks = { 15: false, 30: false, 60: false, 120: false };
+  var startTime = Date.now();
+  setInterval(function() {
+    var secs = Math.round((Date.now() - startTime) / 1000);
+    [15, 30, 60, 120].forEach(function(t) {
+      if (!timeMarks[t] && secs >= t) {
+        timeMarks[t] = true;
+        gtag('event', 'time_on_page', { page: page, seconds: t });
+      }
+    });
+  }, 5000);
+
+  // 3. CTA CLICKS — "Get Your Site Built" buttons
+  document.querySelectorAll('a[href*="build.html"], .btn-primary').forEach(function(el) {
+    el.addEventListener('click', function() {
+      gtag('event', 'cta_click', { page: page, label: el.innerText.trim().substring(0, 50) });
+    });
+  });
+
+  // 4. BRAND FORM — start + submit
+  var brandForm = document.querySelector('form[name="brand-inquiry"]');
+  if (brandForm) {
+    var brandStarted = false;
+    brandForm.querySelectorAll('input, textarea, select').forEach(function(field) {
+      field.addEventListener('focus', function() {
+        if (!brandStarted) {
+          brandStarted = true;
+          gtag('event', 'form_start', { page: page, form: 'brand_inquiry' });
+        }
+      }, { once: true });
+    });
+    brandForm.addEventListener('submit', function() {
+      var name = (brandForm.querySelector('[name="name"]') || {}).value || '';
+      var email = (brandForm.querySelector('[name="email"]') || {}).value || '';
+      var type = (brandForm.querySelector('[name="type"]') || {}).value || '';
+      gtag('event', 'form_submit', {
+        page: page,
+        form: 'brand_inquiry',
+        inquiry_type: type,
+        submitter_name: name,
+        submitter_email: email
+      });
+    });
+  }
+
+  // 5. AFFILIATE LINK CLICKS
+  document.querySelectorAll('a[href*="affiliate"]').forEach(function(el) {
+    el.addEventListener('click', function() {
+      gtag('event', 'affiliate_link_click', { page: page, label: el.innerText.trim().substring(0, 50) });
+    });
+  });
+
+  // 6. SECTION VISIBILITY — track which sections they reach
+  var sections = document.querySelectorAll('section, [id]');
+  var sectionObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        var id = e.target.id || e.target.className.toString().split(' ')[0] || 'unknown';
+        gtag('event', 'section_view', { page: page, section: id.substring(0, 40) });
+        sectionObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(function(s) { sectionObs.observe(s); });
+
+})();
+</script>
 </body>
 </html>

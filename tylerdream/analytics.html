@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tylerdream.com · Analytics</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #f5f0e8; --surface: #ffffff;
+    --border: #e0d9ce; --accent: #2a9d8f;
+    --gold: #e9c46a; --text: #1a1a1a; --muted: #666;
+  }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 32px; background: #fff;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-size: 15px; font-weight: 800; color: var(--text); text-decoration: none; }
+  .nav-logo em { color: var(--accent); font-style: normal; }
+  .nav-tag { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); background: rgba(42,157,143,0.1); border: 1px solid rgba(42,157,143,0.2); padding: 4px 10px; border-radius: 6px; }
+
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+  .page-header { padding: 40px 0 28px; }
+  .page-header h1 { font-size: 28px; font-weight: 900; letter-spacing: -1px; margin-bottom: 4px; }
+  .page-header p { font-size: 13px; color: var(--muted); }
+
+  .date-tabs { display: flex; gap: 8px; margin-bottom: 28px; }
+  .date-tab {
+    padding: 7px 16px; border-radius: 8px; border: 1px solid var(--border);
+    font-size: 12px; font-weight: 700; color: var(--muted); cursor: pointer;
+    background: #fff; font-family: inherit; transition: all 0.15s;
+  }
+  .date-tab:hover { border-color: rgba(42,157,143,0.3); color: var(--accent); }
+  .date-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  /* STAT CARDS */
+  .stat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 28px; }
+  .stat-card {
+    background: #fff; border: 1px solid var(--border); border-radius: 16px;
+    padding: 20px 22px; position: relative; overflow: hidden;
+  }
+  .stat-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(42,157,143,0.4), transparent);
+  }
+  .stat-label { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+  .stat-value { font-size: 28px; font-weight: 900; letter-spacing: -1px; color: var(--text); line-height: 1; margin-bottom: 4px; }
+  .stat-sub { font-size: 11px; color: #999; font-weight: 500; }
+
+  /* CHARTS ROW */
+  .charts-row { display: grid; grid-template-columns: 2fr 1fr; gap: 14px; margin-bottom: 28px; }
+  .chart-card {
+    background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 24px;
+  }
+  .card-title { font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 18px; }
+
+  /* MINI BAR CHART */
+  .bar-chart { display: flex; align-items: flex-end; gap: 4px; height: 80px; }
+  .bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; height: 100%; justify-content: flex-end; }
+  .bar { width: 100%; background: rgba(42,157,143,0.2); border-radius: 4px 4px 0 0; transition: background 0.15s; min-height: 2px; position: relative; cursor: pointer; }
+  .bar:hover { background: var(--accent); }
+  .bar-label { font-size: 9px; color: #999; font-weight: 600; white-space: nowrap; }
+
+  /* DONUT CHART */
+  .donut-wrap { display: flex; align-items: center; gap: 20px; }
+  .donut-svg { flex-shrink: 0; }
+  .donut-legend { display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .legend-val { margin-left: auto; font-weight: 800; color: var(--text); font-size: 12px; }
+
+  /* BOTTOM ROW */
+  .bottom-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 40px; }
+
+  /* TABLES */
+  .data-table { width: 100%; border-collapse: collapse; }
+  .data-table th { font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #999; padding: 0 0 10px; text-align: left; border-bottom: 1px solid var(--border); }
+  .data-table th:last-child { text-align: right; }
+  .data-table td { padding: 10px 0; font-size: 13px; color: var(--text); border-bottom: 1px solid rgba(224,217,206,0.5); vertical-align: middle; }
+  .data-table td:last-child { text-align: right; font-weight: 800; color: var(--accent); }
+  .data-table tr:last-child td { border-bottom: none; }
+  .page-path { font-size: 12px; color: var(--muted); font-family: monospace; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* BAR INLINE */
+  .bar-inline-wrap { display: flex; align-items: center; gap: 8px; }
+  .bar-inline { height: 4px; border-radius: 2px; background: rgba(42,157,143,0.2); flex: 1; }
+  .bar-inline-fill { height: 100%; border-radius: 2px; background: var(--accent); }
+
+  /* LOADING */
+  .loading-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 0; gap: 16px; }
+  .spinner { width: 32px; height: 32px; border: 3px solid rgba(42,157,143,0.15); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-text { font-size: 13px; color: var(--muted); font-weight: 600; }
+
+  .error-state { background: #fff3f3; border: 1px solid #ffcccc; border-radius: 12px; padding: 20px 24px; margin: 20px 0; font-size: 13px; color: #cc3333; }
+
+  .refresh-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 14px; border-radius: 8px; border: 1px solid var(--border);
+    font-size: 12px; font-weight: 700; color: var(--muted); cursor: pointer;
+    background: #fff; font-family: inherit; transition: all 0.15s;
+  }
+  .refresh-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .last-updated { font-size: 11px; color: #aaa; }
+
+  footer { border-top: 1px solid var(--border); padding: 24px 32px; text-align: center; }
+  .footer-inner { font-size: 12px; color: #999; }
+  .footer-inner a { color: var(--accent); text-decoration: none; font-weight: 700; }
+
+  @media (max-width: 900px) {
+    .stat-grid { grid-template-columns: repeat(3, 1fr); }
+    .charts-row { grid-template-columns: 1fr; }
+    .bottom-row { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .stat-grid { grid-template-columns: 1fr 1fr; }
+    nav { padding: 12px 16px; }
+    .wrap { padding: 0 16px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Dream<em>.</em></a>
+  <span class="nav-tag">Analytics</span>
+</nav>
+
+<div class="wrap">
+  <div class="page-header">
+    <h1>Site Analytics</h1>
+    <p id="last-updated" class="last-updated">Loading...</p>
+  </div>
+
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+    <div class="date-tabs">
+      <button class="date-tab" data-days="7">7 days</button>
+      <button class="date-tab active" data-days="30">30 days</button>
+      <button class="date-tab" data-days="90">90 days</button>
+    </div>
+    <button class="refresh-btn" id="refresh-btn">↻ Refresh</button>
+  </div>
+
+  <div id="error-box" class="error-state" style="display:none;"></div>
+
+  <div id="loading" class="loading-state">
+    <div class="spinner"></div>
+    <div class="loading-text">Pulling your analytics...</div>
+  </div>
+
+  <div id="dashboard" style="display:none;">
+    <!-- STAT CARDS -->
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">Sessions</div>
+        <div class="stat-value" id="stat-sessions">—</div>
+        <div class="stat-sub">total visits</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Users</div>
+        <div class="stat-value" id="stat-users">—</div>
+        <div class="stat-sub">unique visitors</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Page Views</div>
+        <div class="stat-value" id="stat-views">—</div>
+        <div class="stat-sub">total pageviews</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Bounce Rate</div>
+        <div class="stat-value" id="stat-bounce">—</div>
+        <div class="stat-sub">left after 1 page</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Avg Session</div>
+        <div class="stat-value" id="stat-duration">—</div>
+        <div class="stat-sub">time on site</div>
+      </div>
+    </div>
+
+    <!-- CHARTS ROW -->
+    <div class="charts-row">
+      <div class="chart-card">
+        <div class="card-title">Sessions by Day</div>
+        <div class="bar-chart" id="daily-chart"></div>
+      </div>
+      <div class="chart-card">
+        <div class="card-title">Devices</div>
+        <div class="donut-wrap">
+          <svg class="donut-svg" width="90" height="90" viewBox="0 0 90 90" id="donut-svg">
+            <circle cx="45" cy="45" r="35" fill="none" stroke="#f0ebe3" stroke-width="12"/>
+          </svg>
+          <div class="donut-legend" id="device-legend"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTTOM ROW -->
+    <div class="bottom-row">
+      <div class="chart-card">
+        <div class="card-title">Top Pages</div>
+        <table class="data-table" id="pages-table">
+          <thead><tr><th>Page</th><th>Sessions</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="chart-card">
+        <div class="card-title">Traffic Sources</div>
+        <table class="data-table" id="sources-table">
+          <thead><tr><th>Channel</th><th>Sessions</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html">tylerdream.com</a> · Analytics powered by GA4 · <a href="build.html">Get your site built →</a>
+  </div>
+</footer>
+
+<script>
+const PROPERTY_ID = '541540371';
+const CREDS = {
+  client_email: 'tylerdream-analytics@tylerdream.iam.gserviceaccount.com',
+  private_key: `-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDX8/1P5zwV1YDm\ntbCAThe1JHoEGKjmN2M2bTuRnAqU5AZKyQB1lPoltUCbXxz56lEl7G9ppZ/SJRAo\nMP1wZyLVJ1dlK4r/UyABdAHkb2srJ/GMlkRN5v7rWZgzdsea7ArQQcg/LtEPlwkg\nxbDv88SMtGeDZJdje593vKQGAkhPB+Nat2SOcZ5LPYGr8wD/zOeh7dTKkvasLs7R\nhUVyCmKIlACPM3hnRpNArJw9ivIG4yxX1ftdTKqRLcGxKyAVHxpcnY41rPE8P+pA\nYq4hlIB4T3oi5I6gCZTOkZVISqVHYcmsw3kH6qH0Usb7NkwVKiX2BOYku4S3/9N0\npa/v/SodAgMBAAECggEAWOapVBER870anR+T4yYC7X/wOSp7sZaAoeHTAY0W8Bd1\nHalkpoMnfYmB6NR9hca4FGAit3/G7Qhz/8+3LeRPeyeAe3Yy+Qxb4y1CMCvMFw6R\nCnq78MQVEocmOJ1/65+bjgNer+ASkZPwXozz27xjIDeOW5F4Hyy/x9ehQJYE9X88\nn56XZT0hHGqpH9o5ZO6ulotGdVEm9CONQbXZG/ESASdLfduEyacUgQNX0Xgf8LHR\nrUCFg2Omd57Wka8gVcFttMJD20GQOl+aqn3UwZ76APoUSS8B+ghWms4R86exn/i5\nfnq0C0ze0pcbK+aXCFpXwMXan0QgoB3rTrbEVDs5AwKBgQDzB6vBPWm+2KZhXI0G\nP6eNecHoGbkmbI2FUAwbbacYewhDh5uQ6FVSTEvQOk60FYuJj3gfrNh2ZKEGA9Q1\nBWuhqCNJrWmEJ8fO1Z8eyjWQr5VGnjYMqt+NCBlrVG1Y9YuZq4Pr9D91Knl+3Hz4\nheX/Vgr/ROz3zcZbXObO1saDpwKBgQDjemNk2DmuLVu6BaFIDHU7hAwNU4dPwACd\nv6H3mdtOs0NOHW52CIUlzA6xY6Bt2lM3IgOMDTRLS54XQv5D5nhgV0yKZuqJRrQw\nZ7VlTVgF4QITVvPxv4zUe5ocqVufgpm3aUaMe9dL0lPb29mVdYeCkuxo8aq7T/KQ\nzM7aY9dsmwKBgQDE19+7wtxVofERRv9KomA57Par4bnfb2kpI27LAIOpBm3pFHti\nYWxKHlYBsFhy8Eh3AOeQ8FTbgCIUVyGYWG2XIDKEyJqAWiAyXUBmle3Q5QaJjjfF\nBtnOx1KfZmCy/x81NoDBqrGDWwXRRRFL0lg5+h0qKU+uXtNcyOCBg+CCXQKBgGzj\nae6c3kd06OKLzV8ar4dUtxwt7qiLJQBd+d725BaxEreyuOyBOZMVMbdSFDphdtH+\nUypYK78bLErAQ8wm51pej4H0r7IUiS5ehmM+ebMeuQqe5djDs1sG64dqvjQFpSU5\nnI6kvTNLM98bRvUXNE2ZnNbDT9Gn/Fm54A6EGlufAoGAcBV+U1RBHx+HT4Yn0Byn\nUrgqVodOjpCBt8f17iPxtyfYNDD1V//w6H8Ghblx+8oUmtuiCwuoR6TwE6hVlqqF\n5dFHJZYT5e9Jy+MPxk+CymrbNhLID+/6TltzurLgEv5Zufn7mUtu4DU30hoahhxj\nEhA9qW1xhXtLmIvV4rhPX2U=\n-----END PRIVATE KEY-----\n`,
+  token_uri: 'https://oauth2.googleapis.com/token'
+};
+
+let currentDays = 30;
+let accessToken = null;
+let tokenExpiry = 0;
+
+// ── JWT / Auth ──────────────────────────────────────────────
+async function importPrivateKey(pem) {
+  const b64 = pem.replace(/-----[^-]+-----/g, '').replace(/\s+/g, '');
+  const der = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+  return crypto.subtle.importKey('pkcs8', der, { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' }, false, ['sign']);
+}
+
+function b64url(str) {
+  return btoa(str).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+}
+
+function b64urlBuf(buf) {
+  return btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+}
+
+async function getToken() {
+  if (accessToken && Date.now() < tokenExpiry) return accessToken;
+
+  const now = Math.floor(Date.now() / 1000);
+  const header = b64url(JSON.stringify({ alg: 'RS256', typ: 'JWT' }));
+  const claim = b64url(JSON.stringify({
+    iss: CREDS.client_email,
+    scope: 'https://www.googleapis.com/auth/analytics.readonly',
+    aud: CREDS.token_uri,
+    exp: now + 3600,
+    iat: now
+  }));
+
+  const key = await importPrivateKey(CREDS.private_key);
+  const enc = new TextEncoder();
+  const sig = await crypto.subtle.sign('RSASSA-PKCS1-v1_5', key, enc.encode(`${header}.${claim}`));
+  const jwt = `${header}.${claim}.${b64urlBuf(sig)}`;
+
+  const resp = await fetch(CREDS.token_uri, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer&assertion=${jwt}`
+  });
+  const data = await resp.json();
+  if (!data.access_token) throw new Error('Auth failed: ' + JSON.stringify(data));
+
+  accessToken = data.access_token;
+  tokenExpiry = Date.now() + 3500 * 1000;
+  return accessToken;
+}
+
+// ── GA4 Query ───────────────────────────────────────────────
+async function runReport(body) {
+  const token = await getToken();
+  const resp = await fetch(`https://analyticsdata.googleapis.com/v1beta/properties/${PROPERTY_ID}:runReport`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+  const data = await resp.json();
+  if (data.error) throw new Error(data.error.message);
+  return data;
+}
+
+// ── Helpers ─────────────────────────────────────────────────
+function fmt(n) {
+  const num = parseInt(n) || 0;
+  return num >= 1000 ? (num/1000).toFixed(1) + 'k' : num.toString();
+}
+
+function fmtDuration(secs) {
+  const s = Math.round(parseFloat(secs) || 0);
+  if (s < 60) return s + 's';
+  return Math.floor(s/60) + 'm ' + (s%60) + 's';
+}
+
+function dateRange(days) {
+  return [{ startDate: days + 'daysAgo', endDate: 'today' }];
+}
+
+// ── Render ──────────────────────────────────────────────────
+function renderDailyChart(rows) {
+  const el = document.getElementById('daily-chart');
+  el.innerHTML = '';
+  if (!rows || !rows.length) { el.innerHTML = '<div style="color:#999;font-size:12px;">No data</div>'; return; }
+
+  const max = Math.max(...rows.map(r => parseInt(r.metricValues[0].value)));
+  rows.forEach(r => {
+    const date = r.dimensionValues[0].value;
+    const val = parseInt(r.metricValues[0].value);
+    const pct = max > 0 ? (val / max * 100) : 0;
+    const label = date.slice(4, 6) + '/' + date.slice(6, 8);
+    const wrap = document.createElement('div');
+    wrap.className = 'bar-wrap';
+    wrap.innerHTML = `
+      <div class="bar" style="height:${Math.max(pct, 2)}%" title="${label}: ${val} sessions"></div>
+      ${rows.length <= 14 ? `<div class="bar-label">${label}</div>` : ''}
+    `;
+    el.appendChild(wrap);
+  });
+}
+
+function renderDonut(rows) {
+  const colors = ['#2a9d8f', '#e9c46a', '#e76f51', '#a855f7', '#64748b'];
+  const labels = { mobile: 'Mobile', desktop: 'Desktop', tablet: 'Tablet' };
+  const total = rows.reduce((s, r) => s + parseInt(r.metricValues[0].value), 0);
+
+  const svg = document.getElementById('donut-svg');
+  const legend = document.getElementById('device-legend');
+  svg.innerHTML = '<circle cx="45" cy="45" r="35" fill="none" stroke="#f0ebe3" stroke-width="12"/>';
+  legend.innerHTML = '';
+
+  const circumference = 2 * Math.PI * 35;
+  let offset = 0;
+
+  rows.forEach((r, i) => {
+    const val = parseInt(r.metricValues[0].value);
+    const pct = total > 0 ? val / total : 0;
+    const dash = pct * circumference;
+    const color = colors[i % colors.length];
+    const device = r.dimensionValues[0].value;
+
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('cx', '45'); circle.setAttribute('cy', '45'); circle.setAttribute('r', '35');
+    circle.setAttribute('fill', 'none'); circle.setAttribute('stroke', color); circle.setAttribute('stroke-width', '12');
+    circle.setAttribute('stroke-dasharray', `${dash} ${circumference - dash}`);
+    circle.setAttribute('stroke-dashoffset', -offset);
+    circle.setAttribute('transform', 'rotate(-90 45 45)');
+    svg.appendChild(circle);
+    offset += dash;
+
+    legend.innerHTML += `
+      <div class="legend-item">
+        <div class="legend-dot" style="background:${color}"></div>
+        <span>${labels[device] || device}</span>
+        <span class="legend-val">${Math.round(pct*100)}%</span>
+      </div>`;
+  });
+}
+
+function renderTable(tableId, rows, maxVal) {
+  const tbody = document.querySelector(`#${tableId} tbody`);
+  tbody.innerHTML = '';
+  if (!rows || !rows.length) { tbody.innerHTML = '<tr><td colspan="2" style="color:#999;font-size:12px;padding:12px 0;">No data</td></tr>'; return; }
+
+  rows.forEach(r => {
+    const label = r.dimensionValues[0].value;
+    const val = parseInt(r.metricValues[0].value);
+    const pct = maxVal > 0 ? (val / maxVal * 100) : 0;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>
+        <div class="page-path" title="${label}">${label}</div>
+        <div class="bar-inline-wrap" style="margin-top:4px;">
+          <div class="bar-inline"><div class="bar-inline-fill" style="width:${pct}%"></div></div>
+        </div>
+      </td>
+      <td>${fmt(val)}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+// ── Main load ───────────────────────────────────────────────
+async function loadData(days) {
+  document.getElementById('loading').style.display = 'flex';
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('error-box').style.display = 'none';
+
+  try {
+    const dr = dateRange(days);
+
+    const [totals, daily, devices, pages, sources] = await Promise.all([
+      runReport({
+        dateRanges: dr,
+        metrics: [
+          { name: 'sessions' }, { name: 'activeUsers' },
+          { name: 'screenPageViews' }, { name: 'bounceRate' },
+          { name: 'averageSessionDuration' }
+        ]
+      }),
+      runReport({
+        dateRanges: dr,
+        dimensions: [{ name: 'date' }],
+        metrics: [{ name: 'sessions' }],
+        orderBys: [{ dimension: { dimensionName: 'date' } }]
+      }),
+      runReport({
+        dateRanges: dr,
+        dimensions: [{ name: 'deviceCategory' }],
+        metrics: [{ name: 'sessions' }],
+        orderBys: [{ metric: { metricName: 'sessions' }, desc: true }]
+      }),
+      runReport({
+        dateRanges: dr,
+        dimensions: [{ name: 'pagePath' }],
+        metrics: [{ name: 'sessions' }],
+        orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
+        limit: 8
+      }),
+      runReport({
+        dateRanges: dr,
+        dimensions: [{ name: 'sessionDefaultChannelGroup' }],
+        metrics: [{ name: 'sessions' }],
+        orderBys: [{ metric: { metricName: 'sessions' }, desc: true }]
+      })
+    ]);
+
+    // Totals
+    const m = totals.rows?.[0]?.metricValues || [];
+    document.getElementById('stat-sessions').textContent = fmt(m[0]?.value);
+    document.getElementById('stat-users').textContent = fmt(m[1]?.value);
+    document.getElementById('stat-views').textContent = fmt(m[2]?.value);
+    document.getElementById('stat-bounce').textContent = Math.round((parseFloat(m[3]?.value) || 0) * 100) + '%';
+    document.getElementById('stat-duration').textContent = fmtDuration(m[4]?.value);
+
+    renderDailyChart(daily.rows);
+    renderDonut(devices.rows || []);
+
+    const pageMax = parseInt(pages.rows?.[0]?.metricValues?.[0]?.value || 1);
+    renderTable('pages-table', pages.rows, pageMax);
+
+    const srcMax = parseInt(sources.rows?.[0]?.metricValues?.[0]?.value || 1);
+    renderTable('sources-table', sources.rows, srcMax);
+
+    document.getElementById('last-updated').textContent =
+      'Last updated: ' + new Date().toLocaleTimeString() + ' · ' + days + '-day window';
+
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+
+  } catch (err) {
+    document.getElementById('loading').style.display = 'none';
+    const box = document.getElementById('error-box');
+    box.style.display = 'block';
+    box.textContent = 'Error: ' + err.message;
+  }
+}
+
+// ── Events ───────────────────────────────────────────────────
+document.querySelectorAll('.date-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.date-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentDays = parseInt(btn.dataset.days);
+    loadData(currentDays);
+  });
+});
+
+document.getElementById('refresh-btn').addEventListener('click', () => {
+  accessToken = null; // force re-auth
+  loadData(currentDays);
+});
+
+loadData(currentDays);
+</script>
+</body>
+</html>
