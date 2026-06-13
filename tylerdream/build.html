@@ -1765,14 +1765,40 @@ function markUploaded(input, zoneId, labelId) {
     // FORM SUBMIT — native POST to FormSubmit, redirects to success.html
     // If no file selected, switch enctype to application/x-www-form-urlencoded
     // This prevents TikTok in-app browser from hanging on multipart submissions
+    // Also fires a backup to Google Sheets via Netlify function
     var form = document.getElementById('intake-form');
     if (form) {
-      form.addEventListener('submit', function() {
+      form.addEventListener('submit', function(e) {
+        // TikTok enctype fix
         var fileInput = form.querySelector('input[type="file"]');
         if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
           form.enctype = 'application/x-www-form-urlencoded';
           if (fileInput) fileInput.disabled = true;
         }
+
+        // GA4: track submit button click
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'form_submit', {
+            event_category: 'engagement',
+            event_label: 'build_brief',
+            referral_code: (document.getElementById('referral-code-input') || {}).value || ''
+          });
+        }
+
+        // Backup to Google Sheets (fire-and-forget, never blocks form)
+        try {
+          var data = {};
+          var inputs = form.querySelectorAll('input, textarea, select');
+          inputs.forEach(function(el) { if (el.name && !el.name.startsWith('_')) data[el.name] = el.value; });
+          // include tracking fields
+          form.querySelectorAll('input[type="hidden"]').forEach(function(el) { data[el.name] = el.value; });
+          fetch('/.netlify/functions/log-submission', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+            keepalive: true
+          }).catch(function(){});
+        } catch(err) {}
       });
     }
   });
