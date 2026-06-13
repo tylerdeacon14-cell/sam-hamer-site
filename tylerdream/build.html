@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y19M1SHC2Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Y19M1SHC2Y');
+</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Get Your Site Built · Tyler Dream · $300 · 48 Hours</title>
@@ -1769,69 +1777,4 @@ function markUploaded(input, zoneId, labelId) {
     }
   });
 
-  function handleStripePayment(e) {
-    e.preventDefault();
-    var payCard = document.getElementById('payment-card');
-    var confirm = document.getElementById('payment-confirm');
-    payCard.style.display = 'none';
-    confirm.style.display = 'block';
-    setTimeout(function(){ confirm.classList.add('visible'); }, 50);
-    confirm.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  // FAQ ACCORDION
-  function toggleFaq(index) {
-    var items = document.querySelectorAll('.faq-item');
-    items.forEach(function(item, i) {
-      if (i === index) {
-        item.classList.toggle('open');
-      } else {
-        item.classList.remove('open');
-      }
-    });
-  }
-
-  function handleContactMethod(select, detailId, labelId, placeholderId) {
-    var val = select.value;
-    var wrap = document.getElementById(detailId);
-    var label = document.getElementById(labelId);
-    var input = document.getElementById(placeholderId);
-    var map = {
-      'Text': { label: 'Your phone number', placeholder: 'e.g. (312) 555-0100' },
-      'Phone call': { label: 'Your phone number', placeholder: 'e.g. (312) 555-0100' },
-      'Google Meet': { label: 'Your email for the invite', placeholder: 'you@email.com' },
-      'Microsoft Teams': { label: 'Your Teams email', placeholder: 'you@work.com' },
-      'Discord': { label: 'Your Discord username', placeholder: 'e.g. tyler#1234 or @tyler' },
-      'Social media DM': { label: 'Your handle and platform', placeholder: 'e.g. @dreamlifevisuals on TikTok' },
-    };
-    if (val && val !== 'Email (already provided)' && map[val]) {
-      wrap.style.display = 'block';
-      label.textContent = map[val].label;
-      input.placeholder = map[val].placeholder;
-    } else {
-      wrap.style.display = 'none';
-    }
-  }
-
-  function handleCodeInput(input) {
-    var code = input.value.trim().toUpperCase();
-    var confirm = document.getElementById('referral-confirm');
-    if (code.length >= 3) {
-      confirm.style.display = 'flex';
-    } else {
-      confirm.style.display = 'none';
-    }
-  }
-
-</script>
-
-
-<style id="mobile-fixes-build">
-@media (max-width: 600px) {
-  .included-2col, .included-3col { grid-template-columns: 1fr !important; }
-  .account-row-inner { flex-direction: column !important; gap: 8px !important; }
-  .field-platform, .field-handle, .field-followers, .field-likes, .field-freq { flex: none !important; width: 100% !important; }
-  .col-headers { display: none !important; }
-  .hero-trust-row { flex-direction: column !important; gap: 6px !important; }
-  .hero { padding: 80px 16px 32px !important; }
-  [style*="grid-template-c
+  function handle
