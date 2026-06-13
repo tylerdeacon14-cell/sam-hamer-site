@@ -1088,14 +1088,14 @@
 <section class="form-section" id="brief-form">
   <div class="wrap">
     <form action="https://formsubmit.co/dreambillboard@gmail.com" method="POST" id="intake-form" enctype="multipart/form-data">
-      <input type="hidden" name="_subject" value="New site build intake - tylerdream.com">
+      <input type="hidden" name="_subject" value="New brief submitted — tylerdream.com">
       <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_template" value="table">
       <input type="hidden" name="_cc" value="dreambillboard@gmail.com" id="form-cc">
       <input type="hidden" name="_bcc" value="" id="form-bcc">
       <input type="hidden" name="_replyto" value="" id="form-replyto">
       <input type="hidden" name="_next" value="https://tylerdream.com/success.html">
-      <input type="hidden" name="_autoresponse" value="Got it — your brief is in. Tyler reviews every submission personally and will reach out soon (usually same day) to talk through your build. In the meantime, if you have questions or want to send anything else over, just reply to this email. Talk soon, Tyler | tylerdream.com">
+      <input type="hidden" name="_autoresponse" value="Your brief is in! Tyler reviews every submission personally and will be in touch soon — usually the same day. While you wait, check out tylerdream.com to see more builds and what goes into the process. If you have anything to add or any questions at all, just reply to this email. Excited to work with you. Talk soon, Tyler">
 
       <!-- GUARANTEE BANNER -->
       <div style="display:flex;align-items:center;gap:14px;background:rgba(42,157,143,0.06);border:1.5px solid rgba(42,157,143,0.22);border-radius:14px;padding:16px 20px;margin-bottom:24px;flex-wrap:wrap;">
@@ -1524,6 +1524,59 @@ function handleStripePayment() {
     </div>
   </div>
 </footer>
+
+<script>
+// ===== SESSION TRACKING =====
+(function(){
+  try {
+    var ts = new Date().toISOString();
+    var ref = new URLSearchParams(window.location.search).get('ref') || new URLSearchParams(window.location.search).get('code') || '';
+    var src = document.referrer || 'direct';
+    var ua = navigator.userAgent;
+    var isTikTok = /TikTok|ByteLocale|musical_ly/i.test(ua);
+    var isMobile = /Mobi|Android|iPhone/i.test(ua);
+
+    // Store visit in localStorage
+    var visits = [];
+    try { visits = JSON.parse(localStorage.getItem('td_visits') || '[]'); } catch(e){}
+    visits.push({ ts: ts, ref: ref, src: src, tiktok: isTikTok, mobile: isMobile });
+    localStorage.setItem('td_visits', JSON.stringify(visits.slice(-20)));
+
+    // Inject hidden tracking fields into form on submit
+    document.addEventListener('DOMContentLoaded', function() {
+      var form = document.getElementById('intake-form');
+      if (!form) return;
+
+      // Add hidden tracking fields
+      function addHidden(name, val) {
+        var el = document.createElement('input');
+        el.type = 'hidden'; el.name = name; el.value = val || '';
+        form.appendChild(el);
+      }
+      addHidden('_track_ref', ref);
+      addHidden('_track_src', src);
+      addHidden('_track_device', isMobile ? (isTikTok ? 'mobile-tiktok' : 'mobile') : 'desktop');
+      addHidden('_track_ts', ts);
+
+      // Abandon detection — fire if they leave without submitting after 30+ seconds
+      var startTime = Date.now();
+      var submitted = false;
+      form.addEventListener('submit', function() { submitted = true; });
+      window.addEventListener('beforeunload', function() {
+        if (submitted) return;
+        var timeOnPage = Math.round((Date.now() - startTime) / 1000);
+        if (timeOnPage < 10) return; // ignore quick bounces
+        // Store abandon event
+        try {
+          var abandons = JSON.parse(localStorage.getItem('td_abandons') || '[]');
+          abandons.push({ ts: ts, ref: ref, src: src, seconds: timeOnPage });
+          localStorage.setItem('td_abandons', JSON.stringify(abandons.slice(-20)));
+        } catch(e){}
+      });
+    });
+  } catch(e){}
+})();
+</script>
 
 <script>
 // ===== Referral code: read from URL, auto-apply, persist, show banner =====
