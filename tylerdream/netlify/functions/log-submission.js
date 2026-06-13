@@ -3,9 +3,14 @@ const SHEET_TAB = 'Sheet1';
 
 // Service account credentials from env vars (set in Netlify dashboard)
 function getCredentials() {
+  let key = process.env.GOOGLE_PRIVATE_KEY || '';
+  // Handle both literal \n and actual newlines
+  key = key.replace(/\\n/g, '\n');
+  // Strip surrounding quotes if Netlify added them
+  key = key.replace(/^["']|["']$/g, '');
   return {
-    client_email: process.env.GOOGLE_CLIENT_EMAIL,
-    private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+    client_email: (process.env.GOOGLE_CLIENT_EMAIL || '').trim(),
+    private_key: key,
   };
 }
 
@@ -57,6 +62,9 @@ exports.handler = async (event) => {
       console.error('Missing Google credentials in env vars');
       return { statusCode: 500, headers, body: JSON.stringify({ error: 'Missing credentials' }) };
     }
+
+    console.log('Auth attempt for:', credentials.client_email);
+    console.log('Key starts with:', credentials.private_key.substring(0, 40));
 
     const token = await getAccessToken(credentials);
 
