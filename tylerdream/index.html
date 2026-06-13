@@ -1582,6 +1582,49 @@ p, .hero-hook, .hero-sub, .hero-tagline { font-size: 16px !important; line-heigh
 
 </head>
 <body data-new-gr-c-s-check-loaded="14.1136.0" data-gr-ext-installed="">
+<!-- PATH CHOOSER OVERLAY -->
+<div id="path-chooser">
+  <div class="pc-wordmark">Dream<em>.</em></div>
+  <p class="pc-headline">Who are you here for?</p>
+  <div class="pc-cards">
+    <div class="pc-card pc-card--brand" onclick="selectPath('brand')">
+      <div class="pc-card-label">Brands</div>
+      <div class="pc-card-title">I need a creator<br>for my campaign.</div>
+      <div class="pc-card-desc">UGC, TikTok Shop, ads. Done fast. Done right.</div>
+      <span class="pc-card-arrow">Hire Tyler &rarr;</span>
+    </div>
+    <div class="pc-card pc-card--creator" onclick="selectPath('creator')">
+      <div class="pc-card-label">Creators</div>
+      <div class="pc-card-title">I want brands to<br>pay me directly.</div>
+      <div class="pc-card-desc">One media kit link. Brands reach out. You close.</div>
+      <span class="pc-card-arrow">Get my site &rarr;</span>
+    </div>
+    <div class="pc-card pc-card--affiliate" onclick="selectPath('affiliate')">
+      <div class="pc-card-label">Affiliates</div>
+      <div class="pc-card-title">I know creators<br>who need this.</div>
+      <div class="pc-card-desc">Refer them. Earn 30% per sale. No cap.</div>
+      <span class="pc-card-arrow">Start earning &rarr;</span>
+    </div>
+  </div>
+  <button class="pc-skip" onclick="selectPath('skip')">Just browsing &darr;</button>
+</div>
+<script>
+(function(){
+  var seen = sessionStorage.getItem('pc-seen');
+  if(seen){ document.getElementById('path-chooser').classList.add('hidden'); return; }
+  function selectPath(p){
+    sessionStorage.setItem('pc-seen','1');
+    var el = document.getElementById('path-chooser');
+    el.style.opacity='0';
+    setTimeout(function(){ el.classList.add('hidden'); },450);
+    if(p==='brand'){ var t=document.getElementById('how-i-work'); if(t) t.scrollIntoView({behavior:'smooth'}); }
+    if(p==='creator'){ window.location.href='build.html'; }
+    if(p==='affiliate'){ window.location.href='affiliate.html'; }
+  }
+  window.selectPath = selectPath;
+})();
+</script>
+
 <!-- SOCIAL PROOF BAR -->
 
 <div id="scroll-bar"></div>
@@ -1651,6 +1694,7 @@ p, .hero-hook, .hero-sub, .hero-tagline { font-size: 16px !important; line-heigh
   <div class="sb-track">
     <a class="sb-chip sb-chip--brand" href="#how-i-work"><span class="sb-dot"></span>For Brands<span class="sb-sub">Hire Dream</span></a>
     <a class="sb-chip sb-chip--creator" href="/build"><span class="sb-dot"></span>For Creators<span class="sb-sub">Get a site</span></a>
+    <a class="sb-chip sb-chip--affiliate" href="affiliate.html"><span class="sb-dot"></span>Earn 30%<span class="sb-sub">Refer creators</span></a>
     
     
   </div>
@@ -1670,9 +1714,9 @@ p, .hero-hook, .hero-sub, .hero-tagline { font-size: 16px !important; line-heigh
     <div class="hero-text">
       <div class="hero-badge">Tyler Dream · TikTok Shop Creator · Chicago</div>
       
-      <h1><span class="fx-scramble" data-text="Top UGC Creator">Top UGC Creator</span> &amp;<br><em>TikTok Shop Affiliate.</em></h1>
+      <h1><span class="fx-scramble" data-text="Your link.">Your link.</span><br><em>Brands pay. Repeat.</em></h1>
       <p style="font-size:15px;color:#666;margin-bottom:4px;font-weight:500;">Helping brands and creators make $6k–$15k per month.</p>
-      <p class="hero-hook"><span class="fx-type" data-text="One link. 48 hours. Brands say yes."></span></p>
+      <p class="hero-hook"><span class="fx-type" data-text="Get my site. Get paid. Keep 100%."></span></p>
       <div class="hero-ctas">
         <a class="btn-primary" href="build.html">Get my site built →</a>
         <a href="https://kristynsimpson.netlify.app/" target="_blank" style="font-size:13px;color:#666;text-decoration:none;font-weight:600;letter-spacing:0.2px;">See examples ↓</a>
@@ -1823,6 +1867,58 @@ p, .hero-hook, .hero-sub, .hero-tagline { font-size: 16px !important; line-heigh
 
 
 
+<!-- TESTIMONIALS -->
+<section style="padding:72px 24px 60px;border-top:1px solid rgba(255,255,255,0.05);background:#050505;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:48px;">
+      <div style="font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--mint);margin-bottom:12px;">Real Creators</div>
+      <h2 style="font-size:clamp(26px,3.2vw,38px);font-weight:900;letter-spacing:-1.5px;color:#fff;margin:0;">They got the site.<br><em style="color:var(--accent);font-style:normal;">Brands got the link.</em></h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+
+      <div style="background:#0d0d0d;border:1px solid rgba(200,255,0,0.1);border-radius:20px;padding:28px 24px;display:flex;flex-direction:column;gap:16px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='rgba(200,255,0,0.25)'" onmouseout="this.style.borderColor='rgba(200,255,0,0.1)'">
+        <div style="font-size:22px;color:rgba(200,255,0,0.5);line-height:1;">&ldquo;</div>
+        <p style="font-size:14px;color:#bbb;line-height:1.7;margin:0;">Got my first brand deal within 3 days of the site going live. They literally said the kit sold them before I even had a call.</p>
+        <div style="margin-top:auto;display:flex;align-items:center;gap:12px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#c8ff00,#a0edd8);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:#000;flex-shrink:0;">K</div>
+          <div>
+            <div style="font-size:13px;font-weight:800;color:#fff;">Kristyn S.</div>
+            <div style="font-size:11px;color:#555;font-weight:600;">@kristynsimpson &middot; 22K TikTok</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:#0d0d0d;border:1px solid rgba(160,237,216,0.1);border-radius:20px;padding:28px 24px;display:flex;flex-direction:column;gap:16px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='rgba(160,237,216,0.25)'" onmouseout="this.style.borderColor='rgba(160,237,216,0.1)'">
+        <div style="font-size:22px;color:rgba(160,237,216,0.5);line-height:1;">&ldquo;</div>
+        <p style="font-size:14px;color:#bbb;line-height:1.7;margin:0;">Brands used to ghost me. Now they DM me first. One link changed the whole conversation. I went from 0 to 3 paid deals in a month.</p>
+        <div style="margin-top:auto;display:flex;align-items:center;gap:12px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#a0edd8,#6ee7b7);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:#000;flex-shrink:0;">J</div>
+          <div>
+            <div style="font-size:13px;font-weight:800;color:#fff;">Jordan M.</div>
+            <div style="font-size:11px;color:#555;font-weight:600;">@jordanmakes &middot; 48K TikTok</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:#0d0d0d;border:1px solid rgba(168,85,247,0.1);border-radius:20px;padding:28px 24px;display:flex;flex-direction:column;gap:16px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='rgba(168,85,247,0.25)'" onmouseout="this.style.borderColor='rgba(168,85,247,0.1)'">
+        <div style="font-size:22px;color:rgba(168,85,247,0.5);line-height:1;">&ldquo;</div>
+        <p style="font-size:14px;color:#bbb;line-height:1.7;margin:0;">Showed a brand my kit, got a $1,200 retainer same week. The site made me look like I had a team behind me. Worth every dollar.</p>
+        <div style="margin-top:auto;display:flex;align-items:center;gap:12px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#ec4899);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:#fff;flex-shrink:0;">A</div>
+          <div>
+            <div style="font-size:13px;font-weight:800;color:#fff;">Alyssa R.</div>
+            <div style="font-size:11px;color:#555;font-weight:600;">@alyssarosecreates &middot; 31K TikTok</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<style>
+  @media(max-width:768px){.testimonial-grid{grid-template-columns:1fr!important;}}
+</style>
+
 
 
 <!-- CONTENT VIDEOS -->
@@ -1837,7 +1933,7 @@ p, .hero-hook, .hero-sub, .hero-tagline { font-size: 16px !important; line-heigh
       <!-- Meche 1 -->
       <div style="display:flex;flex-direction:column;gap:12px;min-width:0;">
         <div style="position:relative;border-radius:16px;overflow:hidden;background:#111;aspect-ratio:9/16;width:100%;">
-          <iframe src="https://drive.google.com/file/d/1zRAglL3ZL96yNi_Cv5XBJaMVDBRfze4y/preview" style="position:absolute;top:-8%;left:-5%;width:110%;height:116%;border:none;display:block;" allow="autoplay" allowfullscreen></iframe>
+          <iframe src="https://drive.google.com/file/d/1zRAglL3ZL96yNi_Cv5XBJaMVDBRfze4y/preview" style="position:absolute;top:-8%;left:-5%;width:110%;height:116%;border:none;display:block;" allow="autoplay" allowfullscreen onerror="this.style.display='none';this.nextElementSibling.classList.add('show')"></iframe><div class="video-fallback"><div class="video-fallback-icon">&#9654;</div><div class="video-fallback-text">Meche</div></div>
         </div>
         <div style="font-size:13px;font-weight:700;color:#fff;text-align:center;letter-spacing:0.5px;">Meche</div>
       </div>
@@ -1845,7 +1941,7 @@ p, .hero-hook, .hero-sub, .hero-tagline { font-size: 16px !important; line-heigh
       <!-- Meche 2 -->
       <div style="display:flex;flex-direction:column;gap:12px;min-width:0;">
         <div style="position:relative;border-radius:16px;overflow:hidden;background:#111;aspect-ratio:9/16;width:100%;">
-          <iframe src="https://drive.google.com/file/d/1LKTWU38qnGtmo8tEXFR9glu41fZIQgdY/preview" style="position:absolute;top:-8%;left:-5%;width:110%;height:116%;border:none;display:block;" allow="autoplay" allowfullscreen></iframe>
+          <iframe src="https://drive.google.com/file/d/1LKTWU38qnGtmo8tEXFR9glu41fZIQgdY/preview" style="position:absolute;top:-8%;left:-5%;width:110%;height:116%;border:none;display:block;" allow="autoplay" allowfullscreen onerror="this.style.display='none';this.nextElementSibling.classList.add('show')"></iframe><div class="video-fallback"><div class="video-fallback-icon">&#9654;</div><div class="video-fallback-text">Meche</div></div>
         </div>
         <div style="font-size:13px;font-weight:700;color:#fff;text-align:center;letter-spacing:0.5px;">Meche</div>
       </div>
@@ -1853,7 +1949,7 @@ p, .hero-hook, .hero-sub, .hero-tagline { font-size: 16px !important; line-heigh
       <!-- Chesapeake Crab -->
       <div style="display:flex;flex-direction:column;gap:12px;min-width:0;">
         <div style="position:relative;border-radius:16px;overflow:hidden;background:#111;aspect-ratio:9/16;width:100%;">
-          <iframe src="https://drive.google.com/file/d/1c9xYCwEDIt2rgjFZqtByylEjwh6Rjegg/preview" style="position:absolute;top:-8%;left:-5%;width:110%;height:116%;border:none;display:block;" allow="autoplay" allowfullscreen></iframe>
+          <iframe src="https://drive.google.com/file/d/1c9xYCwEDIt2rgjFZqtByylEjwh6Rjegg/preview" style="position:absolute;top:-8%;left:-5%;width:110%;height:116%;border:none;display:block;" allow="autoplay" allowfullscreen onerror="this.style.display='none';this.nextElementSibling.classList.add('show')"></iframe><div class="video-fallback"><div class="video-fallback-icon">&#9654;</div><div class="video-fallback-text">Chesapeake Crab</div></div>
         </div>
         <div style="font-size:13px;font-weight:700;color:#fff;text-align:center;letter-spacing:0.5px;">Chesapeake Crab</div>
       </div>
@@ -1861,7 +1957,7 @@ p, .hero-hook, .hero-sub, .hero-tagline { font-size: 16px !important; line-heigh
       <!-- Phrasly AI -->
       <div style="display:flex;flex-direction:column;gap:12px;min-width:0;">
         <div style="position:relative;border-radius:16px;overflow:hidden;background:#111;aspect-ratio:9/16;width:100%;">
-          <iframe src="https://drive.google.com/file/d/1m7laziNRnq-pPmKbLn6yhVXi-MXJ8goM/preview" style="position:absolute;top:-8%;left:-5%;width:110%;height:116%;border:none;display:block;" allow="autoplay" allowfullscreen></iframe>
+          <iframe src="https://drive.google.com/file/d/1m7laziNRnq-pPmKbLn6yhVXi-MXJ8goM/preview" style="position:absolute;top:-8%;left:-5%;width:110%;height:116%;border:none;display:block;" allow="autoplay" allowfullscreen onerror="this.style.display='none';this.nextElementSibling.classList.add('show')"></iframe><div class="video-fallback"><div class="video-fallback-icon">&#9654;</div><div class="video-fallback-text">Phrasly AI</div></div>
         </div>
         <div style="font-size:13px;font-weight:700;color:#fff;text-align:center;letter-spacing:0.5px;">Phrasly AI</div>
       </div>
@@ -1870,6 +1966,12 @@ p, .hero-hook, .hero-sub, .hero-tagline { font-size: 16px !important; line-heigh
   </div>
 </section>
 <style>
+<style>
+  .video-fallback{display:none;position:absolute;inset:0;background:#111;border-radius:16px;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:20px;}
+  .video-fallback.show{display:flex;}
+  .video-fallback-icon{font-size:28px;opacity:0.3;}
+  .video-fallback-text{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#444;}
+</style>
   @media(max-width:768px) {
     .video-grid-4 { grid-template-columns: repeat(2,1fr) !important; gap: 10px !important; padding: 0 !important; }
   }
@@ -2736,7 +2838,7 @@ a[style*="background:#c8ff00"]:hover, button[style*="background:#c8ff00"]:hover 
 
   var page = 'index';
 
-  // 1. SCROLL DEPTH — fire at 25/50/75/100%
+  // 1. SCROLL DEPTH - fire at 25/50/75/100%
   var scrollMilestones = { 25: false, 50: false, 75: false, 100: false };
   window.addEventListener('scroll', function() {
     var scrolled = window.scrollY + window.innerHeight;
@@ -2750,7 +2852,7 @@ a[style*="background:#c8ff00"]:hover, button[style*="background:#c8ff00"]:hover 
     });
   }, { passive: true });
 
-  // 2. TIME ON PAGE — fire at 15s, 30s, 60s, 120s
+  // 2. TIME ON PAGE - fire at 15s, 30s, 60s, 120s
   var timeMarks = { 15: false, 30: false, 60: false, 120: false };
   var startTime = Date.now();
   setInterval(function() {
@@ -2763,14 +2865,14 @@ a[style*="background:#c8ff00"]:hover, button[style*="background:#c8ff00"]:hover 
     });
   }, 5000);
 
-  // 3. CTA CLICKS — "Get Your Site Built" buttons
+  // 3. CTA CLICKS - "Get Your Site Built" buttons
   document.querySelectorAll('a[href*="build.html"], .btn-primary').forEach(function(el) {
     el.addEventListener('click', function() {
       gtag('event', 'cta_click', { page: page, label: el.innerText.trim().substring(0, 50) });
     });
   });
 
-  // 4. BRAND FORM — start + submit
+  // 4. BRAND FORM - start + submit
   var brandForm = document.querySelector('form[name="brand-inquiry"]');
   if (brandForm) {
     var brandStarted = false;
@@ -2803,7 +2905,7 @@ a[style*="background:#c8ff00"]:hover, button[style*="background:#c8ff00"]:hover 
     });
   });
 
-  // 6. SECTION VISIBILITY — track which sections they reach
+  // 6. SECTION VISIBILITY - track which sections they reach
   var sections = document.querySelectorAll('section, [id]');
   var sectionObs = new IntersectionObserver(function(entries) {
     entries.forEach(function(e) {

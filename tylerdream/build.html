@@ -195,6 +195,11 @@
       border-color: rgba(42,157,143,0.4); box-shadow: 0 0 0 3px rgba(42,157,143,0.08);
     }
     .field select { appearance: none; cursor: pointer; }
+    /* Inline validation */
+    .field input.field-error, .field textarea.field-error { border-color: #e05a5a !important; background: #fff5f5 !important; }
+    .field input.field-ok, .field textarea.field-ok { border-color: rgba(42,157,143,0.5) !important; }
+    .field-err-msg { font-size: 11px; font-weight: 700; color: #e05a5a; margin-top: 4px; display: none; }
+    .field-err-msg.visible { display: block; }
     .field textarea { resize: vertical; line-height: 1.6; }
     .field-note { font-size: 12px; color: #666; margin-top: 8px; line-height: 1.5; }
     .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
@@ -993,7 +998,7 @@
     <div class="ty-check">🎉</div>
     <h2 id="ty-heading">Brief received!</h2>
     <p style="margin-bottom:12px;">Tyler reviews every brief personally and will follow up within a few hours.</p>
-    <p style="font-size:14px;color:#888;margin-bottom:20px;">In the meantime, drop him a DM on Instagram — <a href="https://www.instagram.com/tylerdreamofficial" target="_blank" style="color:var(--accent);font-weight:700;text-decoration:none;">@tylerdreamofficial</a></p>
+    <p style="font-size:14px;color:#888;margin-bottom:20px;">In the meantime, drop him a DM on Instagram: <a href="https://www.instagram.com/tylerdreamofficial" target="_blank" style="color:var(--accent);font-weight:700;text-decoration:none;">@tylerdreamofficial</a></p>
     <div class="ty-sig">Dream</div>
     <button class="ty-close" onclick="document.getElementById('ty-modal').classList.remove('open')">Got it ✓</button>
   </div>
@@ -1016,7 +1021,14 @@
     <div class="hero-badge"><span></span><s style="color:#888;font-weight:600;">$325</s>&nbsp;$300 · 48-hour delivery</div>
     <h1><span class="fx-type" data-text="The site that makes brands say yes."></span></h1>
     <p class="stream-in glitch-line" data-text="Fill out the brief below." style="animation-delay:0.15s;margin-bottom:8px;font-size:15px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:#2a9d8f;">Fill out the brief below.</p>
-    <p class="stream-in" style="animation-delay:0.18s;margin-bottom:24px;font-size:17px;color:#555;line-height:1.65;max-width:520px;font-weight:500;">Tyler <span style="font-weight:900;color:#1a1a1a;">Dream<em style="color:#2a9d8f;font-style:normal;">.</em></span> builds your site personally. First draft in 48 hours. You own it forever.</p>
+    <p class="stream-in" style="animation-delay:0.18s;margin-bottom:20px;font-size:17px;color:#555;line-height:1.65;max-width:520px;font-weight:500;">Tyler <span style="font-weight:900;color:#1a1a1a;">Dream<em style="color:#2a9d8f;font-style:normal;">.</em></span> builds your site personally. First draft in 48 hours. You own it forever.</p>
+    <div class="stream-in" style="animation-delay:0.19s;margin-bottom:20px;display:inline-flex;align-items:center;gap:12px;background:#fff;border:1.5px solid rgba(42,157,143,0.25);border-radius:40px;padding:10px 22px;box-shadow:0 2px 12px rgba(42,157,143,0.08);">
+      <span style="font-size:20px;font-weight:900;color:#1a1a1a;letter-spacing:-0.5px;">$300</span>
+      <span style="width:1px;height:18px;background:#e0d9ce;display:inline-block;"></span>
+      <span style="font-size:13px;font-weight:700;color:#555;">One time.</span>
+      <span style="font-size:13px;font-weight:700;color:#555;">No subscription.</span>
+      <span style="font-size:13px;font-weight:700;color:#555;">You own it forever.</span>
+    </div>
     <div class="stream-in" style="animation-delay:0.2s;margin-bottom:28px;display:flex;gap:24px;flex-wrap:wrap;align-items:center;justify-content:center;">
       <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#555;font-weight:600;"><span style="color:var(--accent);font-weight:900;">✓</span> No payment until you approve the brief</div>
       <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#555;font-weight:600;"><span style="color:var(--accent);font-weight:900;">✓</span> Love it or we fix it free</div>
@@ -1044,7 +1056,39 @@
           <p class="scratch-sub">Imagine brands landing on this page when you request a sample or ask for a retainer.</p>
           <p class="scratch-sub">The only media kit that gives you a link to DM brands. It's that easy.</p>
           <p class="scratch-sub">Just one link that shows them everything they need to say yes.</p>
-          <span class="scratch-text" id="scratch-text">Dream builds you a site so you actually hit $10k /mo. Consistently.</span>
+          <!-- Media kit preview mockup -->
+          <div style="width:100%;max-width:480px;margin:16px auto 8px;background:#0d0d0d;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);text-align:left;box-shadow:0 8px 40px rgba(0,0,0,0.5);">
+            <!-- Header bar -->
+            <div style="background:#111;padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,0.06);">
+              <div style="display:flex;gap:5px;"><div style="width:9px;height:9px;border-radius:50%;background:#ff5f57;"></div><div style="width:9px;height:9px;border-radius:50%;background:#febc2e;"></div><div style="width:9px;height:9px;border-radius:50%;background:#28c840;"></div></div>
+              <div style="flex:1;background:#1a1a1a;border-radius:4px;padding:4px 10px;font-size:10px;color:#666;font-family:monospace;">tylerdream.com/yourname</div>
+            </div>
+            <!-- Hero mock -->
+            <div style="background:linear-gradient(135deg,#0f0f0f,#1a1a1a);padding:20px 20px 14px;border-bottom:1px solid rgba(255,255,255,0.05);">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+                <div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#c8ff00,#a0edd8);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:16px;">✦</div>
+                <div><div style="font-size:13px;font-weight:800;color:#f0f0f0;letter-spacing:-0.3px;">Your Name</div><div style="font-size:10px;color:#888;margin-top:1px;">TikTok Creator · Chicago, IL</div></div>
+              </div>
+              <div style="font-size:16px;font-weight:900;color:#fff;letter-spacing:-0.5px;line-height:1.2;margin-bottom:8px;">The creator brands <span style="color:#c8ff00;">DM back.</span></div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <div style="background:rgba(200,255,0,0.1);border:1px solid rgba(200,255,0,0.2);border-radius:20px;padding:4px 10px;font-size:9px;font-weight:700;color:#c8ff00;">13.2K followers</div>
+                <div style="background:rgba(160,237,216,0.1);border:1px solid rgba(160,237,216,0.2);border-radius:20px;padding:4px 10px;font-size:9px;font-weight:700;color:#a0edd8;">684K likes</div>
+                <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:4px 10px;font-size:9px;font-weight:700;color:#888;">4.7% avg engagement</div>
+              </div>
+            </div>
+            <!-- Stats row -->
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:1px solid rgba(255,255,255,0.05);">
+              <div style="padding:10px 12px;border-right:1px solid rgba(255,255,255,0.05);"><div style="font-size:13px;font-weight:900;color:#c8ff00;">13.2K</div><div style="font-size:9px;color:#666;margin-top:1px;">Followers</div></div>
+              <div style="padding:10px 12px;border-right:1px solid rgba(255,255,255,0.05);"><div style="font-size:13px;font-weight:900;color:#a0edd8;">684K</div><div style="font-size:9px;color:#666;margin-top:1px;">Total Likes</div></div>
+              <div style="padding:10px 12px;"><div style="font-size:13px;font-weight:900;color:#fff;">4.7%</div><div style="font-size:9px;color:#666;margin-top:1px;">Engagement</div></div>
+            </div>
+            <!-- CTA strip -->
+            <div style="padding:10px 14px;display:flex;align-items:center;justify-content:space-between;">
+              <div style="font-size:10px;color:#666;">Ready to collab? →</div>
+              <div style="background:#c8ff00;color:#000;font-size:9px;font-weight:900;padding:5px 12px;border-radius:20px;">Contact Me</div>
+            </div>
+          </div>
+          <span class="scratch-text" id="scratch-text">This is what brands see. One link closes the deal.</span>
         </div>
         <canvas class="scratch-canvas" id="scratch-canvas" aria-hidden="true"></canvas>
         <div class="scratch-hint" id="scratch-hint">👆 scratch to reveal</div>
@@ -1226,28 +1270,28 @@
 <section class="form-section" id="brief-form">
   <div class="wrap">
     <form action="https://formsubmit.co/dreambillboard@gmail.com" method="POST" id="intake-form" enctype="multipart/form-data">
-      <input type="hidden" name="_subject" value="New brief submitted — tylerdream.com">
+      <input type="hidden" name="_subject" value="New brief submitted - tylerdream.com">
       <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_template" value="table">
       <input type="hidden" name="_cc" value="dreambillboard@gmail.com" id="form-cc">
       <input type="hidden" name="_bcc" value="" id="form-bcc">
       <input type="hidden" name="_replyto" value="" id="form-replyto">
       <input type="hidden" name="_next" value="https://tylerdream.com/success.html">
-      <input type="hidden" name="_autoresponse" value="Your brief is in! Tyler reviews every submission personally and will be in touch soon — usually the same day. While you wait, check out tylerdream.com to see more builds and what goes into the process. If you have anything to add or any questions at all, just reply to this email. Excited to work with you. Talk soon, Tyler">
+      <input type="hidden" name="_autoresponse" value="Your brief is in! Tyler reviews every submission personally and will be in touch soon, usually the same day. While you wait, check out tylerdream.com to see more builds and what goes into the process. If you have anything to add or any questions at all, just reply to this email. Excited to work with you. Talk soon, Tyler">
 
       <!-- GUARANTEE BANNER -->
       <div style="display:flex;align-items:center;gap:14px;background:rgba(42,157,143,0.06);border:1.5px solid rgba(42,157,143,0.22);border-radius:14px;padding:16px 20px;margin-bottom:24px;flex-wrap:wrap;">
         <div style="font-size:22px;line-height:1;flex-shrink:0;">🛡</div>
         <div style="flex:1;min-width:200px;">
           <div style="font-size:13px;font-weight:800;color:#1a1a1a;margin-bottom:2px;">No payment until you approve the direction.</div>
-          <div style="font-size:12px;color:#666;line-height:1.5;">Submit your brief, Tyler reviews it personally, and sends a payment link only once you're aligned on the build. First draft not right? We fix it — no charge.</div>
+          <div style="font-size:12px;color:#666;line-height:1.5;">Submit your brief, Tyler reviews it personally, and sends a payment link only once you're aligned on the build. First draft not right? We fix it. No charge.</div>
         </div>
       </div>
 
       <!-- FORM INTRO -->
       <div style="text-align:center;margin-bottom:28px;">
         <div style="font-size:22px;font-weight:900;color:#1a1a1a;letter-spacing:-0.5px;margin-bottom:6px;">Fill out your brief.</div>
-        <div style="font-size:14px;color:#888;">Takes about 5 minutes. No payment today — Tyler follows up personally.</div>
+        <div style="font-size:14px;color:#888;">Takes about 5 minutes. No payment today. Tyler follows up personally.</div>
       </div>
 
       <!-- RECENT BUILD LINK -->
@@ -1298,8 +1342,8 @@
         </div>
         <div class="form-block-body">
           <div class="row-2">
-            <div class="field"><label>Your Name</label><input type="text" name="name" placeholder="First and last" required></div>
-            <div class="field"><label>Email</label><input type="email" name="email" placeholder="you@email.com" required oninput="document.getElementById('form-cc').value='dreambillboard@gmail.com,'+this.value;document.getElementById('form-replyto').value=this.value;"></div>
+            <div class="field"><label>Your Name</label><input type="text" name="name" id="field-name" placeholder="First and last" required><span class="field-err-msg" id="err-name">Please enter your name.</span></div>
+            <div class="field"><label>Email</label><input type="email" name="email" id="field-email" placeholder="you@email.com" required oninput="document.getElementById('form-cc').value='dreambillboard@gmail.com,'+this.value;document.getElementById('form-replyto').value=this.value;"><span class="field-err-msg" id="err-email">Enter a valid email address.</span></div>
           </div>
           <div class="field"><label>City and State</label><input type="text" name="location" placeholder="e.g. Chicago, IL"></div>
           <div class="field"><label>What you post about</label>
@@ -1342,7 +1386,7 @@
             <label>Preferred contact method</label>
             <select name="contact_method" id="contact-method-build" onchange="handleContactMethod(this,'contact-detail-build','contact-detail-label-build','contact-detail-placeholder-build')">
               <option value="">Select one</option>
-              <option value="Email (already provided)">Email — use the one I provided</option>
+              <option value="Email (already provided)">Email - use the one I provided</option>
               <option value="Text">Text / SMS</option>
               <option value="Phone call">Phone call</option>
               <option value="Google Meet">Google Meet</option>
@@ -1432,7 +1476,7 @@
           <div class="block-num">3</div>
           <div>
             <div class="block-title">Your best videos</div>
-            <div class="block-subtitle">Paste 4-5 video links — TikTok, YouTube, Instagram Reels, whatever</div>
+            <div class="block-subtitle">Paste 4-5 video links: TikTok, YouTube, Instagram Reels, whatever</div>
             <div style="font-size:12px;color:var(--text-muted);margin-top:4px;line-height:1.5;">TikTok: tap Share → Copy Link. YouTube: copy from address bar. Instagram: tap ··· → Copy Link.</div>
           </div>
         </div>
@@ -1444,7 +1488,7 @@
             <div class="video-input-row"><span class="video-num">4</span><div class="field" style="margin:0;flex:1;"><input type="url" name="video_4" placeholder="TikTok, YouTube, Instagram, or any video link"></div></div>
             <div class="video-input-row"><span class="video-num">5</span><div class="field" style="margin:0;flex:1;"><input type="url" name="video_5" placeholder="TikTok, YouTube, Instagram, or any video link"></div></div>
           </div>
-          <div class="field-note" style="margin-top:14px;">These will be embedded on your site. Pick ones that look consistent — similar style, similar energy.</div>
+          <div class="field-note" style="margin-top:14px;">These will be embedded on your site. Pick ones that look consistent: similar style, similar energy.</div>
         </div>
       </div>
 
@@ -1505,7 +1549,7 @@
           <div class="block-num">6</div>
           <div>
             <div class="block-title">Your photos</div>
-            <div class="block-subtitle">Your hero photo — clear face, decent lighting</div>
+            <div class="block-subtitle">Your hero photo: clear face, decent lighting</div>
           </div>
         </div>
         <div class="form-block-body">
@@ -1557,7 +1601,7 @@
               <button type="button" class="pill" onclick="selectPill(this,'age-pills','audience_age')">Mixed</button>
             </div>
             <input type="hidden" name="audience_age" id="audience_age">
-            <input type="text" name="audience_age_notes" placeholder="Or describe your audience in your own words — e.g. mostly moms 30-40, college students, gym guys" style="margin-top:10px;width:100%;background:var(--input-bg);color:var(--text);border:1px solid var(--input-border);border-radius:10px;padding:12px 16px;font-size:13px;font-family:Inter,sans-serif;outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--input-border)'">
+            <input type="text" name="audience_age_notes" placeholder="Or describe your audience in your own words, e.g. mostly moms 30-40, college students, gym guys" style="margin-top:10px;width:100%;background:var(--input-bg);color:var(--text);border:1px solid var(--input-border);border-radius:10px;padding:12px 16px;font-size:13px;font-family:Inter,sans-serif;outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--input-border)'">
           </div>
           <div class="field" style="margin-top:24px;">
             <label>Audience gender split <span class="slider-val" id="gender-label">50% F / 50% M</span></label>
@@ -1596,14 +1640,33 @@
           <div style="font-size:10px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;">What you get</div>
           <div style="font-size:16px;font-weight:900;color:#1a1a1a;letter-spacing:-0.5px;margin-bottom:12px;">A site worth sending brands to.</div>
           <p style="font-size:14px;color:var(--text);line-height:1.6;margin:0 0 10px;font-weight:600;">Most creators email a rate card in a Google Doc. You send a link that closes the deal before the call.</p>
-          <p style="font-size:12px;color:var(--muted);line-height:1.6;margin:0;">Your story, stats, wins and a live contact form — built to make brands say yes before they even reply.</p>
+          <p style="font-size:12px;color:var(--muted);line-height:1.6;margin:0;">Your story, stats, wins and a live contact form. Built to make brands say yes before they even reply.</p>
+        </div>
+      </div>
+
+      <!-- WHAT HAPPENS NEXT -->
+      <div style="background:var(--bg);border:1px solid var(--input-border);border-radius:16px;padding:22px 24px;margin-bottom:24px;" class="fade-up">
+        <div style="font-size:10px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:14px;">What happens after you hit submit</div>
+        <div style="display:flex;flex-direction:column;gap:0;">
+          <div style="display:flex;align-items:flex-start;gap:14px;padding:10px 0;border-bottom:1px solid var(--input-border);">
+            <div style="width:26px;height:26px;border-radius:50%;background:rgba(42,157,143,0.12);border:1.5px solid rgba(42,157,143,0.3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:var(--accent);flex-shrink:0;">1</div>
+            <div><div style="font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:2px;">Tyler reviews your brief</div><div style="font-size:12px;color:#666;line-height:1.5;">Every submission is read personally. You'll hear back within a few hours, same day.</div></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:14px;padding:10px 0;border-bottom:1px solid var(--input-border);">
+            <div style="width:26px;height:26px;border-radius:50%;background:rgba(42,157,143,0.12);border:1.5px solid rgba(42,157,143,0.3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:var(--accent);flex-shrink:0;">2</div>
+            <div><div style="font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:2px;">You approve the direction, then pay</div><div style="font-size:12px;color:#666;line-height:1.5;">No payment upfront. Tyler confirms the plan first. You pay $300 only when you're ready to build.</div></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:14px;padding:10px 0;">
+            <div style="width:26px;height:26px;border-radius:50%;background:rgba(42,157,143,0.12);border:1.5px solid rgba(42,157,143,0.3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:var(--accent);flex-shrink:0;">3</div>
+            <div><div style="font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:2px;">First draft in 48 hours</div><div style="font-size:12px;color:#666;line-height:1.5;">Live link sent to you directly. Revisions are included until you love it.</div></div>
+          </div>
         </div>
       </div>
 
       <div class="submit-wrap">
-        <button type="submit" class="submit-btn" id="form-submit-btn">Submit my brief — no payment yet →</button>
+        <button type="submit" class="submit-btn" id="form-submit-btn">Submit my brief - no payment yet →</button>
         <p class="submit-note">Tyler reviews every brief personally and reaches out within a few hours to confirm details. <strong>No payment until you're ready.</strong></p>
-        <div style="margin-top:16px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;color:#888;font-weight:700;"><span style="color:var(--accent);">★★★★★</span> Love it or we fix it free — guaranteed.</div>
+        <div style="margin-top:16px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;color:#888;font-weight:700;"><span style="color:var(--accent);">★★★★★</span> Love it or we fix it free. Guaranteed.</div>
       </div>
 
     </form>
@@ -1637,7 +1700,7 @@
 </div>
 <script>
 function handleStripePayment() {
-  alert('Stripe integration pending — add your publishable key and backend endpoint.');
+  alert('Stripe integration pending - add your publishable key and backend endpoint.');
 }
 </script>
 
@@ -1697,7 +1760,7 @@ function handleStripePayment() {
       addHidden('_track_device', isMobile ? (isTikTok ? 'mobile-tiktok' : 'mobile') : 'desktop');
       addHidden('_track_ts', ts);
 
-      // Abandon detection — fire if they leave without submitting after 30+ seconds
+      // Abandon detection - fire if they leave without submitting after 30+ seconds
       var startTime = Date.now();
       var submitted = false;
       form.addEventListener('submit', function() { submitted = true; });
@@ -1744,7 +1807,7 @@ function handleStripePayment() {
     // Validate: any code 3+ chars gets 25% off
     if (code.length >= 3) {
       var confirm = document.getElementById('referral-confirm');
-      if (confirm) { confirm.style.display = 'block'; confirm.textContent = 'Code applied: ' + code + ' — 25% off. You pay $225.'; }
+      if (confirm) { confirm.style.display = 'block'; confirm.textContent = 'Code applied: ' + code + ' - 25% off. You pay $225.'; }
       var priceDisplay = document.getElementById('price-display-top');
       if (priceDisplay) priceDisplay.style.display = 'block';
       var msg = document.getElementById('referral-applied-msg');
@@ -1757,7 +1820,7 @@ function handleStripePayment() {
   document.addEventListener('DOMContentLoaded', function() {
     var urlCode = getParam('ref') || getParam('code');
     if (urlCode) {
-      // URL param present (affiliate link) — show banner, auto-apply and show discount
+      // URL param present (affiliate link) - show banner, auto-apply and show discount
       var banner = document.getElementById('referral-banner');
       if (banner) banner.style.display = 'flex';
       applyCode(urlCode.toUpperCase(), true);
@@ -1897,7 +1960,7 @@ function markUploaded(input, zoneId, labelId) {
     }, { threshold: 0.2 });
     pitchLines.forEach(function(el) { pitchObserver.observe(el); });
 
-    // FORM SUBMIT — intercept, backup to Sheets, then submit
+    // FORM SUBMIT - intercept, backup to Sheets, then submit
     var form = document.getElementById('intake-form');
     if (form) {
       form.addEventListener('submit', function(e) {
@@ -1931,12 +1994,37 @@ function markUploaded(input, zoneId, labelId) {
         setTimeout(function() { form.submit(); }, 300);
       });
     }
+
+    // INLINE VALIDATION
+    function validateField(input, errId, checkFn) {
+      var err = document.getElementById(errId);
+      if (!err) return;
+      input.addEventListener('blur', function() {
+        if (!checkFn(input.value)) {
+          input.classList.add('field-error'); input.classList.remove('field-ok');
+          err.classList.add('visible');
+        } else {
+          input.classList.remove('field-error'); input.classList.add('field-ok');
+          err.classList.remove('visible');
+        }
+      });
+      input.addEventListener('input', function() {
+        if (checkFn(input.value)) {
+          input.classList.remove('field-error'); input.classList.add('field-ok');
+          err.classList.remove('visible');
+        }
+      });
+    }
+    var nameEl = document.getElementById('field-name');
+    if (nameEl) validateField(nameEl, 'err-name', function(v) { return v.trim().length >= 2; });
+    var emailEl = document.getElementById('field-email');
+    if (emailEl) validateField(emailEl, 'err-email', function(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); });
   });
 
 </script>
 
 <script>
-// ===== GA4 TRACKING — build.html =====
+// ===== GA4 TRACKING - build.html =====
 (function() {
   if (typeof gtag !== 'function') return;
   var page = 'build';
@@ -1966,7 +2054,7 @@ function markUploaded(input, zoneId, labelId) {
     }, s * 1000);
   });
 
-  // form_start — first time any field is touched
+  // form_start - first time any field is touched
   var formStartFired = false;
   var form = document.getElementById('intake-form');
   if (form) {
@@ -1979,7 +2067,7 @@ function markUploaded(input, zoneId, labelId) {
     };
     form.addEventListener('focusin', firstInputHandler);
 
-    // Enhanced form_submit — capture key fields
+    // Enhanced form_submit - capture key fields
     form.addEventListener('submit', function() {
       var name = (form.querySelector('[name="name"]') || {}).value || '';
       var email = (form.querySelector('[name="email"]') || {}).value || '';

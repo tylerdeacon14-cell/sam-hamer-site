@@ -8,84 +8,208 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-Y19M1SHC2Y');
+  gtag('event', 'purchase_intent', { event_category: 'conversion', event_label: 'brief_submitted' });
 </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Got it · Tyler Dream</title>
-  <meta name="description" content="Brief received. Tyler reviews every submission personally.">
+  <title>Brief Received - Tyler Dream</title>
+  <meta name="description" content="Brief received. Tyler reviews every submission personally. Build starts now.">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    :root { --bg:#f5f0e8; --text:#1a1a1a; --muted:#555; --accent:#2a9d8f; --border:#e0d9ce; --venmo:#3D95CE; }
+    :root { --bg:#f5f0e8; --text:#1a1a1a; --muted:#555; --accent:#2a9d8f; --gold:#e9c46a; --border:#e0d9ce; --venmo:#3D95CE; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; min-height: 100vh; overflow-x: hidden; }
 
-    nav { position: sticky; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 14px 32px; background: #fff; border-bottom: 1px solid var(--border); }
+    nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 14px 32px; background: #fff; border-bottom: 1px solid var(--border); }
     .nav-logo { font-size: 15px; font-weight: 800; color: var(--text); text-decoration: none; letter-spacing: -0.5px; }
     .nav-logo em { color: var(--accent); font-style: normal; }
     .nav-back { font-size: 13px; font-weight: 600; color: var(--muted); text-decoration: none; }
 
-    .main { display: flex; align-items: center; justify-content: center; padding: 60px 24px 80px; min-height: calc(100vh - 54px); }
-    .card { max-width: 520px; width: 100%; text-align: center; background: #fff; border: 1px solid var(--border); border-radius: 24px; padding: 48px 36px; position: relative; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
-    .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
+    .main { padding: 48px 24px 80px; display: flex; flex-direction: column; align-items: center; gap: 24px; }
 
-    .check { width: 64px; height: 64px; border-radius: 50%; background: rgba(42,157,143,0.1); border: 1px solid rgba(42,157,143,0.25); display: flex; align-items: center; justify-content: center; font-size: 28px; color: var(--accent); margin: 0 auto 24px; }
-    .label { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
-    h1 { font-size: clamp(28px,6vw,38px); font-weight: 900; letter-spacing: -1.5px; color: var(--text); margin-bottom: 14px; line-height: 1.1; }
-    .sub { font-size: 15px; color: var(--muted); line-height: 1.7; margin-bottom: 28px; }
+    /* Confetti strip */
+    .confetti-strip { width: 100%; max-width: 560px; height: 4px; border-radius: 2px; background: linear-gradient(90deg, var(--accent), var(--gold), var(--accent)); animation: shimmer 2s linear infinite; background-size: 200% 100%; }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
-    .pay-block { background: rgba(42,157,143,0.05); border: 1px solid rgba(42,157,143,0.2); border-radius: 16px; padding: 24px; margin: 0 0 20px; }
+    /* Main card */
+    .card { max-width: 560px; width: 100%; background: #fff; border: 1px solid var(--border); border-radius: 24px; padding: 48px 36px 40px; position: relative; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.07); }
+    .card-top-bar { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
+
+    .check { width: 72px; height: 72px; border-radius: 50%; background: rgba(42,157,143,0.1); border: 2px solid rgba(42,157,143,0.3); display: flex; align-items: center; justify-content: center; font-size: 32px; color: var(--accent); margin: 0 auto 20px; animation: popIn 0.5s cubic-bezier(0.175,0.885,0.32,1.275) both; }
+    @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+
+    .eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; text-align: center; }
+    h1 { font-size: clamp(28px,6vw,40px); font-weight: 900; letter-spacing: -1.5px; color: var(--text); margin-bottom: 12px; line-height: 1.1; text-align: center; }
+    .sub { font-size: 15px; color: var(--muted); line-height: 1.7; margin-bottom: 32px; text-align: center; }
+
+    /* Countdown */
+    .countdown-wrap { background: rgba(42,157,143,0.06); border: 1px solid rgba(42,157,143,0.2); border-radius: 14px; padding: 18px 20px; margin-bottom: 24px; display: flex; align-items: center; gap: 14px; }
+    .countdown-icon { font-size: 22px; flex-shrink: 0; }
+    .countdown-text { flex: 1; }
+    .countdown-label { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+    .countdown-timer { font-size: 22px; font-weight: 900; color: var(--text); letter-spacing: -0.5px; font-variant-numeric: tabular-nums; }
+
+    /* Pay block */
+    .pay-block { background: rgba(42,157,143,0.05); border: 1.5px solid rgba(42,157,143,0.25); border-radius: 16px; padding: 26px 24px; margin-bottom: 20px; }
     .pay-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
-    .pay-headline { font-size: 18px; font-weight: 900; color: var(--text); letter-spacing: -0.5px; margin-bottom: 6px; }
+    .pay-headline { font-size: 20px; font-weight: 900; color: var(--text); letter-spacing: -0.5px; margin-bottom: 6px; }
     .pay-sub { font-size: 13px; color: var(--muted); line-height: 1.55; margin-bottom: 18px; }
-    .pay-btn { display: flex; align-items: center; justify-content: center; padding: 15px 24px; border-radius: 10px; font-size: 14px; font-weight: 900; text-decoration: none; letter-spacing: 0.3px; transition: opacity 0.15s, transform 0.15s; }
-    .pay-btn:hover { transform: translateY(-1px); opacity: 0.9; }
+    .pay-btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 16px 24px; border-radius: 12px; font-size: 15px; font-weight: 900; text-decoration: none; letter-spacing: 0.2px; transition: transform 0.15s, opacity 0.15s; }
+    .pay-btn:hover { transform: translateY(-2px); opacity: 0.92; }
     .pay-btn--venmo { background: var(--venmo); color: #fff; }
-    .pay-note { font-size: 12px; color: #999; margin-top: 12px; line-height: 1.5; }
+    .pay-note { font-size: 12px; color: #999; margin-top: 12px; line-height: 1.55; text-align: center; }
 
-    .timeline { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 20px; text-align: left; margin-bottom: 24px; }
-    .timeline-title { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
-    .timeline-row { display: flex; align-items: flex-start; gap: 12px; font-size: 13px; color: var(--muted); line-height: 1.55; padding: 5px 0; }
+    /* Timeline */
+    .timeline { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px; text-align: left; margin-bottom: 20px; }
+    .timeline-title { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+    .timeline-row { display: flex; align-items: flex-start; gap: 12px; font-size: 13px; color: var(--muted); line-height: 1.55; padding: 7px 0; border-bottom: 1px solid var(--border); }
+    .timeline-row:last-child { border-bottom: none; }
     .timeline-row strong { color: var(--text); font-weight: 700; }
-    .timeline-num { color: var(--accent); font-weight: 900; flex-shrink: 0; min-width: 18px; }
+    .timeline-num { color: var(--accent); font-weight: 900; flex-shrink: 0; min-width: 20px; }
 
-    .home { display: inline-block; margin-top: 8px; background: transparent; border: 1px solid var(--border); color: var(--muted); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 11px 22px; border-radius: 10px; text-decoration: none; transition: color 0.15s, border-color 0.15s; }
-    .home:hover { color: var(--text); border-color: #bbb; }
+    /* Referral card */
+    .ref-card { max-width: 560px; width: 100%; background: #fff; border: 1px solid var(--border); border-radius: 20px; padding: 32px 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+    .ref-card-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #a855f7; margin-bottom: 12px; }
+    .ref-card-title { font-size: 22px; font-weight: 900; color: var(--text); letter-spacing: -0.8px; line-height: 1.2; margin-bottom: 10px; }
+    .ref-card-sub { font-size: 14px; color: var(--muted); line-height: 1.65; margin-bottom: 22px; }
+    .ref-link-wrap { display: flex; gap: 10px; align-items: center; }
+    .ref-link-box { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; font-size: 13px; font-weight: 700; color: var(--text); letter-spacing: 0.2px; word-break: break-all; }
+    .ref-copy-btn { background: var(--accent); color: #fff; border: none; border-radius: 10px; padding: 12px 18px; font-size: 13px; font-weight: 800; cursor: pointer; letter-spacing: 0.3px; white-space: nowrap; transition: opacity 0.15s, transform 0.15s; flex-shrink: 0; }
+    .ref-copy-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .ref-note { font-size: 12px; color: #999; margin-top: 12px; }
 
-    @media (max-width: 600px) { .card { padding: 36px 20px; } nav { padding: 14px 20px; } }
+    /* Social strip */
+    .social-strip { max-width: 560px; width: 100%; display: flex; gap: 12px; }
+    .social-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 7px; padding: 13px 16px; border-radius: 12px; text-decoration: none; font-size: 13px; font-weight: 700; transition: transform 0.15s, opacity 0.15s; }
+    .social-btn:hover { transform: translateY(-2px); opacity: 0.88; }
+    .social-btn--tiktok { background: #000; color: #fff; }
+    .social-btn--home { background: #fff; color: var(--text); border: 1px solid var(--border); }
+
+    @media (max-width: 600px) {
+      .card { padding: 36px 20px 32px; }
+      nav { padding: 14px 20px; }
+      .ref-link-wrap { flex-direction: column; }
+      .ref-copy-btn { width: 100%; }
+      .social-strip { flex-direction: column; }
+    }
   </style>
 </head>
 <body>
 
 <nav>
   <a href="index.html" class="nav-logo">Dream<em>.</em></a>
-  <a href="index.html" class="nav-back">← Home</a>
+  <a href="index.html" class="nav-back">Back to home</a>
 </nav>
 
 <div class="main">
-  <div class="card">
-    <div class="check">✓</div>
-    <div class="label">Brief received</div>
-    <h1>You're in.<br>Build starts now.</h1>
-    <p class="sub">Tyler reviews every brief personally. Expect a message within a few hours.</p>
 
+  <div class="confetti-strip"></div>
+
+  <!-- MAIN CONFIRMATION CARD -->
+  <div class="card">
+    <div class="card-top-bar"></div>
+    <div class="check">&#10003;</div>
+    <div class="eyebrow">Brief received</div>
+    <h1>You're in.<br>Build starts now.</h1>
+    <p class="sub">Tyler reviews every brief personally. You'll hear back the same day, usually within a few hours.</p>
+
+    <!-- Countdown -->
+    <div class="countdown-wrap">
+      <div class="countdown-icon">&#9203;</div>
+      <div class="countdown-text">
+        <div class="countdown-label">First draft delivered in</div>
+        <div class="countdown-timer" id="countdown">48:00:00</div>
+      </div>
+    </div>
+
+    <!-- Pay block -->
     <div class="pay-block">
       <div class="pay-eyebrow">Lock your spot</div>
-      <div class="pay-headline">$300 · Pay via Venmo</div>
-      <div class="pay-sub">Pay now and the build starts immediately after Tyler confirms your brief.</div>
-      <a class="pay-btn pay-btn--venmo" href="https://venmo.com/u/Tyler_dream" target="_blank" rel="noopener">Pay $300 on Venmo →</a>
-      <p class="pay-note">Prefer another method? Email <a href="mailto:dreambillboard@gmail.com" style="color:var(--accent);">dreambillboard@gmail.com</a></p>
+      <div class="pay-headline">$300 via Venmo</div>
+      <div class="pay-sub">Pay after Tyler confirms your brief. Build starts immediately once payment clears.</div>
+      <a class="pay-btn pay-btn--venmo" href="https://venmo.com/u/Tyler_dream" target="_blank" rel="noopener">
+        <span>Pay $300 on Venmo</span><span style="font-size:16px;">&#8594;</span>
+      </a>
+      <p class="pay-note">Prefer another method? Email <a href="mailto:dreambillboard@gmail.com" style="color:var(--accent);font-weight:700;">dreambillboard@gmail.com</a></p>
     </div>
 
+    <!-- Timeline -->
     <div class="timeline">
       <div class="timeline-title">What happens next</div>
-      <div class="timeline-row"><span class="timeline-num">1.</span><span><strong>Today</strong> — Tyler reads your brief and confirms fit.</span></div>
-      <div class="timeline-row"><span class="timeline-num">2.</span><span><strong>48 hours</strong> — First draft delivered as a live link.</span></div>
-      <div class="timeline-row"><span class="timeline-num">3.</span><span><strong>Revisions</strong> — We refine until you love it.</span></div>
+      <div class="timeline-row"><span class="timeline-num">1.</span><span><strong>Today</strong> - Tyler reads your brief and confirms fit. Same day.</span></div>
+      <div class="timeline-row"><span class="timeline-num">2.</span><span><strong>48 hours</strong> - First draft delivered as a live link you can share.</span></div>
+      <div class="timeline-row"><span class="timeline-num">3.</span><span><strong>Revisions</strong> - We refine until you love it. Edits are included.</span></div>
     </div>
 
-    <a class="home" href="index.html">Back to home</a>
   </div>
+
+  <!-- REFERRAL CARD -->
+  <div class="ref-card">
+    <div class="ref-card-eyebrow">Affiliate Program</div>
+    <div class="ref-card-title">Know a creator who needs this?<br>Earn 30% when they buy.</div>
+    <div class="ref-card-sub">Share your unique link. When they buy a site, you get 30% of the $300. No cap on referrals.</div>
+    <div class="ref-link-wrap">
+      <div class="ref-link-box" id="ref-link-display">tylerdream.com/build?ref=friend</div>
+      <button class="ref-copy-btn" id="ref-copy-btn" onclick="copyRef()">Copy link</button>
+    </div>
+    <p class="ref-note">Your referral link is unique to your email. Share it anywhere.</p>
+  </div>
+
+  <!-- SOCIAL + HOME -->
+  <div class="social-strip">
+    <a class="social-btn social-btn--tiktok" href="https://www.tiktok.com/@dreamlifevisuals" target="_blank" rel="noopener">
+      <span style="font-size:16px;">&#9654;</span> Follow @dreamlifevisuals
+    </a>
+    <a class="social-btn social-btn--home" href="index.html">Back to home</a>
+  </div>
+
+  <div style="font-size:12px;color:#aaa;text-align:center;max-width:400px;line-height:1.6;">
+    Questions? Text or DM Tyler directly.<br>
+    <a href="mailto:dreambillboard@gmail.com" style="color:var(--accent);font-weight:700;text-decoration:none;">dreambillboard@gmail.com</a>
+  </div>
+
 </div>
+
+<script>
+// Countdown: 48 hours from page load
+(function(){
+  var end = Date.now() + 48 * 60 * 60 * 1000;
+  function pad(n){ return n < 10 ? '0'+n : n; }
+  function tick(){
+    var diff = Math.max(0, end - Date.now());
+    var h = Math.floor(diff / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+    var el = document.getElementById('countdown');
+    if(el) el.textContent = pad(h) + ':' + pad(m) + ':' + pad(s);
+    if(diff > 0) setTimeout(tick, 1000);
+  }
+  tick();
+})();
+
+// Referral link - pull from URL param or email param
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var email = params.get('email') || '';
+  var slug = email ? email.split('@')[0].replace(/[^a-z0-9]/gi,'').toLowerCase().slice(0,12) : 'friend';
+  var link = 'tylerdream.com/build?ref=' + slug;
+  var display = document.getElementById('ref-link-display');
+  if(display) display.textContent = link;
+  window._refLink = 'https://' + link;
+})();
+
+// Copy referral link
+function copyRef(){
+  var link = window._refLink || 'https://tylerdream.com/build?ref=friend';
+  navigator.clipboard.writeText(link).then(function(){
+    var btn = document.getElementById('ref-copy-btn');
+    if(btn){ btn.textContent = 'Copied!'; setTimeout(function(){ btn.textContent = 'Copy link'; }, 2000); }
+  }).catch(function(){
+    var btn = document.getElementById('ref-copy-btn');
+    if(btn){ btn.textContent = 'Copied!'; setTimeout(function(){ btn.textContent = 'Copy link'; }, 2000); }
+  });
+}
+</script>
 
 </body>
 </html>
