@@ -562,7 +562,7 @@
       line-height: 1;
     }
     .pill:hover { border-color: rgba(42,157,143,0.3); color: var(--accent); transform: translateY(-1px); }
-    .pill.active { background: rgba(42,157,143,0.08); border-color: rgba(42,157,143,0.4); color: var(--accent); }
+    .pill.active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 800; }
 
     /* FAQ ACCORDION */
     .faq-item {
@@ -1427,6 +1427,7 @@
               <button type="button" class="pill" onclick="selectPill(this,'age-pills','audience_age')">Mixed</button>
             </div>
             <input type="hidden" name="audience_age" id="audience_age">
+            <input type="text" name="audience_age_notes" placeholder="Or describe your audience in your own words — e.g. mostly moms 30-40, college students, gym guys" style="margin-top:10px;width:100%;background:var(--input-bg);color:var(--text);border:1px solid var(--input-border);border-radius:10px;padding:12px 16px;font-size:13px;font-family:Inter,sans-serif;outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--input-border)'">
           </div>
           <div class="field" style="margin-top:24px;">
             <label>Audience gender split <span class="slider-val" id="gender-label">50% F / 50% M</span></label>
@@ -1762,13 +1763,12 @@ function markUploaded(input, zoneId, labelId) {
     }, { threshold: 0.2 });
     pitchLines.forEach(function(el) { pitchObserver.observe(el); });
 
-    // FORM SUBMIT — native POST to FormSubmit, redirects to success.html
-    // If no file selected, switch enctype to application/x-www-form-urlencoded
-    // This prevents TikTok in-app browser from hanging on multipart submissions
-    // Also fires a backup to Google Sheets via Netlify function
+    // FORM SUBMIT — intercept, backup to Sheets, then submit
     var form = document.getElementById('intake-form');
     if (form) {
       form.addEventListener('submit', function(e) {
+        e.preventDefault(); // hold the form
+
         // TikTok enctype fix
         var fileInput = form.querySelector('input[type="file"]');
         if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
@@ -1776,7 +1776,7 @@ function markUploaded(input, zoneId, labelId) {
           if (fileInput) fileInput.disabled = true;
         }
 
-        // GA4: track submit button click
+        // GA4: track submit
         if (typeof gtag !== 'undefined') {
           gtag('event', 'form_submit', {
             event_category: 'engagement',
@@ -1785,20 +1785,23 @@ function markUploaded(input, zoneId, labelId) {
           });
         }
 
-        // Backup to Google Sheets (fire-and-forget, never blocks form)
-        try {
-          var data = {};
-          var inputs = form.querySelectorAll('input, textarea, select');
-          inputs.forEach(function(el) { if (el.name && !el.name.startsWith('_')) data[el.name] = el.value; });
-          // include tracking fields
-          form.querySelectorAll('input[type="hidden"]').forEach(function(el) { data[el.name] = el.value; });
-          fetch('/.netlify/functions/log-submission', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data),
-            keepalive: true
-          }).catch(function(){});
-        } catch(err) {}
+        // Collect all form data
+        var data = {};
+        form.querySelectorAll('input, textarea, select').forEach(function(el) {
+          if (el.name) data[el.name] = el.value;
+        });
+
+        // Fire backup to Sheets, then submit form regardless of result
+        fetch('/.netlify/functions/log-submission', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        }).catch(function(){}).finally(function() {
+          form.submit();
+        });
+
+        // Fallback: if fetch hangs more than 3 seconds, submit anyway
+        setTimeout(function() { try { form.submit(); } catch(e){} }, 3000);
       });
     }
   });
