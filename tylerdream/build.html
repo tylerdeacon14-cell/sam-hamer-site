@@ -1768,7 +1768,10 @@ function handleStripePayment() {
 
 var accountCount = 2;
 
-document.getElementById('add-account-btn').addEventListener('click', function() {
+document.addEventListener('DOMContentLoaded', function() {
+  var addBtn = document.getElementById('add-account-btn');
+  if (!addBtn) return;
+  addBtn.addEventListener('click', function() {
   if (accountCount >= 4) {
     this.style.opacity = '0.4';
     this.style.pointerEvents = 'none';
@@ -1803,7 +1806,8 @@ document.getElementById('add-account-btn').addEventListener('click', function() 
     '</div>' +
   '</div>';
   container.appendChild(row);
-});
+  });
+}); // end DOMContentLoaded for add-account-btn
 
 function removeRow(btn) {
   var row = btn.closest('.account-row');
@@ -1881,7 +1885,7 @@ function markUploaded(input, zoneId, labelId) {
     // FORM SUBMIT — intercept, backup to Sheets, then submit
     var form = document.getElementById('intake-form');
     if (form) {
-      form.addEventLis'submit', function(e) {
+      form.addEventListener('submit', function(e) {
         e.preventDefault();
         var refCode = (document.getElementById('referral-code-input') || {}).value || '';
 
