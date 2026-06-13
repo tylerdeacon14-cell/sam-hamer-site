@@ -1530,8 +1530,9 @@ function handleStripePayment() {
 (function(){
   // Affiliate code → email map
   var AFFILIATE_EMAILS = {
-    'KRISTYN': 'Kristynwales@gmail.com',
-    'IRENE':   'irenebarreraventures@gmail.com'
+    'KRISTYN25': 'Kristynwales@gmail.com',
+    'IRENE25':   'irenebarreraventures@gmail.com',
+    'SHAUNA25':  'shuaddkj@me.com'
   };
 
   function getParam(name){
@@ -1701,7 +1702,18 @@ function markUploaded(input, zoneId, labelId) {
     pitchLines.forEach(function(el) { pitchObserver.observe(el); });
 
     // FORM SUBMIT — native POST to FormSubmit, redirects to success.html
-    // No fetch, no JS intercept — works in TikTok in-app browser and all others
+    // If no file selected, switch enctype to application/x-www-form-urlencoded
+    // This prevents TikTok in-app browser from hanging on multipart submissions
+    var form = document.getElementById('intake-form');
+    if (form) {
+      form.addEventListener('submit', function() {
+        var fileInput = form.querySelector('input[type="file"]');
+        if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
+          form.enctype = 'application/x-www-form-urlencoded';
+          if (fileInput) fileInput.disabled = true;
+        }
+      });
+    }
   });
 
   function handleStripePayment(e) {
