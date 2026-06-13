@@ -1095,7 +1095,7 @@
       <input type="hidden" name="_bcc" value="" id="form-bcc">
       <input type="hidden" name="_replyto" value="" id="form-replyto">
       <input type="hidden" name="_next" value="https://tylerdream.com/success.html">
-      <input type="hidden" name="_autoresponse" value="Hey! Got your brief — Tyler will review it personally and reach out within a few hours with your secure Stripe payment link. Feel free to reply to this email with any questions. Talk soon, Tyler Dream">
+      <input type="hidden" name="_autoresponse" value="Got it — your brief is in. Tyler reviews every submission personally and will reach out soon (usually same day) to talk through your build. In the meantime, if you have questions or want to send anything else over, just reply to this email. Talk soon, Tyler | tylerdream.com">
 
       <!-- GUARANTEE BANNER -->
       <div style="display:flex;align-items:center;gap:14px;background:rgba(42,157,143,0.06);border:1.5px solid rgba(42,157,143,0.22);border-radius:14px;padding:16px 20px;margin-bottom:24px;flex-wrap:wrap;">
@@ -1123,7 +1123,7 @@
       </div>
 
       <!-- REFERRAL CODE -->
-      <div class="referral-banner" id="referral-banner">
+      <div class="referral-banner" id="referral-banner" style="display:none;">
         <div class="referral-copy">
           <strong>Got a referral code from one of our <span class="affiliate-word">Affiliates</span>?</strong>
           <span>Enter it for 25% off: <span style="color:var(--accent);font-weight:700;">only $225</span></span>
@@ -1564,19 +1564,15 @@ function handleStripePayment() {
   document.addEventListener('DOMContentLoaded', function() {
     var urlCode = getParam('ref') || getParam('code');
     if (urlCode) {
-      // URL param present (affiliate link) — auto-apply and show discount
+      // URL param present (affiliate link) — show banner, auto-apply and show discount
+      var banner = document.getElementById('referral-banner');
+      if (banner) banner.style.display = 'flex';
       applyCode(urlCode.toUpperCase(), true);
       try { localStorage.setItem('tylerdream_ref', urlCode.toUpperCase()); } catch(e){}
     }
-    // No URL param: show $300, hide discount UI, clear any stale localStorage code from display
-    // (localStorage code only pre-fills the input field, does not auto-apply)
+    // No URL param: banner stays hidden, no discount shown
     else {
-      var stored = null;
-      try { stored = localStorage.getItem('tylerdream_ref'); } catch(e){}
-      if (stored) {
-        var input = document.getElementById('referral-code-input');
-        if (input) input.value = stored; // pre-fill only, don't apply
-      }
+      try { localStorage.removeItem('tylerdream_ref'); } catch(e){}
     }
   });
 
