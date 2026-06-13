@@ -75,6 +75,30 @@
   .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
   .legend-val { margin-left: auto; font-weight: 800; color: var(--text); font-size: 12px; }
 
+  /* CONVERSION ROW */
+  .conversion-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 28px; }
+  .funnel-bar { display: flex; flex-direction: column; gap: 8px; }
+  .funnel-item { display: flex; align-items: center; gap: 10px; font-size: 12px; }
+  .funnel-label { width: 90px; color: var(--muted); font-weight: 600; flex-shrink: 0; font-size: 11px; }
+  .funnel-track { flex: 1; height: 8px; background: rgba(42,157,143,0.1); border-radius: 4px; overflow: hidden; }
+  .funnel-fill { height: 100%; border-radius: 4px; background: var(--accent); transition: width 0.4s; }
+  .funnel-fill.gold { background: var(--gold); }
+  .funnel-fill.red { background: #e76f51; }
+  .funnel-num { font-weight: 800; font-size: 12px; color: var(--text); width: 30px; text-align: right; flex-shrink: 0; }
+
+  .scroll-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .scroll-box { background: rgba(42,157,143,0.06); border: 1px solid rgba(42,157,143,0.15); border-radius: 10px; padding: 10px; text-align: center; }
+  .scroll-pct { font-size: 13px; font-weight: 900; color: var(--accent); }
+  .scroll-label { font-size: 10px; color: var(--muted); font-weight: 700; margin-top: 2px; }
+  .scroll-count { font-size: 11px; color: #999; margin-top: 2px; }
+
+  .submit-list { display: flex; flex-direction: column; gap: 10px; }
+  .submit-item { border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
+  .submit-page { font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+  .submit-name { font-size: 13px; font-weight: 700; color: var(--text); }
+  .submit-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .submit-tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; background: rgba(42,157,143,0.1); color: var(--accent); margin-right: 4px; }
+
   /* BOTTOM ROW */
   .bottom-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 40px; }
 
@@ -198,6 +222,38 @@
             <circle cx="45" cy="45" r="35" fill="none" stroke="#f0ebe3" stroke-width="12"/>
           </svg>
           <div class="donut-legend" id="device-legend"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONVERSION SECTION -->
+    <div style="margin-bottom:10px;"><span style="font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);">Conversions & Behavior</span></div>
+    <div class="conversion-row">
+      <div class="chart-card">
+        <div class="card-title">Form Funnel</div>
+        <div class="funnel-bar" id="funnel-chart">
+          <div style="color:#999;font-size:12px;">Loading...</div>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="card-title">Scroll Depth</div>
+        <div class="scroll-grid" id="scroll-grid">
+          <div class="scroll-box"><div class="scroll-pct">—</div><div class="scroll-label">25%</div></div>
+          <div class="scroll-box"><div class="scroll-pct">—</div><div class="scroll-label">50%</div></div>
+          <div class="scroll-box"><div class="scroll-pct">—</div><div class="scroll-label">75%</div></div>
+          <div class="scroll-box"><div class="scroll-pct">—</div><div class="scroll-label">100%</div></div>
+        </div>
+        <div style="margin-top:14px;">
+          <div class="card-title">Time on Page</div>
+          <div class="funnel-bar" id="time-chart">
+            <div style="color:#999;font-size:12px;">Loading...</div>
+          </div>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="card-title">Recent Submits</div>
+        <div class="submit-list" id="submit-list">
+          <div style="color:#999;font-size:12px;">Loading...</div>
         </div>
       </div>
     </div>
@@ -397,6 +453,109 @@ function renderTable(tableId, rows, maxVal) {
   });
 }
 
+// ── Event count helper ──────────────────────────────────────
+async function getEventCount(eventName, days, extraFilter) {
+  const body = {
+    dateRanges: dateRange(days),
+    dimensions: [{ name: 'eventName' }],
+    metrics: [{ name: 'eventCount' }],
+    dimensionFilter: {
+      filter: { fieldName: 'eventName', stringFilter: { value: eventName, matchType: 'EXACT' } }
+    }
+  };
+  if (extraFilter) body.dimensionFilter = { andGroup: { expressions: [body.dimensionFilter, extraFilter] } };
+  try {
+    const r = await runReport(body);
+    return parseInt(r.rows?.[0]?.metricValues?.[0]?.value || 0);
+  } catch(e) { return 0; }
+}
+
+async function getEventByParam(eventName, paramName, days) {
+  try {
+    const r = await runReport({
+      dateRanges: dateRange(days),
+      dimensions: [{ name: 'customEvent:' + paramName }],
+      metrics: [{ name: 'eventCount' }],
+      dimensionFilter: {
+        filter: { fieldName: 'eventName', stringFilter: { value: eventName, matchType: 'EXACT' } }
+      },
+      orderBys: [{ metric: { metricName: 'eventCount' }, desc: true }],
+      limit: 10
+    });
+    return r.rows || [];
+  } catch(e) { return []; }
+}
+
+// ── Render conversion sections ──────────────────────────────
+function renderFunnel(starts, submits, label) {
+  const max = Math.max(starts, 1);
+  const submitPct = Math.round((submits / Math.max(starts, 1)) * 100);
+  return `
+    <div style="margin-bottom:16px;">
+      <div style="font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">${label}</div>
+      <div class="funnel-item">
+        <div class="funnel-label">Viewed form</div>
+        <div class="funnel-track"><div class="funnel-fill" style="width:100%"></div></div>
+        <div class="funnel-num">${fmt(starts)}</div>
+      </div>
+      <div class="funnel-item" style="margin-top:6px;">
+        <div class="funnel-label">Started</div>
+        <div class="funnel-track"><div class="funnel-fill gold" style="width:${Math.min((starts/Math.max(starts,1))*100,100)}%"></div></div>
+        <div class="funnel-num">${fmt(starts)}</div>
+      </div>
+      <div class="funnel-item" style="margin-top:6px;">
+        <div class="funnel-label">Submitted</div>
+        <div class="funnel-track"><div class="funnel-fill red" style="width:${Math.min((submits/Math.max(starts,1))*100,100)}%"></div></div>
+        <div class="funnel-num">${fmt(submits)}</div>
+      </div>
+      <div style="font-size:11px;color:var(--muted);margin-top:6px;">Convert rate: <strong style="color:var(--accent)">${submitPct}%</strong></div>
+    </div>`;
+}
+
+function renderScrollDepth(depths) {
+  const grid = document.getElementById('scroll-grid');
+  const labels = ['25%','50%','75%','100%'];
+  const keys = ['25','50','75','100'];
+  grid.innerHTML = keys.map((k, i) => {
+    const count = depths[k] || 0;
+    return `<div class="scroll-box">
+      <div class="scroll-pct">${fmt(count)}</div>
+      <div class="scroll-label">${labels[i]}</div>
+      <div class="scroll-count">reached</div>
+    </div>`;
+  }).join('');
+}
+
+function renderTimeOnPage(times) {
+  const el = document.getElementById('time-chart');
+  const labels = ['15s','30s','1m','2m'];
+  const keys = ['15','30','60','120'];
+  const max = Math.max(...keys.map(k => times[k] || 0), 1);
+  el.innerHTML = keys.map((k, i) => {
+    const count = times[k] || 0;
+    const pct = Math.round((count / max) * 100);
+    return `<div class="funnel-item">
+      <div class="funnel-label">${labels[i]}+</div>
+      <div class="funnel-track"><div class="funnel-fill" style="width:${pct}%"></div></div>
+      <div class="funnel-num">${fmt(count)}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderSubmitList(rows) {
+  const el = document.getElementById('submit-list');
+  if (!rows.length) {
+    el.innerHTML = '<div style="color:#999;font-size:12px;">No submissions yet in this period</div>';
+    return;
+  }
+  el.innerHTML = rows.slice(0, 6).map(r => {
+    const name = r.dimensionValues?.[0]?.value || 'Unknown';
+    return `<div class="submit-item">
+      <div class="submit-name">${name === '(not set)' ? 'Anonymous' : name}</div>
+    </div>`;
+  }).join('');
+}
+
 // ── Main load ───────────────────────────────────────────────
 async function loadData(days) {
   document.getElementById('loading').style.display = 'flex';
@@ -458,6 +617,58 @@ async function loadData(days) {
 
     const srcMax = parseInt(sources.rows?.[0]?.metricValues?.[0]?.value || 1);
     renderTable('sources-table', sources.rows, srcMax);
+
+    // ── Conversion data (parallel) ──────────────────────────
+    const makePageFilter = (page) => ({
+      filter: { fieldName: 'customEvent:page', stringFilter: { value: page, matchType: 'EXACT' } }
+    });
+
+    const [
+      buildStarts, buildSubmits,
+      brandStarts, brandSubmits,
+      affStarts, affSubmits,
+      scrollRows, timeRows, submitNames
+    ] = await Promise.all([
+      getEventCount('form_start', days, makePageFilter('build')),
+      getEventCount('form_submit', days, makePageFilter('build')),
+      getEventCount('form_start', days, makePageFilter('index')),
+      getEventCount('form_submit', days, makePageFilter('index')),
+      getEventCount('form_start', days, makePageFilter('affiliate')),
+      getEventCount('form_submit', days, makePageFilter('affiliate')),
+      runReport({
+        dateRanges: dr,
+        dimensions: [{ name: 'customEvent:depth' }],
+        metrics: [{ name: 'eventCount' }],
+        dimensionFilter: { filter: { fieldName: 'eventName', stringFilter: { value: 'scroll_depth', matchType: 'EXACT' } } }
+      }).catch(() => ({ rows: [] })),
+      runReport({
+        dateRanges: dr,
+        dimensions: [{ name: 'customEvent:seconds' }],
+        metrics: [{ name: 'eventCount' }],
+        dimensionFilter: { filter: { fieldName: 'eventName', stringFilter: { value: 'time_on_page', matchType: 'EXACT' } } }
+      }).catch(() => ({ rows: [] })),
+      getEventByParam('form_submit', 'submitter_name', days)
+    ]);
+
+    // Funnel
+    const funnelEl = document.getElementById('funnel-chart');
+    funnelEl.innerHTML =
+      renderFunnel(buildStarts, buildSubmits, 'Build Page') +
+      renderFunnel(brandStarts, brandSubmits, 'Brand Inquiry') +
+      renderFunnel(affStarts, affSubmits, 'Affiliate Apply');
+
+    // Scroll depth
+    const depths = {};
+    (scrollRows.rows || []).forEach(r => { depths[r.dimensionValues[0].value] = parseInt(r.metricValues[0].value); });
+    renderScrollDepth(depths);
+
+    // Time on page
+    const times = {};
+    (timeRows.rows || []).forEach(r => { times[r.dimensionValues[0].value] = parseInt(r.metricValues[0].value); });
+    renderTimeOnPage(times);
+
+    // Submit names
+    renderSubmitList(submitNames);
 
     document.getElementById('last-updated').textContent =
       'Last updated: ' + new Date().toLocaleTimeString() + ' · ' + days + '-day window';
