@@ -1271,7 +1271,7 @@
 
 <section class="form-section" id="brief-form">
   <div class="wrap">
-    <form action="https://formsubmit.co/dreambillboard@gmail.com" method="POST" id="intake-form" enctype="multipart/form-data">
+    <form action="https://formsubmit.co/dreambillboard@gmail.com" method="POST" id="intake-form">
       <input type="hidden" name="_subject" value="New brief submitted - tylerdream.com">
       <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_template" value="table">
@@ -1558,14 +1558,14 @@
           <div class="field">
             <label>Hero photo</label>
             <div class="upload-zone" id="hero-zone">
-              <input type="file" name="hero_photo" accept="image/*" onchange="markUploaded(this,'hero-zone','hero-label')">
+              <input type="file" accept="image/*" onchange="markUploaded(this,'hero-zone','hero-label')">
               <div class="upload-icon">+</div>
               <div class="upload-label" id="hero-label">Click to upload or drag and drop</div>
               <div class="upload-sub">Portrait preferred. Clear face, decent lighting. JPG or PNG.</div>
             </div>
           </div>
 
-          <div class="field-note" style="margin-top:12px;">If uploads do not work on your device, just email the photos to <a href="mailto:dreambillboard@gmail.com" style="color:var(--accent);">dreambillboard@gmail.com</a> with your name in the subject line.</div>
+          <div class="field-note" style="margin-top:12px;">Send your hero photo directly to <a href="mailto:dreambillboard@gmail.com" style="color:var(--accent);">dreambillboard@gmail.com</a> with your name in the subject line.</div>
         </div>
       </div>
 
@@ -1970,7 +1970,7 @@ function markUploaded(input, zoneId, labelId) {
     var form = document.getElementById('intake-form');
     if (form) {
       form.addEventListener('submit', function(e) {
-        e.preventDefault();
+        // Natural submit to FormSubmit.co - no preventDefault
         var refCode = (document.getElementById('referral-code-input') || {}).value || '';
 
         // GA4 form_submit event
@@ -1988,16 +1988,8 @@ function markUploaded(input, zoneId, labelId) {
         for (var i = 0; i < fields.length; i++) {
           if (fields[i].name) data[fields[i].name] = fields[i].value;
         }
-        try {
-          fetch('/.netlify/functions/log-submission', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-          }).catch(function(){});
-        } catch(ex){}
-
-        // Submit form after brief delay
-        setTimeout(function() { form.submit(); }, 300);
+        // sendBeacon for backup - non-blocking, does not interrupt submit
+        try { navigator.sendBeacon('/.netlify/functions/log-submission', JSON.stringify(data)); } catch(ex){}
       });
     }
 
