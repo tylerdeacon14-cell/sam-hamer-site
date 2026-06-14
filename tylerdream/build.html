@@ -1345,7 +1345,7 @@
         <div class="form-block-body">
           <div class="row-2">
             <div class="field"><label>Your Name</label><input type="text" name="name" id="field-name" placeholder="First and last" required><span class="field-err-msg" id="err-name">Please enter your name.</span></div>
-            <div class="field"><label>Email</label><input type="email" name="email" id="field-email" placeholder="you@email.com" required oninput="document.getElementById('form-cc').value='dreambillboard@gmail.com,'+this.value;document.getElementById('form-replyto').value=this.value;"><span class="field-err-msg" id="err-email">Enter a valid email address.</span></div>
+            <div class="field"><label>Email</label><input type="email" name="email" id="field-email" placeholder="you@email.com" required oninput="updateCC(this.value);document.getElementById('form-replyto').value=this.value;" onchange="updateCC(this.value);document.getElementById('form-replyto').value=this.value;" onblur="updateCC(this.value);document.getElementById('form-replyto').value=this.value;"><span class="field-err-msg" id="err-email">Enter a valid email address.</span></div>
           </div>
           <div class="field"><label>City and State</label><input type="text" name="location" placeholder="e.g. Chicago, IL"></div>
           <div class="field"><label>What you post about</label>
@@ -1789,6 +1789,12 @@ function handleStripePayment() {
 <script>
 // ===== Referral code: read from URL, auto-apply, persist, show banner =====
 (function(){
+  // Update _cc field so submitter always gets a copy regardless of input method
+  window.updateCC = function(val) {
+    var cc = document.getElementById('form-cc');
+    if (cc) cc.value = 'dreambillboard@gmail.com' + (val ? ',' + val : '');
+  };
+
   // Affiliate code → email map
   var AFFILIATE_EMAILS = {
     'KRISTYN25': 'Kristynwales@gmail.com',
