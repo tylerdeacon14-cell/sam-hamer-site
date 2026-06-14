@@ -1813,9 +1813,12 @@ function handleStripePayment() {
     // Show in input
     var input = document.getElementById('referral-code-input');
     if (input) { input.value = code; }
-    // Set BCC to affiliate email if code matches
+    // Set CC to include affiliate email if code matches
+    var affiliateEmail = AFFILIATE_EMAILS[code] || '';
+    var cc = document.getElementById('form-cc');
+    if (cc) { cc.value = 'dreambillboard@gmail.com' + (affiliateEmail ? ',' + affiliateEmail : ''); }
     var bcc = document.getElementById('form-bcc');
-    if (bcc) { bcc.value = AFFILIATE_EMAILS[code] || ''; }
+    if (bcc) { bcc.value = ''; }
     // Validate: any code 3+ chars gets 25% off
     if (code.length >= 3) {
       var confirm = document.getElementById('referral-confirm');
