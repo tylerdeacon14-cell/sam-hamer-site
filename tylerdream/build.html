@@ -2024,8 +2024,15 @@ function markUploaded(input, zoneId, labelId) {
         for (var i = 0; i < fields.length; i++) {
           if (fields[i].name) data[fields[i].name] = fields[i].value;
         }
-        // sendBeacon for backup - non-blocking, does not interrupt submit
-        try { navigator.sendBeacon('/.netlify/functions/log-submission', JSON.stringify(data)); } catch(ex){}
+        // fetch with keepalive for backup - non-blocking, does not interrupt submit
+        try {
+          fetch('/.netlify/functions/log-submission', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+            keepalive: true
+          });
+        } catch(ex){}
       });
     }
 
