@@ -1580,6 +1580,21 @@ p, .hero-hook, .hero-sub, .hero-tagline { font-size: 16px !important; line-heigh
 }
 </style>
 
+<style>
+@media(max-width:768px){
+  .hero-inner{flex-direction:column!important;gap:32px!important;text-align:center;}
+  .hero-text{align-items:center;}
+  .hero-ctas{justify-content:center;}
+  .hero-photo{display:none;}
+  .sb-bar{flex-wrap:wrap;gap:8px;justify-content:center;}
+}
+@media(max-width:480px){
+  .brand-strip-logos{gap:24px!important;}
+  .brand-strip-logos svg{width:60px!important;height:32px!important;}
+  section[style*="padding:44px 0"]{padding:28px 0!important;}
+  .label{font-size:10px!important;}
+}
+</style>
 </head>
 <body data-new-gr-c-s-check-loaded="14.1136.0" data-gr-ext-installed="">
 <!-- PATH CHOOSER OVERLAY -->
@@ -1974,8 +1989,8 @@ p, .hero-hook, .hero-sub, .hero-tagline { font-size: 16px !important; line-heigh
     .video-grid-4 { grid-template-columns: repeat(2,1fr) !important; gap: 10px !important; padding: 0 !important; }
   }
   @media(max-width:600px) {
-    .brand-strip-logos { gap: 40px !important; }
-    .brand-strip-logos > div { transform: scale(0.78); transform-origin: center; }
+    .brand-strip-logos { gap: 32px !important; }
+    .brand-strip-logos > div { transform: scale(1); transform-origin: center; }
   }
 </style>
 
