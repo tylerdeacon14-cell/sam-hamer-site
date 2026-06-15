@@ -2024,12 +2024,25 @@ function markUploaded(input, zoneId, labelId) {
         for (var i = 0; i < fields.length; i++) {
           if (fields[i].name) data[fields[i].name] = fields[i].value;
         }
-        // fetch with keepalive for backup - non-blocking, does not interrupt submit
+        // Direct Supabase write - no server function needed
         try {
-          fetch('/.netlify/functions/log-submission', {
+          fetch('https://guwjttgkrwdcjnstgquu.supabase.co/rest/v1/submissions', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data),
+            headers: {
+              'Content-Type': 'application/json',
+              'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd1d2p0dGdrcndkY2puc3RncXV1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyNTA3MjksImV4cCI6MjA5MjgyNjcyOX0.rMl1WKT9Ezrknlpe7B-5FBKDpBHSzP8Zqm26TLKOB7w',
+              'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd1d2p0dGdrcndkY2puc3RncXV1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyNTA3MjksImV4cCI6MjA5MjgyNjcyOX0.rMl1WKT9Ezrknlpe7B-5FBKDpBHSzP8Zqm26TLKOB7w',
+              'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify({
+              name: data.name || null,
+              email: data.email || null,
+              location: data.location || null,
+              niche: data.niche || null,
+              tagline: data.tagline || null,
+              referral_code: data.referral_code || null,
+              raw: data
+            }),
             keepalive: true
           });
         } catch(ex){}
