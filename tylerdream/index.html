@@ -1734,33 +1734,25 @@ p, .hero-hook, .hero-sub, .hero-tagline { font-size: 16px !important; line-heigh
       
       <div class="hero-ctas">
         <a class="btn-primary" href="build.html">Get my site built →</a>
-        <span id="scratch-examples" style="position:relative;display:inline-block;font-size:13px;font-weight:700;text-decoration:none;color:#000;letter-spacing:0.2px;cursor:pointer;overflow:hidden;border-radius:6px;padding:4px 10px;user-select:none;">
-          <span id="scratch-reveal" style="position:relative;z-index:1;display:inline-flex;align-items:center;gap:5px;opacity:0;transition:opacity 0.3s;">Unlike my content, this site scrolls <span id="scratch-arrow" style="display:inline-block;">↓</span></span>
+        <span id="scratch-examples" style="position:relative;display:inline-block;font-size:13px;font-weight:700;color:#e8f5e8;letter-spacing:0.5px;cursor:pointer;overflow:hidden;border-radius:8px;padding:5px 14px;user-select:none;background:#1e2a1e;">
+          <span id="scratch-cover" style="position:absolute;inset:0;border-radius:8px;z-index:3;background:linear-gradient(90deg,#1a1a1a,#2a2a2a,#1a1a1a);background-size:200% 100%;animation:scratchShimmer 2s linear infinite;display:flex;align-items:center;justify-content:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#7fff7f;transition:opacity 0.5s ease;">
+            <span style="animation:scratchPulse 1.5s ease-in-out infinite;font-size:14px;">◈</span> scratch me
+          </span>
+          <span id="scratch-reveal" style="position:relative;z-index:1;display:inline-flex;align-items:center;gap:6px;">
+            Unlike my content, this site scrolls <span id="scratch-arrow" style="display:inline-block;animation:scratchBounce 1.2s ease-in-out infinite;">↓</span>
+          </span>
         </span>
         <style>
-          #scratch-examples { background: #1a1a1a; }
-          #scratch-arrow { animation: bounce 1.2s ease-in-out infinite; }
-          @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(4px)} }
-          #scratch-examples::before {
-            content:'✦ scratch to reveal';
-            position:absolute;inset:0;
-            background:linear-gradient(90deg,#111,#333,#111);
-            background-size:200% 100%;
-            animation:shimmer 1.8s linear infinite;
-            display:flex;align-items:center;justify-content:center;
-            font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;
-            color:#c8ff00;border-radius:6px;z-index:2;
-            transition:opacity 0.4s;
-            text-shadow:0 0 8px #c8ff00;
-          }
-          @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
-          #scratch-examples.scratched::before { opacity:0;pointer-events:none; }
-          #scratch-examples.scratched #scratch-reveal { opacity:1; }
-          #scratch-examples.scratched { background:#c8ff00;box-shadow:0 0 16px #c8ff0066; }
+          @keyframes scratchShimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+          @keyframes scratchPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+          @keyframes scratchBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(4px)} }
+          #scratch-examples.scratched #scratch-cover { opacity:0;pointer-events:none; }
+          #scratch-examples.scratched { background:#2d4a2d;box-shadow:0 0 20px rgba(127,255,127,0.15); }
         </style>
         <script>
         (function(){
           var el = document.getElementById('scratch-examples');
+          var cover = document.getElementById('scratch-cover');
           if(!el) return;
           var scratched = false;
           var startX = null;
@@ -1922,7 +1914,7 @@ p, .hero-hook, .hero-sub, .hero-tagline { font-size: 16px !important; line-heigh
   <div style="max-width:1100px;margin:0 auto;">
     <div style="text-align:center;margin-bottom:48px;">
       <div style="font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--mint);margin-bottom:12px;">Real Creators</div>
-      <h2 style="font-size:clamp(26px,3.2vw,38px);font-weight:900;letter-spacing:-1.5px;color:#fff;margin:0;">They got the site.<br><em style="color:var(--accent);font-style:normal;">Brands got the link.</em></h2>
+      <h2 style="font-size:clamp(26px,3.2vw,38px);font-weight:900;letter-spacing:-1.5px;color:#fff;margin:0;" data-typewrite="They got the site." data-speed="40"><span class="tw-text"></span><span class="tw-cursor"></span><br><em style="color:var(--accent);font-style:normal;" class="fade-up delay-2">Brands got the link.</em></h2>
     </div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
 
@@ -1976,7 +1968,7 @@ p, .hero-hook, .hero-sub, .hero-tagline { font-size: 16px !important; line-heigh
   <div style="max-width:1100px;margin:0 auto;">
     <div style="text-align:center;margin-bottom:48px;">
       <div style="font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--mint);margin-bottom:12px;">UGC Work</div>
-      <h2 style="font-size:clamp(28px,3.5vw,42px);font-weight:900;letter-spacing:-1.5px;color:#fff;margin:0;">Content I've made.</h2>
+      <h2 style="font-size:clamp(28px,3.5vw,42px);font-weight:900;letter-spacing:-1.5px;color:#fff;margin:0;" data-typewrite="Content I've made." data-speed="50"><span class="tw-text"></span><span class="tw-cursor"></span></h2>
     </div>
     <div class="video-grid-4" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;width:100%;box-sizing:border-box;padding:0 24px;">
 
@@ -2049,7 +2041,7 @@ p, .hero-hook, .hero-sub, .hero-tagline { font-size: 16px !important; line-heigh
 <section class="accounts-section section fade-in" id="accounts">
   <div class="wrap">
     <div class="section-header">
-      <h2 style="font-size:clamp(40px,5vw,64px);font-weight:900;letter-spacing:-0.03em;margin-bottom:16px;">The Accounts.</h2>
+      <h2 style="font-size:clamp(40px,5vw,64px);font-weight:900;letter-spacing:-0.03em;margin-bottom:16px;" data-typewrite="The Accounts." data-speed="55"><span class="tw-text"></span><span class="tw-cursor"></span></h2>
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:40px;">
         <div style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border:1px solid rgba(255,255,255,0.12);border-radius:20px;background:rgba(255,255,255,0.04);">
   <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.24 8.24 0 0 0 4.82 1.54V6.78a4.85 4.85 0 0 1-1.05-.09z"/></svg>
@@ -2178,49 +2170,119 @@ p, .hero-hook, .hero-sub, .hero-tagline { font-size: 16px !important; line-heigh
 
 
 <!-- EXPERTISE -->
-<section class="expertise-section section fade-in" id="expertise">
-  <div class="expertise-inner wrap">
-    <div class="label">The method</div>
-    <div class="expertise-headline">How a video becomes <em class="fx-underline">a sale.</em></div>
-    <p class="expertise-body">Every post is a decision. Hook, angle, timing. Nothing random. This is the system.</p>
-    <div class="expertise-points">
-      <div class="exp-point">
-        <div class="exp-num">01</div>
-        <div class="exp-content">
-          <div class="exp-point-title">The product is the last thing Tyler thinks about.</div>
-          <div class="exp-point-desc">Starting with the problem. What are they lying awake about? What would make them stop scrolling and actually feel something? The video is just the delivery mechanism.</div>
-        </div>
+<section class="expertise-section section" id="expertise" style="padding:80px 24px;background:#080808;border-top:1px solid rgba(255,255,255,0.05);">
+  <div style="max-width:980px;margin:0 auto;">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:40px;flex-wrap:wrap;gap:16px;">
+      <div>
+        <div style="font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:12px;">The Method</div>
+        <div style="font-size:clamp(28px,4vw,48px);font-weight:900;letter-spacing:-2px;color:#fff;line-height:1.05;" data-typewrite="Stop making ads." data-speed="55"><span class="tw-text"></span><span class="tw-cursor"></span></div>
+        <div style="font-size:clamp(28px,4vw,48px);font-weight:900;letter-spacing:-2px;line-height:1.05;"><em style="color:var(--accent);font-style:normal;">Make moments that sell.</em></div>
       </div>
-      <div class="exp-point">
-        <div class="exp-num">02</div>
-        <div class="exp-content">
-          <div class="exp-point-title">His word is the product. He protects it.</div>
-          <div class="exp-point-desc">Deals he doesn't believe in get turned down. When Tyler says something works, his audience listens. That trust is the inventory.</div>
-        </div>
-      </div>
-      <div class="exp-point">
-        <div class="exp-num">03</div>
-        <div class="exp-content">
-          <div class="exp-point-title">One second. That's the whole game.</div>
-          <div class="exp-point-desc">Lead with pain, not product. The second it feels like an ad, people are gone. Tyler writes hooks that feel like he read their mind. Because he did the work to get there.</div>
-        </div>
-      </div>
-      <div class="exp-point">
-        <div class="exp-num">04</div>
-        <div class="exp-content">
-          <div class="exp-point-title">TikTok Shop, not just TikTok.</div>
-          <div class="exp-point-desc">GMV, commissions, how the algorithm decides what to push, when to get on a product early. Tyler watches what's gaining traction in Shop before picking a product. By the time we talk, he already has angles.</div>
-        </div>
-      </div>
-      <div class="exp-point">
-        <div class="exp-num">05</div>
-        <div class="exp-content">
-          <div class="exp-point-title">When something works, he moves that day.</div>
-          <div class="exp-point-desc">Skit, talking head, demo, voiceover. Every format gets tested. When one lands, variations run the same day. Same angle, different delivery, before the algorithm moves on. That's how you stack wins.</div>
-        </div>
+      <div style="display:flex;gap:10px;align-items:center;">
+        <button id="card-prev" aria-label="Previous" style="width:40px;height:40px;border-radius:50%;border:1px solid #333;background:#111;color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;">‹</button>
+        <span id="card-index" style="font-size:11px;font-weight:800;color:#444;letter-spacing:1px;min-width:32px;text-align:center;">1 / 5</span>
+        <button id="card-next" aria-label="Next" style="width:40px;height:40px;border-radius:50%;border:1px solid #333;background:#111;color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;">›</button>
       </div>
     </div>
+
+    <!-- Card track -->
+    <div style="position:relative;overflow:hidden;border-radius:20px;">
+      <div id="card-track" style="display:flex;transition:transform 0.45s cubic-bezier(0.4,0,0.2,1);will-change:transform;">
+
+        <div class="method-card" style="min-width:100%;background:#111;border:1px solid #1e1e1e;border-radius:20px;padding:48px 44px;box-sizing:border-box;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),transparent);"></div>
+          <div style="font-size:64px;font-weight:900;color:rgba(200,255,0,0.08);letter-spacing:-4px;position:absolute;top:24px;right:32px;line-height:1;">01</div>
+          <div style="font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:16px;">Hook</div>
+          <div style="font-size:clamp(20px,2.5vw,28px);font-weight:900;color:#fff;letter-spacing:-0.5px;margin-bottom:16px;line-height:1.2;">The product is the last thing I think about.</div>
+          <div style="font-size:14px;color:#777;line-height:1.8;max-width:520px;">First second = everything. I start with the problem, not the pitch. What are they lying awake about? The video is just the delivery.</div>
+        </div>
+
+        <div class="method-card" style="min-width:100%;background:#111;border:1px solid #1e1e1e;border-radius:20px;padding:48px 44px;box-sizing:border-box;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),transparent);"></div>
+          <div style="font-size:64px;font-weight:900;color:rgba(200,255,0,0.08);letter-spacing:-4px;position:absolute;top:24px;right:32px;line-height:1;">02</div>
+          <div style="font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:16px;">Trust</div>
+          <div style="font-size:clamp(20px,2.5vw,28px);font-weight:900;color:#fff;letter-spacing:-0.5px;margin-bottom:16px;line-height:1.2;">My word is the product. I protect it.</div>
+          <div style="font-size:14px;color:#777;line-height:1.8;max-width:520px;">I turn down deals I don't believe in. When I say something works, people buy. That trust is the inventory — and it's not for sale to the wrong brand.</div>
+        </div>
+
+        <div class="method-card" style="min-width:100%;background:#111;border:1px solid #1e1e1e;border-radius:20px;padding:48px 44px;box-sizing:border-box;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),transparent);"></div>
+          <div style="font-size:64px;font-weight:900;color:rgba(200,255,0,0.08);letter-spacing:-4px;position:absolute;top:24px;right:32px;line-height:1;">03</div>
+          <div style="font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:16px;">Speed</div>
+          <div style="font-size:clamp(20px,2.5vw,28px);font-weight:900;color:#fff;letter-spacing:-0.5px;margin-bottom:16px;line-height:1.2;">When something hits, I run it that day.</div>
+          <div style="font-size:14px;color:#777;line-height:1.8;max-width:520px;">Skit, talking head, demo, voiceover. Same angle, every format, before the algorithm moves on. That's how you stack wins instead of chasing them.</div>
+        </div>
+
+        <div class="method-card" style="min-width:100%;background:#111;border:1px solid #1e1e1e;border-radius:20px;padding:48px 44px;box-sizing:border-box;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),transparent);"></div>
+          <div style="font-size:64px;font-weight:900;color:rgba(200,255,0,0.08);letter-spacing:-4px;position:absolute;top:24px;right:32px;line-height:1;">04</div>
+          <div style="font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:16px;">Shop Intel</div>
+          <div style="font-size:clamp(20px,2.5vw,28px);font-weight:900;color:#fff;letter-spacing:-0.5px;margin-bottom:16px;line-height:1.2;">TikTok Shop, not just TikTok.</div>
+          <div style="font-size:14px;color:#777;line-height:1.8;max-width:520px;">GMV, commissions, when to get on a product early. By the time we talk, I've already watched the trend, pulled the data, and have angles ready.</div>
+        </div>
+
+        <div class="method-card" style="min-width:100%;background:#111;border:1px solid #1e1e1e;border-radius:20px;padding:48px 44px;box-sizing:border-box;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),transparent);"></div>
+          <div style="font-size:64px;font-weight:900;color:rgba(200,255,0,0.08);letter-spacing:-4px;position:absolute;top:24px;right:32px;line-height:1;">05</div>
+          <div style="font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:16px;">Guarantee</div>
+          <div style="font-size:clamp(20px,2.5vw,28px);font-weight:900;color:#fff;letter-spacing:-0.5px;margin-bottom:16px;line-height:1.2;">If it doesn't convert, you don't pay.</div>
+          <div style="font-size:14px;color:#777;line-height:1.8;max-width:520px;">Not a pitch — a policy. I put my name on content I believe in. If the first round misses and revisions don't fix it, the $100 deposit is all you owe. No questions.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Dots -->
+    <div id="card-dots" style="display:flex;gap:8px;justify-content:center;margin-top:24px;">
+      <span class="cdot active" style="width:24px;height:4px;border-radius:2px;background:var(--accent);transition:all 0.3s;cursor:pointer;"></span>
+      <span class="cdot" style="width:8px;height:4px;border-radius:2px;background:#333;transition:all 0.3s;cursor:pointer;"></span>
+      <span class="cdot" style="width:8px;height:4px;border-radius:2px;background:#333;transition:all 0.3s;cursor:pointer;"></span>
+      <span class="cdot" style="width:8px;height:4px;border-radius:2px;background:#333;transition:all 0.3s;cursor:pointer;"></span>
+      <span class="cdot" style="width:8px;height:4px;border-radius:2px;background:#333;transition:all 0.3s;cursor:pointer;"></span>
+    </div>
   </div>
+
+  <style>
+    #card-prev:hover,#card-next:hover{background:#222;border-color:#555;}
+    @media(max-width:600px){.method-card{padding:32px 24px!important;}}
+  </style>
+  <script>
+  (function(){
+    var track = document.getElementById('card-track');
+    var dots = document.querySelectorAll('.cdot');
+    var idx = document.getElementById('card-index');
+    var total = 5;
+    var cur = 0;
+    var startX = null;
+
+    function go(n){
+      cur = (n + total) % total;
+      track.style.transform = 'translateX(-' + (cur * 100) + '%)';
+      dots.forEach(function(d,i){
+        d.style.width = i===cur?'24px':'8px';
+        d.style.background = i===cur?'var(--accent)':'#333';
+      });
+      if(idx) idx.textContent = (cur+1) + ' / ' + total;
+    }
+
+    document.getElementById('card-prev').addEventListener('click',function(){ go(cur-1); });
+    document.getElementById('card-next').addEventListener('click',function(){ go(cur+1); });
+    dots.forEach(function(d,i){ d.addEventListener('click',function(){ go(i); }); });
+
+    // Swipe
+    track.addEventListener('touchstart',function(e){ startX=e.touches[0].clientX; },{passive:true});
+    track.addEventListener('touchend',function(e){
+      if(startX===null) return;
+      var dx = e.changedTouches[0].clientX - startX;
+      if(Math.abs(dx)>40) go(dx<0?cur+1:cur-1);
+      startX=null;
+    });
+
+    // Auto-advance
+    var auto = setInterval(function(){ go(cur+1); }, 5000);
+    track.parentElement.addEventListener('mouseenter',function(){ clearInterval(auto); });
+  })();
+  </script>
 </section>
 
 <!-- BRAND CTA -->
@@ -2245,7 +2307,7 @@ p, .hero-hook, .hero-sub, .hero-tagline { font-size: 16px !important; line-heigh
           <div style="position:absolute;top:0;left:0;right:0;height:2px;background:rgba(255,255,255,0.06);"></div>
           <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#444;text-transform:uppercase;margin-bottom:10px;">2025</div>
           <div style="font-size:18px;font-weight:900;color:#fff;letter-spacing:-0.5px;margin-bottom:8px;">8 years</div>
-          <div style="font-size:12px;color:#666;line-height:1.5;">Corporate sales experience brought to every DM.</div>
+          <div style="font-size:12px;color:#666;line-height:1.5;">Corporate sales experience brought to every video.</div>
         </div>
 
         <div style="background:#111;border:1px solid #1e1e1e;border-radius:14px;padding:20px 18px;position:relative;overflow:hidden;">
@@ -2289,7 +2351,7 @@ p, .hero-hook, .hero-sub, .hero-tagline { font-size: 16px !important; line-heigh
   <div style="max-width:var(--max);margin:0 auto;">
     <div style="text-align:center;margin-bottom:48px;">
       <div style="font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:12px;">For Brands</div>
-      <h2 style="font-size:clamp(28px,4vw,44px);font-weight:900;letter-spacing:-1.5px;color:#fff;margin:0;">How I Work.</h2>
+      <h2 style="font-size:clamp(28px,4vw,44px);font-weight:900;letter-spacing:-1.5px;color:#fff;margin:0;" data-typewrite="How I Work." data-speed="60"><span class="tw-text"></span><span class="tw-cursor"></span></h2>
     </div>
     <div id="how-i-work-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px;">
       <div style="background:#111;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:28px 24px;">
@@ -2336,7 +2398,7 @@ p, .hero-hook, .hero-sub, .hero-tagline { font-size: 16px !important; line-heigh
           <div style="width:6px;height:6px;border-radius:50%;background:var(--mint);animation:pulse 2s infinite;"></div>
           <span style="font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--mint);">For Brands</span>
         </div>
-        <h2 style="font-size:clamp(28px,4vw,42px);font-weight:900;letter-spacing:-1.5px;color:#fff;margin:0;">Bring me the <span class="fx-chip">product</span>.</h2>
+        <h2 style="font-size:clamp(28px,4vw,42px);font-weight:900;letter-spacing:-1.5px;color:#fff;margin:0;" data-typewrite="Bring me the product." data-speed="50"><span class="tw-text"></span><span class="tw-cursor"></span></h2>
       </div>
       <div style="background:linear-gradient(160deg,#131313,#0e0e0e);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:36px;position:relative;overflow:hidden;">
         <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(160,237,216,0.4),transparent);"></div>
@@ -2955,6 +3017,92 @@ a[style*="background:#c8ff00"]:hover, button[style*="background:#c8ff00"]:hover 
   }, { threshold: 0.3 });
   sections.forEach(function(s) { sectionObs.observe(s); });
 
+})();
+</script>
+
+<style>
+/* ── Typewriter scroll effect ── */
+.typewrite-scroll { display:inline; }
+.typewrite-scroll .tw-cursor { display:inline-block;width:2px;height:1em;background:currentColor;margin-left:2px;vertical-align:middle;animation:twBlink 0.8s step-end infinite;opacity:0; }
+.typewrite-scroll.tw-active .tw-cursor { opacity:1; }
+@keyframes twBlink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* ── Count-up numbers ── */
+.countup { display:inline-block; }
+
+/* ── Fade-slide in on scroll ── */
+.fade-up { opacity:0;transform:translateY(32px);transition:opacity 0.6s ease,transform 0.6s ease; }
+.fade-up.visible { opacity:1;transform:translateY(0); }
+.fade-up.delay-1 { transition-delay:0.1s; }
+.fade-up.delay-2 { transition-delay:0.2s; }
+.fade-up.delay-3 { transition-delay:0.3s; }
+
+/* ── Glitch text ── */
+.glitch { position:relative;display:inline-block; }
+.glitch::before,.glitch::after {
+  content:attr(data-text);position:absolute;inset:0;
+  clip-path:polygon(0 0,100% 0,100% 45%,0 45%);
+}
+.glitch::before { color:#c8ff00;animation:glitch1 3s infinite;left:2px; }
+.glitch::after  { color:#ff4d6d;animation:glitch2 3s infinite;left:-2px; }
+@keyframes glitch1 { 0%,90%,100%{clip-path:polygon(0 0,0 0,0 0,0 0);transform:none} 92%{clip-path:polygon(0 10%,100% 10%,100% 40%,0 40%);transform:translate(-2px)} 94%{clip-path:polygon(0 60%,100% 60%,100% 80%,0 80%);transform:translate(2px)} 96%{clip-path:polygon(0 0,0 0,0 0,0 0);transform:none} }
+@keyframes glitch2 { 0%,90%,100%{clip-path:polygon(0 0,0 0,0 0,0 0);transform:none} 91%{clip-path:polygon(0 50%,100% 50%,100% 70%,0 70%);transform:translate(2px)} 93%{clip-path:polygon(0 20%,100% 20%,100% 45%,0 45%);transform:translate(-2px)} 95%{clip-path:polygon(0 0,0 0,0 0,0 0);transform:none} }
+
+/* ── Highlight sweep ── */
+.highlight-sweep { position:relative;display:inline; }
+.highlight-sweep::after { content:'';position:absolute;bottom:-2px;left:0;width:0;height:3px;background:var(--accent,#c8ff00);transition:width 0.8s ease;border-radius:2px; }
+.highlight-sweep.visible::after { width:100%; }
+</style>
+
+<script>
+(function(){
+  // ── Typewriter on scroll ──
+  function typewrite(el, text, speed, done) {
+    var i = 0;
+    el.textContent = '';
+    var cursor = el.parentElement.querySelector('.tw-cursor');
+    if(cursor) el.parentElement.classList.add('tw-active');
+    var t = setInterval(function(){
+      el.textContent += text[i++];
+      if(i >= text.length) {
+        clearInterval(t);
+        setTimeout(function(){ if(cursor) el.parentElement.classList.remove('tw-active'); if(done) done(); }, 800);
+      }
+    }, speed || 45);
+  }
+
+  // ── Count-up ──
+  function countUp(el, target, suffix, duration) {
+    var start = 0, step = target / (duration / 16);
+    var t = setInterval(function(){
+      start = Math.min(start + step, target);
+      el.textContent = Math.round(start).toLocaleString() + (suffix||'');
+      if(start >= target) clearInterval(t);
+    }, 16);
+  }
+
+  // ── IntersectionObserver ──
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting) return;
+      var el = e.target;
+      io.unobserve(el);
+
+      if(el.dataset.typewrite) {
+        var tw = el.querySelector('.tw-text');
+        if(tw) typewrite(tw, el.dataset.typewrite, parseInt(el.dataset.speed||45));
+      }
+      if(el.dataset.countup) {
+        countUp(el, parseInt(el.dataset.countup), el.dataset.suffix||'', parseInt(el.dataset.duration||1200));
+      }
+      if(el.classList.contains('fade-up')) el.classList.add('visible');
+      if(el.classList.contains('highlight-sweep')) el.classList.add('visible');
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('[data-typewrite],[data-countup],.fade-up,.highlight-sweep').forEach(function(el){
+    io.observe(el);
+  });
 })();
 </script>
 </body>
