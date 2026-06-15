@@ -1734,7 +1734,48 @@ p, .hero-hook, .hero-sub, .hero-tagline { font-size: 16px !important; line-heigh
       
       <div class="hero-ctas">
         <a class="btn-primary" href="build.html">Get my site built →</a>
-        <a href="https://kristynsimpson.netlify.app/" target="_blank" style="font-size:13px;color:#666;text-decoration:none;font-weight:600;letter-spacing:0.2px;">See examples ↓</a>
+        <a href="https://kristynsimpson.netlify.app/" target="_blank" id="scratch-examples" style="position:relative;display:inline-block;font-size:13px;font-weight:700;text-decoration:none;color:#000;letter-spacing:0.2px;cursor:pointer;overflow:hidden;border-radius:6px;padding:2px 6px;">
+          <canvas id="scratch-canvas" style="position:absolute;inset:0;width:100%;height:100%;border-radius:6px;pointer-events:none;"></canvas>
+          <span id="scratch-reveal" style="position:relative;z-index:1;display:inline-flex;align-items:center;gap:5px;">Unlike my content, this site scrolls <span id="scratch-arrow" style="display:inline-block;">↓</span></span>
+        </a>
+        <style>
+          #scratch-examples { background: #c8ff00; }
+          #scratch-arrow { animation: bounce 1.2s ease-in-out infinite; }
+          @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(4px)} }
+          #scratch-examples::before {
+            content:'scratch to reveal';
+            position:absolute;inset:0;
+            background:linear-gradient(90deg,#222,#444,#222);
+            background-size:200% 100%;
+            animation:shimmer 2s linear infinite;
+            display:flex;align-items:center;justify-content:center;
+            font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
+            color:#c8ff00;border-radius:6px;z-index:2;
+            transition:opacity 0.4s;
+          }
+          @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+          #scratch-examples.scratched::before { opacity:0;pointer-events:none; }
+          #scratch-examples.scratched { box-shadow:0 0 12px #c8ff0088; }
+        </style>
+        <script>
+        (function(){
+          var el = document.getElementById('scratch-examples');
+          var scratched = false;
+          var startX = null;
+          function doScratch(x) {
+            if(scratched) return;
+            if(startX === null) { startX = x; return; }
+            if(Math.abs(x - startX) > 30) {
+              scratched = true;
+              el.classList.add('scratched');
+            }
+          }
+          el.addEventListener('mousedown', function(e){ startX = e.clientX; });
+          el.addEventListener('mousemove', function(e){ if(e.buttons===1) doScratch(e.clientX); });
+          el.addEventListener('touchstart', function(e){ startX = e.touches[0].clientX; },{passive:true});
+          el.addEventListener('touchmove', function(e){ doScratch(e.touches[0].clientX); },{passive:true});
+        })();
+        </script>
       </div>
       <div style="margin-top:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
         <div style="display:flex;align-items:center;gap:7px;font-size:12px;color:#777;font-weight:600;">
