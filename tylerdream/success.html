@@ -133,10 +133,18 @@
       <p class="pay-note">Prefer another method? Email <a href="mailto:dreambillboard@gmail.com" style="color:var(--accent);font-weight:700;">dreambillboard@gmail.com</a></p>
     </div>
 
+    <!-- Creative Brief CTA -->
+    <div style="background:rgba(200,255,0,0.06);border:1.5px solid rgba(200,255,0,0.25);border-radius:16px;padding:26px 24px;margin-bottom:20px;">
+      <div style="font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#2a9d8f;margin-bottom:8px;">Next step</div>
+      <div style="font-size:20px;font-weight:900;color:#1a1a1a;letter-spacing:-0.5px;margin-bottom:6px;">Fill out your creative brief</div>
+      <div style="font-size:13px;color:#555;line-height:1.55;margin-bottom:18px;">Takes 3 minutes. Pick your colors, vibe, animations, and drop your best video links. Tyler can't start the build without it.</div>
+      <a id="brief-link" href="brief.html" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:16px 24px;border-radius:12px;font-size:15px;font-weight:900;text-decoration:none;background:#2a9d8f;color:#fff;">Complete creative brief →</a>
+    </div>
+
     <!-- Timeline -->
     <div class="timeline">
       <div class="timeline-title">What happens next</div>
-      <div class="timeline-row"><span class="timeline-num">1.</span><span><strong>Today</strong> - Tyler reads your brief and confirms fit. Same day.</span></div>
+      <div class="timeline-row"><span class="timeline-num">1.</span><span><strong>Fill brief</strong> - Complete your creative brief above. Colors, vibe, video links.</span></div>
       <div class="timeline-row"><span class="timeline-num">2.</span><span><strong>48 hours</strong> - First draft delivered as a live link you can share.</span></div>
       <div class="timeline-row"><span class="timeline-num">3.</span><span><strong>Revisions</strong> - We refine until you love it. Edits are included.</span></div>
     </div>
@@ -238,5 +246,19 @@ function copyRef(){
 <div style="text-align:center;padding:0 24px 48px;margin-top:8px;">
   <p style="font-size:12px;color:#555;line-height:1.7;">Didn't get a confirmation email? <a href="mailto:dreambillboard@gmail.com?subject=Brief%20Submission" style="color:#c8ff00;text-decoration:none;font-weight:700;">Email Tyler directly →</a></p>
 </div>
+
+<script>
+// Build tokenized brief link
+(function(){
+  try {
+    var email = localStorage.getItem('tylerdream_email') || '';
+    if (email) {
+      var token = btoa(email);
+      var link = document.getElementById('brief-link');
+      if (link) link.href = 'brief.html?token=' + encodeURIComponent(token);
+    }
+  } catch(e) {}
+})();
+</script>
 </body>
 </html>

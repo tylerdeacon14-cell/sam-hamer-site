@@ -3485,9 +3485,15 @@ function initFormSaveResume() {
     formSaveState();
     updateBlockCheckmarks();
   });
-  // Clear save on successful submit
+  // Clear save on successful submit + save email for brief page token
   form.addEventListener('submit', function() {
     try { localStorage.removeItem(FORM_SAVE_KEY); } catch(e) {}
+    try {
+      var emailEl = document.getElementById('field-email');
+      var nameEl = document.getElementById('field-name') || document.querySelector('input[name="name"]');
+      if (emailEl && emailEl.value) localStorage.setItem('tylerdream_email', emailEl.value.trim().toLowerCase());
+      if (nameEl && nameEl.value) localStorage.setItem('tylerdream_name', nameEl.value.trim());
+    } catch(e) {}
   });
 }
 
