@@ -1007,6 +1007,81 @@
 .wiz-dm-brand {
   font-size: 11px; font-weight: 700; color: #c8ff00; margin-bottom: 4px;
 }
+
+/* ---- REAL1 DM CONVERSATION ---- */
+.r1-eyebrow {
+  font-size: 11px; font-weight: 800; letter-spacing: 2.5px;
+  text-transform: uppercase; color: #c8ff00; margin-bottom: 18px;
+}
+.r1-h1 {
+  font-size: clamp(26px, 6vw, 46px); font-weight: 900;
+  letter-spacing: -2px; line-height: 1.05; color: #fff;
+  max-width: 600px; margin: 0 auto 14px;
+}
+.r1-sub {
+  font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.6;
+  max-width: 400px; margin: 0 auto 36px;
+}
+.r1-convo {
+  display: flex; flex-direction: column; gap: 16px;
+  max-width: 380px; width: 100%; margin: 0 auto 24px;
+}
+.r1-msg { opacity: 0; transform: translateY(12px); transition: opacity 0.45s ease, transform 0.45s ease; }
+.r1-msg.visible { opacity: 1; transform: translateY(0); }
+.r1-msg.from-right { transform: translateX(12px); }
+.r1-msg.from-right.visible { transform: translateX(0); }
+
+.r1-handle {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.3px;
+  color: rgba(255,255,255,0.35); margin-bottom: 5px;
+}
+.r1-handle.right-align { text-align: right; }
+.r1-bubble {
+  background: rgba(255,255,255,0.07);
+  border-radius: 18px 18px 18px 4px;
+  padding: 13px 16px;
+  font-size: 14px; color: #fff; line-height: 1.55;
+  display: inline-block; max-width: 100%;
+}
+.r1-bubble.outgoing {
+  background: rgba(255,255,255,0.11);
+  border-radius: 18px 18px 4px 18px;
+  display: block; text-align: left;
+}
+.r1-ts {
+  font-size: 10px; color: rgba(255,255,255,0.22);
+  margin-top: 4px; letter-spacing: 0.3px;
+}
+.r1-ts.right-align { text-align: right; }
+.r1-link {
+  display: inline-block; color: #c8ff00; font-weight: 700;
+  font-size: 15px; margin-top: 8px; letter-spacing: -0.3px;
+  animation: linkGlow 2.4s ease-in-out infinite;
+}
+@keyframes linkGlow {
+  0%, 100% { text-shadow: 0 0 8px rgba(200,255,0,0.3); }
+  50% { text-shadow: 0 0 22px rgba(200,255,0,0.75), 0 0 40px rgba(200,255,0,0.3); }
+}
+.r1-typing {
+  display: flex; align-items: center; gap: 5px; padding: 13px 16px;
+  background: rgba(255,255,255,0.07); border-radius: 18px 18px 18px 4px;
+  width: fit-content;
+}
+.r1-typing span {
+  width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.4);
+  animation: typingDot 1.2s ease-in-out infinite;
+}
+.r1-typing span:nth-child(2) { animation-delay: 0.2s; }
+.r1-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typingDot {
+  0%, 80%, 100% { transform: scale(1); opacity: 0.4; }
+  40% { transform: scale(1.3); opacity: 1; }
+}
+.r1-check { font-size: 11px; color: #c8ff00; margin-top: 4px; text-align: right; }
+.r1-caption {
+  font-size: 12px; color: rgba(255,255,255,0.3); text-align: center;
+  max-width: 340px; margin: 0 auto 32px; line-height: 1.5;
+}
 .wiz-compare-row { display: flex; gap: 10px; align-items: stretch; }
 .wiz-compare-col {
   flex: 1; border-radius: 10px; padding: 14px;
@@ -1065,13 +1140,24 @@
   display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
   margin-top: 28px;
 }
-.wiz-recent-pill {
-  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 100px; padding: 6px 14px;
-  font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.5);
-  display: flex; align-items: center; gap: 6px;
+.wiz-live-count {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 100px; padding: 7px 18px;
+  font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.75);
+  display: inline-flex; align-items: center; gap: 8px;
+  letter-spacing: -0.2px;
 }
-.wiz-recent-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: #c8ff00; flex-shrink: 0; }
+.wiz-live-count .live-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: #c8ff00; flex-shrink: 0;
+  box-shadow: 0 0 0 0 rgba(200,255,0,0.4);
+  animation: livePulse 1.8s ease-in-out infinite;
+}
+@keyframes livePulse {
+  0% { box-shadow: 0 0 0 0 rgba(200,255,0,0.5); }
+  60% { box-shadow: 0 0 0 7px rgba(200,255,0,0); }
+  100% { box-shadow: 0 0 0 0 rgba(200,255,0,0); }
+}
+.wiz-live-count strong { color: #c8ff00; }
 
 /* ---- CONTEXT STEP ---- */
 .wiz-context-label { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.6); margin-bottom: 10px; text-align: left; }
@@ -1358,27 +1444,53 @@
     <button class="wiz-btn-primary" onclick="wizGoTo('real1')">Start building →</button>
     <div class="wiz-trust-line">No payment today · Tyler reviews every brief personally</div>
     <div class="wiz-recent-builds">
-      <div class="wiz-recent-pill"><span class="dot"></span>Kristyn · UGC Creator</div>
-      <div class="wiz-recent-pill"><span class="dot"></span>Ayden · Fitness</div>
+      <div class="wiz-live-count"><span class="live-dot"></span><strong>197</strong> media kits built in the last 2 months</div>
     </div>
   </div>
 
   <!-- REALIZATION 1 -->
-  <div class="wiz-screen" data-screen="real1">
-    <div class="wiz-real-eyebrow">Did you know?</div>
-    <h1 class="wiz-real-h1">Brands will <em>pay you</em><br>to post.</h1>
-    <p class="wiz-real-sub">Thousands of creators get brand deal DMs every week. Not because they're famous — because they showed up like a professional.</p>
-    <div class="wiz-visual-block">
-      <div class="vb-label">Brand DM · Received today</div>
-      <div class="wiz-dm-brand">@glossier_collab</div>
-      <div class="wiz-dm-bubble">Hey! We came across your page and love what you're doing. We'd love to send you some product and discuss a paid partnership. Do you have a media kit or site we can look at?</div>
+  <div class="wiz-screen" data-screen="real1" id="real1-screen">
+    <div class="r1-eyebrow">This happens every day</div>
+    <h1 class="r1-h1">Brands are sliding into creators' DMs right now.</h1>
+    <p class="r1-sub">Not just big accounts. Creators with a few thousand followers are getting paid weekly for content they were already making for free.</p>
+
+    <div class="r1-convo" id="r1-convo">
+
+      <!-- Card 1: Brand reaches out -->
+      <div class="r1-msg" id="r1-msg1">
+        <div class="r1-handle">@brandpartnerships</div>
+        <div id="r1-typing1" class="r1-typing" style="display:none;">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="r1-bubble" id="r1-bubble1" style="display:none;"></div>
+        <div class="r1-ts" id="r1-ts1" style="display:none;">Today 2:14 PM</div>
+      </div>
+
+      <!-- Card 2: Creator responds -->
+      <div class="r1-msg from-right" id="r1-msg2" style="text-align:right;">
+        <div class="r1-handle right-align">You</div>
+        <div class="r1-bubble outgoing" id="r1-bubble2" style="display:none;">
+          Hey! Big fan of the brand. Here's everything you need.<br>
+          <span class="r1-link">tylerdream.com</span>
+        </div>
+        <div class="r1-ts right-align" id="r1-ts2" style="display:none;">Today 2:16 PM</div>
+      </div>
+
+      <!-- Card 3: Brand replies -->
+      <div class="r1-msg" id="r1-msg3">
+        <div class="r1-handle">@brandpartnerships</div>
+        <div id="r1-typing3" class="r1-typing" style="display:none;">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="r1-bubble" id="r1-bubble3" style="display:none;"></div>
+        <div class="r1-ts" id="r1-ts3" style="display:none;">Today 2:31 PM</div>
+        <div class="r1-check" id="r1-check3" style="display:none;">✓ Delivered</div>
+      </div>
+
     </div>
-    <div class="wiz-visual-block" style="margin-top:12px;">
-      <div class="vb-label">What you send first</div>
-      <div class="wiz-dm-brand">You</div>
-      <div class="wiz-dm-bubble">hey! huge fan of the brand. i'm a lifestyle creator, 24K on TikTok — i think my audience would love you guys. here's my site if you want to check it out 👇<br><br><span style="color:#2a9d8f;font-weight:600;">kristynwales.com</span></div>
-    </div>
-    <button class="wiz-btn-primary" onclick="wizGoTo('real2')">Keep going →</button>
+
+    <p class="r1-caption">That link is your media kit site. Built in 48 hours. Yours forever.</p>
+    <button class="wiz-btn-primary" onclick="wizGoTo('real2')">See what yours could look like →</button>
   </div>
 
   <!-- REALIZATION 2 -->
@@ -3264,6 +3376,7 @@ function markUploaded(input, zoneId, labelId) {
     updateBackBtn(screenId);
     if (screenId === 'cat2') populatePaletteCards();
     if (screenId === 'summary') buildSummaryDisplay();
+    if (screenId === 'real1') runReal1Convo();
     updateNextBtn(screenId);
     if (typeof gtag === 'function') gtag('event','wizard_screen',{screen:screenId});
     saveState();
@@ -3529,6 +3642,77 @@ function markUploaded(input, zoneId, labelId) {
       if (mc8) mc8.textContent = WIZ.showcase.length;
     }
   });
+
+  // ---- REAL1 DM ANIMATION ----
+  var r1Played = false;
+  function runReal1Convo() {
+    if (r1Played) return;
+    r1Played = true;
+
+    var msg1    = document.getElementById('r1-msg1');
+    var typing1 = document.getElementById('r1-typing1');
+    var bubble1 = document.getElementById('r1-bubble1');
+    var ts1     = document.getElementById('r1-ts1');
+    var msg2    = document.getElementById('r1-msg2');
+    var bubble2 = document.getElementById('r1-bubble2');
+    var ts2     = document.getElementById('r1-ts2');
+    var msg3    = document.getElementById('r1-msg3');
+    var typing3 = document.getElementById('r1-typing3');
+    var bubble3 = document.getElementById('r1-bubble3');
+    var ts3     = document.getElementById('r1-ts3');
+    var check3  = document.getElementById('r1-check3');
+
+    var text1 = "Hey! We came across your page and love what you're doing. We'd love to send you some product and discuss a paid partnership. Do you have a media kit or site we can check out?";
+    var text3 = "This is exactly what we were looking for. Are you open to a paid partnership?";
+
+    function typeInto(el, text, done) {
+      el.textContent = '';
+      var i = 0;
+      var interval = setInterval(function() {
+        el.textContent += text[i];
+        i++;
+        if (i >= text.length) { clearInterval(interval); if (done) done(); }
+      }, 22);
+    }
+
+    // Step 1: show msg1 row, then typing dots
+    setTimeout(function() {
+      msg1.classList.add('visible');
+      setTimeout(function() {
+        typing1.style.display = 'flex';
+        // After 1.1s typing indicator, swap for typed message
+        setTimeout(function() {
+          typing1.style.display = 'none';
+          bubble1.style.display = 'inline-block';
+          ts1.style.display = 'block';
+          typeInto(bubble1, text1, function() {
+            // Step 2: creator card slides in 500ms after card 1 finishes
+            setTimeout(function() {
+              msg2.classList.add('visible');
+              bubble2.style.display = 'block';
+              ts2.style.display = 'block';
+              // Step 3: brand types back 1s after card 2 lands
+              setTimeout(function() {
+                msg3.classList.add('visible');
+                setTimeout(function() {
+                  typing3.style.display = 'flex';
+                  setTimeout(function() {
+                    typing3.style.display = 'none';
+                    bubble3.style.display = 'inline-block';
+                    ts3.style.display = 'block';
+                    typeInto(bubble3, text3, function() {
+                      setTimeout(function() { check3.style.display = 'block'; }, 300);
+                    });
+                  }, 1100);
+                }, 200);
+              }, 1000);
+            }, 500);
+          });
+        }, 1100);
+      }, 300);
+    }, 400);
+  }
+  window.runReal1Convo = runReal1Convo;
 
 })();
 </script>
