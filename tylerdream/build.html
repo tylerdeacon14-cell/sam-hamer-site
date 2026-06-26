@@ -2674,6 +2674,30 @@
   </div>
 </div>
 <script>
+function handleContactMethod(select, detailId, labelId, inputId) {
+  var val = select.value;
+  var wrap = document.getElementById(detailId);
+  var label = document.getElementById(labelId);
+  var input = document.getElementById(inputId);
+  if (!wrap) return;
+  if (!val || val === 'Email (already provided)') {
+    wrap.style.display = 'none';
+    return;
+  }
+  wrap.style.display = 'block';
+  var labels = {
+    'Text': { label: 'Your phone number', placeholder: '+1 (555) 000-0000' },
+    'Phone call': { label: 'Your phone number', placeholder: '+1 (555) 000-0000' },
+    'Google Meet': { label: 'Your email for the invite', placeholder: 'you@email.com' },
+    'Microsoft Teams': { label: 'Your Teams email', placeholder: 'you@email.com' },
+    'Discord': { label: 'Your Discord username', placeholder: 'username#0000' },
+    'Social media DM': { label: 'Your handle', placeholder: '@yourhandle' }
+  };
+  var cfg = labels[val] || { label: 'Your contact detail', placeholder: '' };
+  if (label) label.textContent = cfg.label;
+  if (input) input.placeholder = cfg.placeholder;
+}
+
 function handleStripePayment() {
   alert('Stripe integration pending - add your publishable key and backend endpoint.');
 }
