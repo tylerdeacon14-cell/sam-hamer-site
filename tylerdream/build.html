@@ -1420,6 +1420,62 @@
 .wiz-selections-badge .ws-label { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 6px; }
 .wiz-selections-badge .ws-picks { font-size: 13px; font-weight: 700; color: #c8ff00; line-height: 1.6; display: flex; flex-wrap: wrap; gap: 6px; }
 .wiz-picks-pill { display: inline-block; background: rgba(200,255,0,0.15); border: 1px solid rgba(200,255,0,0.35); border-radius: 20px; padding: 3px 10px; font-size: 12px; font-weight: 700; color: #c8ff00; white-space: nowrap; }
+/* Vibe tile grid */
+.vibe-grid-big { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+@media (min-width: 500px) { .vibe-grid-big { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 700px) { .vibe-grid-big { grid-template-columns: repeat(4, 1fr); } }
+.vibe-tile {
+  border-radius: 14px; overflow: hidden; cursor: pointer;
+  border: 2px solid rgba(255,255,255,0.08); transition: border-color 0.15s, transform 0.15s;
+  background: rgba(255,255,255,0.03);
+}
+.vibe-tile:hover { border-color: rgba(200,255,0,0.3); transform: translateY(-2px); }
+.vibe-tile.selected { border-color: #c8ff00; box-shadow: 0 0 0 1px #c8ff00; }
+.vibe-tile-preview {
+  height: 110px; display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.vibe-tile-accent {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+}
+.vibe-tile-name { font-size: 13px; font-weight: 800; color: #fff; padding: 10px 12px 2px; letter-spacing: -0.3px; }
+.vibe-tile-desc { font-size: 10px; color: rgba(255,255,255,0.35); padding: 0 12px 12px; line-height: 1.4; }
+
+/* Palette color picker */
+.palette-picker-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+.pal-swatch {
+  width: 44px; height: 44px; border-radius: 10px; cursor: pointer;
+  border: 2px solid transparent; transition: transform 0.12s, border-color 0.12s;
+  position: relative; flex-shrink: 0;
+}
+.pal-swatch:hover { transform: scale(1.12); }
+.pal-swatch.selected { border-color: #c8ff00; box-shadow: 0 0 0 2px #c8ff00; transform: scale(1.12); }
+.pal-swatch-inner { width: 100%; height: 100%; border-radius: 8px; overflow: hidden; display: flex; }
+.pal-swatch-half { flex: 1; }
+.pal-selected-name { margin-top: 16px; font-size: 13px; font-weight: 700; color: #c8ff00; min-height: 20px; text-align: center; }
+/* Inline brief screens */
+.wiz-brief-field { margin-bottom: 20px; }
+.wiz-brief-label { display: block; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 8px; }
+.wiz-brief-input {
+  width: 100%; background: rgba(255,255,255,0.06); color: #fff;
+  border: 1.5px solid rgba(255,255,255,0.12); border-radius: 12px;
+  padding: 15px 18px; font-size: 15px; font-family: Inter, sans-serif; font-weight: 500;
+  outline: none; transition: border-color 0.15s, background 0.15s; box-sizing: border-box;
+  -webkit-appearance: none;
+}
+.wiz-brief-input::placeholder { color: rgba(255,255,255,0.2); }
+.wiz-brief-input:focus { border-color: rgba(200,255,0,0.5); background: rgba(200,255,0,0.04); }
+textarea.wiz-brief-input { line-height: 1.6; }
+.wiz-brief-err { color: #ff5c5c; font-size: 12px; font-weight: 700; margin-top: 10px; text-align: center; }
+.wiz-follower-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+.wiz-brief-pill {
+  background: rgba(255,255,255,0.06); border: 1.5px solid rgba(255,255,255,0.12);
+  border-radius: 30px; padding: 9px 18px; font-size: 13px; font-weight: 700;
+  color: rgba(255,255,255,0.6); cursor: pointer; font-family: Inter, sans-serif;
+  transition: all 0.15s;
+}
+.wiz-brief-pill.selected { background: rgba(200,255,0,0.12); border-color: #c8ff00; color: #c8ff00; }
+.wiz-brief-pill:hover { border-color: rgba(200,255,0,0.4); color: rgba(255,255,255,0.9); }
 /* Form save/resume restore banner */
 #form-restore-banner {
   display: none; margin-bottom: 20px; padding: 14px 18px;
@@ -1729,6 +1785,13 @@
       <div id="wiz-niche-other-wrap" style="display:none;margin-top:12px;">
         <input type="text" id="wiz-niche-other-input" placeholder="What do you post about?" style="width:100%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:10px;padding:12px 16px;font-size:14px;color:#fff;outline:none;" oninput="WIZ.nicheOther=this.value;saveState();">
       </div>
+      <div style="margin-top:20px;margin-bottom:4px;">
+        <label style="display:block;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:8px;">Your TikTok handle <span style="font-size:10px;opacity:0.6;font-weight:500;text-transform:none;letter-spacing:0;">(so Tyler can check out your page)</span></label>
+        <input type="text" id="ctx-handle" placeholder="@yourhandle" autocomplete="off"
+          style="width:100%;background:rgba(255,255,255,0.07);color:#fff;border:1.5px solid rgba(255,255,255,0.12);border-radius:12px;padding:13px 16px;font-size:14px;font-family:Inter,sans-serif;outline:none;box-sizing:border-box;"
+          oninput="WIZ.ctxHandle=this.value;saveState();"
+          onblur="fireContextLead();">
+      </div>
       <p style="font-size:14px;color:rgba(255,255,255,0.4);margin-bottom:14px;margin-top:24px;">Follower range (all platforms combined)</p>
       <div class="wiz-follower-row" id="wiz-follower-row">
         <button class="wiz-follower-btn" data-range="Under 5K" onclick="selectFollower(this)">Under 5K</button>
@@ -1744,86 +1807,91 @@
   </div>
 
   <!-- CAT 1: VIBE -->
-  <div class="wiz-screen" data-screen="cat1" style="justify-content:flex-start;padding:0;overflow:hidden;">
-    <div class="wiz-cat-header" style="padding:52px 24px 0;width:100%;">
-      <div class="wiz-cat-step" id="cat1-step">Step 1 of 8</div>
-      <div class="wiz-cat-title">Overall Vibe</div>
-      <div class="wiz-cat-sub">Sets the whole tone. Pick one.</div>
+  <div class="wiz-screen" data-screen="cat1" style="justify-content:flex-start;overflow-y:auto;padding:0;">
+    <div style="width:100%;max-width:680px;margin:0 auto;padding:52px 20px 140px;">
+      <div class="wiz-cat-step" id="cat1-step" style="font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(200,255,0,0.6);margin-bottom:10px;">Step 1 of 8</div>
+      <div class="wiz-cat-title" style="font-size:clamp(24px,5vw,36px);font-weight:900;letter-spacing:-1px;color:#fff;margin-bottom:6px;">What's your overall vibe?</div>
+      <div class="wiz-cat-sub" style="font-size:14px;color:rgba(255,255,255,0.4);margin-bottom:28px;">Pick the one that feels closest. Sets the whole tone.</div>
+      <div class="vibe-grid-big" id="vibe-cards">
+        <div class="vibe-tile" data-value="Dark and moody" onclick="selectCat(this,'cat1','wizard_vibe')">
+          <div class="vibe-tile-preview" style="background:#0d0d0d;">
+            <div style="font-size:18px;font-weight:900;color:#c8ff00;letter-spacing:-1px;line-height:1.1;">CREATOR<br><span style="font-size:11px;color:rgba(255,255,255,0.35);font-weight:600;letter-spacing:0;">Media Kit</span></div>
+            <div class="vibe-tile-accent" style="background:#c8ff00;"></div>
+          </div>
+          <div class="vibe-tile-name">Dark & Moody</div>
+          <div class="vibe-tile-desc">Black bg · neon accents · high contrast</div>
+        </div>
+        <div class="vibe-tile" data-value="Clean and minimal" onclick="selectCat(this,'cat1','wizard_vibe')">
+          <div class="vibe-tile-preview" style="background:#f8f8f6;">
+            <div style="font-size:18px;font-weight:700;color:#1a1a1a;letter-spacing:-0.5px;line-height:1.1;">Creator<br><span style="font-size:11px;color:#888;font-weight:400;letter-spacing:0;">Media Kit</span></div>
+            <div class="vibe-tile-accent" style="background:#2a9d8f;"></div>
+          </div>
+          <div class="vibe-tile-name">Clean & Minimal</div>
+          <div class="vibe-tile-desc">Light · airy · whitespace-forward</div>
+        </div>
+        <div class="vibe-tile" data-value="Bold and loud" onclick="selectCat(this,'cat1','wizard_vibe')">
+          <div class="vibe-tile-preview" style="background:#ff3c00;">
+            <div style="font-size:20px;font-weight:900;color:#fff;letter-spacing:-1px;text-transform:uppercase;line-height:1.0;">CREATOR<br>KIT</div>
+            <div class="vibe-tile-accent" style="background:#fff;"></div>
+          </div>
+          <div class="vibe-tile-name">Bold & Loud</div>
+          <div class="vibe-tile-desc">Big type · saturated color · energy</div>
+        </div>
+        <div class="vibe-tile" data-value="Soft and warm" onclick="selectCat(this,'cat1','wizard_vibe')">
+          <div class="vibe-tile-preview" style="background:#fdf5ee;">
+            <div style="font-size:17px;font-weight:600;color:#8B6245;letter-spacing:0.3px;line-height:1.2;">Creator<br><span style="font-size:11px;color:#c49a6c;font-weight:400;">Media Kit</span></div>
+            <div class="vibe-tile-accent" style="background:#c49a6c;"></div>
+          </div>
+          <div class="vibe-tile-name">Soft & Warm</div>
+          <div class="vibe-tile-desc">Earthy tones · rounded · approachable</div>
+        </div>
+        <div class="vibe-tile" data-value="Streetwear / hype" onclick="selectCat(this,'cat1','wizard_vibe')">
+          <div class="vibe-tile-preview" style="background:#111;">
+            <div style="font-size:17px;font-weight:900;color:#fff;letter-spacing:4px;text-transform:uppercase;line-height:1.1;">CRTR<br><span style="color:#ffd700;letter-spacing:3px;">KIT</span></div>
+            <div class="vibe-tile-accent" style="background:#ffd700;"></div>
+          </div>
+          <div class="vibe-tile-name">Streetwear & Hype</div>
+          <div class="vibe-tile-desc">Drop culture · caps lock · gold</div>
+        </div>
+        <div class="vibe-tile" data-value="Professional / corporate" onclick="selectCat(this,'cat1','wizard_vibe')">
+          <div class="vibe-tile-preview" style="background:#1a2744;">
+            <div style="font-size:16px;font-weight:700;color:#fff;line-height:1.2;">Creator<br><span style="font-size:11px;color:#7eb8d4;font-weight:400;">Media Kit</span></div>
+            <div class="vibe-tile-accent" style="background:#4a90d9;"></div>
+          </div>
+          <div class="vibe-tile-name">Professional</div>
+          <div class="vibe-tile-desc">Navy & slate · structured · polished</div>
+        </div>
+        <div class="vibe-tile" data-value="Neon Underground" onclick="selectCat(this,'cat1','wizard_vibe')">
+          <div class="vibe-tile-preview" style="background:#0a0010;">
+            <div style="font-size:17px;font-weight:900;color:#ff2d78;letter-spacing:-0.5px;text-shadow:0 0 12px #ff2d78;line-height:1.1;">CREATOR<br><span style="color:#00e5ff;font-size:11px;font-weight:700;text-shadow:0 0 8px #00e5ff;letter-spacing:0;">Media Kit</span></div>
+            <div class="vibe-tile-accent" style="background:linear-gradient(90deg,#ff2d78,#00e5ff);"></div>
+          </div>
+          <div class="vibe-tile-name">Neon Underground</div>
+          <div class="vibe-tile-desc">Dark · electric pink/cyan · underground</div>
+        </div>
+        <div class="vibe-tile" data-value="Earthy Creator" onclick="selectCat(this,'cat1','wizard_vibe')">
+          <div class="vibe-tile-preview" style="background:#f5f0e8;">
+            <div style="font-size:17px;font-weight:700;color:#5c3d2e;letter-spacing:0.3px;line-height:1.2;">Creator<br><span style="color:#6b8c5a;font-size:11px;font-weight:400;">Media Kit</span></div>
+            <div class="vibe-tile-accent" style="background:#6b8c5a;"></div>
+          </div>
+          <div class="vibe-tile-name">Earthy Creator</div>
+          <div class="vibe-tile-desc">Warm browns & greens · natural</div>
+        </div>
+      </div>
     </div>
-    <div class="wiz-swipe-hint" style="margin-top:16px;">← swipe to see more →</div>
-    <div class="wiz-cards-wrap" id="vibe-cards">
-      <div class="wiz-card" data-value="Dark and moody" onclick="selectCat(this,'cat1','wizard_vibe')">
-        <div class="wiz-card-preview" style="background:#0d0d0d;border:1px solid #333;">
-          <span style="font-size:13px;font-weight:900;color:#c8ff00;letter-spacing:-0.5px;">CREATOR<br><span style="color:rgba(255,255,255,0.4);font-size:11px;font-weight:600;">Media Kit</span></span>
-        </div>
-        <div class="wiz-card-name">Dark & Moody</div>
-        <div class="wiz-card-desc">Black bg, neon accents, high contrast</div>
-      </div>
-      <div class="wiz-card" data-value="Clean and minimal" onclick="selectCat(this,'cat1','wizard_vibe')">
-        <div class="wiz-card-preview" style="background:#f8f8f6;border:1px solid #e0e0da;">
-          <span style="font-size:13px;font-weight:700;color:#1a1a1a;letter-spacing:-0.5px;">Creator<br><span style="color:#888;font-size:11px;font-weight:400;">Media Kit</span></span>
-        </div>
-        <div class="wiz-card-name">Clean & Minimal</div>
-        <div class="wiz-card-desc">Light, airy, whitespace-forward</div>
-      </div>
-      <div class="wiz-card" data-value="Bold and loud" onclick="selectCat(this,'cat1','wizard_vibe')">
-        <div class="wiz-card-preview" style="background:#ff3c00;">
-          <span style="font-size:14px;font-weight:900;color:#fff;letter-spacing:-1px;text-transform:uppercase;">CREATOR<br>KIT</span>
-        </div>
-        <div class="wiz-card-name">Bold & Loud</div>
-        <div class="wiz-card-desc">Big type, saturated color, energy</div>
-      </div>
-      <div class="wiz-card" data-value="Soft and warm" onclick="selectCat(this,'cat1','wizard_vibe')">
-        <div class="wiz-card-preview" style="background:#fdf5ee;">
-          <span style="font-size:13px;font-weight:600;color:#8B6245;letter-spacing:0.5px;">Creator<br><span style="color:#c49a6c;font-size:11px;">Media Kit</span></span>
-        </div>
-        <div class="wiz-card-name">Soft & Warm</div>
-        <div class="wiz-card-desc">Earthy tones, rounded, approachable</div>
-      </div>
-      <div class="wiz-card" data-value="Streetwear / hype" onclick="selectCat(this,'cat1','wizard_vibe')">
-        <div class="wiz-card-preview" style="background:#111;border:1px solid #444;">
-          <span style="font-size:13px;font-weight:900;color:#fff;letter-spacing:3px;text-transform:uppercase;">CRTR<br><span style="color:#ffd700;letter-spacing:2px;">KIT</span></span>
-        </div>
-        <div class="wiz-card-name">Streetwear & Hype</div>
-        <div class="wiz-card-desc">Drop culture, caps lock, gold</div>
-      </div>
-      <div class="wiz-card" data-value="Professional / corporate" onclick="selectCat(this,'cat1','wizard_vibe')">
-        <div class="wiz-card-preview" style="background:#1a2744;">
-          <span style="font-size:13px;font-weight:700;color:#fff;letter-spacing:0px;">Creator<br><span style="color:#7eb8d4;font-size:11px;font-weight:500;">Media Kit</span></span>
-        </div>
-        <div class="wiz-card-name">Professional</div>
-        <div class="wiz-card-desc">Navy & slate, structured, polished</div>
-      </div>
-      <div class="wiz-card" data-value="Neon Underground" onclick="selectCat(this,'cat1','wizard_vibe')">
-        <div class="wiz-card-preview" style="background:#0a0010;border:1px solid #3a0050;">
-          <span style="font-size:13px;font-weight:900;color:#ff2d78;letter-spacing:-0.5px;text-shadow:0 0 10px #ff2d78;">CREATOR<br><span style="color:#00e5ff;font-size:11px;font-weight:700;text-shadow:0 0 8px #00e5ff;">Media Kit</span></span>
-        </div>
-        <div class="wiz-card-name">Neon Underground</div>
-        <div class="wiz-card-desc">Dark, electric pink/cyan, underground</div>
-      </div>
-      <div class="wiz-card" data-value="Earthy Creator" onclick="selectCat(this,'cat1','wizard_vibe')">
-        <div class="wiz-card-preview" style="background:#f8f4ee;border:1px solid #d4c9a8;">
-          <span style="font-size:13px;font-weight:700;color:#5c3d2e;letter-spacing:0.3px;">Creator<br><span style="color:#6b8c5a;font-size:11px;font-weight:500;">Media Kit</span></span>
-        </div>
-        <div class="wiz-card-name">Earthy Creator</div>
-        <div class="wiz-card-desc">Warm browns/greens, natural, grounded</div>
-      </div>
-    </div>
-    <!-- next btn rendered globally -->
   </div>
 
   <!-- CAT 2: COLOR PALETTE -->
-  <div class="wiz-screen" data-screen="cat2" style="justify-content:flex-start;padding:0;overflow:hidden;">
-    <div class="wiz-cat-header" style="padding:52px 24px 0;width:100%;">
-      <div class="wiz-cat-step">Step 2 of 8</div>
-      <div class="wiz-cat-title">Color Palette</div>
-      <div class="wiz-cat-sub" id="cat2-sub">Pick the palette that feels like you.</div>
+  <div class="wiz-screen" data-screen="cat2" style="justify-content:flex-start;overflow-y:auto;padding:0;">
+    <div style="width:100%;max-width:680px;margin:0 auto;padding:52px 20px 140px;">
+      <div style="font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(200,255,0,0.6);margin-bottom:10px;">Step 2 of 8</div>
+      <div class="wiz-cat-title" style="font-size:clamp(22px,5vw,34px);font-weight:900;letter-spacing:-1px;color:#fff;margin-bottom:6px;">Pick your color palette</div>
+      <div class="wiz-cat-sub" id="cat2-sub" style="font-size:14px;color:rgba(255,255,255,0.4);margin-bottom:28px;">Tap any combo — previewed from your vibe.</div>
+      <div class="palette-picker-wrap" id="palette-cards">
+        <!-- populated by JS -->
+      </div>
+      <div class="pal-selected-name" id="pal-selected-name">—</div>
     </div>
-    <div class="wiz-swipe-hint" style="margin-top:16px;">← swipe to see more →</div>
-    <div class="wiz-cards-wrap" id="palette-cards">
-      <!-- populated by JS based on cat1 selection -->
-    </div>
-    <!-- next btn rendered globally -->
   </div>
 
   <!-- CAT 3: HERO ANIMATION -->
@@ -2183,13 +2251,6 @@
         <div class="ws-picks" id="wiz-picks-display">—</div>
       </div>
 
-      <!-- Matched proof -->
-      <div class="wiz-matched-proof" id="wiz-matched-proof">
-        <div class="mp-label">Matched Build</div>
-        <div class="mp-name" id="mp-name">Kristyn Simpson · UGC Creator</div>
-        <div class="mp-detail" id="mp-detail">Similar niche, similar vibe. <a href="https://kristynsimpson.netlify.app/" target="_blank">See her live site →</a></div>
-      </div>
-
       <!-- Pricing card -->
       <div class="wiz-pricing-card" style="position:relative;overflow:hidden;">
         <div class="wiz-savings-badge" id="wiz-savings-badge" style="display:none;">SAVE $75</div>
@@ -2239,11 +2300,116 @@
         </div>
       </div>
 
-      <!-- CTA into form -->
-      <button class="wiz-cta-into-form" onclick="wizFinishAndGoToForm()">Fill out my brief → (takes 5 min)</button>
+      <!-- CTA into inline brief -->
+      <button class="wiz-cta-into-form" onclick="wizGoTo('brief1')">Fill out my brief → (takes 2 min)</button>
       <div style="text-align:center;margin-top:14px;">
         <button class="wiz-btn-ghost" onclick="wizGoTo('cat1')">← Redo my picks</button>
       </div>
+    </div>
+  </div>
+
+  <!-- BRIEF STEP 1: Name + Email -->
+  <div class="wiz-screen" data-screen="brief1" style="justify-content:flex-start;overflow-y:auto;padding:72px 24px 140px;">
+    <div style="width:100%;max-width:520px;margin:0 auto;">
+      <div class="wiz-summary-eyebrow">Step 1 of 4</div>
+      <h2 class="wiz-summary-h1" style="font-size:clamp(24px,5vw,36px);margin-bottom:8px;">What's your name<br>and email?</h2>
+      <p class="wiz-summary-sub" style="margin-bottom:32px;">Tyler reaches out personally within a few hours.</p>
+      <div class="wiz-brief-field">
+        <label class="wiz-brief-label">Your name</label>
+        <input class="wiz-brief-input" type="text" id="brief-name" placeholder="First and last" autocomplete="name">
+      </div>
+      <div class="wiz-brief-field">
+        <label class="wiz-brief-label">Email</label>
+        <input class="wiz-brief-input" type="email" id="brief-email" placeholder="you@email.com" autocomplete="email">
+      </div>
+      <button class="wiz-cta-into-form" onclick="briefNext1()" style="margin-top:8px;">Next →</button>
+      <div id="brief1-err" class="wiz-brief-err" style="display:none;">Enter your name and a valid email to continue.</div>
+    </div>
+  </div>
+
+  <!-- BRIEF STEP 2: Handle + Followers -->
+  <div class="wiz-screen" data-screen="brief2" style="justify-content:flex-start;overflow-y:auto;padding:72px 24px 140px;">
+    <div style="width:100%;max-width:520px;margin:0 auto;">
+      <div class="wiz-summary-eyebrow">Step 2 of 4</div>
+      <h2 class="wiz-summary-h1" style="font-size:clamp(24px,5vw,36px);margin-bottom:8px;">Your main TikTok<br>account</h2>
+      <p class="wiz-summary-sub" style="margin-bottom:32px;">Primary account — even if it's small or banned, list it.</p>
+      <div class="wiz-brief-field">
+        <label class="wiz-brief-label">TikTok handle</label>
+        <input class="wiz-brief-input" type="text" id="brief-handle" placeholder="@yourhandle" autocomplete="off">
+      </div>
+      <div class="wiz-brief-field">
+        <label class="wiz-brief-label">Followers (rough is fine)</label>
+        <div class="wiz-follower-grid" id="brief-follower-grid">
+          <button class="wiz-brief-pill" data-val="Under 5K" onclick="selectBriefFollower(this)">Under 5K</button>
+          <button class="wiz-brief-pill" data-val="5K–25K" onclick="selectBriefFollower(this)">5K–25K</button>
+          <button class="wiz-brief-pill" data-val="25K–100K" onclick="selectBriefFollower(this)">25K–100K</button>
+          <button class="wiz-brief-pill" data-val="100K–500K" onclick="selectBriefFollower(this)">100K–500K</button>
+          <button class="wiz-brief-pill" data-val="500K+" onclick="selectBriefFollower(this)">500K+</button>
+        </div>
+      </div>
+      <button class="wiz-cta-into-form" onclick="briefNext2()" style="margin-top:8px;">Next →</button>
+      <div id="brief2-err" class="wiz-brief-err" style="display:none;">Add your handle to continue.</div>
+    </div>
+  </div>
+
+  <!-- BRIEF STEP 3: Video Links -->
+  <div class="wiz-screen" data-screen="brief3" style="justify-content:flex-start;overflow-y:auto;padding:72px 24px 140px;">
+    <div style="width:100%;max-width:520px;margin:0 auto;">
+      <div class="wiz-summary-eyebrow">Step 3 of 4</div>
+      <h2 class="wiz-summary-h1" style="font-size:clamp(24px,5vw,36px);margin-bottom:8px;">2–3 of your<br>best videos</h2>
+      <p class="wiz-summary-sub" style="margin-bottom:32px;">TikTok, YouTube, Instagram — anything. These go on your site.</p>
+      <div class="wiz-brief-field">
+        <label class="wiz-brief-label">Video link 1</label>
+        <input class="wiz-brief-input" type="url" id="brief-vid1" placeholder="Paste link here" autocomplete="off">
+      </div>
+      <div class="wiz-brief-field">
+        <label class="wiz-brief-label">Video link 2</label>
+        <input class="wiz-brief-input" type="url" id="brief-vid2" placeholder="Paste link here" autocomplete="off">
+      </div>
+      <div class="wiz-brief-field">
+        <label class="wiz-brief-label">Video link 3 <span style="opacity:0.4;font-size:10px;font-weight:500;text-transform:none;letter-spacing:0;">optional</span></label>
+        <input class="wiz-brief-input" type="url" id="brief-vid3" placeholder="Paste link here" autocomplete="off">
+      </div>
+      <button class="wiz-cta-into-form" onclick="briefNext3()" style="margin-top:8px;">Next →</button>
+      <div id="brief3-err" class="wiz-brief-err" style="display:none;">Add at least one video link to continue.</div>
+    </div>
+  </div>
+
+  <!-- BRIEF STEP 4: Notes + Referral -->
+  <div class="wiz-screen" data-screen="brief4" style="justify-content:flex-start;overflow-y:auto;padding:72px 24px 140px;">
+    <div style="width:100%;max-width:520px;margin:0 auto;">
+      <div class="wiz-summary-eyebrow">Step 4 of 4</div>
+      <h2 class="wiz-summary-h1" style="font-size:clamp(24px,5vw,36px);margin-bottom:8px;">Anything else<br>Tyler should know?</h2>
+      <p class="wiz-summary-sub" style="margin-bottom:32px;">Niche, vibe, brands you've worked with, goals — anything helps. Totally optional.</p>
+      <div class="wiz-brief-field">
+        <label class="wiz-brief-label">Notes <span style="opacity:0.4;font-size:10px;font-weight:500;text-transform:none;letter-spacing:0;">optional</span></label>
+        <textarea class="wiz-brief-input" id="brief-notes" rows="4" placeholder="e.g. Beauty creator, 2 brand deals, want to land retainers. Love dark minimal vibes." style="resize:none;"></textarea>
+      </div>
+      <div class="wiz-brief-field">
+        <label class="wiz-brief-label">Referral code <span style="opacity:0.4;font-size:10px;font-weight:500;text-transform:none;letter-spacing:0;">optional — get 25% off</span></label>
+        <input class="wiz-brief-input" type="text" id="brief-refcode" placeholder="Enter code" oninput="this.value=this.value.toUpperCase()">
+      </div>
+      <button class="wiz-cta-into-form" id="brief-submit-btn" onclick="submitBrief()">Submit my brief →</button>
+      <div id="brief4-err" class="wiz-brief-err" style="display:none;">Something went wrong. Try again.</div>
+      <p style="font-size:12px;color:rgba(255,255,255,0.25);text-align:center;margin-top:16px;">No payment today. Tyler follows up within a few hours.</p>
+    </div>
+  </div>
+
+  <!-- BRIEF DONE -->
+  <div class="wiz-screen" data-screen="brief-done" style="justify-content:center;align-items:center;text-align:center;padding:40px 24px;">
+    <div style="max-width:440px;">
+      <div style="font-size:48px;margin-bottom:20px;">✓</div>
+      <h2 class="wiz-summary-h1" style="font-size:clamp(26px,5vw,38px);margin-bottom:12px;">Brief received.</h2>
+      <p style="font-size:16px;color:rgba(255,255,255,0.5);line-height:1.6;margin-bottom:28px;">Tyler reads every single one personally. You'll hear back within a few hours — same day, usually faster.</p>
+      <div style="background:rgba(200,255,0,0.07);border:1px solid rgba(200,255,0,0.2);border-radius:14px;padding:18px 20px;margin-bottom:28px;text-align:left;">
+        <div style="font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(200,255,0,0.5);margin-bottom:8px;">What happens next</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="font-size:13px;color:rgba(255,255,255,0.7);">1. Tyler reviews your brief and reaches out to confirm details.</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.7);">2. First draft live in 48 hours. Pay only after you see it.</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.7);">3. Revisions until it's perfect. Then it's yours.</div>
+        </div>
+      </div>
+      <p style="font-size:13px;color:rgba(255,255,255,0.3);">Check your inbox — a confirmation is on its way.</p>
     </div>
   </div>
 
@@ -3868,10 +4034,22 @@ function markUploaded(input, zoneId, labelId) {
     label.textContent = 'Step '+(idx+1)+' of 8 · '+(CAT_LABELS[screenId]||'');
   }
 
+  var BRIEF_DATA = {};
+
+  function updateProgressBar(screenId) {
+    var fill = document.getElementById('wiz-progress-fill');
+    var label = document.getElementById('wiz-progress-label');
+    var order = ['entry','real1','real2','real3','context','cat1','cat2','cat3','cat4','cat5','cat6','cat7','cat8','summary','brief1','brief2','brief3','brief4','brief-done'];
+    var pct = { entry:0, real1:5, real2:10, real3:15, context:20, cat1:28, cat2:36, cat3:44, cat4:52, cat5:60, cat6:68, cat7:76, cat8:84, summary:90, brief1:93, brief2:95, brief3:97, brief4:99, 'brief-done':100 };
+    if (fill) fill.style.width = (pct[screenId] || 0) + '%';
+    if (label) label.textContent = '';
+  }
+
   function updateBackBtn(screenId) {
     var btn = document.getElementById('wiz-back-btn');
     if (!btn) return;
-    btn.className = (['entry','real1'].indexOf(screenId) === -1) ? 'visible' : '';
+    var noBack = ['entry','real1','brief-done'];
+    btn.className = (noBack.indexOf(screenId) === -1) ? 'visible' : '';
   }
 
   function updateNextBtn(screenId) {
@@ -3881,7 +4059,7 @@ function markUploaded(input, zoneId, labelId) {
     var countEl = document.getElementById('wiz-multi-count');
     if (!wrap || !btn) return;
     // hide on non-cat screens
-    if (['entry','real1','summary'].indexOf(screenId) !== -1) {
+    if (['entry','real1','real2','real3','context','summary','brief1','brief2','brief3','brief4','brief-done'].indexOf(screenId) !== -1) {
       wrap.className = ''; btn.className = ''; return;
     }
     // multi-select screens
@@ -3923,6 +4101,12 @@ function markUploaded(input, zoneId, labelId) {
     if (screenId === 'summary') buildSummaryDisplay();
     if (screenId === 'real1') runReal1Convo();
     if (screenId === 'real3') updateReal3Proof();
+    if (screenId === 'brief2') {
+      // pre-fill handle from context screen if entered
+      var hEl = document.getElementById('brief-handle');
+      var ctxH = (document.getElementById('ctx-handle')||{}).value || WIZ.ctxHandle || '';
+      if (hEl && !hEl.value && ctxH) hEl.value = ctxH;
+    }
     updateNextBtn(screenId);
     if (typeof gtag === 'function') gtag('event','wizard_screen',{screen:screenId});
     saveState();
@@ -3947,13 +4131,18 @@ function markUploaded(input, zoneId, labelId) {
   };
 
   window.selectCat = function(el, catKey, hiddenId) {
-    var wrap = el.closest('.wiz-cards-wrap');
-    if (wrap) wrap.querySelectorAll('.wiz-card').forEach(function(c){c.classList.remove('selected');});
+    // For vibe tiles, look in vibe-grid-big. For other cats, look in wiz-cards-wrap.
+    var container = el.closest('.vibe-grid-big') || el.closest('.wiz-cards-wrap') || el.closest('.palette-picker-wrap') || el.parentNode;
+    container.querySelectorAll('.wiz-card,.vibe-tile,.pal-swatch').forEach(function(c){c.classList.remove('selected');});
     el.classList.add('selected');
     var val = el.dataset.value;
     var propMap = {cat1:'vibe',cat2:'palette',cat3:'hero',cat4:'transitions',cat5:'layout',cat6:'typography'};
     if (propMap[catKey]) WIZ[propMap[catKey]] = val;
-    if (catKey === 'cat1') autoPopulateVibeRadio(val);
+    if (catKey === 'cat1') { autoPopulateVibeRadio(val); populatePaletteCards(); }
+    if (catKey === 'cat2') {
+      var nameEl = document.getElementById('pal-selected-name');
+      if (nameEl) nameEl.textContent = val;
+    }
     updateNextBtn(catKey);
     if (typeof gtag === 'function') gtag('event','wizard_pick',{category:catKey,value:val});
     saveState();
@@ -4019,15 +4208,18 @@ function markUploaded(input, zoneId, labelId) {
     wrap.innerHTML = '';
     var palettes = PALETTES[WIZ.vibe] || PALETTES['Dark and moody'];
     palettes.forEach(function(p) {
-      var card = document.createElement('div');
-      card.className = 'wiz-card'+(WIZ.palette===p.name?' selected':'');
-      card.dataset.value = p.name;
-      card.onclick = function(){selectCat(card,'cat2','wizard_color_palette');};
-      var swatchHTML = p.swatches.map(function(c){return '<div class="wiz-swatch" style="background:'+c+'"></div>';}).join('');
-      card.innerHTML = '<div class="wiz-card-preview"><div class="wiz-palette-preview">'+swatchHTML+'</div></div>'+
-        '<div class="wiz-card-name">'+p.name+'</div><div class="wiz-card-desc">'+p.desc+'</div>';
-      wrap.appendChild(card);
+      var swatch = document.createElement('div');
+      swatch.className = 'pal-swatch' + (WIZ.palette === p.name ? ' selected' : '');
+      swatch.dataset.value = p.name;
+      swatch.title = p.name + (p.desc ? ' — ' + p.desc : '');
+      swatch.onclick = function(){ selectCat(swatch, 'cat2', 'wizard_color_palette'); };
+      var bg = p.swatches[0] || '#111';
+      var accent = p.swatches[1] || p.swatches[0] || '#c8ff00';
+      swatch.innerHTML = '<div class="pal-swatch-inner"><div class="pal-swatch-half" style="background:'+bg+'"></div><div class="pal-swatch-half" style="background:'+accent+'"></div></div>';
+      wrap.appendChild(swatch);
     });
+    var nameEl = document.getElementById('pal-selected-name');
+    if (nameEl) nameEl.textContent = WIZ.palette || '—';
   }
 
   function buildSummaryDisplay() {
@@ -4165,6 +4357,163 @@ function markUploaded(input, zoneId, labelId) {
     if (typeof gtag === 'function') gtag('event','wizard_complete',{vibe:WIZ.vibe,niche:WIZ.niche});
     saveState();
   };
+
+  /* ---- BRIEF SCREEN FUNCTIONS ---- */
+  window.selectBriefFollower = function(btn) {
+    document.querySelectorAll('#brief-follower-grid .wiz-brief-pill').forEach(function(b){ b.classList.remove('selected'); });
+    btn.classList.add('selected');
+    BRIEF_DATA.followers = btn.dataset.val;
+  };
+
+  window.briefNext1 = function() {
+    var name = (document.getElementById('brief-name')||{}).value||'';
+    var email = (document.getElementById('brief-email')||{}).value||'';
+    var err = document.getElementById('brief1-err');
+    if (!name.trim() || !email.trim() || email.indexOf('@') < 1) {
+      if (err) err.style.display = 'block';
+      return;
+    }
+    if (err) err.style.display = 'none';
+    BRIEF_DATA.name = name.trim();
+    BRIEF_DATA.email = email.trim();
+    // Send partial data immediately so Tyler gets the lead
+    sendPartialLead();
+    wizGoTo('brief2');
+  };
+
+  window.briefNext2 = function() {
+    var handle = (document.getElementById('brief-handle')||{}).value||'';
+    var err = document.getElementById('brief2-err');
+    if (!handle.trim()) {
+      if (err) err.style.display = 'block';
+      return;
+    }
+    if (err) err.style.display = 'none';
+    BRIEF_DATA.handle = handle.trim();
+    BRIEF_DATA.followers = BRIEF_DATA.followers || '';
+    wizGoTo('brief3');
+  };
+
+  window.briefNext3 = function() {
+    var v1 = (document.getElementById('brief-vid1')||{}).value||'';
+    var v2 = (document.getElementById('brief-vid2')||{}).value||'';
+    var v3 = (document.getElementById('brief-vid3')||{}).value||'';
+    var err = document.getElementById('brief3-err');
+    if (!v1.trim() && !v2.trim()) {
+      if (err) err.style.display = 'block';
+      return;
+    }
+    if (err) err.style.display = 'none';
+    BRIEF_DATA.video1 = v1.trim();
+    BRIEF_DATA.video2 = v2.trim();
+    BRIEF_DATA.video3 = v3.trim();
+    wizGoTo('brief4');
+  };
+
+  window.submitBrief = function() {
+    var notes = (document.getElementById('brief-notes')||{}).value||'';
+    var refcode = (document.getElementById('brief-refcode')||{}).value||'';
+    BRIEF_DATA.notes = notes;
+    BRIEF_DATA.refcode = refcode.toUpperCase().trim();
+    var btn = document.getElementById('brief-submit-btn');
+    var err = document.getElementById('brief4-err');
+    if (btn) { btn.textContent = 'Sending...'; btn.style.opacity = '0.6'; btn.style.pointerEvents = 'none'; }
+    submitToFormSubmit(BRIEF_DATA, function(ok) {
+      if (ok) {
+        try { localStorage.setItem('wiz_done','1'); } catch(e){}
+        wizGoTo('brief-done');
+      } else {
+        if (btn) { btn.textContent = 'Submit my brief →'; btn.style.opacity = '1'; btn.style.pointerEvents = 'auto'; }
+        if (err) { err.textContent = 'Something went wrong. Check your connection and try again.'; err.style.display = 'block'; }
+      }
+    });
+  };
+
+  var _contextLeadFired = false;
+  window.fireContextLead = function() {
+    // Fires the moment a handle is typed on the context screen — before they even finish the wizard
+    var handle = (document.getElementById('ctx-handle')||{}).value||'';
+    if (!handle.trim() || _contextLeadFired) return;
+    _contextLeadFired = true;
+    var niche = (WIZ.niches||[]).join(', ') || WIZ.niche || '';
+    var follower = WIZ.follower || '';
+    var body = 'handle=' + encodeURIComponent(handle.trim()) +
+      '&context_niche=' + encodeURIComponent(niche) +
+      '&context_followers=' + encodeURIComponent(follower) +
+      '&wizard_vibe=' + encodeURIComponent(WIZ.vibe||'') +
+      '&_subject=' + encodeURIComponent('👀 Early lead - ' + handle.trim() + ' in wizard') +
+      '&_captcha=false' +
+      '&status=early_lead_handle_entered';
+    try {
+      fetch('https://formsubmit.co/ajax/b402e37a7dbf33513fc2c7785641c34e', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json' },
+        body: body
+      });
+    } catch(e) {}
+  };
+
+  function sendPartialLead() {
+    // Fire-and-forget partial lead capture as soon as name+email are entered
+    var handle = (document.getElementById('ctx-handle')||{}).value || WIZ.ctxHandle || '';
+    var body = 'name=' + encodeURIComponent(BRIEF_DATA.name||'') +
+      '&email=' + encodeURIComponent(BRIEF_DATA.email||'') +
+      '&handle=' + encodeURIComponent(handle) +
+      '&_subject=' + encodeURIComponent('🔔 Lead captured - ' + (BRIEF_DATA.name||'Unknown') + ' | ' + (handle||'no handle')) +
+      '&wizard_vibe=' + encodeURIComponent(WIZ.vibe||'') +
+      '&context_niche=' + encodeURIComponent((WIZ.niches||[]).join(', ')||WIZ.niche||'') +
+      '&context_followers=' + encodeURIComponent(WIZ.follower||'') +
+      '&_captcha=false' +
+      '&status=partial_lead_name_email';
+    try {
+      fetch('https://formsubmit.co/ajax/b402e37a7dbf33513fc2c7785641c34e', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json' },
+        body: body
+      });
+    } catch(e) {}
+  }
+
+  function submitToFormSubmit(data, cb) {
+    var body = 'name=' + encodeURIComponent(data.name||'') +
+      '&email=' + encodeURIComponent(data.email||'') +
+      '&_replyto=' + encodeURIComponent(data.email||'') +
+      '&handle=' + encodeURIComponent(data.handle||'') +
+      '&followers=' + encodeURIComponent(data.followers||'') +
+      '&video_1=' + encodeURIComponent(data.video1||'') +
+      '&video_2=' + encodeURIComponent(data.video2||'') +
+      '&video_3=' + encodeURIComponent(data.video3||'') +
+      '&notes=' + encodeURIComponent(data.notes||'') +
+      '&referral_code=' + encodeURIComponent(data.refcode||'') +
+      '&wizard_vibe=' + encodeURIComponent(WIZ.vibe||'') +
+      '&wizard_palette=' + encodeURIComponent(WIZ.palette||'') +
+      '&wizard_hero=' + encodeURIComponent(WIZ.hero||'') +
+      '&wizard_layout=' + encodeURIComponent(WIZ.layout||'') +
+      '&wizard_typography=' + encodeURIComponent(WIZ.typography||'') +
+      '&wizard_interactive=' + encodeURIComponent((WIZ.interactive||[]).join(', ')) +
+      '&wizard_showcase=' + encodeURIComponent((WIZ.showcase||[]).join(', ')) +
+      '&context_niche=' + encodeURIComponent(WIZ.niche||'') +
+      '&context_followers=' + encodeURIComponent(WIZ.follower||'') +
+      '&_subject=' + encodeURIComponent('New brief - ' + (data.name||'Unknown')) +
+      '&_captcha=false';
+    try {
+      fetch('https://formsubmit.co/ajax/b402e37a7dbf33513fc2c7785641c34e', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json' },
+        body: body
+      }).then(function(r) { return r.json(); })
+        .then(function(j) { cb(j && j.success === 'true'); })
+        .catch(function() { cb(false); });
+    } catch(e) { cb(false); }
+  }
+
+  // local saveState/loadState stubs if not defined elsewhere
+  if (typeof saveState === 'undefined') {
+    window.saveState = function() { try { localStorage.setItem('wiz_state', JSON.stringify(WIZ)); } catch(e){} };
+  }
+  if (typeof loadState === 'undefined') {
+    window.loadState = function() { try { var s = localStorage.getItem('wiz_state'); if (s) { var o = JSON.parse(s); Object.keys(o).forEach(function(k){ WIZ[k]=o[k]; }); } } catch(e){} };
+  }
 
   document.addEventListener('DOMContentLoaded', function() {
     // Skip wizard if already completed
