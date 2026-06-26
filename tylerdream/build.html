@@ -3749,8 +3749,8 @@ function markUploaded(input, zoneId, labelId) {
   }
 
   document.addEventListener('DOMContentLoaded', function() {
-    updateSlider('avg-views-slider','avg-views-label',avgViewsScale,'avg_views');
-    updateGender(document.getElementById('gender-slider'));
+    if (document.getElementById('avg-views-slider')) updateSlider('avg-views-slider','avg-views-label',avgViewsScale,'avg_views');
+    if (document.getElementById('gender-slider')) updateGender(document.getElementById('gender-slider'));
 
     // FADE-UP SCROLL OBSERVER
     var fadeEls = document.querySelectorAll('.fade-up');
@@ -4029,6 +4029,9 @@ var PALETTES = {
     try { var s = localStorage.getItem('wiz_state'); if (s) { var p = JSON.parse(s); Object.assign(WIZ, p); } } catch(e){}
     try { var b = localStorage.getItem('wiz_brief'); if (b) { var bd = JSON.parse(b); Object.keys(bd).forEach(function(k){ BRIEF_DATA[k]=bd[k]; }); } } catch(e){}
   }
+  window.WIZ = WIZ;
+  window.saveState = saveState;
+  window.loadState = loadState;
 
   var CAT_SCREENS = ['cat1','cat2','cat3','cat4','cat5','cat6','cat7','cat8'];
   var CAT_LABELS = { cat1:'Vibe', cat2:'Color Palette', cat3:'Hero Animation', cat4:'Transitions', cat5:'Layout', cat6:'Typography', cat7:'Interactive Touches', cat8:'Showcase' };
@@ -4044,6 +4047,7 @@ var PALETTES = {
   }
 
   var BRIEF_DATA = {};
+  window.BRIEF_DATA = BRIEF_DATA;
 
   function updateProgressBar(screenId) {
     var fill = document.getElementById('wiz-progress-fill');
