@@ -2254,8 +2254,8 @@ textarea.wiz-brief-input { line-height: 1.6; }
         <div class="ws-picks" id="wiz-picks-display">—</div>
       </div>
 
-      <!-- Pricing card -->
-      <div class="wiz-pricing-card" style="position:relative;overflow:hidden;">
+      <!-- Pricing card — hidden, cost revealed on success page after submit -->
+      <div class="wiz-pricing-card" style="position:relative;overflow:hidden;display:none;">
         <div class="wiz-savings-badge" id="wiz-savings-badge" style="display:none;">SAVE $75</div>
         <div class="wiz-price-row">
           <span class="wiz-price-strike">$325</span>
@@ -3022,26 +3022,26 @@ textarea.wiz-brief-input { line-height: 1.6; }
         </div>
       </div>
 
-      <!-- BLOCK 3: YOUR BEST VIDEOS -->
-      <div class="form-block fade-up" id="block-videos">
+      <!-- BLOCK 3: YOUR BEST VIDEOS — moved to creative brief -->
+      <div class="form-block fade-up" id="block-videos" style="opacity:0.7;">
         <div class="form-block-header">
           <div class="block-num">3</div>
           <div>
             <div class="block-title">Your best videos</div>
-            <div class="block-subtitle">Paste 4-5 video links: TikTok, YouTube, Instagram Reels, whatever</div>
-            <div style="font-size:12px;color:var(--text-muted);margin-top:4px;line-height:1.5;">TikTok: tap Share → Copy Link. YouTube: copy from address bar. Instagram: tap ··· → Copy Link.</div>
+            <div class="block-subtitle">You'll add these in your creative brief after submitting — takes 2 min.</div>
           </div>
-          <div class="block-check">✓</div>
+          <div class="block-check" style="opacity:0.3;">✓</div>
         </div>
         <div class="form-block-body">
-          <div class="video-input-list">
-            <div class="video-input-row"><span class="video-num">1</span><div class="field" style="margin:0;flex:1;"><input type="url" name="video_1" placeholder="TikTok, YouTube, Instagram, or any video link"></div></div>
-            <div class="video-input-row"><span class="video-num">2</span><div class="field" style="margin:0;flex:1;"><input type="url" name="video_2" placeholder="TikTok, YouTube, Instagram, or any video link"></div></div>
-            <div class="video-input-row"><span class="video-num">3</span><div class="field" style="margin:0;flex:1;"><input type="url" name="video_3" placeholder="TikTok, YouTube, Instagram, or any video link"></div></div>
-            <div class="video-input-row"><span class="video-num">4</span><div class="field" style="margin:0;flex:1;"><input type="url" name="video_4" placeholder="TikTok, YouTube, Instagram, or any video link"></div></div>
-            <div class="video-input-row"><span class="video-num">5</span><div class="field" style="margin:0;flex:1;"><input type="url" name="video_5" placeholder="TikTok, YouTube, Instagram, or any video link"></div></div>
+          <div style="background:rgba(200,255,0,0.05);border:1px solid rgba(200,255,0,0.15);border-radius:12px;padding:16px 18px;font-size:13px;color:var(--text-muted);line-height:1.65;">
+            After you submit, you'll get a link to your creative brief where you can drop your video links, pick your colors, and choose your vibe. No need to have them ready now — just hit submit.
           </div>
-          <div class="field-note" style="margin-top:14px;">These will be embedded on your site. Pick ones that look consistent: similar style, similar energy.</div>
+          <!-- Hidden inputs so form doesn't break -->
+          <input type="hidden" name="video_1" value="">
+          <input type="hidden" name="video_2" value="">
+          <input type="hidden" name="video_3" value="">
+          <input type="hidden" name="video_4" value="">
+          <input type="hidden" name="video_5" value="">
         </div>
       </div>
 
