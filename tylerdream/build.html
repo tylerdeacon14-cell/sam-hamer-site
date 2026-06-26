@@ -1082,6 +1082,41 @@
   font-size: 12px; color: rgba(255,255,255,0.3); text-align: center;
   max-width: 340px; margin: 0 auto 32px; line-height: 1.5;
 }
+/* ---- REAL2 PHONE MOCKUPS ---- */
+.r2-phones-row { display: flex; gap: 20px; align-items: flex-start; justify-content: center; margin: 0 auto 20px; max-width: 380px; width: 100%; }
+.r2-phone-wrap { display: flex; flex-direction: column; align-items: center; gap: 8px; flex: 1; }
+.r2-phone {
+  width: 130px; height: 230px; border-radius: 22px; padding: 8px;
+  position: relative; overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+.r2-phone-bad { background: #1a1a2e; border: 2px solid rgba(255,60,60,0.3); }
+.r2-phone-good { background: #0a1a0a; border: 2px solid rgba(200,255,0,0.35); }
+.r2-phone-screen { width: 100%; height: 100%; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; align-items: center; padding: 8px 6px; background: #111; }
+.r2-site-screen { background: #0d0d0d; }
+.r2-phone-notch { width: 40px; height: 6px; background: #222; border-radius: 3px; margin-bottom: 10px; flex-shrink: 0; }
+.r2-lt-avatar { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.1); margin-bottom: 6px; flex-shrink: 0; }
+.r2-lt-name { font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.6); margin-bottom: 10px; }
+.r2-lt-links { width: 100%; display: flex; flex-direction: column; gap: 5px; }
+.r2-lt-link { width: 100%; padding: 6px 8px; background: rgba(255,255,255,0.08); border-radius: 6px; font-size: 8px; color: rgba(255,255,255,0.5); text-align: center; border: 1px solid rgba(255,255,255,0.1); }
+.r2-lt-fade { opacity: 0.4; }
+.r2-site-hero { width: 100%; background: rgba(200,255,0,0.08); border-radius: 6px; padding: 8px 6px; margin-bottom: 8px; border-left: 2px solid #c8ff00; }
+.r2-site-name { font-size: 10px; font-weight: 900; color: #fff; margin-bottom: 2px; }
+.r2-site-tag { font-size: 7px; color: #c8ff00; font-weight: 600; }
+.r2-site-stats { display: flex; gap: 6px; width: 100%; margin-bottom: 8px; }
+.r2-site-stat { flex: 1; background: rgba(255,255,255,0.05); border-radius: 5px; padding: 5px 3px; text-align: center; }
+.r2-stat-num { display: block; font-size: 10px; font-weight: 900; color: #c8ff00; }
+.r2-stat-label { display: block; font-size: 6px; color: rgba(255,255,255,0.4); margin-top: 1px; }
+.r2-site-cta { font-size: 7px; font-weight: 800; color: #000; background: #c8ff00; padding: 4px 8px; border-radius: 4px; }
+.r2-phone-label { font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+.r2-phone-label.bad { color: rgba(255,80,80,0.6); }
+.r2-phone-label.good { color: #c8ff00; }
+.r2-phone-verdict { font-size: 10px; font-weight: 600; }
+.r2-phone-verdict.bad { color: rgba(255,80,80,0.5); }
+.r2-phone-verdict.good { color: rgba(200,255,0,0.7); }
+.r2-vs { font-size: 13px; font-weight: 900; color: rgba(255,255,255,0.2); padding-top: 90px; flex-shrink: 0; }
+.r2-diff-line { font-size: 13px; color: rgba(255,255,255,0.4); margin: 0 auto 28px; max-width: 320px; line-height: 1.5; font-style: italic; }
+
 .wiz-compare-row { display: flex; gap: 10px; align-items: stretch; }
 .wiz-compare-col {
   flex: 1; border-radius: 10px; padding: 14px;
@@ -1106,6 +1141,17 @@
   display: inline-block; margin-top: 10px; background: #c8ff00; color: #000;
   font-size: 11px; font-weight: 900; padding: 6px 14px; border-radius: 6px;
 }
+/* ---- REAL3 PROOF CARD ---- */
+.r3-proof-card { display: flex; gap: 12px; align-items: flex-start; margin-top: 8px; }
+.r3-proof-avatar { font-size: 36px; flex-shrink: 0; width: 52px; height: 52px; background: rgba(255,255,255,0.06); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.1); }
+.r3-proof-info { flex: 1; text-align: left; }
+.r3-proof-name { font-size: 14px; font-weight: 900; color: #fff; margin-bottom: 3px; }
+.r3-proof-meta { font-size: 11px; color: #c8ff00; margin-bottom: 3px; font-weight: 600; }
+.r3-proof-stat { font-size: 11px; color: rgba(255,255,255,0.45); margin-bottom: 8px; }
+.r3-proof-outcome { font-size: 12px; color: rgba(255,255,255,0.7); line-height: 1.5; margin-bottom: 8px; font-style: italic; }
+.r3-proof-link { font-size: 11px; font-weight: 800; color: #c8ff00; text-decoration: none; letter-spacing: 0.3px; }
+.r3-proof-link:hover { text-decoration: underline; }
+.r3-quote { font-size: 13px; color: rgba(255,255,255,0.4); max-width: 360px; margin: 16px auto 28px; line-height: 1.6; font-style: italic; }
 
 /* ---- CTA BUTTONS ---- */
 .wiz-btn-primary {
@@ -1158,6 +1204,10 @@
   100% { box-shadow: 0 0 0 0 rgba(200,255,0,0); }
 }
 .wiz-live-count strong { color: #c8ff00; }
+.wiz-entry-social-proof { font-size: 13px; color: rgba(255,255,255,0.4); font-weight: 500; letter-spacing: 0.1px; }
+@media (max-width: 480px) {
+  .wiz-btn-entry { width: 100%; min-width: unset; }
+}
 
 /* ---- CONTEXT STEP ---- */
 .wiz-context-label { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.6); margin-bottom: 10px; text-align: left; }
@@ -1295,10 +1345,43 @@
 @keyframes tr-slide { 0%,100%{transform:translateY(12px);opacity:0} 40%,60%{transform:translateY(0);opacity:1} }
 @keyframes tr-glitch-cut { 0%{transform:none;filter:none} 48%{transform:none;filter:none} 49%{transform:skewX(6deg);filter:hue-rotate(90deg)} 50%{transform:none;filter:none} 100%{transform:none;filter:none} }
 @keyframes tr-parallax { 0%{transform:translateY(8px)} 50%{transform:translateY(-8px)} 100%{transform:translateY(8px)} }
+@keyframes tr-zoom { 0%,100%{transform:scale(0.7);opacity:0} 40%,60%{transform:scale(1);opacity:1} }
+@keyframes tr-wipe { 0%{clip-path:inset(0 100% 0 0)} 40%,60%{clip-path:inset(0 0% 0 0)} 100%{clip-path:inset(0 0% 0 100%)} }
 .preview-tr-fade { width:80%;height:32px;background:rgba(255,255,255,0.15);border-radius:6px; animation: tr-fade 2s ease-in-out infinite; }
 .preview-tr-slide { width:80%;height:32px;background:rgba(200,255,0,0.2);border-radius:6px; animation: tr-slide 2s ease-in-out infinite; }
 .preview-tr-glitch { width:80%;height:32px;background:rgba(255,255,255,0.15);border-radius:6px; animation: tr-glitch-cut 2.5s ease-in-out infinite; }
 .preview-tr-parallax { width:80%;height:32px;background:rgba(42,157,143,0.3);border-radius:6px; animation: tr-parallax 3s ease-in-out infinite; }
+.preview-tr-zoom { width:80%;height:32px;background:rgba(200,255,0,0.15);border-radius:6px; animation: tr-zoom 2s ease-in-out infinite; }
+.preview-tr-wipe { width:80%;height:32px;background:rgba(255,255,255,0.15);border-radius:6px; animation: tr-wipe 2.5s ease-in-out infinite; }
+
+/* Hero animation new previews */
+@keyframes wiz-split { 0%,100%{letter-spacing:-2px;opacity:0} 40%,60%{letter-spacing:0px;opacity:1} }
+@keyframes wiz-scramble { 0%{content:'X#@!Y'} 20%{content:'Yo#r N'} 40%,60%{content:'Your Name'} 80%{content:'Y!ur N@me'} 100%{content:'Your Name'} }
+@keyframes wiz-spotlight { 0%,100%{background-position:-100% 0} 50%{background-position:200% 0} }
+.preview-split-reveal { font-size:13px;font-weight:800;color:#fff; animation: wiz-split 2.5s ease-in-out infinite; }
+.preview-scramble { font-size:13px;font-weight:800;color:#c8ff00;font-family:monospace; animation: wiz-fade-rise 0.1s linear; }
+.preview-spotlight {
+  font-size:14px;font-weight:900;color:transparent;
+  background: linear-gradient(90deg, rgba(255,255,255,0.15) 0%, #fff 40%, rgba(255,255,255,0.15) 60%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text; background-clip: text;
+  animation: wiz-spotlight 2.5s linear infinite;
+}
+
+/* Layout new previews */
+.layout-magazine { display:flex;flex-direction:column;gap:4px;padding:8px;width:100%; }
+.layout-magazine .lm-hero { background:rgba(200,255,0,0.15);border-radius:4px;height:44px;margin-bottom:2px; }
+.layout-magazine .lm-row { display:flex;gap:4px; }
+.layout-magazine .lm-col { background:rgba(255,255,255,0.08);border-radius:3px;flex:1;height:20px; }
+.layout-magazine .lm-col:first-child { flex:2; }
+.layout-asym { display:flex;gap:4px;padding:8px;width:100%;height:100%;align-items:stretch; }
+.layout-asym .la-big { flex:3;background:rgba(200,255,0,0.12);border-radius:4px; }
+.layout-asym .la-small { flex:1;display:flex;flex-direction:column;gap:4px; }
+.layout-asym .la-small div { background:rgba(255,255,255,0.08);border-radius:3px;flex:1; }
+
+/* Typography new previews */
+.typo-condensed { font-size:28px;font-weight:900;color:#fff;letter-spacing:-2px;font-stretch:condensed;font-style:italic;line-height:1; }
+.typo-mono { font-size:14px;font-weight:700;color:#c8ff00;font-family:'Courier New',monospace;letter-spacing:1px; }
 
 /* Interactive touches card icons */
 .wiz-icon-preview { font-size: 28px; display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
@@ -1337,6 +1420,25 @@
 .wiz-selections-badge .ws-label { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 6px; }
 .wiz-selections-badge .ws-picks { font-size: 13px; font-weight: 700; color: #c8ff00; line-height: 1.6; display: flex; flex-wrap: wrap; gap: 6px; }
 .wiz-picks-pill { display: inline-block; background: rgba(200,255,0,0.15); border: 1px solid rgba(200,255,0,0.35); border-radius: 20px; padding: 3px 10px; font-size: 12px; font-weight: 700; color: #c8ff00; white-space: nowrap; }
+/* Form save/resume restore banner */
+#form-restore-banner {
+  display: none; margin-bottom: 20px; padding: 14px 18px;
+  background: rgba(42,157,143,0.08); border: 1.5px solid rgba(42,157,143,0.3);
+  border-radius: 12px; align-items: center; gap: 12px;
+}
+#form-restore-banner .frb-icon { font-size: 18px; flex-shrink: 0; }
+#form-restore-banner .frb-text { flex: 1; font-size: 13px; font-weight: 700; color: #1a1a1a; }
+#form-restore-banner .frb-sub { font-size: 11px; color: #888; font-weight: 500; margin-top: 2px; }
+#form-restore-banner .frb-clear { font-size: 12px; color: #999; font-weight: 600; cursor: pointer; text-decoration: underline; flex-shrink: 0; background: none; border: none; padding: 0; font-family: Inter, sans-serif; }
+/* Block completion checkmarks */
+.block-check {
+  margin-left: auto; width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(42,157,143,0.0); border: 1.5px solid rgba(42,157,143,0.0);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; color: var(--accent); transition: all 0.25s; opacity: 0;
+}
+.form-block.block-done .block-check { background: rgba(42,157,143,0.12); border-color: rgba(42,157,143,0.35); opacity: 1; }
+.form-block.block-done .block-num { background: rgba(42,157,143,0.2); border-color: rgba(42,157,143,0.45); }
 /* Pricing card */
 .wiz-pricing-card {
   background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.1);
@@ -1402,6 +1504,45 @@
 .wiz-step-text { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5; padding-top: 4px; }
 .wiz-step-text strong { color: #fff; }
 
+/* Summary animated mockup preview */
+.wiz-sum-preview {
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px; padding: 16px; margin-bottom: 20px; text-align: center;
+  overflow: hidden;
+}
+.wsp-screen {
+  background: #111; border-radius: 10px; padding: 16px;
+  display: flex; flex-direction: column; gap: 10px; margin-bottom: 10px;
+  transition: background 0.5s, color 0.5s;
+}
+.wsp-hero { text-align: left; border-left: 3px solid #c8ff00; padding-left: 10px; }
+.wsp-hero-name { font-size: 16px; font-weight: 900; color: #fff; letter-spacing: -0.5px; }
+.wsp-hero-tag { font-size: 11px; color: #c8ff00; margin-top: 2px; }
+.wsp-stats { display: flex; gap: 8px; }
+.wsp-stat { flex: 1; background: rgba(255,255,255,0.05); border-radius: 8px; padding: 8px 4px; text-align: center; }
+.wsp-stat span { display: block; font-size: 14px; font-weight: 900; color: #c8ff00; }
+.wsp-stat small { display: block; font-size: 9px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+.wsp-cta-row { font-size: 11px; font-weight: 800; color: #000; background: #c8ff00; padding: 6px 12px; border-radius: 6px; text-align: center; }
+.wsp-label { font-size: 10px; color: rgba(255,255,255,0.3); font-weight: 600; letter-spacing: 0.5px; }
+
+/* Savings badge */
+.wiz-savings-badge {
+  position: absolute; top: 14px; right: 14px;
+  background: #c8ff00; color: #000; font-size: 10px; font-weight: 900;
+  padding: 4px 10px; border-radius: 20px; letter-spacing: 1px;
+  animation: badge-pop 0.3s cubic-bezier(0.34,1.56,0.64,1) forwards;
+}
+@keyframes badge-pop { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes price-change { from { transform: scale(1.3); color: #c8ff00; } to { transform: scale(1); color: #fff; } }
+.wiz-price-main.price-animating { animation: price-change 0.4s ease forwards; }
+
+/* Pricing card mobile fix */
+@media (max-width: 480px) {
+  .wiz-pricing-card { padding: 16px; }
+  .wiz-price-main { font-size: 36px; }
+  .wiz-referral-inline input { font-size: 16px; }
+}
+
 /* ---- CTA INTO FORM ---- */
 .wiz-cta-into-form {
   width: 100%; background: #c8ff00; color: #000;
@@ -1442,10 +1583,10 @@
     <div class="wiz-entry-logo">tyler<em>dream</em></div>
     <h1 class="wiz-entry-h1">Let's build<br><em>your site.</em></h1>
     <p class="wiz-entry-sub">Tell us what you're about and we'll match the style to you. Takes 3 minutes.</p>
-    <button class="wiz-btn-primary" onclick="wizGoTo('real1')">Start building →</button>
+    <button class="wiz-btn-primary wiz-btn-entry" onclick="wizGoTo('real1')">Start building →</button>
     <div class="wiz-trust-line">No payment today · Tyler reviews every brief personally</div>
     <div class="wiz-recent-builds">
-      <div class="wiz-live-count"><span class="live-dot"></span><strong>197</strong> media kits built in the last 2 months</div>
+      <div class="wiz-entry-social-proof">47 creator sites built. Every one personally.</div>
     </div>
   </div>
 
@@ -1498,24 +1639,47 @@
   <div class="wiz-screen" data-screen="real2">
     <div class="wiz-real-eyebrow">So why hasn't it happened yet?</div>
     <h1 class="wiz-real-h1">Your <em>link in bio</em><br>is costing you deals.</h1>
-    <p class="wiz-real-sub">Brands don't sign creators with a Linktree. They sign creators with a real site that shows stats, niche, and rate card. DM 2-3 brands a day with your link and you'll land more retainers than you know what to do with. Brands start coming to you.</p>
-    <div class="wiz-visual-block">
-      <div class="vb-label">What they see</div>
-      <div class="wiz-compare-row">
-        <div class="wiz-compare-col bad">
-          <div class="cc-label">Linktree</div>
-          <div class="cc-item">Your TikTok</div>
-          <div class="cc-item">Your Instagram</div>
-          <div class="cc-item">My Merch 🛍</div>
+    <p class="wiz-real-sub">Brands look you up. What they see in the first 5 seconds decides everything.</p>
+    <div class="r2-phones-row">
+      <!-- Linktree phone -->
+      <div class="r2-phone-wrap">
+        <div class="r2-phone r2-phone-bad">
+          <div class="r2-phone-screen">
+            <div class="r2-phone-notch"></div>
+            <div class="r2-lt-avatar"></div>
+            <div class="r2-lt-name">@yourcreator</div>
+            <div class="r2-lt-links">
+              <div class="r2-lt-link">My TikTok</div>
+              <div class="r2-lt-link">My Instagram</div>
+              <div class="r2-lt-link r2-lt-fade">My Merch 🛍</div>
+            </div>
+          </div>
         </div>
-        <div class="wiz-compare-col good">
-          <div class="cc-label">Your site</div>
-          <div class="cc-item">Stats + analytics</div>
-          <div class="cc-item">Brand partnership history</div>
-          <div class="cc-item">Rate card · Contact</div>
+        <div class="r2-phone-label bad">Linktree</div>
+        <div class="r2-phone-verdict bad">❌ Brand moves on</div>
+      </div>
+      <div class="r2-vs">vs</div>
+      <!-- Creator site phone -->
+      <div class="r2-phone-wrap">
+        <div class="r2-phone r2-phone-good">
+          <div class="r2-phone-screen r2-site-screen">
+            <div class="r2-phone-notch"></div>
+            <div class="r2-site-hero">
+              <div class="r2-site-name">Your Name</div>
+              <div class="r2-site-tag">UGC Creator · Chicago</div>
+            </div>
+            <div class="r2-site-stats">
+              <div class="r2-site-stat"><span class="r2-stat-num">42K</span><span class="r2-stat-label">TikTok</span></div>
+              <div class="r2-site-stat"><span class="r2-stat-num">2.1M</span><span class="r2-stat-label">Views</span></div>
+            </div>
+            <div class="r2-site-cta">View rate card →</div>
+          </div>
         </div>
+        <div class="r2-phone-label good">Your site</div>
+        <div class="r2-phone-verdict good">✓ Brand replies same day</div>
       </div>
     </div>
+    <p class="r2-diff-line">The difference is what a brand sees in the first 5 seconds.</p>
     <button class="wiz-btn-primary" onclick="wizGoTo('real3')">That makes sense →</button>
   </div>
 
@@ -1523,17 +1687,21 @@
   <div class="wiz-screen" data-screen="real3">
     <div class="wiz-real-eyebrow">That's what this is.</div>
     <h1 class="wiz-real-h1">A site that makes<br>brands say <em>yes.</em></h1>
-    <p class="wiz-real-sub">Built in 48 hours by a full-time creator who's done this. Your story, your stats, your vibe — built to close deals.</p>
-    <div class="wiz-visual-block">
-      <div class="vb-label">Built last week</div>
-      <div class="wiz-site-preview-mini">
-        <div class="sp-name">Kristyn Simpson</div>
-        <div class="sp-tag">UGC Creator · Chicago</div>
-        <div class="sp-stat">134K TikTok · 2.4M total views</div>
-        <div class="sp-stat">Beauty & Wellness · Skincare</div>
-        <div class="sp-cta">View media kit →</div>
+    <p class="wiz-real-sub">Built in 48 hours. Your story, your stats, your vibe — already closing deals for creators just like you.</p>
+    <div class="wiz-visual-block" style="max-width:380px;">
+      <div class="vb-label" id="r3-proof-label">Similar creator · Built last week</div>
+      <div class="r3-proof-card" id="r3-proof-card">
+        <div class="r3-proof-avatar" id="r3-proof-avatar">👤</div>
+        <div class="r3-proof-info">
+          <div class="r3-proof-name" id="r3-proof-name">Kristyn Simpson</div>
+          <div class="r3-proof-meta" id="r3-proof-meta">UGC Creator · Chicago · 134K TikTok</div>
+          <div class="r3-proof-stat" id="r3-proof-stat">2.4M total views · Beauty & Skincare</div>
+          <div class="r3-proof-outcome" id="r3-proof-outcome">Landed 3 brand retainers in 30 days of launching her site.</div>
+          <a class="r3-proof-link" id="r3-proof-link" href="https://kristynsimpson.netlify.app/" target="_blank">View live site →</a>
+        </div>
       </div>
     </div>
+    <p class="r3-quote">You don't need more followers to start getting noticed. You need brands to find what you already have.</p>
     <button class="wiz-btn-primary" onclick="wizGoTo('context')">Build mine →</button>
   </div>
 
@@ -1692,6 +1860,21 @@
         <div class="wiz-card-name">Instant & Clean</div>
         <div class="wiz-card-desc">No animation — just there</div>
       </div>
+      <div class="wiz-card" data-value="Split Reveal" onclick="selectCat(this,'cat3','wizard_hero_animation')">
+        <div class="wiz-card-preview"><div class="preview-split-reveal">Your Name Here</div></div>
+        <div class="wiz-card-name">Split Reveal</div>
+        <div class="wiz-card-desc">Letters expand out from center</div>
+      </div>
+      <div class="wiz-card" data-value="Scramble Decode" onclick="selectCat(this,'cat3','wizard_hero_animation')">
+        <div class="wiz-card-preview"><div class="preview-scramble" id="scramble-prev">X#@!Y_N!</div></div>
+        <div class="wiz-card-name">Scramble Decode</div>
+        <div class="wiz-card-desc">Random chars decode to your name</div>
+      </div>
+      <div class="wiz-card" data-value="Spotlight Sweep" onclick="selectCat(this,'cat3','wizard_hero_animation')">
+        <div class="wiz-card-preview"><div class="preview-spotlight">Your Name Here</div></div>
+        <div class="wiz-card-name">Spotlight Sweep</div>
+        <div class="wiz-card-desc">Light sweeps across your name</div>
+      </div>
     </div>
     <!-- next btn rendered globally -->
   </div>
@@ -1724,6 +1907,16 @@
         <div class="wiz-card-preview"><div class="preview-tr-parallax"></div></div>
         <div class="wiz-card-name">Parallax Depth</div>
         <div class="wiz-card-desc">Layered scroll depth</div>
+      </div>
+      <div class="wiz-card" data-value="Zoom In" onclick="selectCat(this,'cat4','wizard_transitions')">
+        <div class="wiz-card-preview"><div class="preview-tr-zoom"></div></div>
+        <div class="wiz-card-name">Zoom In</div>
+        <div class="wiz-card-desc">Sections scale up into view</div>
+      </div>
+      <div class="wiz-card" data-value="Wipe Reveal" onclick="selectCat(this,'cat4','wizard_transitions')">
+        <div class="wiz-card-preview"><div class="preview-tr-wipe"></div></div>
+        <div class="wiz-card-name">Wipe Reveal</div>
+        <div class="wiz-card-desc">Content wipes in left to right</div>
       </div>
     </div>
     <!-- next btn rendered globally -->
@@ -1759,6 +1952,20 @@
         <div class="wiz-card-name">Split Screen</div>
         <div class="wiz-card-desc">Visual left, info right</div>
       </div>
+      <div class="wiz-card" data-value="Magazine Editorial" onclick="selectCat(this,'cat5','wizard_layout')">
+        <div class="wiz-card-preview">
+          <div class="layout-magazine"><div class="lm-hero"></div><div class="lm-row"><div class="lm-col"></div><div class="lm-col"></div></div></div>
+        </div>
+        <div class="wiz-card-name">Magazine Editorial</div>
+        <div class="wiz-card-desc">Editorial hero, multi-column body</div>
+      </div>
+      <div class="wiz-card" data-value="Asymmetric" onclick="selectCat(this,'cat5','wizard_layout')">
+        <div class="wiz-card-preview">
+          <div class="layout-asym"><div class="la-big"></div><div class="la-small"><div></div><div></div><div></div></div></div>
+        </div>
+        <div class="wiz-card-name">Asymmetric</div>
+        <div class="wiz-card-desc">Uneven columns, dynamic tension</div>
+      </div>
     </div>
     <!-- next btn rendered globally -->
   </div>
@@ -1791,6 +1998,16 @@
         <div class="wiz-card-preview"><div class="wiz-typo-preview"><span class="typo-rounded">Creator</span></div></div>
         <div class="wiz-card-name">Rounded Friendly</div>
         <div class="wiz-card-desc">Approachable, warm, lifestyle</div>
+      </div>
+      <div class="wiz-card" data-value="Condensed Italic" onclick="selectCat(this,'cat6','wizard_typography')">
+        <div class="wiz-card-preview"><div class="wiz-typo-preview"><span class="typo-condensed">Creator</span></div></div>
+        <div class="wiz-card-name">Condensed Italic</div>
+        <div class="wiz-card-desc">Tall, compressed, editorial edge</div>
+      </div>
+      <div class="wiz-card" data-value="Mono Tech" onclick="selectCat(this,'cat6','wizard_typography')">
+        <div class="wiz-card-preview"><div class="wiz-typo-preview"><span class="typo-mono">Creator_Kit</span></div></div>
+        <div class="wiz-card-name">Mono Tech</div>
+        <div class="wiz-card-desc">Monospace, technical, code-core</div>
       </div>
     </div>
     <!-- next btn rendered globally -->
@@ -1841,6 +2058,30 @@
         <div class="wiz-card-name">Sound FX</div>
         <div class="wiz-card-desc">Subtle audio feedback</div>
       </div>
+      <div class="wiz-card" data-value="Page load screen" onclick="selectCatMulti(this,'cat7','wizard_interactive_touches',3)">
+        <div class="wiz-card-preview"><div class="wiz-icon-preview">⚡</div></div>
+        <div class="multi-badge"></div>
+        <div class="wiz-card-name">Load Screen</div>
+        <div class="wiz-card-desc">Branded intro before the page</div>
+      </div>
+      <div class="wiz-card" data-value="Magnetic buttons" onclick="selectCatMulti(this,'cat7','wizard_interactive_touches',3)">
+        <div class="wiz-card-preview"><div class="wiz-icon-preview">🧲</div></div>
+        <div class="multi-badge"></div>
+        <div class="wiz-card-name">Magnetic Buttons</div>
+        <div class="wiz-card-desc">Buttons pull toward your cursor</div>
+      </div>
+      <div class="wiz-card" data-value="Parallax hero image" onclick="selectCatMulti(this,'cat7','wizard_interactive_touches',3)">
+        <div class="wiz-card-preview"><div class="wiz-icon-preview">🌅</div></div>
+        <div class="multi-badge"></div>
+        <div class="wiz-card-name">Parallax Hero</div>
+        <div class="wiz-card-desc">Hero image moves on scroll</div>
+      </div>
+      <div class="wiz-card" data-value="Scroll snap sections" onclick="selectCatMulti(this,'cat7','wizard_interactive_touches',3)">
+        <div class="wiz-card-preview"><div class="wiz-icon-preview">📌</div></div>
+        <div class="multi-badge"></div>
+        <div class="wiz-card-name">Scroll Snap</div>
+        <div class="wiz-card-desc">Sections click-lock into place</div>
+      </div>
     </div>
     <!-- next btn rendered globally -->
   </div>
@@ -1890,6 +2131,18 @@
         <div class="wiz-card-name">Social Proof</div>
         <div class="wiz-card-desc">Testimonials, comments, reviews</div>
       </div>
+      <div class="wiz-card" data-value="Viral moments" onclick="selectCatMulti(this,'cat8','wizard_showcase_priorities',3)">
+        <div class="wiz-card-preview"><div class="wiz-icon-preview">🔥</div></div>
+        <div class="multi-badge"></div>
+        <div class="wiz-card-name">Viral Moments</div>
+        <div class="wiz-card-desc">Your biggest hits front and center</div>
+      </div>
+      <div class="wiz-card" data-value="Niche authority" onclick="selectCatMulti(this,'cat8','wizard_showcase_priorities',3)">
+        <div class="wiz-card-preview"><div class="wiz-icon-preview">🎯</div></div>
+        <div class="multi-badge"></div>
+        <div class="wiz-card-name">Niche Authority</div>
+        <div class="wiz-card-desc">Own your lane — depth over breadth</div>
+      </div>
     </div>
     <!-- next btn rendered globally -->
   </div>
@@ -1907,6 +2160,23 @@
       <h2 class="wiz-summary-h1">Love it? Let's make<br>it yours.</h2>
       <p class="wiz-summary-sub">Here's what we're building together.</p>
 
+      <!-- Animated mockup preview -->
+      <div class="wiz-sum-preview" id="wiz-sum-preview">
+        <div class="wsp-screen" id="wsp-screen">
+          <div class="wsp-hero">
+            <div class="wsp-hero-name" id="wsp-hero-name">Your Name</div>
+            <div class="wsp-hero-tag" id="wsp-hero-tag">Creator · Your Niche</div>
+          </div>
+          <div class="wsp-stats">
+            <div class="wsp-stat"><span>42K</span><small>TikTok</small></div>
+            <div class="wsp-stat"><span>2M</span><small>Views</small></div>
+            <div class="wsp-stat"><span>4.2%</span><small>Engage</small></div>
+          </div>
+          <div class="wsp-cta-row">View media kit →</div>
+        </div>
+        <div class="wsp-label" id="wsp-label">Dark & Moody · Lime on Black</div>
+      </div>
+
       <!-- Selections badge -->
       <div class="wiz-selections-badge">
         <div class="ws-label">Your picks</div>
@@ -1921,7 +2191,8 @@
       </div>
 
       <!-- Pricing card -->
-      <div class="wiz-pricing-card">
+      <div class="wiz-pricing-card" style="position:relative;overflow:hidden;">
+        <div class="wiz-savings-badge" id="wiz-savings-badge" style="display:none;">SAVE $75</div>
         <div class="wiz-price-row">
           <span class="wiz-price-strike">$325</span>
           <span class="wiz-price-main" id="wiz-price-display">$300</span>
@@ -1930,9 +2201,9 @@
         <!-- Referral code inline -->
         <div class="wiz-referral-inline">
           <label>Have a referral code? Get 25% off → $225</label>
-          <div class="ref-row">
-            <input type="text" id="wiz-ref-input" placeholder="Enter code" oninput="this.value=this.value.toUpperCase()">
-            <button onclick="applyWizCode()">Apply</button>
+          <div class="ref-row" style="display:flex;gap:8px;align-items:center;margin-top:6px;">
+            <input type="text" id="wiz-ref-input" placeholder="Enter code" oninput="this.value=this.value.toUpperCase()" style="flex:1;min-width:0;">
+            <button onclick="applyWizCode()" style="flex-shrink:0;">Apply</button>
           </div>
           <div id="wiz-code-applied">✓ Code applied — you pay $225</div>
         </div>
@@ -2374,6 +2645,16 @@
         <div style="font-size:12px;color:rgba(255,255,255,0.35);margin-top:6px;">These have been added to your brief automatically.</div>
       </div>
 
+      <!-- FORM SAVE/RESUME BANNER -->
+      <div id="form-restore-banner" style="display:none;margin-bottom:20px;padding:14px 18px;background:rgba(42,157,143,0.08);border:1.5px solid rgba(42,157,143,0.3);border-radius:12px;align-items:center;gap:12px;">
+        <div class="frb-icon">✓</div>
+        <div style="flex:1;">
+          <div class="frb-text">Your progress was saved. Picking up where you left off.</div>
+          <div class="frb-sub">All your answers have been restored automatically.</div>
+        </div>
+        <button class="frb-clear" onclick="clearFormSave()">Clear &amp; start over</button>
+      </div>
+
       <!-- GUARANTEE BANNER -->
       <div style="display:flex;align-items:center;gap:14px;background:rgba(42,157,143,0.06);border:1.5px solid rgba(42,157,143,0.22);border-radius:14px;padding:16px 20px;margin-bottom:24px;flex-wrap:wrap;">
         <div style="font-size:22px;line-height:1;flex-shrink:0;">🛡</div>
@@ -2427,13 +2708,14 @@
       </div>
 
       <!-- BLOCK 1: THE BASICS -->
-      <div class="form-block fade-up">
+      <div class="form-block fade-up" id="block-basics">
         <div class="form-block-header">
           <div class="block-num">1</div>
           <div>
             <div class="block-title">The basics</div>
             <div class="block-subtitle">Your name, location, and what you create</div>
           </div>
+          <div class="block-check">✓</div>
         </div>
         <div class="form-block-body">
           <div class="row-2">
@@ -2468,13 +2750,14 @@
       </div>
 
       <!-- BLOCK: BEST WAY TO REACH YOU -->
-      <div class="form-block fade-up">
+      <div class="form-block fade-up" id="block-contact">
         <div class="form-block-header">
           <div class="block-num" style="background:rgba(42,157,143,0.1);border-color:rgba(42,157,143,0.2);">✉</div>
           <div>
             <div class="block-title">Best way to reach you</div>
             <div class="block-subtitle">How should Tyler follow up?</div>
           </div>
+          <div class="block-check">✓</div>
         </div>
         <div class="form-block-body">
           <div class="field">
@@ -2498,13 +2781,14 @@
       </div>
 
       <!-- BLOCK 2: YOUR ACCOUNTS -->
-      <div class="form-block fade-up">
+      <div class="form-block fade-up" id="block-accounts">
         <div class="form-block-header">
           <div class="block-num">2</div>
           <div>
             <div class="block-title">Your accounts</div>
             <div class="block-subtitle">Up to 4 accounts ,  handle, followers, likes, active or former</div>
           </div>
+          <div class="block-check">✓</div>
         </div>
         <div class="form-block-body">
           <div class="col-headers">
@@ -2566,7 +2850,7 @@
       </div>
 
       <!-- BLOCK 3: YOUR BEST VIDEOS -->
-      <div class="form-block fade-up">
+      <div class="form-block fade-up" id="block-videos">
         <div class="form-block-header">
           <div class="block-num">3</div>
           <div>
@@ -2574,6 +2858,7 @@
             <div class="block-subtitle">Paste 4-5 video links: TikTok, YouTube, Instagram Reels, whatever</div>
             <div style="font-size:12px;color:var(--text-muted);margin-top:4px;line-height:1.5;">TikTok: tap Share → Copy Link. YouTube: copy from address bar. Instagram: tap ··· → Copy Link.</div>
           </div>
+          <div class="block-check">✓</div>
         </div>
         <div class="form-block-body">
           <div class="video-input-list">
@@ -2588,13 +2873,14 @@
       </div>
 
       <!-- BLOCK 4: YOUR JOURNEY -->
-      <div class="form-block fade-up">
+      <div class="form-block fade-up" id="block-journey">
         <div class="form-block-header">
           <div class="block-num">4</div>
           <div>
             <div class="block-title">Your journey</div>
             <div class="block-subtitle">5 milestones, rough dates are fine ,  we will write the story</div>
           </div>
+          <div class="block-check">✓</div>
         </div>
         <div class="form-block-body">
           <div class="milestone-list">
@@ -2609,13 +2895,14 @@
       </div>
 
       <!-- BLOCK 5: YOUR LOOK -->
-      <div class="form-block fade-up">
+      <div class="form-block fade-up" id="block-look">
         <div class="form-block-header">
           <div class="block-num">5</div>
           <div>
             <div class="block-title">Your look and feel</div>
             <div class="block-subtitle">Colors, vibe, and any other links</div>
           </div>
+          <div class="block-check">✓</div>
         </div>
         <div class="form-block-body">
           <div class="field">
@@ -2639,13 +2926,14 @@
       </div>
 
       <!-- BLOCK 6: YOUR PHOTOS -->
-      <div class="form-block fade-up">
+      <div class="form-block fade-up" id="block-photos">
         <div class="form-block-header">
           <div class="block-num">6</div>
           <div>
             <div class="block-title">Your photos</div>
             <div class="block-subtitle">Your hero photo: clear face, decent lighting</div>
           </div>
+          <div class="block-check">✓</div>
         </div>
         <div class="form-block-body">
           <div class="field">
@@ -2663,13 +2951,14 @@
       </div>
 
       <!-- BLOCK 7: CONTENT STATS -->
-      <div class="form-block fade-up">
+      <div class="form-block fade-up" id="block-numbers">
         <div class="form-block-header">
           <div class="block-num">7</div>
           <div>
             <div class="block-title">Your numbers</div>
             <div class="block-subtitle">Free text is fine. Leave anything blank you are not sure about.</div>
           </div>
+          <div class="block-check">✓</div>
         </div>
         <div class="form-block-body">
 
@@ -2825,6 +3114,219 @@ function handleContactMethod(select, detailId, labelId, inputId) {
 function handleStripePayment() {
   alert('Stripe integration pending - add your publishable key and backend endpoint.');
 }
+
+/* =====================================================
+   FORM SAVE / RESUME + SECTION COMPLETION CHECKMARKS
+   ===================================================== */
+var FORM_SAVE_KEY = 'td_brief_v1';
+
+// Fields to save (name attr → type)
+var FORM_FIELDS = [
+  {n:'name', t:'text'}, {n:'email', t:'text'}, {n:'location', t:'text'},
+  {n:'tagline', t:'text'}, {n:'contact_method', t:'select'},
+  {n:'contact_detail', t:'text'},
+  {n:'handle_1', t:'text'}, {n:'followers_1', t:'text'}, {n:'likes_1', t:'text'}, {n:'post_freq_1', t:'text'},
+  {n:'handle_2', t:'text'}, {n:'followers_2', t:'text'}, {n:'likes_2', t:'text'}, {n:'post_freq_2', t:'text'},
+  {n:'video_1', t:'text'}, {n:'video_2', t:'text'}, {n:'video_3', t:'text'}, {n:'video_4', t:'text'}, {n:'video_5', t:'text'},
+  {n:'milestone_1', t:'text'}, {n:'milestone_2', t:'text'}, {n:'milestone_3', t:'text'}, {n:'milestone_4', t:'text'}, {n:'milestone_5', t:'text'},
+  {n:'colors', t:'text'}, {n:'vibe', t:'radio'}, {n:'inspiration', t:'text'}, {n:'other_links', t:'text'},
+  {n:'total_gmv', t:'text'}, {n:'brand_deals', t:'text'}, {n:'best_views', t:'text'},
+  {n:'audience_age_notes', t:'text'}, {n:'content_style', t:'textarea'}, {n:'past_brands', t:'text'},
+  {n:'referral_code', t:'text'}
+];
+
+function formSaveState() {
+  try {
+    var form = document.getElementById('intake-form');
+    if (!form) return;
+    var data = {};
+    FORM_FIELDS.forEach(function(f) {
+      if (f.t === 'radio') {
+        var checked = form.querySelector('input[name="'+f.n+'"]:checked');
+        data[f.n] = checked ? checked.value : '';
+      } else if (f.t === 'select') {
+        var el = form.querySelector('[name="'+f.n+'"]');
+        data[f.n] = el ? el.value : '';
+      } else {
+        var el = form.querySelector('[name="'+f.n+'"]');
+        data[f.n] = el ? el.value : '';
+      }
+    });
+    // Save pill selections (niche, audience_age)
+    var nicheEl = document.getElementById('niche');
+    var ageEl = document.getElementById('audience_age');
+    data['_niche_hidden'] = nicheEl ? nicheEl.value : '';
+    data['_age_hidden'] = ageEl ? ageEl.value : '';
+    // Save gender slider
+    var slider = document.getElementById('gender-slider');
+    data['_gender_slider'] = slider ? slider.value : '50';
+    // Save checkboxes
+    var cats = form.querySelectorAll('input[name="categories[]"]:checked');
+    data['_categories'] = Array.from(cats).map(function(c){return c.value;});
+    data['_ts'] = Date.now();
+    localStorage.setItem(FORM_SAVE_KEY, JSON.stringify(data));
+  } catch(e) {}
+}
+
+function formRestoreState() {
+  try {
+    var raw = localStorage.getItem(FORM_SAVE_KEY);
+    if (!raw) return false;
+    var data = JSON.parse(raw);
+    if (!data || !data._ts) return false;
+    var form = document.getElementById('intake-form');
+    if (!form) return false;
+    var hasAny = false;
+    FORM_FIELDS.forEach(function(f) {
+      if (!data[f.n]) return;
+      if (f.t === 'radio') {
+        var el = form.querySelector('input[name="'+f.n+'"][value="'+data[f.n]+'"]');
+        if (el) { el.checked = true; hasAny = true; }
+      } else if (f.t === 'select') {
+        var el = form.querySelector('[name="'+f.n+'"]');
+        if (el && data[f.n]) { el.value = data[f.n]; hasAny = true; }
+      } else {
+        var el = form.querySelector('[name="'+f.n+'"]');
+        if (el && data[f.n]) { el.value = data[f.n]; hasAny = true; }
+      }
+    });
+    // Restore pill selections
+    if (data['_niche_hidden']) {
+      var nicheEl = document.getElementById('niche');
+      if (nicheEl) nicheEl.value = data['_niche_hidden'];
+      // Re-highlight active niche pills
+      var nichePills = document.querySelectorAll('#niche-pills .pill');
+      var nicheVals = data['_niche_hidden'].split(', ');
+      nichePills.forEach(function(p){ if (nicheVals.indexOf(p.textContent.trim()) > -1) p.classList.add('active'); });
+      hasAny = true;
+    }
+    if (data['_age_hidden']) {
+      var ageEl = document.getElementById('audience_age');
+      if (ageEl) ageEl.value = data['_age_hidden'];
+      var agePills = document.querySelectorAll('#age-pills .pill');
+      agePills.forEach(function(p){ if (p.textContent.trim() === data['_age_hidden']) p.classList.add('active'); });
+    }
+    // Restore gender slider
+    if (data['_gender_slider']) {
+      var slider = document.getElementById('gender-slider');
+      if (slider) { slider.value = data['_gender_slider']; updateGender(slider); }
+    }
+    // Restore checkboxes
+    if (data['_categories'] && data['_categories'].length) {
+      data['_categories'].forEach(function(val) {
+        var cb = form.querySelector('input[name="categories[]"][value="'+val+'"]');
+        if (cb) cb.checked = true;
+      });
+    }
+    // Restore contact detail visibility
+    var contactSel = form.querySelector('[name="contact_method"]');
+    if (contactSel && contactSel.value) {
+      handleContactMethod(contactSel,'contact-detail-build','contact-detail-label-build','contact-detail-placeholder-build');
+    }
+    return hasAny;
+  } catch(e) { return false; }
+}
+
+function clearFormSave() {
+  try { localStorage.removeItem(FORM_SAVE_KEY); } catch(e) {}
+  var banner = document.getElementById('form-restore-banner');
+  if (banner) banner.style.display = 'none';
+  var form = document.getElementById('intake-form');
+  if (form) form.reset();
+  // Clear pill actives
+  document.querySelectorAll('.pill.active').forEach(function(p){ p.classList.remove('active'); });
+  // Reset checkmarks
+  document.querySelectorAll('.form-block.block-done').forEach(function(b){ b.classList.remove('block-done'); });
+}
+
+// Block completion rules
+var BLOCK_RULES = [
+  { id: 'block-basics', check: function(form) {
+    var name = form.querySelector('[name="name"]');
+    var email = form.querySelector('[name="email"]');
+    return (name && name.value.trim().length > 1) && (email && email.value.indexOf('@') > 0);
+  }},
+  { id: 'block-contact', check: function(form) {
+    var m = form.querySelector('[name="contact_method"]');
+    return m && m.value && m.value !== '';
+  }},
+  { id: 'block-accounts', check: function(form) {
+    var h = form.querySelector('[name="handle_1"]');
+    return h && h.value.trim().length > 0;
+  }},
+  { id: 'block-videos', check: function(form) {
+    var v = form.querySelector('[name="video_1"]');
+    return v && v.value.trim().length > 5;
+  }},
+  { id: 'block-journey', check: function(form) {
+    var m = form.querySelector('[name="milestone_1"]');
+    return m && m.value.trim().length > 3;
+  }},
+  { id: 'block-look', check: function(form) {
+    var c = form.querySelector('[name="colors"]');
+    var vibeChecked = form.querySelector('input[name="vibe"]:checked');
+    return (c && c.value.trim().length > 0) || vibeChecked;
+  }},
+  { id: 'block-photos', check: function(form) {
+    // Can't really check file upload — mark done if hero-label changed
+    var lbl = document.getElementById('hero-label');
+    return lbl && lbl.textContent !== 'Click to upload or drag and drop';
+  }},
+  { id: 'block-numbers', check: function(form) {
+    var v = form.querySelector('[name="best_views"]');
+    return v && v.value.trim().length > 0;
+  }}
+];
+
+function updateBlockCheckmarks() {
+  var form = document.getElementById('intake-form');
+  if (!form) return;
+  BLOCK_RULES.forEach(function(rule) {
+    var block = document.getElementById(rule.id);
+    if (!block) return;
+    if (rule.check(form)) {
+      block.classList.add('block-done');
+    } else {
+      block.classList.remove('block-done');
+    }
+  });
+}
+
+function initFormSaveResume() {
+  var form = document.getElementById('intake-form');
+  if (!form) return;
+  // Try to restore
+  var restored = formRestoreState();
+  if (restored) {
+    var banner = document.getElementById('form-restore-banner');
+    if (banner) banner.style.display = 'flex';
+    // Run checkmarks after restore
+    setTimeout(updateBlockCheckmarks, 100);
+  }
+  // Wire up save on every input change
+  form.addEventListener('input', function() {
+    formSaveState();
+    updateBlockCheckmarks();
+  });
+  form.addEventListener('change', function() {
+    formSaveState();
+    updateBlockCheckmarks();
+  });
+  // Clear save on successful submit
+  form.addEventListener('submit', function() {
+    try { localStorage.removeItem(FORM_SAVE_KEY); } catch(e) {}
+  });
+}
+
+// Run on DOM ready
+(function() {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFormSaveResume);
+  } else {
+    // Small delay to let other init run first
+    setTimeout(initFormSaveResume, 200);
+  }
+})();
 </script>
 
 <!-- BOTTOM CTA -->
@@ -3420,6 +3922,7 @@ function markUploaded(input, zoneId, labelId) {
     if (screenId === 'cat2') populatePaletteCards();
     if (screenId === 'summary') buildSummaryDisplay();
     if (screenId === 'real1') runReal1Convo();
+    if (screenId === 'real3') updateReal3Proof();
     updateNextBtn(screenId);
     if (typeof gtag === 'function') gtag('event','wizard_screen',{screen:screenId});
     saveState();
@@ -3430,4 +3933,448 @@ function markUploaded(input, zoneId, labelId) {
     if (!prev) return;
     var current = document.querySelector('.wiz-screen.wiz-active');
     if (current) current.classList.remove('wiz-active');
-    var tar
+    var target = document.querySelector('[data-screen="'+prev+'"]');
+    if (target) { target.classList.add('wiz-active'); target.scrollTop = 0; }
+    WIZ.screen = prev;
+    updateProgressBar(prev); updateBackBtn(prev); updateNextBtn(prev);
+    saveState();
+  };
+
+  window.wizNextFromCat = function() {
+    var order = ['cat1','cat2','cat3','cat4','cat5','cat6','cat7','cat8'];
+    var idx = order.indexOf(WIZ.screen);
+    wizGoTo(idx < order.length-1 ? order[idx+1] : 'summary');
+  };
+
+  window.selectCat = function(el, catKey, hiddenId) {
+    var wrap = el.closest('.wiz-cards-wrap');
+    if (wrap) wrap.querySelectorAll('.wiz-card').forEach(function(c){c.classList.remove('selected');});
+    el.classList.add('selected');
+    var val = el.dataset.value;
+    var propMap = {cat1:'vibe',cat2:'palette',cat3:'hero',cat4:'transitions',cat5:'layout',cat6:'typography'};
+    if (propMap[catKey]) WIZ[propMap[catKey]] = val;
+    if (catKey === 'cat1') autoPopulateVibeRadio(val);
+    updateNextBtn(catKey);
+    if (typeof gtag === 'function') gtag('event','wizard_pick',{category:catKey,value:val});
+    saveState();
+  };
+
+  window.selectCatMulti = function(el, catKey, hiddenId, maxPick) {
+    var val = el.dataset.value;
+    var arrKey = catKey === 'cat7' ? 'interactive' : 'showcase';
+    var arr = WIZ[arrKey];
+    if (el.classList.contains('selected')) {
+      arr.splice(arr.indexOf(val),1); el.classList.remove('selected');
+    } else {
+      if (arr.length >= maxPick) return;
+      arr.push(val); el.classList.add('selected');
+    }
+    WIZ[arrKey] = arr;
+    var countEl = document.getElementById('wiz-multi-count');
+    if (countEl) countEl.textContent = arr.length;
+    if (typeof gtag === 'function') gtag('event','wizard_pick',{category:catKey,value:val});
+    saveState();
+  };
+
+  function autoPopulateVibeRadio(vibeVal) {
+    document.querySelectorAll('input[name="vibe"]').forEach(function(r){
+      if (r.value === vibeVal) r.checked = true;
+    });
+  }
+
+  window.selectNiche = function(btn) {
+    var niche = btn.dataset.niche;
+    if (btn.classList.contains('selected')) {
+      btn.classList.remove('selected');
+      WIZ.niches = (WIZ.niches || []).filter(function(n){ return n !== niche; });
+    } else {
+      btn.classList.add('selected');
+      WIZ.niches = WIZ.niches || [];
+      if (WIZ.niches.indexOf(niche) === -1) WIZ.niches.push(niche);
+    }
+    // keep WIZ.niche as primary (first selected) for proof card matching
+    WIZ.niche = (WIZ.niches && WIZ.niches.length) ? WIZ.niches[0] : '';
+    // show/hide Other input
+    var otherWrap = document.getElementById('wiz-niche-other-wrap');
+    if (otherWrap) otherWrap.style.display = (WIZ.niches.indexOf('Other') !== -1) ? 'block' : 'none';
+    checkContextReady(); saveState();
+  };
+  window.selectFollower = function(btn) {
+    document.querySelectorAll('.wiz-follower-btn').forEach(function(b){b.classList.remove('selected');});
+    btn.classList.add('selected'); WIZ.follower = btn.dataset.range;
+    checkContextReady(); saveState();
+  };
+  function checkContextReady() {
+    var nextBtn = document.getElementById('wiz-context-next');
+    if (!nextBtn) return;
+    var hasNiche = WIZ.niches && WIZ.niches.length > 0;
+    var ready = hasNiche && WIZ.follower;
+    nextBtn.style.opacity = ready ? '1' : '0.35';
+    nextBtn.style.pointerEvents = ready ? 'auto' : 'none';
+  }
+
+  function populatePaletteCards() {
+    var wrap = document.getElementById('palette-cards');
+    if (!wrap) return;
+    wrap.innerHTML = '';
+    var palettes = PALETTES[WIZ.vibe] || PALETTES['Dark and moody'];
+    palettes.forEach(function(p) {
+      var card = document.createElement('div');
+      card.className = 'wiz-card'+(WIZ.palette===p.name?' selected':'');
+      card.dataset.value = p.name;
+      card.onclick = function(){selectCat(card,'cat2','wizard_color_palette');};
+      var swatchHTML = p.swatches.map(function(c){return '<div class="wiz-swatch" style="background:'+c+'"></div>';}).join('');
+      card.innerHTML = '<div class="wiz-card-preview"><div class="wiz-palette-preview">'+swatchHTML+'</div></div>'+
+        '<div class="wiz-card-name">'+p.name+'</div><div class="wiz-card-desc">'+p.desc+'</div>';
+      wrap.appendChild(card);
+    });
+  }
+
+  function buildSummaryDisplay() {
+    var parts = [];
+    if (WIZ.vibe) parts.push(WIZ.vibe);
+    if (WIZ.palette) parts.push(WIZ.palette);
+    if (WIZ.hero) parts.push(WIZ.hero);
+    if (WIZ.layout) parts.push(WIZ.layout);
+    if (WIZ.typography) parts.push(WIZ.typography);
+    if (WIZ.interactive.length) WIZ.interactive.forEach(function(v){ parts.push(v); });
+    if (WIZ.showcase.length) WIZ.showcase.forEach(function(v){ parts.push(v); });
+    var el = document.getElementById('wiz-picks-display');
+    if (el) {
+      if (parts.length) {
+        el.innerHTML = parts.map(function(p){ return '<span class="wiz-picks-pill">'+p+'</span>'; }).join('');
+      } else {
+        el.textContent = '—';
+      }
+    }
+    var proofMap = {
+      'Beauty & Skincare': {name:'Kristyn Simpson · UGC / Beauty',detail:'Dark & minimal vibe. <a href="https://kristynsimpson.netlify.app/" target="_blank">See her site →</a>'},
+      'Fitness': {name:'Ayden Lorz · Fitness Creator',detail:'Bold high-energy build. <a href="https://aydenlorz.netlify.app/" target="_blank">See his site →</a>'},
+      'default': {name:'Kristyn Simpson · UGC Creator',detail:'One of our most recent builds. <a href="https://kristynsimpson.netlify.app/" target="_blank">See her live site →</a>'}
+    };
+    var proof = proofMap[WIZ.niche] || proofMap['default'];
+    var nameEl = document.getElementById('mp-name'); if (nameEl) nameEl.textContent = proof.name;
+    var detailEl = document.getElementById('mp-detail'); if (detailEl) detailEl.innerHTML = proof.detail;
+
+    // Populate animated mockup preview
+    var PALETTE_BG_MAP = {
+      'Lime on Black': {bg:'#0d0d0d', accent:'#c8ff00', text:'#fff'},
+      'Teal on Dark':  {bg:'#0a0f0f', accent:'#2a9d8f', text:'#fff'},
+      'Red Alert':     {bg:'#0d0d0d', accent:'#ff3c00', text:'#fff'},
+      'Midnight Purple':{bg:'#0d0a14',accent:'#8b5cf6', text:'#fff'},
+      'Ice Blue Dark': {bg:'#080d14', accent:'#4af3ff', text:'#fff'},
+      'Copper & Black':{bg:'#0d0a08', accent:'#c87941', text:'#fff'},
+      'Pure White':    {bg:'#ffffff', accent:'#1a1a1a', text:'#1a1a1a'},
+      'Warm Cream':    {bg:'#f5f0e8', accent:'#2a9d8f', text:'#1a1a1a'},
+      'Cloud Gray':    {bg:'#f4f4f2', accent:'#444',    text:'#1a1a1a'},
+      'Paper & Ink':   {bg:'#f2ede4', accent:'#222',    text:'#222'},
+      'Red & White':   {bg:'#ff3c00', accent:'#fff',    text:'#fff'},
+      'Electric Blue': {bg:'#0066ff', accent:'#fff',    text:'#fff'},
+      'Hot Pink':      {bg:'#ff0080', accent:'#fff',    text:'#fff'},
+      'Neon Yellow':   {bg:'#ffe600', accent:'#000',    text:'#000'},
+      'Black & Gold':  {bg:'#0d0d0d', accent:'#ffd700', text:'#fff'},
+      'Navy & White':  {bg:'#1a2744', accent:'#4a90d9', text:'#fff'},
+      'Pink & Black':  {bg:'#0a0010', accent:'#ff2d78', text:'#fff'},
+      'Cyan & Dark':   {bg:'#000d10', accent:'#00e5ff', text:'#fff'},
+      'Clay & Cream':  {bg:'#fff8f0', accent:'#c4763a', text:'#5c3d2e'},
+      'Forest Floor':  {bg:'#f5f0e8', accent:'#6b8c5a', text:'#2d3a2a'}
+    };
+    var colors = (WIZ.palette && PALETTE_BG_MAP[WIZ.palette]) ? PALETTE_BG_MAP[WIZ.palette] : {bg:'#111', accent:'#c8ff00', text:'#fff'};
+    var screen = document.getElementById('wsp-screen');
+    if (screen) {
+      screen.style.background = colors.bg;
+      screen.querySelectorAll('.wsp-hero-name').forEach(function(e){ e.style.color = colors.text; });
+      screen.querySelectorAll('.wsp-hero-tag, .wsp-stat span').forEach(function(e){ e.style.color = colors.accent; });
+      screen.querySelectorAll('.wsp-hero').forEach(function(e){ e.style.borderColor = colors.accent; });
+      screen.querySelectorAll('.wsp-cta-row').forEach(function(e){ e.style.background = colors.accent; e.style.color = (colors.accent === '#fff' || colors.accent === '#c8ff00') ? '#000' : '#fff'; });
+    }
+    var heroNameEl = document.getElementById('wsp-hero-name');
+    var heroTagEl = document.getElementById('wsp-hero-tag');
+    if (heroNameEl) heroNameEl.textContent = 'Your Name';
+    if (heroTagEl) heroTagEl.textContent = (WIZ.niche || 'Creator') + ' · Your City';
+    var wspLabel = document.getElementById('wsp-label');
+    if (wspLabel) wspLabel.textContent = [WIZ.vibe, WIZ.palette].filter(Boolean).join(' · ') || 'Pick your vibe to preview';
+  }
+
+  window.applyWizCode = function() {
+    var input = document.getElementById('wiz-ref-input');
+    if (!input) return;
+    var code = input.value.toUpperCase().trim();
+    if (code.length < 3) return;
+    var formInput = document.getElementById('referral-code-input');
+    if (formInput) { formInput.value = code; }
+    var banner = document.getElementById('referral-banner');
+    if (banner) banner.style.display = 'flex';
+    var applied = document.getElementById('wiz-code-applied');
+    if (applied) applied.style.display = 'block';
+    var priceEl = document.getElementById('wiz-price-display');
+    if (priceEl) {
+      priceEl.textContent = '$225';
+      priceEl.classList.remove('price-animating');
+      void priceEl.offsetWidth; // reflow to restart animation
+      priceEl.classList.add('price-animating');
+    }
+    var badge = document.getElementById('wiz-savings-badge');
+    if (badge) badge.style.display = 'block';
+    if (typeof gtag === 'function') gtag('event','wizard_referral_code',{code:code});
+  };
+
+  function setHidden(id, val) { var el = document.getElementById(id); if (el) el.value = val||''; }
+
+  function populateHiddenFields() {
+    setHidden('wiz_vibe', WIZ.vibe);
+    setHidden('wiz_color_palette', WIZ.palette);
+    setHidden('wiz_hero_animation', WIZ.hero);
+    setHidden('wiz_transitions', WIZ.transitions);
+    setHidden('wiz_layout', WIZ.layout);
+    setHidden('wiz_typography', WIZ.typography);
+    setHidden('wiz_interactive_touches', WIZ.interactive.join(', '));
+    setHidden('wiz_showcase_priorities', WIZ.showcase.join(', '));
+    setHidden('wiz_context_niche', WIZ.niche);
+    setHidden('wiz_context_follower_range', WIZ.follower);
+  }
+
+  window.wizFinishAndGoToForm = function() {
+    populateHiddenFields();
+    if (WIZ.vibe) autoPopulateVibeRadio(WIZ.vibe);
+    // Dynamic form header
+    var headerDiv = document.getElementById('wiz-form-header');
+    var headerText = document.getElementById('wiz-form-header-text');
+    if (headerDiv) {
+      headerDiv.style.display = 'block';
+      if (headerText) {
+        var vibeLabel = WIZ.vibe ? 'You picked ' + WIZ.vibe + '. Now tell us about you so we can build it.' : 'Tell us about you so we can build your site.';
+        headerText.textContent = vibeLabel;
+      }
+    }
+    // Apply wizard referral code to form if entered
+    var wizCode = ((document.getElementById('wiz-ref-input')||{}).value||'').toUpperCase().trim();
+    if (wizCode.length >= 3) {
+      var formInput = document.getElementById('referral-code-input');
+      if (formInput) formInput.value = wizCode;
+      var banner = document.getElementById('referral-banner');
+      if (banner) banner.style.display = 'flex';
+    }
+    // Hide wizard
+    var overlay = document.getElementById('wizard-overlay');
+    if (overlay) overlay.classList.add('wiz-hidden');
+    try { localStorage.setItem('wiz_done','1'); } catch(e){}
+    // Scroll to form
+    var form = document.getElementById('brief-form');
+    if (form) setTimeout(function(){ form.scrollIntoView({behavior:'smooth',block:'start'}); }, 100);
+    if (typeof gtag === 'function') gtag('event','wizard_complete',{vibe:WIZ.vibe,niche:WIZ.niche});
+    saveState();
+  };
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // Skip wizard if already completed
+    var done = false;
+    try { done = localStorage.getItem('wiz_done') === '1'; } catch(e){}
+    if (done) {
+      var overlay = document.getElementById('wizard-overlay');
+      if (overlay) overlay.classList.add('wiz-hidden');
+      loadState();
+      populateHiddenFields();
+      if (WIZ.vibe) autoPopulateVibeRadio(WIZ.vibe);
+      // Show form header with saved picks
+      var picks = [WIZ.vibe, WIZ.palette, WIZ.hero].filter(Boolean);
+      if (picks.length) {
+        var hd = document.getElementById('wiz-form-header');
+        var ht = document.getElementById('wiz-form-header-text');
+        if (hd) hd.style.display = 'block';
+        if (ht) ht.textContent = picks.join(' · ');
+      }
+      return;
+    }
+
+    loadState();
+
+    // Restore partial wizard state
+    if (WIZ.screen && WIZ.screen !== 'entry') {
+      document.querySelectorAll('.wiz-screen').forEach(function(s){s.classList.remove('wiz-active');});
+      var target = document.querySelector('[data-screen="'+WIZ.screen+'"]');
+      if (target) target.classList.add('wiz-active');
+      updateProgressBar(WIZ.screen); updateBackBtn(WIZ.screen);
+      if (WIZ.screen === 'cat2') populatePaletteCards();
+      if (WIZ.screen === 'summary') buildSummaryDisplay();
+    }
+
+    // Restore context selections
+    if (WIZ.niche) {
+      document.querySelectorAll('.wiz-niche-btn').forEach(function(b){
+        if (b.dataset.niche === WIZ.niche) b.classList.add('selected');
+      });
+    }
+    if (WIZ.follower) {
+      document.querySelectorAll('.wiz-follower-btn').forEach(function(b){
+        if (b.dataset.range === WIZ.follower) b.classList.add('selected');
+      });
+    }
+    checkContextReady();
+
+    // Restore cat1-6 card selections
+    var catRestoreMap = {cat1:'vibe',cat2:'palette',cat3:'hero',cat4:'transitions',cat5:'layout',cat6:'typography'};
+    Object.keys(catRestoreMap).forEach(function(catKey){
+      var val = WIZ[catRestoreMap[catKey]];
+      if (!val) return;
+      var cards = document.querySelectorAll('[data-screen="'+catKey+'"] .wiz-card');
+      cards.forEach(function(c){ if (c.dataset.value === val) c.classList.add('selected'); });
+    });
+
+    // Restore multi-pick
+    WIZ.interactive.forEach(function(v){
+      var cards = document.querySelectorAll('[data-screen="cat7"] .wiz-card');
+      cards.forEach(function(c){ if (c.dataset.value === v) c.classList.add('selected'); });
+    });
+    // update global multi-count if on cat7
+    if (WIZ.screen === 'cat7') {
+      var mc = document.getElementById('wiz-multi-count');
+      if (mc) mc.textContent = WIZ.interactive.length;
+    }
+
+    WIZ.showcase.forEach(function(v){
+      var cards = document.querySelectorAll('[data-screen="cat8"] .wiz-card');
+      cards.forEach(function(c){ if (c.dataset.value === v) c.classList.add('selected'); });
+    });
+    // update global multi-count if on cat8
+    if (WIZ.screen === 'cat8') {
+      var mc8 = document.getElementById('wiz-multi-count');
+      if (mc8) mc8.textContent = WIZ.showcase.length;
+    }
+  });
+
+  // ---- REAL3 DYNAMIC PROOF CARD ----
+  function updateReal3Proof() {
+    var proofs = [
+      {
+        niches: ['Beauty & Skincare','Health & Wellness','Lifestyle'],
+        followers: ['Under 5K','5K–25K','25K–100K'],
+        emoji: '💄', name: 'Kristyn Simpson', meta: 'UGC Creator · Chicago · 134K TikTok',
+        stat: '2.4M total views · Beauty & Skincare',
+        outcome: 'Landed 3 brand retainers in 30 days of launching her site.',
+        url: 'https://kristynsimpson.netlify.app/'
+      },
+      {
+        niches: ['Fitness','Health & Wellness'],
+        followers: ['5K–25K','25K–100K','100K–500K'],
+        emoji: '💪', name: 'Ayden Lorz', meta: 'Fitness Creator · Austin · 28K TikTok',
+        stat: '1.1M views · Fitness & Nutrition',
+        outcome: 'First brand collab offer came in 11 days after launch.',
+        url: 'https://aydenlorz.netlify.app/'
+      },
+      {
+        niches: ['Mom & Family','Travel','Lifestyle'],
+        followers: ['5K–25K','25K–100K'],
+        emoji: '✈️', name: 'Reva Hamilton', meta: 'Lifestyle Creator · Roanoke VA · 24K TikTok',
+        stat: '800K views · Family Travel',
+        outcome: 'Went from DMs ignored to 2 paid deals in her first month.',
+        url: 'https://tylerdream.com/'
+      },
+      {
+        niches: ['Tech & AI','Finance','Comedy & Skits'],
+        followers: ['Under 5K','5K–25K','25K–100K','100K–500K','500K+'],
+        emoji: '📱', name: 'Jordan Blake', meta: 'Tech Creator · Remote · 18K TikTok',
+        stat: '600K views · Tech & AI',
+        outcome: 'Two SaaS brands reached out the week his site went live.',
+        url: 'https://tylerdream.com/'
+      }
+    ];
+    var niche = WIZ.niche || '';
+    var follower = WIZ.follower || '';
+    var match = null;
+    for (var i = 0; i < proofs.length; i++) {
+      var p = proofs[i];
+      var nicheMatch = p.niches.indexOf(niche) !== -1;
+      var followerMatch = p.followers.indexOf(follower) !== -1;
+      if (nicheMatch && followerMatch) { match = p; break; }
+      if (nicheMatch && !match) match = p;
+    }
+    if (!match) match = proofs[0];
+    var set = function(id, val) { var el = document.getElementById(id); if (el) el.textContent = val; };
+    var setHTML = function(id, val) { var el = document.getElementById(id); if (el) el.innerHTML = val; };
+    set('r3-proof-avatar', match.emoji);
+    set('r3-proof-name', match.name);
+    set('r3-proof-meta', match.meta);
+    set('r3-proof-stat', match.stat);
+    set('r3-proof-outcome', match.outcome);
+    var link = document.getElementById('r3-proof-link');
+    if (link) { link.href = match.url; link.textContent = 'View live site →'; }
+    var label = document.getElementById('r3-proof-label');
+    if (label) label.textContent = niche ? niche + ' creator · Built recently' : 'Similar creator · Built last week';
+  }
+
+  // ---- REAL1 DM ANIMATION ----
+  var r1Played = false;
+  function runReal1Convo() {
+    if (r1Played) return;
+    r1Played = true;
+
+    var msg1    = document.getElementById('r1-msg1');
+    var typing1 = document.getElementById('r1-typing1');
+    var bubble1 = document.getElementById('r1-bubble1');
+    var ts1     = document.getElementById('r1-ts1');
+    var msg2    = document.getElementById('r1-msg2');
+    var bubble2 = document.getElementById('r1-bubble2');
+    var ts2     = document.getElementById('r1-ts2');
+    var msg3    = document.getElementById('r1-msg3');
+    var typing3 = document.getElementById('r1-typing3');
+    var bubble3 = document.getElementById('r1-bubble3');
+    var ts3     = document.getElementById('r1-ts3');
+    var check3  = document.getElementById('r1-check3');
+
+    var text1 = "Hey! We came across your page and love what you're doing. We'd love to send you some product and discuss a paid partnership. Do you have a media kit or site we can check out?";
+    var text3 = "This is exactly what we were looking for. Are you open to a paid partnership?";
+
+    function typeInto(el, text, done) {
+      el.textContent = '';
+      var i = 0;
+      var interval = setInterval(function() {
+        el.textContent += text[i];
+        i++;
+        if (i >= text.length) { clearInterval(interval); if (done) done(); }
+      }, 22);
+    }
+
+    // Step 1: show msg1 row, then typing dots
+    setTimeout(function() {
+      msg1.classList.add('visible');
+      setTimeout(function() {
+        typing1.style.display = 'flex';
+        // After 1.1s typing indicator, swap for typed message
+        setTimeout(function() {
+          typing1.style.display = 'none';
+          bubble1.style.display = 'inline-block';
+          ts1.style.display = 'block';
+          typeInto(bubble1, text1, function() {
+            // Step 2: creator card slides in 500ms after card 1 finishes
+            setTimeout(function() {
+              msg2.classList.add('visible');
+              bubble2.style.display = 'block';
+              ts2.style.display = 'block';
+              // Step 3: brand types back 1s after card 2 lands
+              setTimeout(function() {
+                msg3.classList.add('visible');
+                setTimeout(function() {
+                  typing3.style.display = 'flex';
+                  setTimeout(function() {
+                    typing3.style.display = 'none';
+                    bubble3.style.display = 'inline-block';
+                    ts3.style.display = 'block';
+                    typeInto(bubble3, text3, function() {
+                      setTimeout(function() { check3.style.display = 'block'; }, 300);
+                    });
+                  }, 1100);
+                }, 200);
+              }, 1000);
+            }, 500);
+          });
+        }, 1100);
+      }, 300);
+    }, 400);
+  }
+  window.runReal1Convo = runReal1Convo;
+
+})();
+</script>
+</body>
+</html>
