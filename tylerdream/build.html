@@ -1054,13 +1054,16 @@
 }
 .r1-ts.right-align { text-align: right; }
 .r1-link {
-  display: inline-block; color: #c8ff00; font-weight: 700;
-  font-size: 15px; margin-top: 8px; letter-spacing: -0.3px;
-  animation: linkGlow 2.4s ease-in-out infinite;
+  display: inline-block; color: #c8ff00; font-weight: 800;
+  font-size: 16px; margin-top: 10px; letter-spacing: -0.3px;
+  text-decoration: none; border-bottom: 2px solid rgba(200,255,0,0.4);
+  padding-bottom: 1px; border-radius: 2px;
+  animation: linkGlow 2.0s ease-in-out infinite;
 }
+.r1-link:hover { border-bottom-color: #c8ff00; }
 @keyframes linkGlow {
-  0%, 100% { text-shadow: 0 0 8px rgba(200,255,0,0.3); }
-  50% { text-shadow: 0 0 22px rgba(200,255,0,0.75), 0 0 40px rgba(200,255,0,0.3); }
+  0%, 100% { text-shadow: 0 0 8px rgba(200,255,0,0.3); color: #c8ff00; }
+  50% { text-shadow: 0 0 28px rgba(200,255,0,0.9), 0 0 50px rgba(200,255,0,0.4); color: #e0ff5a; }
 }
 .r1-typing {
   display: flex; align-items: center; gap: 5px; padding: 13px 16px;
@@ -1669,7 +1672,7 @@ textarea.wiz-brief-input { line-height: 1.6; }
         <div class="r1-handle right-align">You</div>
         <div class="r1-bubble outgoing" id="r1-bubble2" style="display:none;">
           Hey! Big fan of the brand. Here's everything you need.<br>
-          <span class="r1-link">tylerdream.com</span>
+          <a class="r1-link" href="https://tylerdream.com" target="_blank">tylerdream.com</a>
         </div>
         <div class="r1-ts right-align" id="r1-ts2" style="display:none;">Today 2:16 PM</div>
       </div>
@@ -3951,78 +3954,80 @@ function markUploaded(input, zoneId, labelId) {
     history: []
   };
 
-  var PALETTES = {
+var PALETTES = {
     'Dark and moody': [
-      { name: 'Lime on Black', desc: 'Black + neon lime accent', swatches: ['#0d0d0d','#1a1a1a','#c8ff00','#333','#fff'] },
-      { name: 'Teal on Dark', desc: 'Deep dark + teal pop', swatches: ['#0a0f0f','#1a2a2a','#2a9d8f','#444','#fff'] },
-      { name: 'Red Alert', desc: 'Black + electric red', swatches: ['#0d0d0d','#1a1a1a','#ff3c00','#333','#fff'] },
-      { name: 'Midnight Purple', desc: 'Dark + violet edge', swatches: ['#0d0a14','#1a1424','#8b5cf6','#2d2040','#fff'] },
-      { name: 'Ice Blue Dark', desc: 'Dark + icy blue edge', swatches: ['#080d14','#111c2a','#4af3ff','#1a2a3a','#fff'] },
-      { name: 'Copper & Black', desc: 'Moody + warm copper', swatches: ['#0d0a08','#1a1510','#c87941','#2a1f18','#fff'] },
+      { name: 'Lime on Black',          bg: '#000000', accent: '#c8ff00', text: '#ffffff' },
+      { name: 'Electric Blue on Charcoal', bg: '#1a1a2e', accent: '#00b4d8', text: '#e0e0e0' },
+      { name: 'Red Hot on Black',        bg: '#0d0d0d', accent: '#ff2d20', text: '#ffffff' },
+      { name: 'Gold on Deep Green',      bg: '#0f2419', accent: '#d4af37', text: '#f0ead6' },
+      { name: 'Purple Haze',             bg: '#0d0010', accent: '#9b5de5', text: '#e0d6f5' },
+      { name: 'Ice and Steel',           bg: '#0a0f1e', accent: '#a8d8ea', text: '#dce8f0' },
     ],
     'Clean and minimal': [
-      { name: 'Pure White', desc: 'Off-white, minimal tone', swatches: ['#ffffff','#f8f8f6','#1a1a1a','#e0e0da','#2a9d8f'] },
-      { name: 'Warm Cream', desc: 'Cream + warm black', swatches: ['#f5f0e8','#ffffff','#1a1a1a','#e0d9ce','#2a9d8f'] },
-      { name: 'Cloud Gray', desc: 'Light gray system', swatches: ['#f4f4f2','#ffffff','#1a1a1a','#d0d0cc','#444'] },
-      { name: 'Paper & Ink', desc: 'Newsprint aesthetic', swatches: ['#f2ede4','#ffffff','#222','#ddd5c8','#888'] },
-      { name: 'Chalk White', desc: 'Bright white + graphite', swatches: ['#ffffff','#fafafa','#111','#eee','#555'] },
-      { name: 'Soft Lavender', desc: 'White + pale purple touch', swatches: ['#f8f6ff','#ffffff','#4a3f6b','#e8e4f4','#9988cc'] },
+      { name: 'White and Black',         bg: '#ffffff', accent: '#000000', text: '#111111' },
+      { name: 'Cream and Sage',          bg: '#f8f4ec', accent: '#6b8f71', text: '#2d2d2d' },
+      { name: 'Light Grey and Navy',     bg: '#f2f2f2', accent: '#1b3a5c', text: '#222222' },
+      { name: 'White and Terracotta',    bg: '#ffffff', accent: '#c8603a', text: '#1a1a1a' },
+      { name: 'Linen and Blush',         bg: '#faf0e6', accent: '#d4a5a5', text: '#3d3d3d' },
+      { name: 'Ice Blue and White',      bg: '#e8f4f8', accent: '#1a3a4a', text: '#1a3a4a' },
     ],
     'Bold and loud': [
-      { name: 'Red & White', desc: 'Maximum contrast punch', swatches: ['#ff3c00','#fff','#000','#ff6633','#222'] },
-      { name: 'Electric Blue', desc: 'Blue + white + black', swatches: ['#0066ff','#fff','#000','#0044cc','#e0e0ff'] },
-      { name: 'Hot Pink', desc: 'Pink pop on black', swatches: ['#ff0080','#000','#fff','#ff33aa','#222'] },
-      { name: 'Neon Yellow', desc: 'Yellow on black explosion', swatches: ['#ffe600','#000','#fff','#ffcc00','#333'] },
-      { name: 'Purple Fury', desc: 'Deep purple + white blast', swatches: ['#6600ff','#fff','#000','#9933ff','#222'] },
-      { name: 'Lime Blast', desc: 'Lime green on pure black', swatches: ['#000','#111','#c8ff00','#1a1a1a','#fff'] },
+      { name: 'Hot Pink and Yellow',     bg: '#ff006e', accent: '#ffbe0b', text: '#ffffff' },
+      { name: 'Orange and Black',        bg: '#ff5a00', accent: '#000000', text: '#ffffff' },
+      { name: 'Electric Purple and Lime',bg: '#7b2d8b', accent: '#ccff00', text: '#ffffff' },
+      { name: 'Red and White',           bg: '#e63946', accent: '#ffffff', text: '#ffffff' },
+      { name: 'Cobalt and White',        bg: '#0047ab', accent: '#ffffff', text: '#ffffff' },
+      { name: 'Black and Gold',          bg: '#0d0d0d', accent: '#d4af37', text: '#ffffff' },
     ],
     'Soft and warm': [
-      { name: 'Sand & Sage', desc: 'Warm sand, muted green', swatches: ['#f5ede0','#fff','#8B6245','#a8c5b0','#d4a574'] },
-      { name: 'Blush & Terracotta', desc: 'Soft pink, clay tones', swatches: ['#fdf0ec','#fff','#c27a5a','#f4b8a0','#8B5E4C'] },
-      { name: 'Cream & Gold', desc: 'Warm cream with gold', swatches: ['#fdf8f0','#fff','#8B6245','#e9c46a','#c49a6c'] },
-      { name: 'Linen & Moss', desc: 'Earthy natural palette', swatches: ['#f0ebe2','#fff','#5a6b4a','#c8b99a','#8B7355'] },
-      { name: 'Peach & Cream', desc: 'Soft warm peach tones', swatches: ['#fff5ee','#fff','#c47a5a','#ffd4b8','#a06040'] },
-      { name: 'Dusty Rose', desc: 'Muted rose, warm gray', swatches: ['#faf0f0','#fff','#9b6b6b','#f0d8d8','#c49090'] },
+      { name: 'Peach and Cream',         bg: '#ffcba4', accent: '#fff8f0', text: '#3d1f00' },
+      { name: 'Sage and Sand',           bg: '#b7c9a8', accent: '#f5e6c8', text: '#2d3a22' },
+      { name: 'Lavender and Blush',      bg: '#c9b1d0', accent: '#f9c4d2', text: '#2a1a2e' },
+      { name: 'Coral and Ivory',         bg: '#ff7f6e', accent: '#fffff0', text: '#3d1500' },
+      { name: 'Caramel and Wheat',       bg: '#c68642', accent: '#f5deb3', text: '#1a0a00' },
+      { name: 'Rose and Stone',          bg: '#c39ea0', accent: '#d3c5bc', text: '#2d1a1c' },
     ],
     'Streetwear / hype': [
-      { name: 'Black & Gold', desc: 'Classic drop aesthetic', swatches: ['#0d0d0d','#1a1a1a','#ffd700','#333','#fff'] },
-      { name: 'Black & Red', desc: 'Hype energy, bold', swatches: ['#0d0d0d','#1a1a1a','#cc0000','#333','#fff'] },
-      { name: 'Black & White', desc: 'Clean monochrome drop', swatches: ['#000','#111','#fff','#333','#888'] },
-      { name: 'Black & Orange', desc: 'Firestarter vibes', swatches: ['#0d0d0d','#1a1a1a','#ff6600','#333','#fff'] },
-      { name: 'Camo & Cream', desc: 'Street utility tone', swatches: ['#2a2e1e','#3a4030','#d4c9a0','#1a1c14','#fff'] },
-      { name: 'Chrome & Black', desc: 'Chrome silver on dark', swatches: ['#0a0a0a','#1a1a1a','#c0c0c0','#2a2a2a','#eee'] },
+      { name: 'Black and Lime',          bg: '#000000', accent: '#c8ff00', text: '#ffffff' },
+      { name: 'Grey and Orange',         bg: '#2d2d2d', accent: '#ff6b00', text: '#f0f0f0' },
+      { name: 'Black and Red',           bg: '#0d0d0d', accent: '#cc0000', text: '#ffffff' },
+      { name: 'Brown and Cream',         bg: '#3b1f0a', accent: '#f5e6c8', text: '#f5e6c8' },
+      { name: 'Black and White',         bg: '#000000', accent: '#ffffff', text: '#ffffff' },
+      { name: 'Olive and Black',         bg: '#3d4a1e', accent: '#000000', text: '#f0ecd8' },
     ],
     'Professional / corporate': [
-      { name: 'Navy & White', desc: 'Classic professional', swatches: ['#1a2744','#ffffff','#2a5298','#e8edf5','#4a90d9'] },
-      { name: 'Slate & Teal', desc: 'Modern business look', swatches: ['#2d3748','#ffffff','#2a9d8f','#e2e8f0','#81e6d9'] },
-      { name: 'Charcoal & Gold', desc: 'Executive presence', swatches: ['#2d2d2d','#ffffff','#d4a853','#f0ede8','#888'] },
-      { name: 'Deep Blue & Silver', desc: 'Corporate confidence', swatches: ['#0f2044','#ffffff','#c0c0c0','#e8eef8','#5599dd'] },
-      { name: 'Forest & Linen', desc: 'Grounded executive tone', swatches: ['#2a3828','#ffffff','#6b8f5e','#eef3ec','#4a6b40'] },
-      { name: 'Black & Cream', desc: 'Minimal executive', swatches: ['#111','#ffffff','#888','#f5f2ee','#333'] },
+      { name: 'Navy and White',          bg: '#0a1628', accent: '#ffffff', text: '#ffffff' },
+      { name: 'Slate and Gold',          bg: '#4a5568', accent: '#d4af37', text: '#f7fafc' },
+      { name: 'Black and Silver',        bg: '#1a1a1a', accent: '#c0c0c0', text: '#f0f0f0' },
+      { name: 'Deep Green and Cream',    bg: '#1a3320', accent: '#f5e6c8', text: '#f0ead6' },
+      { name: 'Charcoal and Blue',       bg: '#2d3748', accent: '#4299e1', text: '#e2e8f0' },
+      { name: 'White and Teal',          bg: '#ffffff', accent: '#0d9488', text: '#111111' },
     ],
     'Neon Underground': [
-      { name: 'Pink & Black', desc: 'Electric pink on dark', swatches: ['#0a0010','#14001c','#ff2d78','#1e0028','#fff'] },
-      { name: 'Cyan & Dark', desc: 'Cyber cyan on near-black', swatches: ['#000d10','#001a1f','#00e5ff','#00262e','#fff'] },
-      { name: 'Acid Green', desc: 'Toxic green on black', swatches: ['#050d00','#0a1a00','#39ff14','#0f2200','#fff'] },
-      { name: 'Purple & Cyan', desc: 'Dual neon, dark base', swatches: ['#080010','#100020','#b300ff','#1a0030','#00e5ff'] },
-      { name: 'Red Neon', desc: 'Neon red on void black', swatches: ['#0d0000','#1a0000','#ff003c','#2a0010','#fff'] },
-      { name: 'Yellow Electric', desc: 'Electric yellow on black', swatches: ['#0d0d00','#1a1a00','#ffea00','#2a2a00','#fff'] },
+      { name: 'Black and Cyan',          bg: '#000000', accent: '#00ffff', text: '#ffffff' },
+      { name: 'Black and Hot Pink',      bg: '#0d0010', accent: '#ff007a', text: '#ffffff' },
+      { name: 'Dark Purple and Acid Green', bg: '#1a0030', accent: '#b5ff00', text: '#e0d6f5' },
+      { name: 'Navy and Electric Orange',bg: '#0a0f2e', accent: '#ff6b00', text: '#e0e8ff' },
+      { name: 'Black Neon White',        bg: '#000000', accent: '#f0f0f0', text: '#ffffff' },
+      { name: 'Midnight and Yellow',     bg: '#0a0a0a', accent: '#ffd600', text: '#ffffff' },
     ],
     'Earthy Creator': [
-      { name: 'Clay & Cream', desc: 'Warm clay + off-white', swatches: ['#5c3d2e','#fff8f0','#c4763a','#e8d5c4','#2a1810'] },
-      { name: 'Forest Floor', desc: 'Deep green + tan', swatches: ['#2d3a2a','#f5f0e8','#6b8c5a','#d4c9a8','#1a2318'] },
-      { name: 'Desert Sand', desc: 'Sand + burnt sienna', swatches: ['#c8a882','#fff8f0','#8b5e3c','#f0e8d8','#3a2010'] },
-      { name: 'Sage & Stone', desc: 'Muted sage + warm gray', swatches: ['#8faa8b','#f5f3ee','#4a5e46','#e0dbd0','#2a3328'] },
-      { name: 'Moss & Linen', desc: 'Deep moss + natural linen', swatches: ['#3d4f38','#f8f4ee','#7a9a6a','#ddd8c8','#1e2a1c'] },
-      { name: 'Terracotta Sky', desc: 'Terracotta + pale blue', swatches: ['#b5522a','#f0f4f8','#d4704a','#e8e0d4','#2a3848'] },
+      { name: 'Warm Brown and Cream',    bg: '#3b1f0a', accent: '#f5e6c8', text: '#f5e6c8' },
+      { name: 'Terracotta and Sand',     bg: '#c8603a', accent: '#f5deb3', text: '#ffffff' },
+      { name: 'Olive and Rust',          bg: '#4a5240', accent: '#b7410e', text: '#f0ecd8' },
+      { name: 'Forest and Linen',        bg: '#1e3a2f', accent: '#faf0e6', text: '#f0ead6' },
+      { name: 'Clay and Stone',          bg: '#b87333', accent: '#9e9e9e', text: '#1a0a00' },
+      { name: 'Bark and Bone',           bg: '#2c1810', accent: '#f5f0e8', text: '#f5f0e8' },
     ]
   };
 
   function saveState() {
     try { localStorage.setItem('wiz_state', JSON.stringify(WIZ)); } catch(e){}
+    try { localStorage.setItem('wiz_brief', JSON.stringify(BRIEF_DATA)); } catch(e){}
   }
   function loadState() {
     try { var s = localStorage.getItem('wiz_state'); if (s) { var p = JSON.parse(s); Object.assign(WIZ, p); } } catch(e){}
+    try { var b = localStorage.getItem('wiz_brief'); if (b) { var bd = JSON.parse(b); Object.keys(bd).forEach(function(k){ BRIEF_DATA[k]=bd[k]; }); } } catch(e){}
   }
 
   var CAT_SCREENS = ['cat1','cat2','cat3','cat4','cat5','cat6','cat7','cat8'];
@@ -4223,11 +4228,16 @@ function markUploaded(input, zoneId, labelId) {
       var swatch = document.createElement('div');
       swatch.className = 'pal-swatch' + (WIZ.palette === p.name ? ' selected' : '');
       swatch.dataset.value = p.name;
-      swatch.title = p.name + (p.desc ? ' — ' + p.desc : '');
+      swatch.title = p.name;
       swatch.onclick = function(){ selectCat(swatch, 'cat2', 'wizard_color_palette'); };
-      var bg = p.swatches[0] || '#111';
-      var accent = p.swatches[1] || p.swatches[0] || '#c8ff00';
-      swatch.innerHTML = '<div class="pal-swatch-inner"><div class="pal-swatch-half" style="background:'+bg+'"></div><div class="pal-swatch-half" style="background:'+accent+'"></div></div>';
+      var bg = p.bg || '#111';
+      var accent = p.accent || '#c8ff00';
+      var textColor = p.text || '#fff';
+      swatch.innerHTML = '<div class="pal-swatch-inner" style="position:relative;width:100%;height:100%;border-radius:8px;overflow:hidden;background:'+bg+';display:flex;align-items:flex-end;justify-content:flex-end;">'
+        + '<div style="position:absolute;top:0;left:0;right:0;bottom:0;background:'+bg+';"></div>'
+        + '<div style="position:absolute;top:6px;right:6px;width:14px;height:14px;border-radius:50%;background:'+accent+';box-shadow:0 0 6px '+accent+'88;"></div>'
+        + '<div style="position:absolute;bottom:5px;left:6px;font-size:8px;font-weight:800;color:'+textColor+';opacity:0.85;letter-spacing:0.3px;">Aa</div>'
+        + '</div>';
       wrap.appendChild(swatch);
     });
     var nameEl = document.getElementById('pal-selected-name');
@@ -4239,6 +4249,7 @@ function markUploaded(input, zoneId, labelId) {
     if (WIZ.vibe) parts.push(WIZ.vibe);
     if (WIZ.palette) parts.push(WIZ.palette);
     if (WIZ.hero) parts.push(WIZ.hero);
+    if (WIZ.transitions) parts.push(WIZ.transitions);
     if (WIZ.layout) parts.push(WIZ.layout);
     if (WIZ.typography) parts.push(WIZ.typography);
     if (WIZ.interactive.length) WIZ.interactive.forEach(function(v){ parts.push(v); });
@@ -4262,26 +4273,62 @@ function markUploaded(input, zoneId, labelId) {
 
     // Populate animated mockup preview
     var PALETTE_BG_MAP = {
-      'Lime on Black': {bg:'#0d0d0d', accent:'#c8ff00', text:'#fff'},
-      'Teal on Dark':  {bg:'#0a0f0f', accent:'#2a9d8f', text:'#fff'},
-      'Red Alert':     {bg:'#0d0d0d', accent:'#ff3c00', text:'#fff'},
-      'Midnight Purple':{bg:'#0d0a14',accent:'#8b5cf6', text:'#fff'},
-      'Ice Blue Dark': {bg:'#080d14', accent:'#4af3ff', text:'#fff'},
-      'Copper & Black':{bg:'#0d0a08', accent:'#c87941', text:'#fff'},
-      'Pure White':    {bg:'#ffffff', accent:'#1a1a1a', text:'#1a1a1a'},
-      'Warm Cream':    {bg:'#f5f0e8', accent:'#2a9d8f', text:'#1a1a1a'},
-      'Cloud Gray':    {bg:'#f4f4f2', accent:'#444',    text:'#1a1a1a'},
-      'Paper & Ink':   {bg:'#f2ede4', accent:'#222',    text:'#222'},
-      'Red & White':   {bg:'#ff3c00', accent:'#fff',    text:'#fff'},
-      'Electric Blue': {bg:'#0066ff', accent:'#fff',    text:'#fff'},
-      'Hot Pink':      {bg:'#ff0080', accent:'#fff',    text:'#fff'},
-      'Neon Yellow':   {bg:'#ffe600', accent:'#000',    text:'#000'},
-      'Black & Gold':  {bg:'#0d0d0d', accent:'#ffd700', text:'#fff'},
-      'Navy & White':  {bg:'#1a2744', accent:'#4a90d9', text:'#fff'},
-      'Pink & Black':  {bg:'#0a0010', accent:'#ff2d78', text:'#fff'},
-      'Cyan & Dark':   {bg:'#000d10', accent:'#00e5ff', text:'#fff'},
-      'Clay & Cream':  {bg:'#fff8f0', accent:'#c4763a', text:'#5c3d2e'},
-      'Forest Floor':  {bg:'#f5f0e8', accent:'#6b8c5a', text:'#2d3a2a'}
+      // Dark and moody
+      'Lime on Black':             {bg:'#000000', accent:'#c8ff00', text:'#ffffff'},
+      'Electric Blue on Charcoal': {bg:'#1a1a2e', accent:'#00b4d8', text:'#e0e0e0'},
+      'Red Hot on Black':          {bg:'#0d0d0d', accent:'#ff2d20', text:'#ffffff'},
+      'Gold on Deep Green':        {bg:'#0f2419', accent:'#d4af37', text:'#f0ead6'},
+      'Purple Haze':               {bg:'#0d0010', accent:'#9b5de5', text:'#e0d6f5'},
+      'Ice and Steel':             {bg:'#0a0f1e', accent:'#a8d8ea', text:'#dce8f0'},
+      // Clean and minimal
+      'White and Black':           {bg:'#ffffff', accent:'#000000', text:'#111111'},
+      'Cream and Sage':            {bg:'#f8f4ec', accent:'#6b8f71', text:'#2d2d2d'},
+      'Light Grey and Navy':       {bg:'#f2f2f2', accent:'#1b3a5c', text:'#222222'},
+      'White and Terracotta':      {bg:'#ffffff', accent:'#c8603a', text:'#1a1a1a'},
+      'Linen and Blush':           {bg:'#faf0e6', accent:'#d4a5a5', text:'#3d3d3d'},
+      'Ice Blue and White':        {bg:'#e8f4f8', accent:'#1a3a4a', text:'#1a3a4a'},
+      // Bold and loud
+      'Hot Pink and Yellow':       {bg:'#ff006e', accent:'#ffbe0b', text:'#ffffff'},
+      'Orange and Black':          {bg:'#ff5a00', accent:'#000000', text:'#ffffff'},
+      'Electric Purple and Lime':  {bg:'#7b2d8b', accent:'#ccff00', text:'#ffffff'},
+      'Red and White':             {bg:'#e63946', accent:'#ffffff', text:'#ffffff'},
+      'Cobalt and White':          {bg:'#0047ab', accent:'#ffffff', text:'#ffffff'},
+      'Black and Gold':            {bg:'#0d0d0d', accent:'#d4af37', text:'#ffffff'},
+      // Soft and warm
+      'Peach and Cream':           {bg:'#ffcba4', accent:'#fff8f0', text:'#3d1f00'},
+      'Sage and Sand':             {bg:'#b7c9a8', accent:'#f5e6c8', text:'#2d3a22'},
+      'Lavender and Blush':        {bg:'#c9b1d0', accent:'#f9c4d2', text:'#2a1a2e'},
+      'Coral and Ivory':           {bg:'#ff7f6e', accent:'#fffff0', text:'#3d1500'},
+      'Caramel and Wheat':         {bg:'#c68642', accent:'#f5deb3', text:'#1a0a00'},
+      'Rose and Stone':            {bg:'#c39ea0', accent:'#d3c5bc', text:'#2d1a1c'},
+      // Streetwear / hype
+      'Black and Lime':            {bg:'#000000', accent:'#c8ff00', text:'#ffffff'},
+      'Grey and Orange':           {bg:'#2d2d2d', accent:'#ff6b00', text:'#f0f0f0'},
+      'Black and Red':             {bg:'#0d0d0d', accent:'#cc0000', text:'#ffffff'},
+      'Brown and Cream':           {bg:'#3b1f0a', accent:'#f5e6c8', text:'#f5e6c8'},
+      'Black and White':           {bg:'#000000', accent:'#ffffff', text:'#ffffff'},
+      'Olive and Black':           {bg:'#3d4a1e', accent:'#000000', text:'#f0ecd8'},
+      // Professional / corporate
+      'Navy and White':            {bg:'#0a1628', accent:'#ffffff', text:'#ffffff'},
+      'Slate and Gold':            {bg:'#4a5568', accent:'#d4af37', text:'#f7fafc'},
+      'Black and Silver':          {bg:'#1a1a1a', accent:'#c0c0c0', text:'#f0f0f0'},
+      'Deep Green and Cream':      {bg:'#1a3320', accent:'#f5e6c8', text:'#f0ead6'},
+      'Charcoal and Blue':         {bg:'#2d3748', accent:'#4299e1', text:'#e2e8f0'},
+      'White and Teal':            {bg:'#ffffff', accent:'#0d9488', text:'#111111'},
+      // Neon Underground
+      'Black and Cyan':            {bg:'#000000', accent:'#00ffff', text:'#ffffff'},
+      'Black and Hot Pink':        {bg:'#0d0010', accent:'#ff007a', text:'#ffffff'},
+      'Dark Purple and Acid Green':{bg:'#1a0030', accent:'#b5ff00', text:'#e0d6f5'},
+      'Navy and Electric Orange':  {bg:'#0a0f2e', accent:'#ff6b00', text:'#e0e8ff'},
+      'Black Neon White':          {bg:'#000000', accent:'#f0f0f0', text:'#ffffff'},
+      'Midnight and Yellow':       {bg:'#0a0a0a', accent:'#ffd600', text:'#ffffff'},
+      // Earthy Creator
+      'Warm Brown and Cream':      {bg:'#3b1f0a', accent:'#f5e6c8', text:'#f5e6c8'},
+      'Terracotta and Sand':       {bg:'#c8603a', accent:'#f5deb3', text:'#ffffff'},
+      'Olive and Rust':            {bg:'#4a5240', accent:'#b7410e', text:'#f0ecd8'},
+      'Forest and Linen':          {bg:'#1e3a2f', accent:'#faf0e6', text:'#f0ead6'},
+      'Clay and Stone':            {bg:'#b87333', accent:'#9e9e9e', text:'#1a0a00'},
+      'Bark and Bone':             {bg:'#2c1810', accent:'#f5f0e8', text:'#f5f0e8'}
     };
     var colors = (WIZ.palette && PALETTE_BG_MAP[WIZ.palette]) ? PALETTE_BG_MAP[WIZ.palette] : {bg:'#111', accent:'#c8ff00', text:'#fff'};
     var screen = document.getElementById('wsp-screen');
