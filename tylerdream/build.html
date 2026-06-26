@@ -2405,7 +2405,7 @@ textarea.wiz-brief-input { line-height: 1.6; }
         <div style="font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(200,255,0,0.5);margin-bottom:8px;">What happens next</div>
         <div style="display:flex;flex-direction:column;gap:10px;">
           <div style="font-size:13px;color:rgba(255,255,255,0.7);">1. Tyler reviews your brief and reaches out to confirm details.</div>
-          <div style="font-size:13px;color:rgba(255,255,255,0.7);">2. First draft live in 48 hours. Pay only after you see it.</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.7);">2. Pay after Tyler confirms your brief and vision. 50% to start, remainder on delivery.</div>
           <div style="font-size:13px;color:rgba(255,255,255,0.7);">3. Revisions until it's perfect. Then it's yours.</div>
         </div>
       </div>
@@ -4359,13 +4359,9 @@ function markUploaded(input, zoneId, labelId) {
       var banner = document.getElementById('referral-banner');
       if (banner) banner.style.display = 'flex';
     }
-    // Hide wizard
-    var overlay = document.getElementById('wizard-overlay');
-    if (overlay) overlay.classList.add('wiz-hidden');
-    try { localStorage.setItem('wiz_done','1'); } catch(e){}
-    // Scroll to form
-    var form = document.getElementById('brief-form');
-    if (form) setTimeout(function(){ form.scrollIntoView({behavior:'smooth',block:'start'}); }, 100);
+    // Route to inline brief instead of old form
+    wizGoTo('brief1');
+    return;
     if (typeof gtag === 'function') gtag('event','wizard_complete',{vibe:WIZ.vibe,niche:WIZ.niche});
     saveState();
   };
@@ -4552,31 +4548,20 @@ function markUploaded(input, zoneId, labelId) {
   }
 
   document.addEventListener('DOMContentLoaded', function() {
-    // Skip wizard if already completed
-    var done = false;
-    try { done = localStorage.getItem('wiz_done') === '1'; } catch(e){}
-    if (done) {
-      var overlay = document.getElementById('wizard-overlay');
-      if (overlay) overlay.classList.add('wiz-hidden');
-      loadState();
-      populateHiddenFields();
-      if (WIZ.vibe) autoPopulateVibeRadio(WIZ.vibe);
-      // Show form header with saved picks
-      var picks = [WIZ.vibe, WIZ.palette, WIZ.hero].filter(Boolean);
-      if (picks.length) {
-        var hd = document.getElementById('wiz-form-header');
-        var ht = document.getElementById('wiz-form-header-text');
-        if (hd) hd.style.display = 'block';
-        if (ht) ht.textContent = picks.join(' · ');
-      }
-      return;
-    }
-
     loadState();
     restoreBriefFields();
 
-    // Restore partial wizard state
-    if (WIZ.screen && WIZ.screen !== 'entry') {
+    // If brief was submitted, always land on brief-done
+    var briefDone = false;
+    try { briefDone = localStorage.getItem('wiz_done') === '1'; } catch(e){}
+    if (briefDone) {
+      document.querySelectorAll('.wiz-screen').forEach(function(s){s.classList.remove('wiz-active');});
+      var bd = document.querySelector('[data-screen="brief-done"]');
+      if (bd) bd.classList.add('wiz-active');
+      updateProgressBar('brief-done'); updateBackBtn('brief-done');
+    }
+    // Restore partial wizard state (mid-flow)
+    else if (WIZ.screen && WIZ.screen !== 'entry') {
       document.querySelectorAll('.wiz-screen').forEach(function(s){s.classList.remove('wiz-active');});
       var target = document.querySelector('[data-screen="'+WIZ.screen+'"]');
       if (target) target.classList.add('wiz-active');
