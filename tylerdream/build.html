@@ -1335,7 +1335,8 @@
   border-radius: 12px; padding: 14px 18px; margin-bottom: 24px;
 }
 .wiz-selections-badge .ws-label { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 6px; }
-.wiz-selections-badge .ws-picks { font-size: 13px; font-weight: 700; color: #c8ff00; line-height: 1.6; }
+.wiz-selections-badge .ws-picks { font-size: 13px; font-weight: 700; color: #c8ff00; line-height: 1.6; display: flex; flex-wrap: wrap; gap: 6px; }
+.wiz-picks-pill { display: inline-block; background: rgba(200,255,0,0.15); border: 1px solid rgba(200,255,0,0.35); border-radius: 20px; padding: 3px 10px; font-size: 12px; font-weight: 700; color: #c8ff00; white-space: nowrap; }
 /* Pricing card */
 .wiz-pricing-card {
   background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.1);
@@ -1624,6 +1625,20 @@
         </div>
         <div class="wiz-card-name">Professional</div>
         <div class="wiz-card-desc">Navy & slate, structured, polished</div>
+      </div>
+      <div class="wiz-card" data-value="Neon Underground" onclick="selectCat(this,'cat1','wizard_vibe')">
+        <div class="wiz-card-preview" style="background:#0a0010;border:1px solid #3a0050;">
+          <span style="font-size:13px;font-weight:900;color:#ff2d78;letter-spacing:-0.5px;text-shadow:0 0 10px #ff2d78;">CREATOR<br><span style="color:#00e5ff;font-size:11px;font-weight:700;text-shadow:0 0 8px #00e5ff;">Media Kit</span></span>
+        </div>
+        <div class="wiz-card-name">Neon Underground</div>
+        <div class="wiz-card-desc">Dark, electric pink/cyan, underground</div>
+      </div>
+      <div class="wiz-card" data-value="Earthy Creator" onclick="selectCat(this,'cat1','wizard_vibe')">
+        <div class="wiz-card-preview" style="background:#f8f4ee;border:1px solid #d4c9a8;">
+          <span style="font-size:13px;font-weight:700;color:#5c3d2e;letter-spacing:0.3px;">Creator<br><span style="color:#6b8c5a;font-size:11px;font-weight:500;">Media Kit</span></span>
+        </div>
+        <div class="wiz-card-name">Earthy Creator</div>
+        <div class="wiz-card-desc">Warm browns/greens, natural, grounded</div>
       </div>
     </div>
     <!-- next btn rendered globally -->
@@ -3270,36 +3285,64 @@ function markUploaded(input, zoneId, labelId) {
       { name: 'Teal on Dark', desc: 'Deep dark + teal pop', swatches: ['#0a0f0f','#1a2a2a','#2a9d8f','#444','#fff'] },
       { name: 'Red Alert', desc: 'Black + electric red', swatches: ['#0d0d0d','#1a1a1a','#ff3c00','#333','#fff'] },
       { name: 'Midnight Purple', desc: 'Dark + violet edge', swatches: ['#0d0a14','#1a1424','#8b5cf6','#2d2040','#fff'] },
+      { name: 'Ice Blue Dark', desc: 'Dark + icy blue edge', swatches: ['#080d14','#111c2a','#4af3ff','#1a2a3a','#fff'] },
+      { name: 'Copper & Black', desc: 'Moody + warm copper', swatches: ['#0d0a08','#1a1510','#c87941','#2a1f18','#fff'] },
     ],
     'Clean and minimal': [
       { name: 'Pure White', desc: 'Off-white, minimal tone', swatches: ['#ffffff','#f8f8f6','#1a1a1a','#e0e0da','#2a9d8f'] },
       { name: 'Warm Cream', desc: 'Cream + warm black', swatches: ['#f5f0e8','#ffffff','#1a1a1a','#e0d9ce','#2a9d8f'] },
       { name: 'Cloud Gray', desc: 'Light gray system', swatches: ['#f4f4f2','#ffffff','#1a1a1a','#d0d0cc','#444'] },
       { name: 'Paper & Ink', desc: 'Newsprint aesthetic', swatches: ['#f2ede4','#ffffff','#222','#ddd5c8','#888'] },
+      { name: 'Chalk White', desc: 'Bright white + graphite', swatches: ['#ffffff','#fafafa','#111','#eee','#555'] },
+      { name: 'Soft Lavender', desc: 'White + pale purple touch', swatches: ['#f8f6ff','#ffffff','#4a3f6b','#e8e4f4','#9988cc'] },
     ],
     'Bold and loud': [
       { name: 'Red & White', desc: 'Maximum contrast punch', swatches: ['#ff3c00','#fff','#000','#ff6633','#222'] },
       { name: 'Electric Blue', desc: 'Blue + white + black', swatches: ['#0066ff','#fff','#000','#0044cc','#e0e0ff'] },
       { name: 'Hot Pink', desc: 'Pink pop on black', swatches: ['#ff0080','#000','#fff','#ff33aa','#222'] },
       { name: 'Neon Yellow', desc: 'Yellow on black explosion', swatches: ['#ffe600','#000','#fff','#ffcc00','#333'] },
+      { name: 'Purple Fury', desc: 'Deep purple + white blast', swatches: ['#6600ff','#fff','#000','#9933ff','#222'] },
+      { name: 'Lime Blast', desc: 'Lime green on pure black', swatches: ['#000','#111','#c8ff00','#1a1a1a','#fff'] },
     ],
     'Soft and warm': [
       { name: 'Sand & Sage', desc: 'Warm sand, muted green', swatches: ['#f5ede0','#fff','#8B6245','#a8c5b0','#d4a574'] },
       { name: 'Blush & Terracotta', desc: 'Soft pink, clay tones', swatches: ['#fdf0ec','#fff','#c27a5a','#f4b8a0','#8B5E4C'] },
       { name: 'Cream & Gold', desc: 'Warm cream with gold', swatches: ['#fdf8f0','#fff','#8B6245','#e9c46a','#c49a6c'] },
       { name: 'Linen & Moss', desc: 'Earthy natural palette', swatches: ['#f0ebe2','#fff','#5a6b4a','#c8b99a','#8B7355'] },
+      { name: 'Peach & Cream', desc: 'Soft warm peach tones', swatches: ['#fff5ee','#fff','#c47a5a','#ffd4b8','#a06040'] },
+      { name: 'Dusty Rose', desc: 'Muted rose, warm gray', swatches: ['#faf0f0','#fff','#9b6b6b','#f0d8d8','#c49090'] },
     ],
     'Streetwear / hype': [
       { name: 'Black & Gold', desc: 'Classic drop aesthetic', swatches: ['#0d0d0d','#1a1a1a','#ffd700','#333','#fff'] },
       { name: 'Black & Red', desc: 'Hype energy, bold', swatches: ['#0d0d0d','#1a1a1a','#cc0000','#333','#fff'] },
       { name: 'Black & White', desc: 'Clean monochrome drop', swatches: ['#000','#111','#fff','#333','#888'] },
       { name: 'Black & Orange', desc: 'Firestarter vibes', swatches: ['#0d0d0d','#1a1a1a','#ff6600','#333','#fff'] },
+      { name: 'Camo & Cream', desc: 'Street utility tone', swatches: ['#2a2e1e','#3a4030','#d4c9a0','#1a1c14','#fff'] },
+      { name: 'Chrome & Black', desc: 'Chrome silver on dark', swatches: ['#0a0a0a','#1a1a1a','#c0c0c0','#2a2a2a','#eee'] },
     ],
     'Professional / corporate': [
       { name: 'Navy & White', desc: 'Classic professional', swatches: ['#1a2744','#ffffff','#2a5298','#e8edf5','#4a90d9'] },
       { name: 'Slate & Teal', desc: 'Modern business look', swatches: ['#2d3748','#ffffff','#2a9d8f','#e2e8f0','#81e6d9'] },
       { name: 'Charcoal & Gold', desc: 'Executive presence', swatches: ['#2d2d2d','#ffffff','#d4a853','#f0ede8','#888'] },
       { name: 'Deep Blue & Silver', desc: 'Corporate confidence', swatches: ['#0f2044','#ffffff','#c0c0c0','#e8eef8','#5599dd'] },
+      { name: 'Forest & Linen', desc: 'Grounded executive tone', swatches: ['#2a3828','#ffffff','#6b8f5e','#eef3ec','#4a6b40'] },
+      { name: 'Black & Cream', desc: 'Minimal executive', swatches: ['#111','#ffffff','#888','#f5f2ee','#333'] },
+    ],
+    'Neon Underground': [
+      { name: 'Pink & Black', desc: 'Electric pink on dark', swatches: ['#0a0010','#14001c','#ff2d78','#1e0028','#fff'] },
+      { name: 'Cyan & Dark', desc: 'Cyber cyan on near-black', swatches: ['#000d10','#001a1f','#00e5ff','#00262e','#fff'] },
+      { name: 'Acid Green', desc: 'Toxic green on black', swatches: ['#050d00','#0a1a00','#39ff14','#0f2200','#fff'] },
+      { name: 'Purple & Cyan', desc: 'Dual neon, dark base', swatches: ['#080010','#100020','#b300ff','#1a0030','#00e5ff'] },
+      { name: 'Red Neon', desc: 'Neon red on void black', swatches: ['#0d0000','#1a0000','#ff003c','#2a0010','#fff'] },
+      { name: 'Yellow Electric', desc: 'Electric yellow on black', swatches: ['#0d0d00','#1a1a00','#ffea00','#2a2a00','#fff'] },
+    ],
+    'Earthy Creator': [
+      { name: 'Clay & Cream', desc: 'Warm clay + off-white', swatches: ['#5c3d2e','#fff8f0','#c4763a','#e8d5c4','#2a1810'] },
+      { name: 'Forest Floor', desc: 'Deep green + tan', swatches: ['#2d3a2a','#f5f0e8','#6b8c5a','#d4c9a8','#1a2318'] },
+      { name: 'Desert Sand', desc: 'Sand + burnt sienna', swatches: ['#c8a882','#fff8f0','#8b5e3c','#f0e8d8','#3a2010'] },
+      { name: 'Sage & Stone', desc: 'Muted sage + warm gray', swatches: ['#8faa8b','#f5f3ee','#4a5e46','#e0dbd0','#2a3328'] },
+      { name: 'Moss & Linen', desc: 'Deep moss + natural linen', swatches: ['#3d4f38','#f8f4ee','#7a9a6a','#ddd8c8','#1e2a1c'] },
+      { name: 'Terracotta Sky', desc: 'Terracotta + pale blue', swatches: ['#b5522a','#f0f4f8','#d4704a','#e8e0d4','#2a3848'] },
     ]
   };
 
@@ -3387,334 +3430,4 @@ function markUploaded(input, zoneId, labelId) {
     if (!prev) return;
     var current = document.querySelector('.wiz-screen.wiz-active');
     if (current) current.classList.remove('wiz-active');
-    var target = document.querySelector('[data-screen="'+prev+'"]');
-    if (target) { target.classList.add('wiz-active'); target.scrollTop = 0; }
-    WIZ.screen = prev;
-    updateProgressBar(prev); updateBackBtn(prev); updateNextBtn(prev);
-    saveState();
-  };
-
-  window.wizNextFromCat = function() {
-    var order = ['cat1','cat2','cat3','cat4','cat5','cat6','cat7','cat8'];
-    var idx = order.indexOf(WIZ.screen);
-    wizGoTo(idx < order.length-1 ? order[idx+1] : 'summary');
-  };
-
-  window.selectCat = function(el, catKey, hiddenId) {
-    var wrap = el.closest('.wiz-cards-wrap');
-    if (wrap) wrap.querySelectorAll('.wiz-card').forEach(function(c){c.classList.remove('selected');});
-    el.classList.add('selected');
-    var val = el.dataset.value;
-    var propMap = {cat1:'vibe',cat2:'palette',cat3:'hero',cat4:'transitions',cat5:'layout',cat6:'typography'};
-    if (propMap[catKey]) WIZ[propMap[catKey]] = val;
-    if (catKey === 'cat1') autoPopulateVibeRadio(val);
-    updateNextBtn(catKey);
-    if (typeof gtag === 'function') gtag('event','wizard_pick',{category:catKey,value:val});
-    saveState();
-  };
-
-  window.selectCatMulti = function(el, catKey, hiddenId, maxPick) {
-    var val = el.dataset.value;
-    var arrKey = catKey === 'cat7' ? 'interactive' : 'showcase';
-    var arr = WIZ[arrKey];
-    if (el.classList.contains('selected')) {
-      arr.splice(arr.indexOf(val),1); el.classList.remove('selected');
-    } else {
-      if (arr.length >= maxPick) return;
-      arr.push(val); el.classList.add('selected');
-    }
-    WIZ[arrKey] = arr;
-    var countEl = document.getElementById('wiz-multi-count');
-    if (countEl) countEl.textContent = arr.length;
-    if (typeof gtag === 'function') gtag('event','wizard_pick',{category:catKey,value:val});
-    saveState();
-  };
-
-  function autoPopulateVibeRadio(vibeVal) {
-    document.querySelectorAll('input[name="vibe"]').forEach(function(r){
-      if (r.value === vibeVal) r.checked = true;
-    });
-  }
-
-  window.selectNiche = function(btn) {
-    var niche = btn.dataset.niche;
-    if (btn.classList.contains('selected')) {
-      btn.classList.remove('selected');
-      WIZ.niches = (WIZ.niches || []).filter(function(n){ return n !== niche; });
-    } else {
-      btn.classList.add('selected');
-      WIZ.niches = WIZ.niches || [];
-      if (WIZ.niches.indexOf(niche) === -1) WIZ.niches.push(niche);
-    }
-    // keep WIZ.niche as primary (first selected) for proof card matching
-    WIZ.niche = (WIZ.niches && WIZ.niches.length) ? WIZ.niches[0] : '';
-    // show/hide Other input
-    var otherWrap = document.getElementById('wiz-niche-other-wrap');
-    if (otherWrap) otherWrap.style.display = (WIZ.niches.indexOf('Other') !== -1) ? 'block' : 'none';
-    checkContextReady(); saveState();
-  };
-  window.selectFollower = function(btn) {
-    document.querySelectorAll('.wiz-follower-btn').forEach(function(b){b.classList.remove('selected');});
-    btn.classList.add('selected'); WIZ.follower = btn.dataset.range;
-    checkContextReady(); saveState();
-  };
-  function checkContextReady() {
-    var nextBtn = document.getElementById('wiz-context-next');
-    if (!nextBtn) return;
-    var hasNiche = WIZ.niches && WIZ.niches.length > 0;
-    var ready = hasNiche && WIZ.follower;
-    nextBtn.style.opacity = ready ? '1' : '0.35';
-    nextBtn.style.pointerEvents = ready ? 'auto' : 'none';
-  }
-
-  function populatePaletteCards() {
-    var wrap = document.getElementById('palette-cards');
-    if (!wrap) return;
-    wrap.innerHTML = '';
-    var palettes = PALETTES[WIZ.vibe] || PALETTES['Dark and moody'];
-    palettes.forEach(function(p) {
-      var card = document.createElement('div');
-      card.className = 'wiz-card'+(WIZ.palette===p.name?' selected':'');
-      card.dataset.value = p.name;
-      card.onclick = function(){selectCat(card,'cat2','wizard_color_palette');};
-      var swatchHTML = p.swatches.map(function(c){return '<div class="wiz-swatch" style="background:'+c+'"></div>';}).join('');
-      card.innerHTML = '<div class="wiz-card-preview"><div class="wiz-palette-preview">'+swatchHTML+'</div></div>'+
-        '<div class="wiz-card-name">'+p.name+'</div><div class="wiz-card-desc">'+p.desc+'</div>';
-      wrap.appendChild(card);
-    });
-  }
-
-  function buildSummaryDisplay() {
-    var parts = [];
-    if (WIZ.vibe) parts.push(WIZ.vibe);
-    if (WIZ.palette) parts.push(WIZ.palette);
-    if (WIZ.hero) parts.push(WIZ.hero);
-    if (WIZ.layout) parts.push(WIZ.layout);
-    if (WIZ.typography) parts.push(WIZ.typography);
-    if (WIZ.interactive.length) parts.push(WIZ.interactive.join(', '));
-    if (WIZ.showcase.length) parts.push(WIZ.showcase.join(', '));
-    var el = document.getElementById('wiz-picks-display');
-    if (el) el.textContent = parts.length ? parts.join(' · ') : '—';
-    var proofMap = {
-      'Beauty & Skincare': {name:'Kristyn Simpson · UGC / Beauty',detail:'Dark & minimal vibe. <a href="https://kristynsimpson.netlify.app/" target="_blank">See her site →</a>'},
-      'Fitness': {name:'Ayden Lorz · Fitness Creator',detail:'Bold high-energy build. <a href="https://aydenlorz.netlify.app/" target="_blank">See his site →</a>'},
-      'default': {name:'Kristyn Simpson · UGC Creator',detail:'One of our most recent builds. <a href="https://kristynsimpson.netlify.app/" target="_blank">See her live site →</a>'}
-    };
-    var proof = proofMap[WIZ.niche] || proofMap['default'];
-    var nameEl = document.getElementById('mp-name'); if (nameEl) nameEl.textContent = proof.name;
-    var detailEl = document.getElementById('mp-detail'); if (detailEl) detailEl.innerHTML = proof.detail;
-  }
-
-  window.applyWizCode = function() {
-    var input = document.getElementById('wiz-ref-input');
-    if (!input) return;
-    var code = input.value.toUpperCase().trim();
-    if (code.length < 3) return;
-    var formInput = document.getElementById('referral-code-input');
-    if (formInput) { formInput.value = code; }
-    var banner = document.getElementById('referral-banner');
-    if (banner) banner.style.display = 'flex';
-    var applied = document.getElementById('wiz-code-applied');
-    if (applied) applied.style.display = 'block';
-    var priceEl = document.getElementById('wiz-price-display');
-    if (priceEl) priceEl.textContent = '$225';
-    if (typeof gtag === 'function') gtag('event','wizard_referral_code',{code:code});
-  };
-
-  function setHidden(id, val) { var el = document.getElementById(id); if (el) el.value = val||''; }
-
-  function populateHiddenFields() {
-    setHidden('wiz_vibe', WIZ.vibe);
-    setHidden('wiz_color_palette', WIZ.palette);
-    setHidden('wiz_hero_animation', WIZ.hero);
-    setHidden('wiz_transitions', WIZ.transitions);
-    setHidden('wiz_layout', WIZ.layout);
-    setHidden('wiz_typography', WIZ.typography);
-    setHidden('wiz_interactive_touches', WIZ.interactive.join(', '));
-    setHidden('wiz_showcase_priorities', WIZ.showcase.join(', '));
-    setHidden('wiz_context_niche', WIZ.niche);
-    setHidden('wiz_context_follower_range', WIZ.follower);
-  }
-
-  window.wizFinishAndGoToForm = function() {
-    populateHiddenFields();
-    if (WIZ.vibe) autoPopulateVibeRadio(WIZ.vibe);
-    // Dynamic form header
-    var picks = [WIZ.vibe, WIZ.palette, WIZ.hero].filter(Boolean);
-    var headerDiv = document.getElementById('wiz-form-header');
-    var headerText = document.getElementById('wiz-form-header-text');
-    if (headerDiv && picks.length) {
-      headerDiv.style.display = 'block';
-      if (headerText) headerText.textContent = picks.join(' · ');
-    }
-    // Apply wizard referral code to form if entered
-    var wizCode = ((document.getElementById('wiz-ref-input')||{}).value||'').toUpperCase().trim();
-    if (wizCode.length >= 3) {
-      var formInput = document.getElementById('referral-code-input');
-      if (formInput) formInput.value = wizCode;
-      var banner = document.getElementById('referral-banner');
-      if (banner) banner.style.display = 'flex';
-    }
-    // Hide wizard
-    var overlay = document.getElementById('wizard-overlay');
-    if (overlay) overlay.classList.add('wiz-hidden');
-    try { localStorage.setItem('wiz_done','1'); } catch(e){}
-    // Scroll to form
-    var form = document.getElementById('brief-form');
-    if (form) setTimeout(function(){ form.scrollIntoView({behavior:'smooth',block:'start'}); }, 100);
-    if (typeof gtag === 'function') gtag('event','wizard_complete',{vibe:WIZ.vibe,niche:WIZ.niche});
-    saveState();
-  };
-
-  document.addEventListener('DOMContentLoaded', function() {
-    // Skip wizard if already completed
-    var done = false;
-    try { done = localStorage.getItem('wiz_done') === '1'; } catch(e){}
-    if (done) {
-      var overlay = document.getElementById('wizard-overlay');
-      if (overlay) overlay.classList.add('wiz-hidden');
-      loadState();
-      populateHiddenFields();
-      if (WIZ.vibe) autoPopulateVibeRadio(WIZ.vibe);
-      // Show form header with saved picks
-      var picks = [WIZ.vibe, WIZ.palette, WIZ.hero].filter(Boolean);
-      if (picks.length) {
-        var hd = document.getElementById('wiz-form-header');
-        var ht = document.getElementById('wiz-form-header-text');
-        if (hd) hd.style.display = 'block';
-        if (ht) ht.textContent = picks.join(' · ');
-      }
-      return;
-    }
-
-    loadState();
-
-    // Restore partial wizard state
-    if (WIZ.screen && WIZ.screen !== 'entry') {
-      document.querySelectorAll('.wiz-screen').forEach(function(s){s.classList.remove('wiz-active');});
-      var target = document.querySelector('[data-screen="'+WIZ.screen+'"]');
-      if (target) target.classList.add('wiz-active');
-      updateProgressBar(WIZ.screen); updateBackBtn(WIZ.screen);
-      if (WIZ.screen === 'cat2') populatePaletteCards();
-      if (WIZ.screen === 'summary') buildSummaryDisplay();
-    }
-
-    // Restore context selections
-    if (WIZ.niche) {
-      document.querySelectorAll('.wiz-niche-btn').forEach(function(b){
-        if (b.dataset.niche === WIZ.niche) b.classList.add('selected');
-      });
-    }
-    if (WIZ.follower) {
-      document.querySelectorAll('.wiz-follower-btn').forEach(function(b){
-        if (b.dataset.range === WIZ.follower) b.classList.add('selected');
-      });
-    }
-    checkContextReady();
-
-    // Restore cat1-6 card selections
-    var catRestoreMap = {cat1:'vibe',cat2:'palette',cat3:'hero',cat4:'transitions',cat5:'layout',cat6:'typography'};
-    Object.keys(catRestoreMap).forEach(function(catKey){
-      var val = WIZ[catRestoreMap[catKey]];
-      if (!val) return;
-      var cards = document.querySelectorAll('[data-screen="'+catKey+'"] .wiz-card');
-      cards.forEach(function(c){ if (c.dataset.value === val) c.classList.add('selected'); });
-    });
-
-    // Restore multi-pick
-    WIZ.interactive.forEach(function(v){
-      var cards = document.querySelectorAll('[data-screen="cat7"] .wiz-card');
-      cards.forEach(function(c){ if (c.dataset.value === v) c.classList.add('selected'); });
-    });
-    // update global multi-count if on cat7
-    if (WIZ.screen === 'cat7') {
-      var mc = document.getElementById('wiz-multi-count');
-      if (mc) mc.textContent = WIZ.interactive.length;
-    }
-
-    WIZ.showcase.forEach(function(v){
-      var cards = document.querySelectorAll('[data-screen="cat8"] .wiz-card');
-      cards.forEach(function(c){ if (c.dataset.value === v) c.classList.add('selected'); });
-    });
-    // update global multi-count if on cat8
-    if (WIZ.screen === 'cat8') {
-      var mc8 = document.getElementById('wiz-multi-count');
-      if (mc8) mc8.textContent = WIZ.showcase.length;
-    }
-  });
-
-  // ---- REAL1 DM ANIMATION ----
-  var r1Played = false;
-  function runReal1Convo() {
-    if (r1Played) return;
-    r1Played = true;
-
-    var msg1    = document.getElementById('r1-msg1');
-    var typing1 = document.getElementById('r1-typing1');
-    var bubble1 = document.getElementById('r1-bubble1');
-    var ts1     = document.getElementById('r1-ts1');
-    var msg2    = document.getElementById('r1-msg2');
-    var bubble2 = document.getElementById('r1-bubble2');
-    var ts2     = document.getElementById('r1-ts2');
-    var msg3    = document.getElementById('r1-msg3');
-    var typing3 = document.getElementById('r1-typing3');
-    var bubble3 = document.getElementById('r1-bubble3');
-    var ts3     = document.getElementById('r1-ts3');
-    var check3  = document.getElementById('r1-check3');
-
-    var text1 = "Hey! We came across your page and love what you're doing. We'd love to send you some product and discuss a paid partnership. Do you have a media kit or site we can check out?";
-    var text3 = "This is exactly what we were looking for. Are you open to a paid partnership?";
-
-    function typeInto(el, text, done) {
-      el.textContent = '';
-      var i = 0;
-      var interval = setInterval(function() {
-        el.textContent += text[i];
-        i++;
-        if (i >= text.length) { clearInterval(interval); if (done) done(); }
-      }, 22);
-    }
-
-    // Step 1: show msg1 row, then typing dots
-    setTimeout(function() {
-      msg1.classList.add('visible');
-      setTimeout(function() {
-        typing1.style.display = 'flex';
-        // After 1.1s typing indicator, swap for typed message
-        setTimeout(function() {
-          typing1.style.display = 'none';
-          bubble1.style.display = 'inline-block';
-          ts1.style.display = 'block';
-          typeInto(bubble1, text1, function() {
-            // Step 2: creator card slides in 500ms after card 1 finishes
-            setTimeout(function() {
-              msg2.classList.add('visible');
-              bubble2.style.display = 'block';
-              ts2.style.display = 'block';
-              // Step 3: brand types back 1s after card 2 lands
-              setTimeout(function() {
-                msg3.classList.add('visible');
-                setTimeout(function() {
-                  typing3.style.display = 'flex';
-                  setTimeout(function() {
-                    typing3.style.display = 'none';
-                    bubble3.style.display = 'inline-block';
-                    ts3.style.display = 'block';
-                    typeInto(bubble3, text3, function() {
-                      setTimeout(function() { check3.style.display = 'block'; }, 300);
-                    });
-                  }, 1100);
-                }, 200);
-              }, 1000);
-            }, 500);
-          });
-        }, 1100);
-      }, 300);
-    }, 400);
-  }
-  window.runReal1Convo = runReal1Convo;
-
-})();
-</script>
-</body>
-</html>
+    var tar
