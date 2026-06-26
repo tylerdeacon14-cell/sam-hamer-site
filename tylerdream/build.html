@@ -1505,9 +1505,7 @@
         <div class="wiz-card-desc">Navy & slate, structured, polished</div>
       </div>
     </div>
-    <div id="wiz-next-btn-wrap">
-      <button id="wiz-next-btn" onclick="wizNextFromCat()">Next →</button>
-    </div>
+    <!-- next btn rendered globally -->
   </div>
 
   <!-- CAT 2: COLOR PALETTE -->
@@ -1521,9 +1519,7 @@
     <div class="wiz-cards-wrap" id="palette-cards">
       <!-- populated by JS based on cat1 selection -->
     </div>
-    <div id="wiz-next-btn-wrap">
-      <button id="wiz-next-btn" onclick="wizNextFromCat()">Next →</button>
-    </div>
+    <!-- next btn rendered globally -->
   </div>
 
   <!-- CAT 3: HERO ANIMATION -->
@@ -1561,9 +1557,7 @@
         <div class="wiz-card-desc">No animation — just there</div>
       </div>
     </div>
-    <div id="wiz-next-btn-wrap">
-      <button id="wiz-next-btn" onclick="wizNextFromCat()">Next →</button>
-    </div>
+    <!-- next btn rendered globally -->
   </div>
 
   <!-- CAT 4: SECTION TRANSITIONS -->
@@ -1596,9 +1590,7 @@
         <div class="wiz-card-desc">Layered scroll depth</div>
       </div>
     </div>
-    <div id="wiz-next-btn-wrap">
-      <button id="wiz-next-btn" onclick="wizNextFromCat()">Next →</button>
-    </div>
+    <!-- next btn rendered globally -->
   </div>
 
   <!-- CAT 5: LAYOUT -->
@@ -1632,9 +1624,7 @@
         <div class="wiz-card-desc">Visual left, info right</div>
       </div>
     </div>
-    <div id="wiz-next-btn-wrap">
-      <button id="wiz-next-btn" onclick="wizNextFromCat()">Next →</button>
-    </div>
+    <!-- next btn rendered globally -->
   </div>
 
   <!-- CAT 6: TYPOGRAPHY -->
@@ -1667,9 +1657,7 @@
         <div class="wiz-card-desc">Approachable, warm, lifestyle</div>
       </div>
     </div>
-    <div id="wiz-next-btn-wrap">
-      <button id="wiz-next-btn" onclick="wizNextFromCat()">Next →</button>
-    </div>
+    <!-- next btn rendered globally -->
   </div>
 
   <!-- CAT 7: INTERACTIVE TOUCHES (multi-pick, up to 3) -->
@@ -1718,10 +1706,7 @@
         <div class="wiz-card-desc">Subtle audio feedback</div>
       </div>
     </div>
-    <div id="wiz-next-btn-wrap" style="display:flex;">
-      <div id="wiz-multi-hint">Pick up to 3 · <span id="cat7-count">0</span>/3 selected</div>
-      <button id="wiz-next-btn" class="enabled" onclick="wizNextFromCat()">Next →</button>
-    </div>
+    <!-- next btn rendered globally -->
   </div>
 
   <!-- CAT 8: SHOWCASE (multi-pick, up to 3) -->
@@ -1770,10 +1755,13 @@
         <div class="wiz-card-desc">Testimonials, comments, reviews</div>
       </div>
     </div>
-    <div id="wiz-next-btn-wrap" style="display:flex;">
-      <div id="wiz-multi-hint">Pick up to 3 · <span id="cat8-count">0</span>/3 selected</div>
-      <button id="wiz-next-btn" class="enabled" onclick="wizGoTo('summary')">See my summary →</button>
-    </div>
+    <!-- next btn rendered globally -->
+  </div>
+
+  <!-- GLOBAL NEXT BUTTON — single instance, controlled by JS -->
+  <div id="wiz-next-btn-wrap">
+    <div id="wiz-multi-hint" style="display:none;">Pick up to 3 · <span id="wiz-multi-count">0</span>/3 selected</div>
+    <button id="wiz-next-btn" onclick="wizNextFromCat()">Next →</button>
   </div>
 
   <!-- SUMMARY + PRICING SCREEN -->
@@ -3223,10 +3211,31 @@ function markUploaded(input, zoneId, labelId) {
   function updateNextBtn(screenId) {
     var wrap = document.getElementById('wiz-next-btn-wrap');
     var btn = document.getElementById('wiz-next-btn');
+    var hint = document.getElementById('wiz-multi-hint');
+    var countEl = document.getElementById('wiz-multi-count');
     if (!wrap || !btn) return;
-    if (screenId === 'cat7' || screenId === 'cat8') {
-      wrap.className = 'wiz-btn-visible'; btn.className = 'enabled'; return;
+    // hide on non-cat screens
+    if (['entry','real1','summary'].indexOf(screenId) !== -1) {
+      wrap.className = ''; btn.className = ''; return;
     }
+    // multi-select screens
+    if (screenId === 'cat7') {
+      wrap.className = 'wiz-btn-visible'; btn.className = 'enabled';
+      btn.textContent = 'Next →';
+      btn.onclick = function(){ wizNextFromCat(); };
+      if (hint) { hint.style.display = 'block'; if (countEl) countEl.textContent = WIZ.interactive.length; }
+      return;
+    }
+    if (screenId === 'cat8') {
+      wrap.className = 'wiz-btn-visible'; btn.className = 'enabled';
+      btn.textContent = 'See my summary →';
+      btn.onclick = function(){ wizGoTo('summary'); };
+      if (hint) { hint.style.display = 'block'; if (countEl) countEl.textContent = WIZ.showcase.length; }
+      return;
+    }
+    if (hint) hint.style.display = 'none';
+    btn.textContent = 'Next →';
+    btn.onclick = function(){ wizNextFromCat(); };
     var catMap = { cat1:'vibe', cat2:'palette', cat3:'hero', cat4:'transitions', cat5:'layout', cat6:'typography' };
     if (catMap[screenId]) {
       var val = WIZ[catMap[screenId]];
@@ -3293,7 +3302,7 @@ function markUploaded(input, zoneId, labelId) {
       arr.push(val); el.classList.add('selected');
     }
     WIZ[arrKey] = arr;
-    var countEl = document.getElementById(catKey+'-count');
+    var countEl = document.getElementById('wiz-multi-count');
     if (countEl) countEl.textContent = arr.length;
     if (typeof gtag === 'function') gtag('event','wizard_pick',{category:catKey,value:val});
     saveState();
@@ -3481,15 +3490,21 @@ function markUploaded(input, zoneId, labelId) {
       var cards = document.querySelectorAll('[data-screen="cat7"] .wiz-card');
       cards.forEach(function(c){ if (c.dataset.value === v) c.classList.add('selected'); });
     });
-    var cat7Count = document.getElementById('cat7-count');
-    if (cat7Count) cat7Count.textContent = WIZ.interactive.length;
+    // update global multi-count if on cat7
+    if (WIZ.screen === 'cat7') {
+      var mc = document.getElementById('wiz-multi-count');
+      if (mc) mc.textContent = WIZ.interactive.length;
+    }
 
     WIZ.showcase.forEach(function(v){
       var cards = document.querySelectorAll('[data-screen="cat8"] .wiz-card');
       cards.forEach(function(c){ if (c.dataset.value === v) c.classList.add('selected'); });
     });
-    var cat8Count = document.getElementById('cat8-count');
-    if (cat8Count) cat8Count.textContent = WIZ.showcase.length;
+    // update global multi-count if on cat8
+    if (WIZ.screen === 'cat8') {
+      var mc8 = document.getElementById('wiz-multi-count');
+      if (mc8) mc8.textContent = WIZ.showcase.length;
+    }
   });
 
 })();
