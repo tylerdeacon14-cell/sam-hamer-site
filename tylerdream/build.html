@@ -927,6 +927,934 @@
 </style>
 </head>
 <body>
+
+<!-- ============================================================
+     WIZARD OVERLAY — position:fixed, z-index:200
+     Sits on top of entire page. Hidden after completion.
+     ============================================================ -->
+<style>
+/* ---- WIZARD RESET & BASE ---- */
+#wizard-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: #0d0d0d;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+#wizard-overlay.wiz-hidden { display: none; }
+
+/* ---- PROGRESS BAR ---- */
+#wiz-progress-bar {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 10;
+  height: 3px; background: rgba(255,255,255,0.08);
+}
+#wiz-progress-fill {
+  height: 100%; background: #c8ff00;
+  transition: width 0.4s ease;
+  width: 0%;
+}
+#wiz-progress-label {
+  position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+  font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.4);
+  letter-spacing: 1px; text-transform: uppercase; white-space: nowrap;
+  pointer-events: none;
+}
+
+/* ---- SCREEN WRAPPER ---- */
+.wiz-screen {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 40px 24px;
+  text-align: center;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.wiz-screen.wiz-active { display: flex; }
+
+/* ---- REALIZATION SCREENS ---- */
+.wiz-real-eyebrow {
+  font-size: 11px; font-weight: 800; letter-spacing: 2.5px;
+  text-transform: uppercase; color: #c8ff00; margin-bottom: 20px;
+}
+.wiz-real-h1 {
+  font-size: clamp(26px, 6vw, 52px); font-weight: 900;
+  letter-spacing: -2px; line-height: 1.05; color: #fff;
+  max-width: 640px; margin: 0 auto 20px;
+}
+.wiz-real-h1 em { color: #c8ff00; font-style: normal; }
+.wiz-real-sub {
+  font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.6;
+  max-width: 440px; margin: 0 auto 36px;
+}
+.wiz-visual-block {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px; padding: 20px 24px; max-width: 420px; width: 100%;
+  margin: 0 auto 32px; text-align: left;
+}
+.wiz-visual-block .vb-label {
+  font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.3); margin-bottom: 10px;
+}
+.wiz-dm-bubble {
+  background: rgba(200,255,0,0.12); border: 1px solid rgba(200,255,0,0.25);
+  border-radius: 12px 12px 12px 2px; padding: 12px 16px;
+  font-size: 13px; color: #fff; line-height: 1.5; margin-bottom: 8px;
+}
+.wiz-dm-brand {
+  font-size: 11px; font-weight: 700; color: #c8ff00; margin-bottom: 4px;
+}
+.wiz-compare-row { display: flex; gap: 10px; align-items: stretch; }
+.wiz-compare-col {
+  flex: 1; border-radius: 10px; padding: 14px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.wiz-compare-col.bad { background: rgba(255,60,60,0.08); border: 1px solid rgba(255,60,60,0.2); }
+.wiz-compare-col.good { background: rgba(200,255,0,0.08); border: 1px solid rgba(200,255,0,0.25); }
+.wiz-compare-col .cc-label { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; }
+.wiz-compare-col.bad .cc-label { color: rgba(255,80,80,0.7); }
+.wiz-compare-col.good .cc-label { color: #c8ff00; }
+.wiz-compare-col .cc-item { font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.4; }
+.wiz-compare-col.good .cc-item { color: rgba(255,255,255,0.85); }
+.wiz-site-preview-mini {
+  border-radius: 10px; overflow: hidden;
+  border: 1px solid rgba(200,255,0,0.3);
+  background: #111; padding: 10px 14px;
+}
+.wiz-site-preview-mini .sp-name { font-size: 13px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+.wiz-site-preview-mini .sp-tag { font-size: 11px; color: #c8ff00; margin-bottom: 8px; }
+.wiz-site-preview-mini .sp-stat { font-size: 11px; color: rgba(255,255,255,0.5); margin-bottom: 2px; }
+.wiz-site-preview-mini .sp-cta {
+  display: inline-block; margin-top: 10px; background: #c8ff00; color: #000;
+  font-size: 11px; font-weight: 900; padding: 6px 14px; border-radius: 6px;
+}
+
+/* ---- CTA BUTTONS ---- */
+.wiz-btn-primary {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: #c8ff00; color: #000; font-size: 16px; font-weight: 900;
+  padding: 16px 36px; border-radius: 12px; border: none; cursor: pointer;
+  letter-spacing: -0.3px; min-height: 54px; min-width: 200px;
+  transition: transform 0.15s, box-shadow 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.wiz-btn-primary:active { transform: scale(0.97); }
+.wiz-btn-primary:hover { box-shadow: 0 0 0 3px rgba(200,255,0,0.3); }
+.wiz-btn-ghost {
+  background: none; border: none; color: rgba(255,255,255,0.35);
+  font-size: 13px; font-weight: 600; cursor: pointer; padding: 10px;
+  margin-top: 10px; text-decoration: underline;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---- ENTRY SCREEN ---- */
+.wiz-entry-logo { font-size: 15px; font-weight: 900; color: rgba(255,255,255,0.4); margin-bottom: 32px; letter-spacing: -0.5px; }
+.wiz-entry-logo em { color: #c8ff00; font-style: normal; }
+.wiz-entry-h1 {
+  font-size: clamp(32px, 7vw, 60px); font-weight: 900;
+  letter-spacing: -3px; line-height: 1.0; color: #fff;
+  margin-bottom: 16px;
+}
+.wiz-entry-h1 em { color: #c8ff00; font-style: normal; }
+.wiz-entry-sub { font-size: 15px; color: rgba(255,255,255,0.45); margin-bottom: 36px; line-height: 1.5; }
+.wiz-trust-line { font-size: 12px; color: rgba(255,255,255,0.28); margin-top: 16px; }
+.wiz-recent-builds {
+  display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+  margin-top: 28px;
+}
+.wiz-recent-pill {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 100px; padding: 6px 14px;
+  font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.5);
+  display: flex; align-items: center; gap: 6px;
+}
+.wiz-recent-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: #c8ff00; flex-shrink: 0; }
+
+/* ---- CONTEXT STEP ---- */
+.wiz-context-label { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.6); margin-bottom: 10px; text-align: left; }
+.wiz-niche-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 10px; max-width: 600px; width: 100%; margin: 0 auto 28px;
+}
+.wiz-niche-btn {
+  background: rgba(255,255,255,0.05); border: 1.5px solid rgba(255,255,255,0.1);
+  border-radius: 10px; padding: 14px 12px; font-size: 13px; font-weight: 600;
+  color: rgba(255,255,255,0.65); cursor: pointer; text-align: center;
+  transition: all 0.15s; -webkit-tap-highlight-color: transparent; min-height: 44px;
+}
+.wiz-niche-btn.selected {
+  background: rgba(200,255,0,0.12); border-color: #c8ff00; color: #c8ff00;
+}
+.wiz-follower-row {
+  display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+  max-width: 500px; margin: 0 auto;
+}
+.wiz-follower-btn {
+  background: rgba(255,255,255,0.05); border: 1.5px solid rgba(255,255,255,0.1);
+  border-radius: 8px; padding: 10px 16px; font-size: 13px; font-weight: 600;
+  color: rgba(255,255,255,0.6); cursor: pointer;
+  transition: all 0.15s; -webkit-tap-highlight-color: transparent; min-height: 44px;
+}
+.wiz-follower-btn.selected {
+  background: rgba(200,255,0,0.12); border-color: #c8ff00; color: #c8ff00;
+}
+
+/* ---- WIZARD CATEGORY SCREENS ---- */
+.wiz-cat-header { padding-top: 36px; margin-bottom: 24px; }
+.wiz-cat-step { font-size: 11px; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 8px; }
+.wiz-cat-title { font-size: clamp(22px, 5vw, 38px); font-weight: 900; letter-spacing: -1.5px; color: #fff; line-height: 1.1; }
+.wiz-cat-sub { font-size: 14px; color: rgba(255,255,255,0.4); margin-top: 6px; }
+
+/* ---- CARDS CAROUSEL ---- */
+.wiz-cards-wrap {
+  width: 100%; overflow-x: auto; overflow-y: hidden;
+  -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory;
+  scrollbar-width: none; padding: 0 24px 20px; box-sizing: border-box;
+  display: flex; gap: 14px;
+}
+.wiz-cards-wrap::-webkit-scrollbar { display: none; }
+.wiz-card {
+  flex-shrink: 0; width: 200px; min-height: 200px;
+  background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.1);
+  border-radius: 16px; padding: 16px; cursor: pointer;
+  scroll-snap-align: start; transition: border-color 0.2s, background 0.2s;
+  display: flex; flex-direction: column;
+  -webkit-tap-highlight-color: transparent;
+  position: relative; overflow: hidden;
+}
+.wiz-card.selected {
+  border-color: #c8ff00; background: rgba(200,255,0,0.08);
+}
+.wiz-card.selected::after {
+  content: '✓'; position: absolute; top: 10px; right: 12px;
+  font-size: 14px; font-weight: 900; color: #c8ff00;
+}
+.wiz-card-preview {
+  flex: 1; border-radius: 10px; overflow: hidden; margin-bottom: 12px;
+  background: #1a1a1a; min-height: 120px; position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.wiz-card-name { font-size: 13px; font-weight: 800; color: #fff; margin-bottom: 3px; }
+.wiz-card-desc { font-size: 11px; color: rgba(255,255,255,0.4); line-height: 1.4; }
+/* multi-pick badge */
+.wiz-card .multi-badge {
+  position: absolute; top: 8px; right: 8px; width: 20px; height: 20px;
+  border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.2);
+  background: transparent; display: flex; align-items: center; justify-content: center;
+}
+.wiz-card.selected .multi-badge {
+  background: #c8ff00; border-color: #c8ff00;
+}
+.wiz-card.selected .multi-badge::after { content: '✓'; font-size: 11px; font-weight: 900; color: #000; }
+
+/* ---- CARD PREVIEW ANIMATIONS ---- */
+/* Typewriter */
+@keyframes wiz-cursor { 0%,100%{opacity:1} 50%{opacity:0} }
+@keyframes wiz-type { 0%{width:0} 100%{width:100%} }
+.preview-typewriter {
+  font-size: 13px; font-weight: 700; color: #fff;
+  white-space: nowrap; overflow: hidden;
+  border-right: 2px solid #c8ff00;
+  width: 0; animation: wiz-type 1.8s steps(18,end) infinite alternate, wiz-cursor 0.7s step-end infinite;
+  padding: 0 2px;
+}
+/* Fade Rise */
+@keyframes wiz-fade-rise { 0%{opacity:0;transform:translateY(12px)} 40%{opacity:1;transform:translateY(0)} 80%{opacity:1} 100%{opacity:0;transform:translateY(-6px)} }
+.preview-fade-rise { font-size: 14px; font-weight: 800; color: #fff; animation: wiz-fade-rise 2.5s ease-in-out infinite; }
+/* Glitch */
+@keyframes wiz-glitch1 { 0%,90%,100%{clip-path:none;transform:none} 92%{clip-path:inset(20% 0 60% 0);transform:translateX(-4px)} 95%{clip-path:inset(55% 0 5% 0);transform:translateX(4px)} 97%{clip-path:inset(5% 0 70% 0);transform:translateX(-3px)} }
+@keyframes wiz-glitch2 { 0%,88%,100%{opacity:0} 89%,98%{opacity:1} }
+.preview-glitch {
+  font-size: 14px; font-weight: 900; color: #fff; position: relative;
+  animation: wiz-glitch1 3s infinite;
+}
+.preview-glitch::before {
+  content: attr(data-text); position: absolute; inset: 0;
+  color: #c8ff00; animation: wiz-glitch2 3s infinite;
+  clip-path: inset(0 0 0 0);
+}
+/* Glow Pulse */
+@keyframes wiz-glow { 0%,100%{text-shadow:0 0 8px rgba(200,255,0,0.4)} 50%{text-shadow:0 0 24px rgba(200,255,0,0.9),0 0 40px rgba(200,255,0,0.4)} }
+.preview-glow { font-size: 15px; font-weight: 900; color: #c8ff00; animation: wiz-glow 2s ease-in-out infinite; }
+/* Instant */
+.preview-instant { font-size: 14px; font-weight: 800; color: #fff; }
+
+/* Palette swatches */
+.wiz-palette-preview { display: flex; gap: 4px; width: 100%; height: 100%; padding: 8px; align-items: center; justify-content: center; }
+.wiz-swatch { flex: 1; height: 60px; border-radius: 6px; }
+
+/* Typography preview */
+.wiz-typo-preview { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
+.typo-modern { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -1px; }
+.typo-bold { font-size: 24px; font-weight: 900; color: #fff; letter-spacing: -2px; text-transform: uppercase; }
+.typo-serif { font-size: 20px; font-weight: 400; color: #fff; font-style: italic; letter-spacing: 0.5px; }
+.typo-rounded { font-size: 20px; font-weight: 700; color: #c8ff00; letter-spacing: 0.5px; }
+
+/* Layout previews */
+.layout-story { display: flex; flex-direction: column; gap: 6px; padding: 8px; width: 100%; }
+.layout-story .ls-block { background: rgba(255,255,255,0.1); border-radius: 4px; height: 16px; }
+.layout-story .ls-block:first-child { height: 32px; background: rgba(200,255,0,0.2); }
+.layout-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; padding: 8px; width: 100%; }
+.layout-grid .lg-cell { background: rgba(255,255,255,0.1); border-radius: 4px; height: 40px; }
+.layout-split { display: flex; gap: 5px; padding: 8px; width: 100%; height: 100%; }
+.layout-split .ls-left { width: 40%; background: rgba(200,255,0,0.15); border-radius: 4px; }
+.layout-split .ls-right { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+.layout-split .ls-right div { background: rgba(255,255,255,0.1); border-radius: 3px; flex: 1; }
+
+/* Transition previews */
+@keyframes tr-fade { 0%,100%{opacity:0} 40%,60%{opacity:1} }
+@keyframes tr-slide { 0%,100%{transform:translateY(12px);opacity:0} 40%,60%{transform:translateY(0);opacity:1} }
+@keyframes tr-glitch-cut { 0%{transform:none;filter:none} 48%{transform:none;filter:none} 49%{transform:skewX(6deg);filter:hue-rotate(90deg)} 50%{transform:none;filter:none} 100%{transform:none;filter:none} }
+@keyframes tr-parallax { 0%{transform:translateY(8px)} 50%{transform:translateY(-8px)} 100%{transform:translateY(8px)} }
+.preview-tr-fade { width:80%;height:32px;background:rgba(255,255,255,0.15);border-radius:6px; animation: tr-fade 2s ease-in-out infinite; }
+.preview-tr-slide { width:80%;height:32px;background:rgba(200,255,0,0.2);border-radius:6px; animation: tr-slide 2s ease-in-out infinite; }
+.preview-tr-glitch { width:80%;height:32px;background:rgba(255,255,255,0.15);border-radius:6px; animation: tr-glitch-cut 2.5s ease-in-out infinite; }
+.preview-tr-parallax { width:80%;height:32px;background:rgba(42,157,143,0.3);border-radius:6px; animation: tr-parallax 3s ease-in-out infinite; }
+
+/* Interactive touches card icons */
+.wiz-icon-preview { font-size: 28px; display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
+
+/* ---- NEXT BUTTON (fixed at bottom) ---- */
+#wiz-next-btn-wrap {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 16px 24px calc(16px + env(safe-area-inset-bottom));
+  background: linear-gradient(to top, #0d0d0d 60%, transparent);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  pointer-events: none;
+}
+#wiz-next-btn-wrap.wiz-btn-visible { pointer-events: all; }
+#wiz-next-btn {
+  background: #c8ff00; color: #000; font-size: 16px; font-weight: 900;
+  border: none; border-radius: 12px; padding: 16px 40px;
+  min-height: 54px; min-width: 220px; cursor: pointer;
+  opacity: 0; transform: translateY(10px);
+  transition: opacity 0.25s, transform 0.25s, box-shadow 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+#wiz-next-btn.enabled { opacity: 1; transform: translateY(0); }
+#wiz-next-btn:active { transform: scale(0.97); }
+#wiz-multi-hint { font-size: 11px; color: rgba(255,255,255,0.3); font-weight: 600; }
+
+/* ---- SUMMARY SCREEN ---- */
+.wiz-summary-screen { padding: 60px 24px 120px; align-items: flex-start; text-align: left; max-width: 680px; margin: 0 auto; }
+.wiz-summary-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; color: #c8ff00; margin-bottom: 14px; }
+.wiz-summary-h1 { font-size: clamp(26px, 5vw, 42px); font-weight: 900; letter-spacing: -1.5px; color: #fff; line-height: 1.1; margin-bottom: 8px; }
+.wiz-summary-sub { font-size: 15px; color: rgba(255,255,255,0.5); margin-bottom: 28px; }
+/* Dynamic selection header */
+.wiz-selections-badge {
+  background: rgba(200,255,0,0.08); border: 1px solid rgba(200,255,0,0.2);
+  border-radius: 12px; padding: 14px 18px; margin-bottom: 24px;
+}
+.wiz-selections-badge .ws-label { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 6px; }
+.wiz-selections-badge .ws-picks { font-size: 13px; font-weight: 700; color: #c8ff00; line-height: 1.6; }
+/* Pricing card */
+.wiz-pricing-card {
+  background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.1);
+  border-radius: 20px; padding: 24px; margin-bottom: 20px; width: 100%;
+}
+.wiz-price-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+.wiz-price-strike { font-size: 18px; color: rgba(255,255,255,0.3); text-decoration: line-through; }
+.wiz-price-main { font-size: 42px; font-weight: 900; color: #fff; letter-spacing: -2px; }
+.wiz-price-note { font-size: 13px; color: rgba(255,255,255,0.4); }
+.wiz-referral-inline { margin-top: 16px; }
+.wiz-referral-inline label { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.4); display: block; margin-bottom: 6px; }
+.wiz-referral-inline .ref-row { display: flex; gap: 8px; }
+.wiz-referral-inline input {
+  flex: 1; background: rgba(255,255,255,0.06); border: 1.5px solid rgba(255,255,255,0.12);
+  border-radius: 8px; padding: 10px 14px; font-size: 14px; color: #fff;
+  font-family: 'Inter', sans-serif; outline: none; min-height: 44px;
+}
+.wiz-referral-inline input::placeholder { color: rgba(255,255,255,0.25); }
+.wiz-referral-inline input:focus { border-color: rgba(200,255,0,0.4); }
+.wiz-referral-inline button {
+  background: rgba(200,255,0,0.15); border: 1.5px solid rgba(200,255,0,0.3);
+  border-radius: 8px; padding: 10px 18px; font-size: 13px; font-weight: 800;
+  color: #c8ff00; cursor: pointer; white-space: nowrap; min-height: 44px;
+  -webkit-tap-highlight-color: transparent;
+}
+#wiz-code-applied { font-size: 12px; color: #c8ff00; font-weight: 700; margin-top: 8px; display: none; }
+/* Trust row */
+.wiz-trust-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+.wiz-trust-chip {
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 100px; padding: 6px 14px; font-size: 12px; font-weight: 600;
+  color: rgba(255,255,255,0.5); display: flex; align-items: center; gap: 6px;
+}
+/* Matched proof */
+.wiz-matched-proof {
+  background: rgba(42,157,143,0.08); border: 1px solid rgba(42,157,143,0.25);
+  border-radius: 14px; padding: 18px 20px; margin-bottom: 20px;
+}
+.wiz-matched-proof .mp-label { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: rgba(42,157,143,0.8); margin-bottom: 8px; }
+.wiz-matched-proof .mp-name { font-size: 15px; font-weight: 800; color: #fff; margin-bottom: 3px; }
+.wiz-matched-proof .mp-detail { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+.wiz-matched-proof a { color: rgba(42,157,143,0.9); text-decoration: none; font-weight: 700; }
+/* Why now */
+.wiz-why-now {
+  background: rgba(200,255,0,0.05); border: 1px solid rgba(200,255,0,0.15);
+  border-radius: 14px; padding: 16px 20px; margin-bottom: 20px;
+}
+.wiz-why-now .wn-label { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: rgba(200,255,0,0.6); margin-bottom: 8px; }
+.wiz-why-now .wn-text { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.6; }
+.wiz-why-now .wn-text strong { color: #c8ff00; }
+/* What happens next */
+.wiz-next-steps {
+  margin-bottom: 28px;
+}
+.wiz-next-steps .ns-title { font-size: 13px; font-weight: 800; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 14px; }
+.wiz-step-row { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 12px; }
+.wiz-step-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: rgba(200,255,0,0.12); border: 1.5px solid rgba(200,255,0,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 900; color: #c8ff00; flex-shrink: 0;
+}
+.wiz-step-text { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5; padding-top: 4px; }
+.wiz-step-text strong { color: #fff; }
+
+/* ---- CTA INTO FORM ---- */
+.wiz-cta-into-form {
+  width: 100%; background: #c8ff00; color: #000;
+  font-size: 17px; font-weight: 900; border: none; border-radius: 14px;
+  padding: 18px 24px; cursor: pointer; min-height: 58px;
+  letter-spacing: -0.3px; transition: transform 0.15s, box-shadow 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.wiz-cta-into-form:active { transform: scale(0.98); }
+.wiz-cta-into-form:hover { box-shadow: 0 0 0 4px rgba(200,255,0,0.25); }
+
+/* ---- SWIPE HINT ---- */
+.wiz-swipe-hint {
+  font-size: 11px; color: rgba(255,255,255,0.25); text-align: center;
+  margin-bottom: 8px; letter-spacing: 0.5px;
+}
+
+/* ---- BACK BUTTON ---- */
+#wiz-back-btn {
+  position: absolute; top: 18px; left: 18px; z-index: 20;
+  background: rgba(255,255,255,0.07); border: none; border-radius: 8px;
+  padding: 8px 14px; font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.4);
+  cursor: pointer; display: none; -webkit-tap-highlight-color: transparent;
+}
+#wiz-back-btn.visible { display: block; }
+</style>
+
+<!-- WIZARD HTML -->
+<div id="wizard-overlay">
+  <div id="wiz-progress-bar">
+    <div id="wiz-progress-fill"></div>
+    <div id="wiz-progress-label"></div>
+  </div>
+  <button id="wiz-back-btn" onclick="wizBack()">← Back</button>
+
+  <!-- ENTRY SCREEN -->
+  <div class="wiz-screen wiz-active" data-screen="entry">
+    <div class="wiz-entry-logo">tyler<em>dream</em></div>
+    <h1 class="wiz-entry-h1">Let's build<br><em>your site.</em></h1>
+    <p class="wiz-entry-sub">Tell us what you're about and we'll match the style to you. Takes 3 minutes.</p>
+    <button class="wiz-btn-primary" onclick="wizGoTo('real1')">Start building →</button>
+    <div class="wiz-trust-line">No payment today · Tyler reviews every brief personally</div>
+    <div class="wiz-recent-builds">
+      <div class="wiz-recent-pill"><span class="dot"></span>Kristyn · UGC Creator</div>
+      <div class="wiz-recent-pill"><span class="dot"></span>Ayden · Fitness</div>
+    </div>
+  </div>
+
+  <!-- REALIZATION 1 -->
+  <div class="wiz-screen" data-screen="real1">
+    <div class="wiz-real-eyebrow">Did you know?</div>
+    <h1 class="wiz-real-h1">Brands will <em>pay you</em><br>to post.</h1>
+    <p class="wiz-real-sub">Thousands of creators get brand deal DMs every week. Not because they're famous — because they showed up like a professional.</p>
+    <div class="wiz-visual-block">
+      <div class="vb-label">Brand DM · Received today</div>
+      <div class="wiz-dm-brand">@glossier_collab</div>
+      <div class="wiz-dm-bubble">Hey! We came across your page and love what you're doing. We'd love to send you some product and discuss a paid partnership. Do you have a media kit or site we can look at?</div>
+    </div>
+    <button class="wiz-btn-primary" onclick="wizGoTo('real2')">Keep going →</button>
+  </div>
+
+  <!-- REALIZATION 2 -->
+  <div class="wiz-screen" data-screen="real2">
+    <div class="wiz-real-eyebrow">So why hasn't it happened yet?</div>
+    <h1 class="wiz-real-h1">Your <em>link in bio</em><br>is costing you deals.</h1>
+    <p class="wiz-real-sub">Brands don't sign creators with a Linktree. They sign creators with a real site that shows stats, niche, and rate card.</p>
+    <div class="wiz-visual-block">
+      <div class="vb-label">What they see</div>
+      <div class="wiz-compare-row">
+        <div class="wiz-compare-col bad">
+          <div class="cc-label">Linktree</div>
+          <div class="cc-item">Your TikTok</div>
+          <div class="cc-item">Your Instagram</div>
+          <div class="cc-item">My Merch 🛍</div>
+        </div>
+        <div class="wiz-compare-col good">
+          <div class="cc-label">Your site</div>
+          <div class="cc-item">Stats + analytics</div>
+          <div class="cc-item">Brand partnership history</div>
+          <div class="cc-item">Rate card · Contact</div>
+        </div>
+      </div>
+    </div>
+    <button class="wiz-btn-primary" onclick="wizGoTo('real3')">That makes sense →</button>
+  </div>
+
+  <!-- REALIZATION 3 -->
+  <div class="wiz-screen" data-screen="real3">
+    <div class="wiz-real-eyebrow">That's what this is.</div>
+    <h1 class="wiz-real-h1">A site that makes<br>brands say <em>yes.</em></h1>
+    <p class="wiz-real-sub">Built in 48 hours by a full-time creator who's done this. Your story, your stats, your vibe — built to close deals.</p>
+    <div class="wiz-visual-block">
+      <div class="vb-label">Built last week</div>
+      <div class="wiz-site-preview-mini">
+        <div class="sp-name">Kristyn Simpson</div>
+        <div class="sp-tag">UGC Creator · Chicago</div>
+        <div class="sp-stat">134K TikTok · 2.4M total views</div>
+        <div class="sp-stat">Beauty & Wellness · Skincare</div>
+        <div class="sp-cta">View media kit →</div>
+      </div>
+    </div>
+    <button class="wiz-btn-primary" onclick="wizGoTo('context')">Build mine →</button>
+  </div>
+
+  <!-- CONTEXT STEP -->
+  <div class="wiz-screen" data-screen="context" style="justify-content:flex-start;padding-top:60px;">
+    <div style="width:100%;max-width:600px;margin:0 auto;">
+      <div class="wiz-real-eyebrow">Quick context</div>
+      <h2 style="font-size:clamp(22px,5vw,36px);font-weight:900;letter-spacing:-1.5px;color:#fff;margin-bottom:6px;">What do you post about?</h2>
+      <p style="font-size:14px;color:rgba(255,255,255,0.4);margin-bottom:24px;">Pick your main niche — helps us match proof from similar creators.</p>
+      <div class="wiz-niche-grid" id="wiz-niche-grid">
+        <button class="wiz-niche-btn" data-niche="Beauty & Skincare" onclick="selectNiche(this)">Beauty & Skincare</button>
+        <button class="wiz-niche-btn" data-niche="Health & Wellness" onclick="selectNiche(this)">Health & Wellness</button>
+        <button class="wiz-niche-btn" data-niche="Fitness" onclick="selectNiche(this)">Fitness</button>
+        <button class="wiz-niche-btn" data-niche="Fashion" onclick="selectNiche(this)">Fashion</button>
+        <button class="wiz-niche-btn" data-niche="Food & Cooking" onclick="selectNiche(this)">Food & Cooking</button>
+        <button class="wiz-niche-btn" data-niche="Lifestyle" onclick="selectNiche(this)">Lifestyle</button>
+        <button class="wiz-niche-btn" data-niche="Travel" onclick="selectNiche(this)">Travel</button>
+        <button class="wiz-niche-btn" data-niche="Mom & Family" onclick="selectNiche(this)">Mom & Family</button>
+        <button class="wiz-niche-btn" data-niche="Comedy & Skits" onclick="selectNiche(this)">Comedy & Skits</button>
+        <button class="wiz-niche-btn" data-niche="Tech & AI" onclick="selectNiche(this)">Tech & AI</button>
+        <button class="wiz-niche-btn" data-niche="Finance" onclick="selectNiche(this)">Finance</button>
+        <button class="wiz-niche-btn" data-niche="Other" onclick="selectNiche(this)">Other</button>
+      </div>
+      <p style="font-size:14px;color:rgba(255,255,255,0.4);margin-bottom:14px;margin-top:24px;">Follower range (all platforms combined)</p>
+      <div class="wiz-follower-row" id="wiz-follower-row">
+        <button class="wiz-follower-btn" data-range="Under 5K" onclick="selectFollower(this)">Under 5K</button>
+        <button class="wiz-follower-btn" data-range="5K–25K" onclick="selectFollower(this)">5K–25K</button>
+        <button class="wiz-follower-btn" data-range="25K–100K" onclick="selectFollower(this)">25K–100K</button>
+        <button class="wiz-follower-btn" data-range="100K–500K" onclick="selectFollower(this)">100K–500K</button>
+        <button class="wiz-follower-btn" data-range="500K+" onclick="selectFollower(this)">500K+</button>
+      </div>
+      <div style="margin-top:32px;text-align:center;">
+        <button class="wiz-btn-primary" id="wiz-context-next" onclick="wizGoTo('cat1')" style="opacity:0.35;pointer-events:none;">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CAT 1: VIBE -->
+  <div class="wiz-screen" data-screen="cat1" style="justify-content:flex-start;padding:0;overflow:hidden;">
+    <div class="wiz-cat-header" style="padding:52px 24px 0;width:100%;">
+      <div class="wiz-cat-step" id="cat1-step">Step 1 of 8</div>
+      <div class="wiz-cat-title">Overall Vibe</div>
+      <div class="wiz-cat-sub">Sets the whole tone. Pick one.</div>
+    </div>
+    <div class="wiz-swipe-hint" style="margin-top:16px;">← swipe to see more →</div>
+    <div class="wiz-cards-wrap" id="vibe-cards">
+      <div class="wiz-card" data-value="Dark and moody" onclick="selectCat(this,'cat1','wizard_vibe')">
+        <div class="wiz-card-preview" style="background:#0d0d0d;border:1px solid #333;">
+          <span style="font-size:13px;font-weight:900;color:#c8ff00;letter-spacing:-0.5px;">CREATOR<br><span style="color:rgba(255,255,255,0.4);font-size:11px;font-weight:600;">Media Kit</span></span>
+        </div>
+        <div class="wiz-card-name">Dark & Moody</div>
+        <div class="wiz-card-desc">Black bg, neon accents, high contrast</div>
+      </div>
+      <div class="wiz-card" data-value="Clean and minimal" onclick="selectCat(this,'cat1','wizard_vibe')">
+        <div class="wiz-card-preview" style="background:#f8f8f6;border:1px solid #e0e0da;">
+          <span style="font-size:13px;font-weight:700;color:#1a1a1a;letter-spacing:-0.5px;">Creator<br><span style="color:#888;font-size:11px;font-weight:400;">Media Kit</span></span>
+        </div>
+        <div class="wiz-card-name">Clean & Minimal</div>
+        <div class="wiz-card-desc">Light, airy, whitespace-forward</div>
+      </div>
+      <div class="wiz-card" data-value="Bold and loud" onclick="selectCat(this,'cat1','wizard_vibe')">
+        <div class="wiz-card-preview" style="background:#ff3c00;">
+          <span style="font-size:14px;font-weight:900;color:#fff;letter-spacing:-1px;text-transform:uppercase;">CREATOR<br>KIT</span>
+        </div>
+        <div class="wiz-card-name">Bold & Loud</div>
+        <div class="wiz-card-desc">Big type, saturated color, energy</div>
+      </div>
+      <div class="wiz-card" data-value="Soft and warm" onclick="selectCat(this,'cat1','wizard_vibe')">
+        <div class="wiz-card-preview" style="background:#fdf5ee;">
+          <span style="font-size:13px;font-weight:600;color:#8B6245;letter-spacing:0.5px;">Creator<br><span style="color:#c49a6c;font-size:11px;">Media Kit</span></span>
+        </div>
+        <div class="wiz-card-name">Soft & Warm</div>
+        <div class="wiz-card-desc">Earthy tones, rounded, approachable</div>
+      </div>
+      <div class="wiz-card" data-value="Streetwear / hype" onclick="selectCat(this,'cat1','wizard_vibe')">
+        <div class="wiz-card-preview" style="background:#111;border:1px solid #444;">
+          <span style="font-size:13px;font-weight:900;color:#fff;letter-spacing:3px;text-transform:uppercase;">CRTR<br><span style="color:#ffd700;letter-spacing:2px;">KIT</span></span>
+        </div>
+        <div class="wiz-card-name">Streetwear & Hype</div>
+        <div class="wiz-card-desc">Drop culture, caps lock, gold</div>
+      </div>
+      <div class="wiz-card" data-value="Professional / corporate" onclick="selectCat(this,'cat1','wizard_vibe')">
+        <div class="wiz-card-preview" style="background:#1a2744;">
+          <span style="font-size:13px;font-weight:700;color:#fff;letter-spacing:0px;">Creator<br><span style="color:#7eb8d4;font-size:11px;font-weight:500;">Media Kit</span></span>
+        </div>
+        <div class="wiz-card-name">Professional</div>
+        <div class="wiz-card-desc">Navy & slate, structured, polished</div>
+      </div>
+    </div>
+    <div id="wiz-next-btn-wrap">
+      <button id="wiz-next-btn" onclick="wizNextFromCat()">Next →</button>
+    </div>
+  </div>
+
+  <!-- CAT 2: COLOR PALETTE -->
+  <div class="wiz-screen" data-screen="cat2" style="justify-content:flex-start;padding:0;overflow:hidden;">
+    <div class="wiz-cat-header" style="padding:52px 24px 0;width:100%;">
+      <div class="wiz-cat-step">Step 2 of 8</div>
+      <div class="wiz-cat-title">Color Palette</div>
+      <div class="wiz-cat-sub" id="cat2-sub">Pick the palette that feels like you.</div>
+    </div>
+    <div class="wiz-swipe-hint" style="margin-top:16px;">← swipe to see more →</div>
+    <div class="wiz-cards-wrap" id="palette-cards">
+      <!-- populated by JS based on cat1 selection -->
+    </div>
+    <div id="wiz-next-btn-wrap">
+      <button id="wiz-next-btn" onclick="wizNextFromCat()">Next →</button>
+    </div>
+  </div>
+
+  <!-- CAT 3: HERO ANIMATION -->
+  <div class="wiz-screen" data-screen="cat3" style="justify-content:flex-start;padding:0;overflow:hidden;">
+    <div class="wiz-cat-header" style="padding:52px 24px 0;width:100%;">
+      <div class="wiz-cat-step">Step 3 of 8</div>
+      <div class="wiz-cat-title">Hero Animation</div>
+      <div class="wiz-cat-sub">How your name hits when the page loads.</div>
+    </div>
+    <div class="wiz-swipe-hint" style="margin-top:16px;">← swipe to see more →</div>
+    <div class="wiz-cards-wrap" id="hero-cards">
+      <div class="wiz-card" data-value="Typewriter Reveal" onclick="selectCat(this,'cat3','wizard_hero_animation')">
+        <div class="wiz-card-preview"><div class="preview-typewriter">Your Name Here</div></div>
+        <div class="wiz-card-name">Typewriter Reveal</div>
+        <div class="wiz-card-desc">Letters type out one by one</div>
+      </div>
+      <div class="wiz-card" data-value="Fade & Rise" onclick="selectCat(this,'cat3','wizard_hero_animation')">
+        <div class="wiz-card-preview"><div class="preview-fade-rise">Your Name Here</div></div>
+        <div class="wiz-card-name">Fade & Rise</div>
+        <div class="wiz-card-desc">Smooth entrance from below</div>
+      </div>
+      <div class="wiz-card" data-value="Glitch Intro" onclick="selectCat(this,'cat3','wizard_hero_animation')">
+        <div class="wiz-card-preview"><div class="preview-glitch" data-text="Your Name">Your Name</div></div>
+        <div class="wiz-card-name">Glitch Intro</div>
+        <div class="wiz-card-desc">Distortion effect, digital edge</div>
+      </div>
+      <div class="wiz-card" data-value="Glow Pulse" onclick="selectCat(this,'cat3','wizard_hero_animation')">
+        <div class="wiz-card-preview"><div class="preview-glow">Your Name Here</div></div>
+        <div class="wiz-card-name">Glow Pulse</div>
+        <div class="wiz-card-desc">Pulsing luminous highlight</div>
+      </div>
+      <div class="wiz-card" data-value="Instant & Clean" onclick="selectCat(this,'cat3','wizard_hero_animation')">
+        <div class="wiz-card-preview"><div class="preview-instant">Your Name Here</div></div>
+        <div class="wiz-card-name">Instant & Clean</div>
+        <div class="wiz-card-desc">No animation — just there</div>
+      </div>
+    </div>
+    <div id="wiz-next-btn-wrap">
+      <button id="wiz-next-btn" onclick="wizNextFromCat()">Next →</button>
+    </div>
+  </div>
+
+  <!-- CAT 4: SECTION TRANSITIONS -->
+  <div class="wiz-screen" data-screen="cat4" style="justify-content:flex-start;padding:0;overflow:hidden;">
+    <div class="wiz-cat-header" style="padding:52px 24px 0;width:100%;">
+      <div class="wiz-cat-step">Step 4 of 8</div>
+      <div class="wiz-cat-title">Section Transitions</div>
+      <div class="wiz-cat-sub">How sections animate in as you scroll.</div>
+    </div>
+    <div class="wiz-swipe-hint" style="margin-top:16px;">← swipe to see more →</div>
+    <div class="wiz-cards-wrap" id="transition-cards">
+      <div class="wiz-card" data-value="Smooth Fade" onclick="selectCat(this,'cat4','wizard_transitions')">
+        <div class="wiz-card-preview"><div class="preview-tr-fade"></div></div>
+        <div class="wiz-card-name">Smooth Fade</div>
+        <div class="wiz-card-desc">Gentle opacity in</div>
+      </div>
+      <div class="wiz-card" data-value="Slide Up" onclick="selectCat(this,'cat4','wizard_transitions')">
+        <div class="wiz-card-preview"><div class="preview-tr-slide"></div></div>
+        <div class="wiz-card-name">Slide Up</div>
+        <div class="wiz-card-desc">Rise into place from below</div>
+      </div>
+      <div class="wiz-card" data-value="Glitch Cut" onclick="selectCat(this,'cat4','wizard_transitions')">
+        <div class="wiz-card-preview"><div class="preview-tr-glitch"></div></div>
+        <div class="wiz-card-name">Glitch Cut</div>
+        <div class="wiz-card-desc">Snappy, digital, harsh</div>
+      </div>
+      <div class="wiz-card" data-value="Parallax Depth" onclick="selectCat(this,'cat4','wizard_transitions')">
+        <div class="wiz-card-preview"><div class="preview-tr-parallax"></div></div>
+        <div class="wiz-card-name">Parallax Depth</div>
+        <div class="wiz-card-desc">Layered scroll depth</div>
+      </div>
+    </div>
+    <div id="wiz-next-btn-wrap">
+      <button id="wiz-next-btn" onclick="wizNextFromCat()">Next →</button>
+    </div>
+  </div>
+
+  <!-- CAT 5: LAYOUT -->
+  <div class="wiz-screen" data-screen="cat5" style="justify-content:flex-start;padding:0;overflow:hidden;">
+    <div class="wiz-cat-header" style="padding:52px 24px 0;width:100%;">
+      <div class="wiz-cat-step">Step 5 of 8</div>
+      <div class="wiz-cat-title">Layout Structure</div>
+      <div class="wiz-cat-sub">How the page tells your story.</div>
+    </div>
+    <div class="wiz-swipe-hint" style="margin-top:16px;">← swipe to see more →</div>
+    <div class="wiz-cards-wrap" id="layout-cards">
+      <div class="wiz-card" data-value="Story Flow" onclick="selectCat(this,'cat5','wizard_layout')">
+        <div class="wiz-card-preview">
+          <div class="layout-story"><div class="ls-block"></div><div class="ls-block"></div><div class="ls-block"></div><div class="ls-block"></div></div>
+        </div>
+        <div class="wiz-card-name">Story Flow</div>
+        <div class="wiz-card-desc">Top to bottom narrative, linear</div>
+      </div>
+      <div class="wiz-card" data-value="Grid Showcase" onclick="selectCat(this,'cat5','wizard_layout')">
+        <div class="wiz-card-preview">
+          <div class="layout-grid"><div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div></div>
+        </div>
+        <div class="wiz-card-name">Grid Showcase</div>
+        <div class="wiz-card-desc">Content tiles, portfolio style</div>
+      </div>
+      <div class="wiz-card" data-value="Split Screen" onclick="selectCat(this,'cat5','wizard_layout')">
+        <div class="wiz-card-preview">
+          <div class="layout-split"><div class="ls-left"></div><div class="ls-right"><div></div><div></div><div></div></div></div>
+        </div>
+        <div class="wiz-card-name">Split Screen</div>
+        <div class="wiz-card-desc">Visual left, info right</div>
+      </div>
+    </div>
+    <div id="wiz-next-btn-wrap">
+      <button id="wiz-next-btn" onclick="wizNextFromCat()">Next →</button>
+    </div>
+  </div>
+
+  <!-- CAT 6: TYPOGRAPHY -->
+  <div class="wiz-screen" data-screen="cat6" style="justify-content:flex-start;padding:0;overflow:hidden;">
+    <div class="wiz-cat-header" style="padding:52px 24px 0;width:100%;">
+      <div class="wiz-cat-step">Step 6 of 8</div>
+      <div class="wiz-cat-title">Typography</div>
+      <div class="wiz-cat-sub">The font personality that fits your voice.</div>
+    </div>
+    <div class="wiz-swipe-hint" style="margin-top:16px;">← swipe to see more →</div>
+    <div class="wiz-cards-wrap" id="typo-cards">
+      <div class="wiz-card" data-value="Modern Sans" onclick="selectCat(this,'cat6','wizard_typography')">
+        <div class="wiz-card-preview"><div class="wiz-typo-preview"><span class="typo-modern">Creator</span></div></div>
+        <div class="wiz-card-name">Modern Sans</div>
+        <div class="wiz-card-desc">Clean, confident, timeless</div>
+      </div>
+      <div class="wiz-card" data-value="Bold Display" onclick="selectCat(this,'cat6','wizard_typography')">
+        <div class="wiz-card-preview"><div class="wiz-typo-preview"><span class="typo-bold">Creator</span></div></div>
+        <div class="wiz-card-name">Bold Display</div>
+        <div class="wiz-card-desc">Heavy weight, all caps impact</div>
+      </div>
+      <div class="wiz-card" data-value="Editorial Serif" onclick="selectCat(this,'cat6','wizard_typography')">
+        <div class="wiz-card-preview"><div class="wiz-typo-preview"><span class="typo-serif">Creator</span></div></div>
+        <div class="wiz-card-name">Editorial Serif</div>
+        <div class="wiz-card-desc">Magazine tone, refined</div>
+      </div>
+      <div class="wiz-card" data-value="Rounded Friendly" onclick="selectCat(this,'cat6','wizard_typography')">
+        <div class="wiz-card-preview"><div class="wiz-typo-preview"><span class="typo-rounded">Creator</span></div></div>
+        <div class="wiz-card-name">Rounded Friendly</div>
+        <div class="wiz-card-desc">Approachable, warm, lifestyle</div>
+      </div>
+    </div>
+    <div id="wiz-next-btn-wrap">
+      <button id="wiz-next-btn" onclick="wizNextFromCat()">Next →</button>
+    </div>
+  </div>
+
+  <!-- CAT 7: INTERACTIVE TOUCHES (multi-pick, up to 3) -->
+  <div class="wiz-screen" data-screen="cat7" style="justify-content:flex-start;padding:0;overflow:hidden;">
+    <div class="wiz-cat-header" style="padding:52px 24px 0;width:100%;">
+      <div class="wiz-cat-step">Step 7 of 8</div>
+      <div class="wiz-cat-title">Interactive Touches</div>
+      <div class="wiz-cat-sub">Pick up to 3 details that make it feel alive.</div>
+    </div>
+    <div class="wiz-swipe-hint" style="margin-top:16px;">← swipe to see more →</div>
+    <div class="wiz-cards-wrap" id="interactive-cards">
+      <div class="wiz-card" data-value="Cursor glow" onclick="selectCatMulti(this,'cat7','wizard_interactive_touches',3)">
+        <div class="wiz-card-preview"><div class="wiz-icon-preview">✨</div></div>
+        <div class="multi-badge"></div>
+        <div class="wiz-card-name">Cursor Glow</div>
+        <div class="wiz-card-desc">Glow follows your cursor</div>
+      </div>
+      <div class="wiz-card" data-value="Button hover animations" onclick="selectCatMulti(this,'cat7','wizard_interactive_touches',3)">
+        <div class="wiz-card-preview"><div class="wiz-icon-preview">🎯</div></div>
+        <div class="multi-badge"></div>
+        <div class="wiz-card-name">Button Hover FX</div>
+        <div class="wiz-card-desc">Buttons react on hover</div>
+      </div>
+      <div class="wiz-card" data-value="Scroll progress bar" onclick="selectCatMulti(this,'cat7','wizard_interactive_touches',3)">
+        <div class="wiz-card-preview"><div class="wiz-icon-preview">📊</div></div>
+        <div class="multi-badge"></div>
+        <div class="wiz-card-name">Scroll Progress</div>
+        <div class="wiz-card-desc">Bar shows scroll position</div>
+      </div>
+      <div class="wiz-card" data-value="Animated stat counters" onclick="selectCatMulti(this,'cat7','wizard_interactive_touches',3)">
+        <div class="wiz-card-preview"><div class="wiz-icon-preview">🔢</div></div>
+        <div class="multi-badge"></div>
+        <div class="wiz-card-name">Stat Counters</div>
+        <div class="wiz-card-desc">Numbers count up on scroll</div>
+      </div>
+      <div class="wiz-card" data-value="Floating elements" onclick="selectCatMulti(this,'cat7','wizard_interactive_touches',3)">
+        <div class="wiz-card-preview"><div class="wiz-icon-preview">🌊</div></div>
+        <div class="multi-badge"></div>
+        <div class="wiz-card-name">Floating Elements</div>
+        <div class="wiz-card-desc">Subtle ambient motion</div>
+      </div>
+      <div class="wiz-card" data-value="Sound on interaction" onclick="selectCatMulti(this,'cat7','wizard_interactive_touches',3)">
+        <div class="wiz-card-preview"><div class="wiz-icon-preview">🔊</div></div>
+        <div class="multi-badge"></div>
+        <div class="wiz-card-name">Sound FX</div>
+        <div class="wiz-card-desc">Subtle audio feedback</div>
+      </div>
+    </div>
+    <div id="wiz-next-btn-wrap" style="display:flex;">
+      <div id="wiz-multi-hint">Pick up to 3 · <span id="cat7-count">0</span>/3 selected</div>
+      <button id="wiz-next-btn" class="enabled" onclick="wizNextFromCat()">Next →</button>
+    </div>
+  </div>
+
+  <!-- CAT 8: SHOWCASE (multi-pick, up to 3) -->
+  <div class="wiz-screen" data-screen="cat8" style="justify-content:flex-start;padding:0;overflow:hidden;">
+    <div class="wiz-cat-header" style="padding:52px 24px 0;width:100%;">
+      <div class="wiz-cat-step">Step 8 of 8</div>
+      <div class="wiz-cat-title">What You're Showcasing</div>
+      <div class="wiz-cat-sub">What's most important to highlight? Pick up to 3.</div>
+    </div>
+    <div class="wiz-swipe-hint" style="margin-top:16px;">← swipe to see more →</div>
+    <div class="wiz-cards-wrap" id="showcase-cards">
+      <div class="wiz-card" data-value="Video content" onclick="selectCatMulti(this,'cat8','wizard_showcase_priorities',3)">
+        <div class="wiz-card-preview"><div class="wiz-icon-preview">🎥</div></div>
+        <div class="multi-badge"></div>
+        <div class="wiz-card-name">Video Content</div>
+        <div class="wiz-card-desc">Embed or showcase your clips</div>
+      </div>
+      <div class="wiz-card" data-value="Stats & numbers" onclick="selectCatMulti(this,'cat8','wizard_showcase_priorities',3)">
+        <div class="wiz-card-preview"><div class="wiz-icon-preview">📈</div></div>
+        <div class="multi-badge"></div>
+        <div class="wiz-card-name">Stats & Numbers</div>
+        <div class="wiz-card-desc">Followers, views, engagement</div>
+      </div>
+      <div class="wiz-card" data-value="Brand partnerships" onclick="selectCatMulti(this,'cat8','wizard_showcase_priorities',3)">
+        <div class="wiz-card-preview"><div class="wiz-icon-preview">🤝</div></div>
+        <div class="multi-badge"></div>
+        <div class="wiz-card-name">Brand Partnerships</div>
+        <div class="wiz-card-desc">Past collabs and case studies</div>
+      </div>
+      <div class="wiz-card" data-value="Personal story" onclick="selectCatMulti(this,'cat8','wizard_showcase_priorities',3)">
+        <div class="wiz-card-preview"><div class="wiz-icon-preview">📖</div></div>
+        <div class="multi-badge"></div>
+        <div class="wiz-card-name">Personal Story</div>
+        <div class="wiz-card-desc">Who you are, your journey</div>
+      </div>
+      <div class="wiz-card" data-value="Direct contact & booking" onclick="selectCatMulti(this,'cat8','wizard_showcase_priorities',3)">
+        <div class="wiz-card-preview"><div class="wiz-icon-preview">📩</div></div>
+        <div class="multi-badge"></div>
+        <div class="wiz-card-name">Contact & Booking</div>
+        <div class="wiz-card-desc">Clear CTA for brands to reach you</div>
+      </div>
+      <div class="wiz-card" data-value="Testimonials & social proof" onclick="selectCatMulti(this,'cat8','wizard_showcase_priorities',3)">
+        <div class="wiz-card-preview"><div class="wiz-icon-preview">⭐</div></div>
+        <div class="multi-badge"></div>
+        <div class="wiz-card-name">Social Proof</div>
+        <div class="wiz-card-desc">Testimonials, comments, reviews</div>
+      </div>
+    </div>
+    <div id="wiz-next-btn-wrap" style="display:flex;">
+      <div id="wiz-multi-hint">Pick up to 3 · <span id="cat8-count">0</span>/3 selected</div>
+      <button id="wiz-next-btn" class="enabled" onclick="wizGoTo('summary')">See my summary →</button>
+    </div>
+  </div>
+
+  <!-- SUMMARY + PRICING SCREEN -->
+  <div class="wiz-screen" data-screen="summary" style="justify-content:flex-start;overflow-y:auto;padding:60px 24px 140px;">
+    <div style="width:100%;max-width:620px;margin:0 auto;">
+      <div class="wiz-summary-eyebrow">You're almost in.</div>
+      <h2 class="wiz-summary-h1">Love it? Let's make<br>it yours.</h2>
+      <p class="wiz-summary-sub">Here's what we're building together.</p>
+
+      <!-- Selections badge -->
+      <div class="wiz-selections-badge">
+        <div class="ws-label">Your picks</div>
+        <div class="ws-picks" id="wiz-picks-display">—</div>
+      </div>
+
+      <!-- Matched proof -->
+      <div class="wiz-matched-proof" id="wiz-matched-proof">
+        <div class="mp-label">Matched Build</div>
+        <div class="mp-name" id="mp-name">Kristyn Simpson · UGC Creator</div>
+        <div class="mp-detail" id="mp-detail">Similar niche, similar vibe. <a href="https://kristynsimpson.netlify.app/" target="_blank">See her live site →</a></div>
+      </div>
+
+      <!-- Pricing card -->
+      <div class="wiz-pricing-card">
+        <div class="wiz-price-row">
+          <span class="wiz-price-strike">$325</span>
+          <span class="wiz-price-main" id="wiz-price-display">$300</span>
+        </div>
+        <div class="wiz-price-note">No payment today. Pay only after you approve the direction.</div>
+        <!-- Referral code inline -->
+        <div class="wiz-referral-inline">
+          <label>Have a referral code? Get 25% off → $225</label>
+          <div class="ref-row">
+            <input type="text" id="wiz-ref-input" placeholder="Enter code" oninput="this.value=this.value.toUpperCase()">
+            <button onclick="applyWizCode()">Apply</button>
+          </div>
+          <div id="wiz-code-applied">✓ Code applied — you pay $225</div>
+        </div>
+      </div>
+
+      <!-- Trust row -->
+      <div class="wiz-trust-row">
+        <div class="wiz-trust-chip">⚡ 48-hour delivery</div>
+        <div class="wiz-trust-chip">🛡 Revisions until you love it</div>
+        <div class="wiz-trust-chip">✦ Built by Tyler personally</div>
+      </div>
+
+      <!-- Why now -->
+      <div class="wiz-why-now">
+        <div class="wn-label">Why now</div>
+        <div class="wn-text">Brands are actively looking for creators right now. <strong>Every week without a site is a deal you didn't get.</strong> This takes 3 minutes to submit and 48 hours to get live.</div>
+      </div>
+
+      <!-- What happens next -->
+      <div class="wiz-next-steps">
+        <div class="ns-title">What happens next</div>
+        <div class="wiz-step-row">
+          <div class="wiz-step-num">1</div>
+          <div class="wiz-step-text"><strong>Submit your brief</strong> — takes 5 minutes. No payment yet.</div>
+        </div>
+        <div class="wiz-step-row">
+          <div class="wiz-step-num">2</div>
+          <div class="wiz-step-text"><strong>48-hour live preview link</strong> — Tyler builds, you review.</div>
+        </div>
+        <div class="wiz-step-row">
+          <div class="wiz-step-num">3</div>
+          <div class="wiz-step-text"><strong>Revise until live</strong> — tweaks until it's exactly right. Then it's yours.</div>
+        </div>
+      </div>
+
+      <!-- CTA into form -->
+      <button class="wiz-cta-into-form" onclick="wizFinishAndGoToForm()">Fill out my brief → (takes 5 min)</button>
+      <div style="text-align:center;margin-top:14px;">
+        <button class="wiz-btn-ghost" onclick="wizGoTo('cat1')">← Redo my picks</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- END WIZARD OVERLAY -->
+
 <!-- TIKTOK IN-APP BROWSER BLOCK -->
 <div id="tiktok-wall" style="display:none;position:fixed;top:0;left:0;right:0;z-index:99999;background:#111;padding:14px 20px;box-shadow:0 4px 20px rgba(0,0,0,0.6);">
   <div style="max-width:480px;margin:0 auto;text-align:center;">
@@ -1302,6 +2230,25 @@
       <input type="hidden" name="_replyto" value="" id="form-replyto">
       <input type="hidden" name="_next" value="https://tylerdream.com/success.html">
       <input type="hidden" name="_autoresponse" value="Your brief is in! Tyler reviews every submission personally and will be in touch soon, usually the same day. While you wait, check out tylerdream.com to see more builds and what goes into the process. If you have anything to add or any questions at all, just reply to this email. Excited to work with you. Talk soon, Tyler">
+
+      <!-- WIZARD HIDDEN FIELDS (populated by wizard JS before submit) -->
+      <input type="hidden" name="wizard_vibe" id="wiz_vibe">
+      <input type="hidden" name="wizard_color_palette" id="wiz_color_palette">
+      <input type="hidden" name="wizard_hero_animation" id="wiz_hero_animation">
+      <input type="hidden" name="wizard_transitions" id="wiz_transitions">
+      <input type="hidden" name="wizard_layout" id="wiz_layout">
+      <input type="hidden" name="wizard_typography" id="wiz_typography">
+      <input type="hidden" name="wizard_interactive_touches" id="wiz_interactive_touches">
+      <input type="hidden" name="wizard_showcase_priorities" id="wiz_showcase_priorities">
+      <input type="hidden" name="context_niche" id="wiz_context_niche">
+      <input type="hidden" name="context_follower_range" id="wiz_context_follower_range">
+
+      <!-- WIZARD SELECTIONS HEADER (shown only if wizard was completed) -->
+      <div id="wiz-form-header" style="display:none;margin-bottom:24px;padding:18px 20px;background:rgba(200,255,0,0.06);border:1.5px solid rgba(200,255,0,0.2);border-radius:14px;">
+        <div style="font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(200,255,0,0.6);margin-bottom:6px;">Your style selections</div>
+        <div id="wiz-form-header-text" style="font-size:14px;font-weight:700;color:#c8ff00;line-height:1.6;">—</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.35);margin-top:6px;">These have been added to your brief automatically.</div>
+      </div>
 
       <!-- GUARANTEE BANNER -->
       <div style="display:flex;align-items:center;gap:14px;background:rgba(42,157,143,0.06);border:1.5px solid rgba(42,157,143,0.22);border-radius:14px;padding:16px 20px;margin-bottom:24px;flex-wrap:wrap;">
@@ -1825,7 +2772,8 @@ function handleStripePayment() {
   var AFFILIATE_EMAILS = {
     'KRISTYN25': 'Kristynwales@gmail.com',
     'IRENE25':   'irenebarreraventures@gmail.com',
-    'SHAUNA25':  'shuaddkj@me.com'
+    'SHAUNA25':  'shuaddkj@me.com',
+    'TROY25':    'troy@stonescreations.com'
   };
 
   function getParam(name){
@@ -2168,5 +3116,358 @@ function markUploaded(input, zoneId, labelId) {
 })();
 </script>
 
+<script>
+// ============================================================
+// WIZARD JS — state, navigation, localStorage, field population
+// ============================================================
+(function() {
+
+  var WIZ = {
+    screen: 'entry',
+    niche: '', follower: '',
+    vibe: '', palette: '', hero: '', transitions: '', layout: '', typography: '',
+    interactive: [], showcase: [],
+    history: []
+  };
+
+  var PALETTES = {
+    'Dark and moody': [
+      { name: 'Lime on Black', desc: 'Black + neon lime accent', swatches: ['#0d0d0d','#1a1a1a','#c8ff00','#333','#fff'] },
+      { name: 'Teal on Dark', desc: 'Deep dark + teal pop', swatches: ['#0a0f0f','#1a2a2a','#2a9d8f','#444','#fff'] },
+      { name: 'Red Alert', desc: 'Black + electric red', swatches: ['#0d0d0d','#1a1a1a','#ff3c00','#333','#fff'] },
+      { name: 'Midnight Purple', desc: 'Dark + violet edge', swatches: ['#0d0a14','#1a1424','#8b5cf6','#2d2040','#fff'] },
+    ],
+    'Clean and minimal': [
+      { name: 'Pure White', desc: 'Off-white, minimal tone', swatches: ['#ffffff','#f8f8f6','#1a1a1a','#e0e0da','#2a9d8f'] },
+      { name: 'Warm Cream', desc: 'Cream + warm black', swatches: ['#f5f0e8','#ffffff','#1a1a1a','#e0d9ce','#2a9d8f'] },
+      { name: 'Cloud Gray', desc: 'Light gray system', swatches: ['#f4f4f2','#ffffff','#1a1a1a','#d0d0cc','#444'] },
+      { name: 'Paper & Ink', desc: 'Newsprint aesthetic', swatches: ['#f2ede4','#ffffff','#222','#ddd5c8','#888'] },
+    ],
+    'Bold and loud': [
+      { name: 'Red & White', desc: 'Maximum contrast punch', swatches: ['#ff3c00','#fff','#000','#ff6633','#222'] },
+      { name: 'Electric Blue', desc: 'Blue + white + black', swatches: ['#0066ff','#fff','#000','#0044cc','#e0e0ff'] },
+      { name: 'Hot Pink', desc: 'Pink pop on black', swatches: ['#ff0080','#000','#fff','#ff33aa','#222'] },
+      { name: 'Neon Yellow', desc: 'Yellow on black explosion', swatches: ['#ffe600','#000','#fff','#ffcc00','#333'] },
+    ],
+    'Soft and warm': [
+      { name: 'Sand & Sage', desc: 'Warm sand, muted green', swatches: ['#f5ede0','#fff','#8B6245','#a8c5b0','#d4a574'] },
+      { name: 'Blush & Terracotta', desc: 'Soft pink, clay tones', swatches: ['#fdf0ec','#fff','#c27a5a','#f4b8a0','#8B5E4C'] },
+      { name: 'Cream & Gold', desc: 'Warm cream with gold', swatches: ['#fdf8f0','#fff','#8B6245','#e9c46a','#c49a6c'] },
+      { name: 'Linen & Moss', desc: 'Earthy natural palette', swatches: ['#f0ebe2','#fff','#5a6b4a','#c8b99a','#8B7355'] },
+    ],
+    'Streetwear / hype': [
+      { name: 'Black & Gold', desc: 'Classic drop aesthetic', swatches: ['#0d0d0d','#1a1a1a','#ffd700','#333','#fff'] },
+      { name: 'Black & Red', desc: 'Hype energy, bold', swatches: ['#0d0d0d','#1a1a1a','#cc0000','#333','#fff'] },
+      { name: 'Black & White', desc: 'Clean monochrome drop', swatches: ['#000','#111','#fff','#333','#888'] },
+      { name: 'Black & Orange', desc: 'Firestarter vibes', swatches: ['#0d0d0d','#1a1a1a','#ff6600','#333','#fff'] },
+    ],
+    'Professional / corporate': [
+      { name: 'Navy & White', desc: 'Classic professional', swatches: ['#1a2744','#ffffff','#2a5298','#e8edf5','#4a90d9'] },
+      { name: 'Slate & Teal', desc: 'Modern business look', swatches: ['#2d3748','#ffffff','#2a9d8f','#e2e8f0','#81e6d9'] },
+      { name: 'Charcoal & Gold', desc: 'Executive presence', swatches: ['#2d2d2d','#ffffff','#d4a853','#f0ede8','#888'] },
+      { name: 'Deep Blue & Silver', desc: 'Corporate confidence', swatches: ['#0f2044','#ffffff','#c0c0c0','#e8eef8','#5599dd'] },
+    ]
+  };
+
+  function saveState() {
+    try { localStorage.setItem('wiz_state', JSON.stringify(WIZ)); } catch(e){}
+  }
+  function loadState() {
+    try { var s = localStorage.getItem('wiz_state'); if (s) { var p = JSON.parse(s); Object.assign(WIZ, p); } } catch(e){}
+  }
+
+  var CAT_SCREENS = ['cat1','cat2','cat3','cat4','cat5','cat6','cat7','cat8'];
+  var CAT_LABELS = { cat1:'Vibe', cat2:'Color Palette', cat3:'Hero Animation', cat4:'Transitions', cat5:'Layout', cat6:'Typography', cat7:'Interactive Touches', cat8:'Showcase' };
+
+  function updateProgressBar(screenId) {
+    var fill = document.getElementById('wiz-progress-fill');
+    var label = document.getElementById('wiz-progress-label');
+    if (!fill || !label) return;
+    var idx = CAT_SCREENS.indexOf(screenId);
+    if (idx === -1) { fill.style.width = '0%'; label.textContent = ''; return; }
+    fill.style.width = Math.round(((idx+1)/8)*100) + '%';
+    label.textContent = 'Step '+(idx+1)+' of 8 · '+(CAT_LABELS[screenId]||'');
+  }
+
+  function updateBackBtn(screenId) {
+    var btn = document.getElementById('wiz-back-btn');
+    if (!btn) return;
+    btn.className = (['entry','real1'].indexOf(screenId) === -1) ? 'visible' : '';
+  }
+
+  function updateNextBtn(screenId) {
+    var wrap = document.getElementById('wiz-next-btn-wrap');
+    var btn = document.getElementById('wiz-next-btn');
+    if (!wrap || !btn) return;
+    if (screenId === 'cat7' || screenId === 'cat8') {
+      wrap.className = 'wiz-btn-visible'; btn.className = 'enabled'; return;
+    }
+    var catMap = { cat1:'vibe', cat2:'palette', cat3:'hero', cat4:'transitions', cat5:'layout', cat6:'typography' };
+    if (catMap[screenId]) {
+      var val = WIZ[catMap[screenId]];
+      wrap.className = val ? 'wiz-btn-visible' : '';
+      btn.className = val ? 'enabled' : '';
+    }
+  }
+
+  window.wizGoTo = function(screenId) {
+    var current = document.querySelector('.wiz-screen.wiz-active');
+    if (current) current.classList.remove('wiz-active');
+    var next = document.querySelector('[data-screen="'+screenId+'"]');
+    if (next) { next.classList.add('wiz-active'); next.scrollTop = 0; }
+    WIZ.history.push(WIZ.screen);
+    WIZ.screen = screenId;
+    updateProgressBar(screenId);
+    updateBackBtn(screenId);
+    if (screenId === 'cat2') populatePaletteCards();
+    if (screenId === 'summary') buildSummaryDisplay();
+    updateNextBtn(screenId);
+    if (typeof gtag === 'function') gtag('event','wizard_screen',{screen:screenId});
+    saveState();
+  };
+
+  window.wizBack = function() {
+    var prev = WIZ.history.pop();
+    if (!prev) return;
+    var current = document.querySelector('.wiz-screen.wiz-active');
+    if (current) current.classList.remove('wiz-active');
+    var target = document.querySelector('[data-screen="'+prev+'"]');
+    if (target) { target.classList.add('wiz-active'); target.scrollTop = 0; }
+    WIZ.screen = prev;
+    updateProgressBar(prev); updateBackBtn(prev); updateNextBtn(prev);
+    saveState();
+  };
+
+  window.wizNextFromCat = function() {
+    var order = ['cat1','cat2','cat3','cat4','cat5','cat6','cat7','cat8'];
+    var idx = order.indexOf(WIZ.screen);
+    wizGoTo(idx < order.length-1 ? order[idx+1] : 'summary');
+  };
+
+  window.selectCat = function(el, catKey, hiddenId) {
+    var wrap = el.closest('.wiz-cards-wrap');
+    if (wrap) wrap.querySelectorAll('.wiz-card').forEach(function(c){c.classList.remove('selected');});
+    el.classList.add('selected');
+    var val = el.dataset.value;
+    var propMap = {cat1:'vibe',cat2:'palette',cat3:'hero',cat4:'transitions',cat5:'layout',cat6:'typography'};
+    if (propMap[catKey]) WIZ[propMap[catKey]] = val;
+    if (catKey === 'cat1') autoPopulateVibeRadio(val);
+    updateNextBtn(catKey);
+    if (typeof gtag === 'function') gtag('event','wizard_pick',{category:catKey,value:val});
+    saveState();
+  };
+
+  window.selectCatMulti = function(el, catKey, hiddenId, maxPick) {
+    var val = el.dataset.value;
+    var arrKey = catKey === 'cat7' ? 'interactive' : 'showcase';
+    var arr = WIZ[arrKey];
+    if (el.classList.contains('selected')) {
+      arr.splice(arr.indexOf(val),1); el.classList.remove('selected');
+    } else {
+      if (arr.length >= maxPick) return;
+      arr.push(val); el.classList.add('selected');
+    }
+    WIZ[arrKey] = arr;
+    var countEl = document.getElementById(catKey+'-count');
+    if (countEl) countEl.textContent = arr.length;
+    if (typeof gtag === 'function') gtag('event','wizard_pick',{category:catKey,value:val});
+    saveState();
+  };
+
+  function autoPopulateVibeRadio(vibeVal) {
+    document.querySelectorAll('input[name="vibe"]').forEach(function(r){
+      if (r.value === vibeVal) r.checked = true;
+    });
+  }
+
+  window.selectNiche = function(btn) {
+    document.querySelectorAll('.wiz-niche-btn').forEach(function(b){b.classList.remove('selected');});
+    btn.classList.add('selected'); WIZ.niche = btn.dataset.niche;
+    checkContextReady(); saveState();
+  };
+  window.selectFollower = function(btn) {
+    document.querySelectorAll('.wiz-follower-btn').forEach(function(b){b.classList.remove('selected');});
+    btn.classList.add('selected'); WIZ.follower = btn.dataset.range;
+    checkContextReady(); saveState();
+  };
+  function checkContextReady() {
+    var nextBtn = document.getElementById('wiz-context-next');
+    if (!nextBtn) return;
+    nextBtn.style.opacity = (WIZ.niche && WIZ.follower) ? '1' : '0.35';
+    nextBtn.style.pointerEvents = (WIZ.niche && WIZ.follower) ? 'auto' : 'none';
+  }
+
+  function populatePaletteCards() {
+    var wrap = document.getElementById('palette-cards');
+    if (!wrap) return;
+    wrap.innerHTML = '';
+    var palettes = PALETTES[WIZ.vibe] || PALETTES['Dark and moody'];
+    palettes.forEach(function(p) {
+      var card = document.createElement('div');
+      card.className = 'wiz-card'+(WIZ.palette===p.name?' selected':'');
+      card.dataset.value = p.name;
+      card.onclick = function(){selectCat(card,'cat2','wizard_color_palette');};
+      var swatchHTML = p.swatches.map(function(c){return '<div class="wiz-swatch" style="background:'+c+'"></div>';}).join('');
+      card.innerHTML = '<div class="wiz-card-preview"><div class="wiz-palette-preview">'+swatchHTML+'</div></div>'+
+        '<div class="wiz-card-name">'+p.name+'</div><div class="wiz-card-desc">'+p.desc+'</div>';
+      wrap.appendChild(card);
+    });
+  }
+
+  function buildSummaryDisplay() {
+    var parts = [];
+    if (WIZ.vibe) parts.push(WIZ.vibe);
+    if (WIZ.palette) parts.push(WIZ.palette);
+    if (WIZ.hero) parts.push(WIZ.hero);
+    if (WIZ.layout) parts.push(WIZ.layout);
+    if (WIZ.typography) parts.push(WIZ.typography);
+    if (WIZ.interactive.length) parts.push(WIZ.interactive.join(', '));
+    if (WIZ.showcase.length) parts.push(WIZ.showcase.join(', '));
+    var el = document.getElementById('wiz-picks-display');
+    if (el) el.textContent = parts.length ? parts.join(' · ') : '—';
+    var proofMap = {
+      'Beauty & Skincare': {name:'Kristyn Simpson · UGC / Beauty',detail:'Dark & minimal vibe. <a href="https://kristynsimpson.netlify.app/" target="_blank">See her site →</a>'},
+      'Fitness': {name:'Ayden Lorz · Fitness Creator',detail:'Bold high-energy build. <a href="https://aydenlorz.netlify.app/" target="_blank">See his site →</a>'},
+      'default': {name:'Kristyn Simpson · UGC Creator',detail:'One of our most recent builds. <a href="https://kristynsimpson.netlify.app/" target="_blank">See her live site →</a>'}
+    };
+    var proof = proofMap[WIZ.niche] || proofMap['default'];
+    var nameEl = document.getElementById('mp-name'); if (nameEl) nameEl.textContent = proof.name;
+    var detailEl = document.getElementById('mp-detail'); if (detailEl) detailEl.innerHTML = proof.detail;
+  }
+
+  window.applyWizCode = function() {
+    var input = document.getElementById('wiz-ref-input');
+    if (!input) return;
+    var code = input.value.toUpperCase().trim();
+    if (code.length < 3) return;
+    var formInput = document.getElementById('referral-code-input');
+    if (formInput) { formInput.value = code; }
+    var banner = document.getElementById('referral-banner');
+    if (banner) banner.style.display = 'flex';
+    var applied = document.getElementById('wiz-code-applied');
+    if (applied) applied.style.display = 'block';
+    var priceEl = document.getElementById('wiz-price-display');
+    if (priceEl) priceEl.textContent = '$225';
+    if (typeof gtag === 'function') gtag('event','wizard_referral_code',{code:code});
+  };
+
+  function setHidden(id, val) { var el = document.getElementById(id); if (el) el.value = val||''; }
+
+  function populateHiddenFields() {
+    setHidden('wiz_vibe', WIZ.vibe);
+    setHidden('wiz_color_palette', WIZ.palette);
+    setHidden('wiz_hero_animation', WIZ.hero);
+    setHidden('wiz_transitions', WIZ.transitions);
+    setHidden('wiz_layout', WIZ.layout);
+    setHidden('wiz_typography', WIZ.typography);
+    setHidden('wiz_interactive_touches', WIZ.interactive.join(', '));
+    setHidden('wiz_showcase_priorities', WIZ.showcase.join(', '));
+    setHidden('wiz_context_niche', WIZ.niche);
+    setHidden('wiz_context_follower_range', WIZ.follower);
+  }
+
+  window.wizFinishAndGoToForm = function() {
+    populateHiddenFields();
+    if (WIZ.vibe) autoPopulateVibeRadio(WIZ.vibe);
+    // Dynamic form header
+    var picks = [WIZ.vibe, WIZ.palette, WIZ.hero].filter(Boolean);
+    var headerDiv = document.getElementById('wiz-form-header');
+    var headerText = document.getElementById('wiz-form-header-text');
+    if (headerDiv && picks.length) {
+      headerDiv.style.display = 'block';
+      if (headerText) headerText.textContent = picks.join(' · ');
+    }
+    // Apply wizard referral code to form if entered
+    var wizCode = ((document.getElementById('wiz-ref-input')||{}).value||'').toUpperCase().trim();
+    if (wizCode.length >= 3) {
+      var formInput = document.getElementById('referral-code-input');
+      if (formInput) formInput.value = wizCode;
+      var banner = document.getElementById('referral-banner');
+      if (banner) banner.style.display = 'flex';
+    }
+    // Hide wizard
+    var overlay = document.getElementById('wizard-overlay');
+    if (overlay) overlay.classList.add('wiz-hidden');
+    try { localStorage.setItem('wiz_done','1'); } catch(e){}
+    // Scroll to form
+    var form = document.getElementById('brief-form');
+    if (form) setTimeout(function(){ form.scrollIntoView({behavior:'smooth',block:'start'}); }, 100);
+    if (typeof gtag === 'function') gtag('event','wizard_complete',{vibe:WIZ.vibe,niche:WIZ.niche});
+    saveState();
+  };
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // Skip wizard if already completed
+    var done = false;
+    try { done = localStorage.getItem('wiz_done') === '1'; } catch(e){}
+    if (done) {
+      var overlay = document.getElementById('wizard-overlay');
+      if (overlay) overlay.classList.add('wiz-hidden');
+      loadState();
+      populateHiddenFields();
+      if (WIZ.vibe) autoPopulateVibeRadio(WIZ.vibe);
+      // Show form header with saved picks
+      var picks = [WIZ.vibe, WIZ.palette, WIZ.hero].filter(Boolean);
+      if (picks.length) {
+        var hd = document.getElementById('wiz-form-header');
+        var ht = document.getElementById('wiz-form-header-text');
+        if (hd) hd.style.display = 'block';
+        if (ht) ht.textContent = picks.join(' · ');
+      }
+      return;
+    }
+
+    loadState();
+
+    // Restore partial wizard state
+    if (WIZ.screen && WIZ.screen !== 'entry') {
+      document.querySelectorAll('.wiz-screen').forEach(function(s){s.classList.remove('wiz-active');});
+      var target = document.querySelector('[data-screen="'+WIZ.screen+'"]');
+      if (target) target.classList.add('wiz-active');
+      updateProgressBar(WIZ.screen); updateBackBtn(WIZ.screen);
+      if (WIZ.screen === 'cat2') populatePaletteCards();
+      if (WIZ.screen === 'summary') buildSummaryDisplay();
+    }
+
+    // Restore context selections
+    if (WIZ.niche) {
+      document.querySelectorAll('.wiz-niche-btn').forEach(function(b){
+        if (b.dataset.niche === WIZ.niche) b.classList.add('selected');
+      });
+    }
+    if (WIZ.follower) {
+      document.querySelectorAll('.wiz-follower-btn').forEach(function(b){
+        if (b.dataset.range === WIZ.follower) b.classList.add('selected');
+      });
+    }
+    checkContextReady();
+
+    // Restore cat1-6 card selections
+    var catRestoreMap = {cat1:'vibe',cat2:'palette',cat3:'hero',cat4:'transitions',cat5:'layout',cat6:'typography'};
+    Object.keys(catRestoreMap).forEach(function(catKey){
+      var val = WIZ[catRestoreMap[catKey]];
+      if (!val) return;
+      var cards = document.querySelectorAll('[data-screen="'+catKey+'"] .wiz-card');
+      cards.forEach(function(c){ if (c.dataset.value === val) c.classList.add('selected'); });
+    });
+
+    // Restore multi-pick
+    WIZ.interactive.forEach(function(v){
+      var cards = document.querySelectorAll('[data-screen="cat7"] .wiz-card');
+      cards.forEach(function(c){ if (c.dataset.value === v) c.classList.add('selected'); });
+    });
+    var cat7Count = document.getElementById('cat7-count');
+    if (cat7Count) cat7Count.textContent = WIZ.interactive.length;
+
+    WIZ.showcase.forEach(function(v){
+      var cards = document.querySelectorAll('[data-screen="cat8"] .wiz-card');
+      cards.forEach(function(c){ if (c.dataset.value === v) c.classList.add('selected'); });
+    });
+    var cat8Count = document.getElementById('cat8-count');
+    if (cat8Count) cat8Count.textContent = WIZ.showcase.length;
+  });
+
+})();
+</script>
 </body>
 </html>
