@@ -2316,11 +2316,11 @@ textarea.wiz-brief-input { line-height: 1.6; }
       <p class="wiz-summary-sub" style="margin-bottom:32px;">Tyler reaches out personally within a few hours.</p>
       <div class="wiz-brief-field">
         <label class="wiz-brief-label">Your name</label>
-        <input class="wiz-brief-input" type="text" id="brief-name" placeholder="First and last" autocomplete="name">
+        <input class="wiz-brief-input" type="text" id="brief-name" placeholder="First and last" autocomplete="name" oninput="BRIEF_DATA.name=this.value;saveState();">
       </div>
       <div class="wiz-brief-field">
         <label class="wiz-brief-label">Email</label>
-        <input class="wiz-brief-input" type="email" id="brief-email" placeholder="you@email.com" autocomplete="email">
+        <input class="wiz-brief-input" type="email" id="brief-email" placeholder="you@email.com" autocomplete="email" oninput="BRIEF_DATA.email=this.value;saveState();">
       </div>
       <button class="wiz-cta-into-form" onclick="briefNext1()" style="margin-top:8px;">Next →</button>
       <div id="brief1-err" class="wiz-brief-err" style="display:none;">Enter your name and a valid email to continue.</div>
@@ -2335,7 +2335,7 @@ textarea.wiz-brief-input { line-height: 1.6; }
       <p class="wiz-summary-sub" style="margin-bottom:32px;">Primary account — even if it's small or banned, list it.</p>
       <div class="wiz-brief-field">
         <label class="wiz-brief-label">TikTok handle</label>
-        <input class="wiz-brief-input" type="text" id="brief-handle" placeholder="@yourhandle" autocomplete="off">
+        <input class="wiz-brief-input" type="text" id="brief-handle" placeholder="@yourhandle" autocomplete="off" oninput="BRIEF_DATA.handle=this.value;saveState();">
       </div>
       <div class="wiz-brief-field">
         <label class="wiz-brief-label">Followers (rough is fine)</label>
@@ -2360,15 +2360,15 @@ textarea.wiz-brief-input { line-height: 1.6; }
       <p class="wiz-summary-sub" style="margin-bottom:32px;">TikTok, YouTube, Instagram — anything. These go on your site.</p>
       <div class="wiz-brief-field">
         <label class="wiz-brief-label">Video link 1</label>
-        <input class="wiz-brief-input" type="url" id="brief-vid1" placeholder="Paste link here" autocomplete="off">
+        <input class="wiz-brief-input" type="url" id="brief-vid1" placeholder="Paste link here" autocomplete="off" oninput="BRIEF_DATA.video1=this.value;saveState();">
       </div>
       <div class="wiz-brief-field">
         <label class="wiz-brief-label">Video link 2</label>
-        <input class="wiz-brief-input" type="url" id="brief-vid2" placeholder="Paste link here" autocomplete="off">
+        <input class="wiz-brief-input" type="url" id="brief-vid2" placeholder="Paste link here" autocomplete="off" oninput="BRIEF_DATA.video2=this.value;saveState();">
       </div>
       <div class="wiz-brief-field">
         <label class="wiz-brief-label">Video link 3 <span style="opacity:0.4;font-size:10px;font-weight:500;text-transform:none;letter-spacing:0;">optional</span></label>
-        <input class="wiz-brief-input" type="url" id="brief-vid3" placeholder="Paste link here" autocomplete="off">
+        <input class="wiz-brief-input" type="url" id="brief-vid3" placeholder="Paste link here" autocomplete="off" oninput="BRIEF_DATA.video3=this.value;saveState();">
       </div>
       <button class="wiz-cta-into-form" onclick="briefNext3()" style="margin-top:8px;">Next →</button>
       <div id="brief3-err" class="wiz-brief-err" style="display:none;">Add at least one video link to continue.</div>
@@ -2383,7 +2383,7 @@ textarea.wiz-brief-input { line-height: 1.6; }
       <p class="wiz-summary-sub" style="margin-bottom:32px;">Niche, vibe, brands you've worked with, goals — anything helps. Totally optional.</p>
       <div class="wiz-brief-field">
         <label class="wiz-brief-label">Notes <span style="opacity:0.4;font-size:10px;font-weight:500;text-transform:none;letter-spacing:0;">optional</span></label>
-        <textarea class="wiz-brief-input" id="brief-notes" rows="4" placeholder="e.g. Beauty creator, 2 brand deals, want to land retainers. Love dark minimal vibes." style="resize:none;"></textarea>
+        <textarea class="wiz-brief-input" id="brief-notes" rows="4" placeholder="e.g. Beauty creator, 2 brand deals, want to land retainers. Love dark minimal vibes." style="resize:none;" oninput="BRIEF_DATA.notes=this.value;saveState();"></textarea>
       </div>
       <div class="wiz-brief-field">
         <label class="wiz-brief-label">Referral code <span style="opacity:0.4;font-size:10px;font-weight:500;text-transform:none;letter-spacing:0;">optional — get 25% off</span></label>
@@ -2409,7 +2409,11 @@ textarea.wiz-brief-input { line-height: 1.6; }
           <div style="font-size:13px;color:rgba(255,255,255,0.7);">3. Revisions until it's perfect. Then it's yours.</div>
         </div>
       </div>
-      <p style="font-size:13px;color:rgba(255,255,255,0.3);">Check your inbox — a confirmation is on its way.</p>
+      <p style="font-size:13px;color:rgba(255,255,255,0.3);margin-bottom:24px;">Check your inbox — a confirmation is on its way.</p>
+      <a href="https://www.tiktok.com/@dreamlifevisuals" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.12);border-radius:14px;padding:14px 20px;text-decoration:none;color:#fff;font-size:14px;font-weight:700;transition:background 0.15s;">
+        <span style="font-size:20px;">🎵</span>
+        <span>Follow <span style="color:#c8ff00;">@dreamlifevisuals</span> while you wait</span>
+      </a>
     </div>
   </div>
 
@@ -4106,6 +4110,14 @@ function markUploaded(input, zoneId, labelId) {
       var hEl = document.getElementById('brief-handle');
       var ctxH = (document.getElementById('ctx-handle')||{}).value || WIZ.ctxHandle || '';
       if (hEl && !hEl.value && ctxH) hEl.value = ctxH;
+      // pre-select follower pill matching wizard context selection
+      var wizFollower = WIZ.follower || '';
+      if (wizFollower) {
+        document.querySelectorAll('#brief-follower-grid .wiz-brief-pill').forEach(function(b){
+          b.classList.remove('selected');
+          if (b.dataset.val === wizFollower) { b.classList.add('selected'); BRIEF_DATA.followers = wizFollower; }
+        });
+      }
     }
     updateNextBtn(screenId);
     if (typeof gtag === 'function') gtag('event','wizard_screen',{screen:screenId});
@@ -4424,7 +4436,9 @@ function markUploaded(input, zoneId, labelId) {
         wizGoTo('brief-done');
       } else {
         if (btn) { btn.textContent = 'Submit my brief →'; btn.style.opacity = '1'; btn.style.pointerEvents = 'auto'; }
-        if (err) { err.textContent = 'Something went wrong. Check your connection and try again.'; err.style.display = 'block'; }
+        var mailto = 'mailto:dreambillboard@gmail.com?subject=' + encodeURIComponent('New brief - ' + (BRIEF_DATA.name||'')) +
+          '&body=' + encodeURIComponent('Name: ' + (BRIEF_DATA.name||'') + '\nEmail: ' + (BRIEF_DATA.email||'') + '\nHandle: ' + (BRIEF_DATA.handle||'') + '\nFollowers: ' + (BRIEF_DATA.followers||'') + '\nVideos: ' + [BRIEF_DATA.video1,BRIEF_DATA.video2,BRIEF_DATA.video3].filter(Boolean).join(', ') + '\nNotes: ' + (BRIEF_DATA.notes||''));
+        if (err) { err.innerHTML = 'Submission failed. <a href="' + mailto + '" style="color:#c8ff00;text-decoration:underline;">Click here to email your brief directly</a> — your info is pre-filled.'; err.style.display = 'block'; }
       }
     });
   };
@@ -4502,17 +4516,39 @@ function markUploaded(input, zoneId, labelId) {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json' },
         body: body
       }).then(function(r) { return r.json(); })
-        .then(function(j) { cb(j && j.success === 'true'); })
+        .then(function(j) { cb(j && (j.success === 'true' || j.success === true)); })
         .catch(function() { cb(false); });
     } catch(e) { cb(false); }
   }
 
   // local saveState/loadState stubs if not defined elsewhere
   if (typeof saveState === 'undefined') {
-    window.saveState = function() { try { localStorage.setItem('wiz_state', JSON.stringify(WIZ)); } catch(e){} };
+    window.saveState = function() {
+      try { localStorage.setItem('wiz_state', JSON.stringify(WIZ)); } catch(e){}
+      try { localStorage.setItem('wiz_brief', JSON.stringify(BRIEF_DATA)); } catch(e){}
+    };
   }
   if (typeof loadState === 'undefined') {
-    window.loadState = function() { try { var s = localStorage.getItem('wiz_state'); if (s) { var o = JSON.parse(s); Object.keys(o).forEach(function(k){ WIZ[k]=o[k]; }); } } catch(e){} };
+    window.loadState = function() {
+      try { var s = localStorage.getItem('wiz_state'); if (s) { var o = JSON.parse(s); Object.keys(o).forEach(function(k){ WIZ[k]=o[k]; }); } } catch(e){}
+      try { var b = localStorage.getItem('wiz_brief'); if (b) { var bd = JSON.parse(b); Object.keys(bd).forEach(function(k){ BRIEF_DATA[k]=bd[k]; }); } } catch(e){}
+    };
+  }
+
+  // Restore brief fields from BRIEF_DATA after loadState
+  function restoreBriefFields() {
+    if (BRIEF_DATA.name) { var el = document.getElementById('brief-name'); if (el) el.value = BRIEF_DATA.name; }
+    if (BRIEF_DATA.email) { var el = document.getElementById('brief-email'); if (el) el.value = BRIEF_DATA.email; }
+    if (BRIEF_DATA.handle) { var el = document.getElementById('brief-handle'); if (el) el.value = BRIEF_DATA.handle; }
+    if (BRIEF_DATA.video1) { var el = document.getElementById('brief-vid1'); if (el) el.value = BRIEF_DATA.video1; }
+    if (BRIEF_DATA.video2) { var el = document.getElementById('brief-vid2'); if (el) el.value = BRIEF_DATA.video2; }
+    if (BRIEF_DATA.video3) { var el = document.getElementById('brief-vid3'); if (el) el.value = BRIEF_DATA.video3; }
+    if (BRIEF_DATA.notes) { var el = document.getElementById('brief-notes'); if (el) el.value = BRIEF_DATA.notes; }
+    if (BRIEF_DATA.followers) {
+      document.querySelectorAll('#brief-follower-grid .wiz-brief-pill').forEach(function(b){
+        if (b.dataset.val === BRIEF_DATA.followers) b.classList.add('selected');
+      });
+    }
   }
 
   document.addEventListener('DOMContentLoaded', function() {
@@ -4537,6 +4573,7 @@ function markUploaded(input, zoneId, labelId) {
     }
 
     loadState();
+    restoreBriefFields();
 
     // Restore partial wizard state
     if (WIZ.screen && WIZ.screen !== 'entry') {
@@ -4561,12 +4598,13 @@ function markUploaded(input, zoneId, labelId) {
     }
     checkContextReady();
 
-    // Restore cat1-6 card selections
+    // Restore cat1-6 card selections (cat1 uses .vibe-tile, cat2 uses .pal-swatch, rest use .wiz-card)
     var catRestoreMap = {cat1:'vibe',cat2:'palette',cat3:'hero',cat4:'transitions',cat5:'layout',cat6:'typography'};
     Object.keys(catRestoreMap).forEach(function(catKey){
       var val = WIZ[catRestoreMap[catKey]];
       if (!val) return;
-      var cards = document.querySelectorAll('[data-screen="'+catKey+'"] .wiz-card');
+      var sel = catKey === 'cat1' ? '.vibe-tile' : catKey === 'cat2' ? '.pal-swatch' : '.wiz-card';
+      var cards = document.querySelectorAll('[data-screen="'+catKey+'"] ' + sel);
       cards.forEach(function(c){ if (c.dataset.value === val) c.classList.add('selected'); });
     });
 
