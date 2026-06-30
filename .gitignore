@@ -1,0 +1,17 @@
+# Large media files
+*.mp4
+*.mov
+*.avi
+*.mkv
+
+# Images (raw/local only)
+affiliates/Reva/Hero.jpeg
+affiliates/Reva/TikTok ScreenShot.png
+affiliates/Reva/*.jpeg
+affiliates/Reva/*.png
+affiliates/Reva/*.jpg
+
+# Profile pics
+tylerdream/*.jpeg
+tylerdream/*.jpg
+tylerdream/*.png
